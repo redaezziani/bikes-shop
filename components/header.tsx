@@ -23,7 +23,7 @@ const Header = () => {
     <>
       <header className="w-full absolute px-4 py-3 flex justify-between items-center gap-4 z-50">
         <svg
-          className="w-24"
+          className="w-24 text-white"
           viewBox="0 0 342 35"
           xmlns="http://www.w3.org/2000/svg"
         >
