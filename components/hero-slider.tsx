@@ -1,11 +1,9 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// 1. Import EffectFade module
 import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-// 2. Import EffectFade CSS
 import 'swiper/css/effect-fade';
 
 import Header from './header';
@@ -35,11 +33,8 @@ const HeroSlider = () => {
     <div className="w-full h-144 relative bg-neutral-400">
       <Header />
       <Swiper
-        // 3. Add EffectFade to modules
         modules={[Pagination, Autoplay, EffectFade]}
-        // 4. Set effect to 'fade'
-        effect={'fade'}
-        // 5. Optional: crossFade ensures the old slide stays visible while the new one fades in
+        effect="fade"
         fadeEffect={{ crossFade: true }}
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -73,15 +68,18 @@ const HeroSlider = () => {
       <style jsx global>{`
         .swiper-pagination {
           bottom: 20px !important;
+          position: absolute !important;
+          z-index: 50 !important;
         }
         .swiper-pagination-bullet {
-          background: white;
-          opacity: 0.5;
+          background: white !important;
+          opacity: 0.5 !important;
           width: 8px;
           height: 8px;
         }
         .swiper-pagination-bullet-active {
-          opacity: 1;
+          opacity: 1 !important;
+          background: white !important;
         }
       `}</style>
     </div>
