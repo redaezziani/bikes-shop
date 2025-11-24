@@ -41,7 +41,9 @@ export default function Home() {
         </button>
         <span className="border bg-neutral-400/20 border-neutral-400/45 flex justify-center items-center gap-1 rounded w-full">
           <IconBike className="text-neutral-600" size={20} />
-          <p className=" text-neutral-500 text-xs">Take a Bike Now</p>
+          <p className=" text-neutral-500 capitalize font-semibold text-xs">
+            Book you test ride
+          </p>
         </span>
       </section>
     </main>
