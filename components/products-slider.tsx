@@ -8,28 +8,35 @@ const ProductsSlider = () => {
   const products = [
     {
       id: 1,
-      name: 'Model 3',
+      name: 'Model 1',
       subtitle: 'As Low as 1.99% APR Available',
       image:
         'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80',
     },
     {
       id: 2,
-      name: 'Model Y',
+      name: 'Model 2',
       subtitle: 'As Low as 1.99% APR Available',
       image:
         'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&q=80',
     },
     {
       id: 3,
-      name: 'Model S',
+      name: 'Model 3',
       subtitle: 'As Low as 1.99% APR Available',
       image:
         'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&q=80',
     },
     {
       id: 4,
-      name: 'Model X',
+      name: 'Model 4',
+      subtitle: 'As Low as 1.99% APR Available',
+      image:
+        'https://images.unsplash.com/photo-1620891549027-942fdc95d3f5?w=800&q=80',
+    },
+    {
+      id: 5,
+      name: 'Model 5',
       subtitle: 'As Low as 1.99% APR Available',
       image:
         'https://images.unsplash.com/photo-1620891549027-942fdc95d3f5?w=800&q=80',

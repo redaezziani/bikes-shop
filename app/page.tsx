@@ -1,39 +1,23 @@
 import Header from '@/components/header';
+import HeroSlider from '@/components/hero-slider';
 import ProductsSlider from '@/components/products-slider';
+import { IconBike, IconMessageFilled } from '@tabler/icons-react';
 
 export default function Home() {
   return (
     <main className=" flex flex-col   bg-white gap-4 justify-start items-center relative">
-      <span className=" w-full h-144  relative bg-neutral-400">
-        <Header />
-        <div className=" h-full px-4 absolute top-0 w-full flex justify-center items-center">
-          <div className="flex  relative z-10 justify-center items-center text-center flex-col w-full gap-2">
-            <h1 className="text-3xl text-white font-bold">
-              Ride Smarter. Live Better.
-            </h1>
-            {/* <p className="text-neutral-200">
-              Discover our premium electric bicycles designed
-            </p> */}
-
-            <div className="flex w-full gap-2">
-              <button className=" bg-blue-600 w-full text-white rounded px-3 py-2.5 capitalize font-bold text-sm">
-                order now
-              </button>
-              <button className=" bg-white w-full text-neutral-800 rounded px-3 py-2.5 capitalize font-bold text-sm">
-                learn more
-              </button>
-            </div>
-          </div>
-
-          <img
-            src="https://gocycle.com/wp-content/uploads/2022/01/intro4_mob.jpg"
-            alt=""
-            className="h-full absolute object-cover"
-          />
-        </div>
-      </span>
+      <HeroSlider />
       <section aria-label="products-slider" className="bg-white  w-full">
         <ProductsSlider />
+      </section>
+      <section className=" fixed gap-2 flex justify-between z-30 h-14 shadow-xl rounded-t-lg bg-white w-full bottom-0 p-2 px-4">
+        <button className=" w-10 flex justify-center items-center  border bg-neutral-400/20 border-neutral-400/45 rounded">
+          <IconMessageFilled className="text-neutral-500" size={20} />
+        </button>
+        <span className="border bg-neutral-400/20 border-neutral-400/45 flex justify-center items-center gap-1 rounded w-full">
+          <IconBike className="text-neutral-600" size={20} />
+          <p className=" text-neutral-500 text-xs">Take a Bike Now</p>
+        </span>
       </section>
     </main>
   );
