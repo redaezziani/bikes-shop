@@ -34,7 +34,7 @@ const Header = () => {
         </svg>
         <button
           onClick={() => setOpen(true)}
-          className="py-1.5 px-4 bg-white/10 font-bold capitalize text-sm rounded backdrop-blur-sm"
+          className="py-1.5 px-4 bg-white/10 text-white font-bold capitalize text-sm rounded backdrop-blur-sm"
         >
           menu
         </button>

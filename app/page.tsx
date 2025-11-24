@@ -8,7 +8,9 @@ export default function Home() {
         <Header />
         <div className=" h-full px-4 absolute top-0 w-full flex justify-center items-center">
           <div className="flex  relative z-10 justify-center items-center text-center flex-col w-full gap-2">
-            <h1 className="text-3xl font-bold">Ride Smarter. Live Better.</h1>
+            <h1 className="text-3xl text-white font-bold">
+              Ride Smarter. Live Better.
+            </h1>
             {/* <p className="text-neutral-200">
               Discover our premium electric bicycles designed
             </p> */}
