@@ -55,14 +55,14 @@ const ProductsSlider = () => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
-            <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b from-gray-200 to-gray-300">
-              <img
+            <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-neutral-300 ">
+              {/* <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div> */}
 
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h3 className="text-4xl font-bold ">{product.name}</h3>

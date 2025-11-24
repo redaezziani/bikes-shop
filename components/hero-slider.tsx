@@ -30,7 +30,7 @@ const HeroSlider = () => {
   ];
 
   return (
-    <div className="w-full h-144 relative bg-neutral-400">
+    <div id="hero" className="w-full h-144 relative bg-neutral-400">
       <Header />
       <Swiper
         modules={[Pagination, Autoplay, EffectFade]}
@@ -63,18 +63,18 @@ const HeroSlider = () => {
       </Swiper>
 
       <style jsx global>{`
-        .swiper-pagination {
+        #hero .swiper-pagination {
           bottom: 20px !important;
           position: absolute !important;
           z-index: 50 !important;
         }
-        .swiper-pagination-bullet {
+        #hero .swiper-pagination-bullet {
           background: white !important;
           opacity: 0.5 !important;
           width: 8px;
           height: 8px;
         }
-        .swiper-pagination-bullet-active {
+        #hero .swiper-pagination-bullet-active {
           opacity: 1 !important;
           background: white !important;
         }

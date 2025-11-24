@@ -1,5 +1,6 @@
 import Header from '@/components/header';
 import HeroSlider from '@/components/hero-slider';
+import OfferCard from '@/components/offer-card';
 import ProductsSlider from '@/components/products-slider';
 import { IconBike, IconMessageFilled } from '@tabler/icons-react';
 
@@ -10,6 +11,24 @@ export default function Home() {
       <section aria-label="products-slider" className="bg-white  w-full">
         <ProductsSlider />
       </section>
+      <div className="w-full px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <OfferCard
+          title="Current Offers"
+          description="Explore limited-time offers on Tesla vehicles."
+          image="/images/tesla-offer.jpg"
+        />
+        <OfferCard
+          title="Special Deals"
+          description="Exclusive discounts only for this season."
+          image="/images/sale.jpg"
+        />
+        <OfferCard
+          title="New Arrivals"
+          description="Discover the latest models available now."
+          image="/images/new.jpg"
+        />
+      </div>
+
       <section className=" fixed gap-2 flex justify-between z-30 h-14 shadow-xl rounded-t-lg bg-white w-full bottom-0 p-2 px-4">
         <button className=" w-10 flex justify-center items-center    ">
           <svg
