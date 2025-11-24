@@ -46,11 +46,8 @@ const HeroSlider = () => {
             <div className="h-full px-4 relative w-full flex justify-center items-center">
               <div className="flex -mt-80 relative z-10 justify-center items-center text-center flex-col w-full gap-2">
                 <h1 className="text-3xl text-white font-bold">{slide.title}</h1>
-                <div className="flex w-full gap-2">
-                  <button className="bg-blue-600 w-full text-white rounded px-3 py-2.5 capitalize font-bold text-sm">
-                    order now
-                  </button>
-                  <button className="bg-white w-full text-neutral-800 rounded px-3 py-2.5 capitalize font-bold text-sm">
+                <div className="flex w-full justify-center items-center gap-2">
+                  <button className="bg-white w-1/2 text-neutral-800 rounded px-3 py-2.5 capitalize font-bold text-sm">
                     learn more
                   </button>
                 </div>
