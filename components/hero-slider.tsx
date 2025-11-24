@@ -44,7 +44,7 @@ const HeroSlider = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="h-full px-4 relative w-full flex justify-center items-center">
-              <div className="flex relative z-10 justify-center items-center text-center flex-col w-full gap-2">
+              <div className="flex -mt-42 relative z-10 justify-center items-center text-center flex-col w-full gap-2">
                 <h1 className="text-3xl text-white font-bold">{slide.title}</h1>
                 <div className="flex w-full gap-2">
                   <button className="bg-blue-600 w-full text-white rounded px-3 py-2.5 capitalize font-bold text-sm">
