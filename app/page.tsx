@@ -60,9 +60,9 @@ export default function Home() {
             Ask On Whatsapp
           </p>
         </button>
-        <span className="border bg-neutral-400/10 border-neutral-400/45 flex justify-center items-center gap-2 rounded px-6">
+        <span className="border bg-neutral-400/10 border-neutral-400/45 flex justify-center items-center gap-2 rounded w-full">
           <p className=" text-neutral-700 capitalize font-semibold text-xs">
-            Book you Free test ride
+            Book your Free test ride
           </p>
         </span>
       </section>
