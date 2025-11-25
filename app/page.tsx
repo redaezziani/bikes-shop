@@ -47,8 +47,8 @@ export default function Home() {
         <ProductsSlider />
       </section>
       <Footer />
-      <section className=" fixed gap-2 flex justify-center z-30 h-14 shadow-xl  bg-white w-full bottom-0 p-2 px-4">
-        <button className=" w-10 md:w-full gap-2 flex justify-center items-center    ">
+      <section className=" fixed  gap-2 flex justify-center z-30 h-16 shadow-xl  bg-white w-full bottom-0 pt-2 pb-6 px-4">
+        <button className=" w-10 h-10 md:w-full gap-2 flex justify-center items-center    ">
           <svg
             className=" fill-neutral-700 stroke-neutral-700 size-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -60,11 +60,11 @@ export default function Home() {
             Ask On Whatsapp
           </p>
         </button>
-        <span className="border bg-neutral-400/10 border-neutral-400/45 flex justify-center items-center gap-2 rounded w-full">
+        <button className="border h-10 bg-neutral-400/10 border-neutral-400/45 flex justify-center items-center gap-2 rounded w-full">
           <p className=" text-neutral-700 capitalize font-semibold text-xs">
             Book your Free test ride
           </p>
-        </span>
+        </button>
       </section>
     </main>
   );
