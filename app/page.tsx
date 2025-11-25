@@ -3,6 +3,7 @@ import Header from '@/components/header';
 import HeroSlider from '@/components/hero-slider';
 import OfferCard from '@/components/offer-card';
 import ProductsSlider from '@/components/products-slider';
+import { YouTubePlayer } from '@/components/youtube-player';
 import {
   IconBike,
   IconMessageFilled,
@@ -37,9 +38,7 @@ export default function Home() {
 
       <section className=" grid w-full grid-cols-1 md:grid-cols-2 gap-6 px-4">
         <span className=" relative h-96 p-2 w-full bg-neutral-200 rounded ">
-          <span className=" size-9 rounded-sm border border-neutral-400/35 absolute right-2 top-2 flex justify-center items-center bg-white/10 backdrop-blur-sm">
-            <IconVideoFilled className=" fill-neutral-600" />
-          </span>
+          <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
         </span>
         <div className=" h-96 w-full bg-neutral-200 rounded "></div>
       </section>
