@@ -1,17 +1,23 @@
+import Footer from '@/components/footer';
 import Header from '@/components/header';
 import HeroSlider from '@/components/hero-slider';
 import OfferCard from '@/components/offer-card';
 import ProductsSlider from '@/components/products-slider';
-import { IconBike, IconMessageFilled } from '@tabler/icons-react';
+import {
+  IconBike,
+  IconMessageFilled,
+  IconPlayBasketball,
+  IconVideoFilled,
+} from '@tabler/icons-react';
 
 export default function Home() {
   return (
-    <main className=" flex flex-col   bg-white gap-4 justify-start items-center relative">
+    <main className=" flex flex-col    bg-white gap-4 justify-start items-center relative">
       <HeroSlider />
       <section aria-label="products-slider" className="bg-white  w-full">
         <ProductsSlider />
       </section>
-      <div className="w-full px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="w-full px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         <OfferCard
           title="Current Offers"
           description="Explore limited-time offers on Tesla vehicles."
@@ -27,12 +33,25 @@ export default function Home() {
           description="Discover the latest models available now."
           image="/images/new.jpg"
         />
-      </div>
+      </section>
 
-      <section className=" fixed gap-2 flex justify-between z-30 h-14 shadow-xl rounded-t-lg bg-white w-full bottom-0 p-2 px-4">
+      <section className=" grid w-full grid-cols-1 md:grid-cols-2 gap-6 px-4">
+        <span className=" relative h-96 p-2 w-full bg-neutral-200 rounded ">
+          <span className=" size-9 rounded-sm border border-neutral-400/35 absolute right-2 top-2 flex justify-center items-center bg-white/10 backdrop-blur-sm">
+            <IconVideoFilled className=" fill-neutral-600" />
+          </span>
+        </span>
+        <div className=" h-96 w-full bg-neutral-200 rounded "></div>
+      </section>
+
+      <section aria-label="products-slider" className="bg-white  w-full">
+        <ProductsSlider />
+      </section>
+      <Footer />
+      <section className=" fixed gap-2 flex justify-between z-30 h-14 shadow-xl rounded-t-lg bg-neutral-900 w-full bottom-0 p-2 px-4">
         <button className=" w-10 flex justify-center items-center    ">
           <svg
-            className="text-neutral-600 stroke-neutral-600 size-6"
+            className="text-neutral-100 fill-neutral-50 stroke-neutral-100 size-6"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
           >
@@ -40,8 +59,8 @@ export default function Home() {
           </svg>
         </button>
         <span className="border bg-neutral-400/10 border-neutral-400/45 flex justify-center items-center gap-2 rounded w-full">
-          <IconBike className="text-neutral-800" size={20} />
-          <p className=" text-neutral-800 capitalize font-semibold text-xs">
+          <IconBike className="text-neutral-50" size={20} />
+          <p className=" text-neutral-50 capitalize font-semibold text-xs">
             Book you test ride
           </p>
         </span>
