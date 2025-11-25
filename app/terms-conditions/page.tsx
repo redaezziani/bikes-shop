@@ -14,7 +14,7 @@ export default function TermsPage() {
       <section className="w-full px-6 md:px-12 py-12 md:py-16 bg-white">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 ">
-            along — <span className="text-blue-600">Terms & Conditions</span>
+            along — <span className="">Terms & Conditions</span>
           </h1>
 
           <div className="space-y-1 text-sm text-neutral-600">
@@ -110,27 +110,27 @@ export default function TermsPage() {
               </h2>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     Products and prices are an invitation to treat, not an
                     offer.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     Clicking Place Order creates an offer to purchase.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     We may reject orders for errors, unavailability, or failed
                     payments.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     A Contract forms when we send your order confirmation.
                   </span>
@@ -145,23 +145,23 @@ export default function TermsPage() {
               </h2>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Prices shown are in AED.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>UAE shipping is included in the price.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Payment is by credit card or bank transfer only.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Cash on Delivery is not available.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>We may correct pricing or information errors.</span>
                 </li>
               </ul>
@@ -174,11 +174,11 @@ export default function TermsPage() {
               </h2>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Ownership passes when payment is received.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Risk passes on delivery to your address.</span>
                 </li>
               </ul>
@@ -191,35 +191,35 @@ export default function TermsPage() {
               </h2>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Territory: UAE only.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     Method: Ground-level delivery (no stairs or elevators).
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Timeline: 2–3 working days.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>A recipient must be present to sign.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     Address changes allowed up to 2 days before delivery.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Failed deliveries incur a redelivery fee.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Carrier delays are not grounds for cancellation.</span>
                 </li>
               </ul>
@@ -244,21 +244,20 @@ export default function TermsPage() {
               </h2>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>If the box is visibly damaged, refuse delivery.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Contact support immediately if possible.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Report within 48 hours with photos/videos.</span>
                 </li>
               </ul>
             </div>
 
-            {/* 9. Cancellations */}
             <div className="">
               <h2 className="text-2xl font-bold text-neutral-900 ">
                 9. Cancellations (Before Dispatch)
@@ -269,7 +268,6 @@ export default function TermsPage() {
               </p>
             </div>
 
-            {/* 10. Returns & Exchanges */}
             <div className="">
               <h2 className="text-2xl font-bold text-neutral-900 ">
                 10. Returns & Exchanges
@@ -280,29 +278,29 @@ export default function TermsPage() {
               </p>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Window: 7 days from delivery.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>You pay shipping for change-of-mind returns.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Contact us first for return authorization.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     Refunds take up to 14 working days after inspection.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Refunds issued to the original payment method.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     No returns if packaging is opened or product used.
                   </span>
@@ -310,7 +308,6 @@ export default function TermsPage() {
               </ul>
             </div>
 
-            {/* 11. Warranty */}
             <div className="">
               <h2 className="text-2xl font-bold text-neutral-900 ">
                 11. Warranty
@@ -329,13 +326,13 @@ export default function TermsPage() {
               </h2>
               <ul className="space-y-2 text-neutral-700">
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>
                     No liability for indirect or consequential losses.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-600 font-bold">•</span>
+                  <span className=" font-bold">•</span>
                   <span>Maximum liability is the purchase price.</span>
                 </li>
               </ul>
@@ -380,7 +377,7 @@ export default function TermsPage() {
               <p className="text-neutral-600 mt-2">
                 Contact:{' '}
                 <a
-                  className="text-blue-600 hover:text-blue-700 underline"
+                  className=" hover:text-blue-700 underline"
                   href="mailto:hey@weridealong.com"
                 >
                   hey@weridealong.com
