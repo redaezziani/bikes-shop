@@ -71,7 +71,7 @@ const ProductsSlider = () => {
                 </p>
 
                 <div className="flex gap-3">
-                  <button className="flex-1 bg-blue-600 text-white rounded px-4 py-2.5 font-bold text-sm">
+                  <button className="flex-1 bg-primary text-white rounded px-4 py-2.5 font-bold text-sm">
                     Order Now
                   </button>
                   <button className="flex-1 bg-white text-gray-800 rounded px-4 py-2.5 font-bold text-sm">

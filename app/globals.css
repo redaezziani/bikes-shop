@@ -5,3 +5,11 @@ body {
   font-family: 'Nunito Sans', sans-serif;
   font-optical-sizing: auto;
 }
+
+.color {
+  color: #3e6ae1;
+}
+
+@theme {
+  --color-primary: #3e6ae1;
+}
