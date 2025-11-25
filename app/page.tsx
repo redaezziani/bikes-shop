@@ -1,15 +1,9 @@
 import Footer from '@/components/footer';
-import Header from '@/components/header';
 import HeroSlider from '@/components/hero-slider';
 import OfferCard from '@/components/offer-card';
 import ProductsSlider from '@/components/products-slider';
-import { YouTubePlayer } from '@/components/youtube-player';
-import {
-  IconBike,
-  IconMessageFilled,
-  IconPlayBasketball,
-  IconVideoFilled,
-} from '@tabler/icons-react';
+import YouTubePlayer from '@/components/youtube-player';
+import { IconBike } from '@tabler/icons-react';
 
 export default function Home() {
   return (
