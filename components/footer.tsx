@@ -27,7 +27,6 @@ const Footer = () => {
 
   return (
     <footer className="   bg-neutral-950 text-white w-full gap-6 pt-6 pb-20 flex items-center justify-start flex-col px-4 min-h-96">
-      <span className=" p-[0.5px] bg-white w-3/4" />
       <div className=" flex gap-4 justify-center items-center ">
         <img
           className=" w-7  "

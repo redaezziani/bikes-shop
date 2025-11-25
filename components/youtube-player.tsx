@@ -91,18 +91,17 @@ export default function YouTubeAutoPlayer({ url }: Props) {
         className="absolute inset-0"
       />
 
-      {/* Play / Pause button */}
-      <button
+      {/* <button
         onClick={togglePlay}
         className="absolute top-3 right-3 size-10 flex items-center justify-center bg-white/20
                  backdrop-blur-md rounded-lg border border-white/30"
       >
-        {/* {isPlaying ? (
-          <Pause className="text-white" size={22} />
+        {isPlaying ? (
+          <IconPause className="text-white" size={22} />
         ) : (
           <Play className="text-white" size={22} />
-        )} */}
-      </button>
+        )}
+      </button> */}
     </div>
   );
 }

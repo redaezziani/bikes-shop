@@ -31,7 +31,7 @@ export default function Home() {
       </section>
 
       <section className=" grid w-full grid-cols-1 md:grid-cols-2 gap-6 px-4">
-        <span className=" relative h-96 p-2 w-full bg-neutral-200 rounded ">
+        <span className=" relative h-70 p-2 w-full bg-neutral-200 rounded ">
           <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
         </span>
         <div className=" h-96 w-full bg-neutral-200 rounded "></div>
@@ -41,7 +41,7 @@ export default function Home() {
         <ProductsSlider />
       </section>
       <Footer />
-      <section className=" fixed gap-2 flex justify-between z-30 h-14 shadow-xl rounded-t-lg bg-neutral-900 w-full bottom-0 p-2 px-4">
+      <section className=" fixed gap-2 flex justify-between z-30 h-14 shadow-xl  bg-neutral-950 w-full bottom-0 p-2 px-4">
         <button className=" w-10 flex justify-center items-center    ">
           <svg
             className="text-neutral-100 fill-neutral-50 stroke-neutral-100 size-6"
