@@ -1,6 +1,13 @@
 import type { Metadata } from 'next';
-import { Roboto, Roboto_Mono } from 'next/font/google';
+import { Onest } from 'next/font/google';
 import './globals.css';
+
+const onest = Onest({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-onest',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` grayscale-100 antialiased`}>{children}</body>
+      <body className={`${onest.className} antialiased`}>{children}</body>
     </html>
   );
 }
