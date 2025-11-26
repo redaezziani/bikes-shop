@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
 @import 'tailwindcss';
-
-body {
-  font-family: 'Nunito Sans', sans-serif;
-  font-optical-sizing: auto;
-}
 
 .color {
   color: #3e6ae1;
@@ -12,4 +8,9 @@ body {
 
 @theme {
   --color-primary: #3e6ae1;
+}
+
+body {
+  font-family: 'Onest', sans-serif;
+  font-optical-sizing: auto;
 }

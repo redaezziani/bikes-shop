@@ -1,51 +1,21 @@
 import Footer from '@/components/footer';
 import HeaderDetailsPage from '@/components/header-v2';
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconShoppingCart,
-} from '@tabler/icons-react';
+import ProductImagePreview from '@/components/product-image-priview';
+import { IconShoppingCart } from '@tabler/icons-react';
 const page = () => {
   return (
-    <main className=" flex flex-col min-h-screen  gap-4 justify-start items-center relative">
+    <main className=" flex flex-col min-h-screen   gap-4 justify-start items-center relative">
       <HeaderDetailsPage />
       <section className="w-full px-4 flex mt-20 flex-col gap-2 justify-start items-center">
-        <span className=" relative bg-neutral-100 rounded  w-full aspect-square h-auto">
-          <div className=" absolute flex gap-2 justify-center items-center right-2 top-2">
-            <IconChevronLeft className=" text-neutral-600" size={20} />
-            <IconChevronRight className=" text-neutral-900" size={20} />
-          </div>
-          <img
-            className=" w-full aspect-square"
-            src={'https://edegree.asia/wp-content/uploads/2024/12/1-1.svg'}
-          />
-        </span>
-        <div className=" grid grid-cols-5 mt-4 w-full gap-2">
-          <span className="bg-neutral-100 border-2 border-neutral-800 rounded  w-full aspect-square h-auto">
-            <img
-              className=" w-full aspect-square"
-              src={'https://edegree.asia/wp-content/uploads/2024/12/1-1.svg'}
-            />
-          </span>
-          <span className="bg-neutral-100 rounded  w-full aspect-square h-auto">
-            <img
-              className=" w-full aspect-square"
-              src={'https://edegree.asia/wp-content/uploads/2024/12/1-1.svg'}
-            />
-          </span>
-          <span className="bg-neutral-100 rounded  w-full aspect-square h-auto">
-            <img
-              className=" w-full aspect-square"
-              src={'https://edegree.asia/wp-content/uploads/2024/12/1-1.svg'}
-            />
-          </span>
-          <span className="bg-neutral-100 rounded  w-full aspect-square h-auto">
-            <img
-              className=" w-full aspect-square"
-              src={'https://edegree.asia/wp-content/uploads/2024/12/1-1.svg'}
-            />
-          </span>
-        </div>
+        <ProductImagePreview
+          images={[
+            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_1.png?v=1692045691&width=1080',
+            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_2.png?v=1692045693&width=720',
+            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_3.png?v=1692045693&width=720',
+            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_5.png?v=1692045692&width=720',
+          ]}
+        />
+
         <div className="flex mt-5 gap-4 flex-wrap justify-start items-center w-full">
           <div className="flex items-center gap-2 border border-neutral-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
             <button
@@ -190,9 +160,27 @@ const page = () => {
             this product.
           </p>
           <div className=" grid w-full mt-5 grid-cols-2 gap-2">
-            <span className=" w-full bg-neutral-300 rounded aspect-square"></span>
-            <span className=" w-full bg-neutral-300 rounded aspect-square"></span>
-            <span className=" w-full bg-neutral-300 rounded aspect-square"></span>
+            <span className=" w-full bg-neutral-100 rounded aspect-square">
+              <img
+                src={
+                  'https://murfelectricbikes.com/cdn/shop/files/7040_Bump_Main_1.png?v=1743531992&width=1080'
+                }
+              />
+            </span>
+            <span className=" w-full bg-neutral-100 rounded aspect-square">
+              <img
+                src={
+                  'https://murfelectricbikes.com/cdn/shop/files/081223_KROOZIE_2_1800x1800.png?v=1692045884'
+                }
+              />
+            </span>
+            <span className=" w-full bg-neutral-100 rounded aspect-square">
+              <img
+                src={
+                  'https://murfelectricbikes.com/cdn/shop/files/081223_KRYPTONITE_LOCK_EVO_1_1800x1800.png?v=1692046008'
+                }
+              />
+            </span>
           </div>
         </section>
       </section>
