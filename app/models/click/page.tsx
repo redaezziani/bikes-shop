@@ -46,10 +46,34 @@ const page = () => {
             />
           </span>
         </div>
-        <div className="flex mt-5 gap-4 justify-start items-center w-full">
-          <p className=" text-neutral-800 font-semibold">700 AED / 190.60 $</p>
-          <button className=" bg-neutral-900 border font-medium rounded-lg py-1 px-3 flex text-neutral-50 gap-1 justify-center items-center">
-            <p className=" ">order now</p>
+        <div className="flex mt-5 gap-4 flex-wrap justify-start items-center w-full">
+          <div className="flex items-center gap-2 border border-neutral-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
+            <button
+              className="text-neutral-700 hover:text-neutral-900 px-2 font-semibold"
+              aria-label="Decrease quantity"
+            >
+              -
+            </button>
+
+            <input
+              type="number"
+              min="1"
+              defaultValue="1"
+              className="w-12 text-center bg-transparent outline-none text-neutral-800 font-medium"
+            />
+
+            <button
+              className="text-neutral-700 hover:text-neutral-900 px-2 font-semibold"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
+
+          <p className="text-neutral-800 font-semibold">700 AED / 190.60 $</p>
+
+          <button className="bg-neutral-900 capitalize focus:ring cursor-pointer w-full border font-medium rounded-lg py-2 px-3 flex text-neutral-50 gap-1 justify-center items-center">
+            <p>order now</p>
             <IconShoppingCart size={20} />
           </button>
         </div>
