@@ -12,8 +12,8 @@ const page = () => {
       <section className="w-full px-4 flex mt-20 flex-col gap-2 justify-start items-center">
         <span className=" relative bg-neutral-100 rounded  w-full aspect-square h-auto">
           <div className=" absolute flex gap-2 justify-center items-center right-2 top-2">
-            <IconChevronLeft size={20} />
-            <IconChevronRight size={20} />
+            <IconChevronLeft className=" text-neutral-600" size={20} />
+            <IconChevronRight className=" text-neutral-900" size={20} />
           </div>
           <img
             className=" w-full aspect-square"
@@ -21,7 +21,7 @@ const page = () => {
           />
         </span>
         <div className=" grid grid-cols-5 mt-4 w-full gap-2">
-          <span className="bg-neutral-100 rounded  w-full aspect-square h-auto">
+          <span className="bg-neutral-100 border-2 border-neutral-800 rounded  w-full aspect-square h-auto">
             <img
               className=" w-full aspect-square"
               src={'https://edegree.asia/wp-content/uploads/2024/12/1-1.svg'}
@@ -100,7 +100,64 @@ const page = () => {
             alt=""
           />
         </section>
-        <section className="w-full flex mt-15 flex-col gap-2 justify-start items-start">
+        <section className=" w-full  border-t border-b py-2 border-x-0 border-neutral-400/25  flex flex-col gap-4 mt-10 justify-center items-center">
+          <h3 className="  font-semibold text-neutral-700 text-2xl">
+            Size it up
+          </h3>
+          <img className=" mt-5" src={'/images/model-click.jpg'} alt="" />
+          <div className="grid pb-5 gap-4 mt-5 w-full grid-cols-1 md:grid-cols-2">
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex w-full justify-between">
+                <p className="text-neutral-600">A. Max height (with antenna)</p>
+                <p className="text-neutral-600">77.3 in</p>
+              </div>
+              <span className="w-full h-1 bg-neutral-400"></span>
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex w-full justify-between">
+                <p className="text-neutral-600">
+                  B. Width (side mirrors folded)
+                </p>
+                <p className="text-neutral-600">82 in</p>
+              </div>
+              <span className="w-full h-1 bg-neutral-400"></span>
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex w-full justify-between">
+                <p className="text-neutral-600">C. Wheelbase</p>
+                <p className="text-neutral-600">121.1 in</p>
+              </div>
+              <span className="w-full h-1 bg-neutral-400"></span>
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex w-full justify-between">
+                <p className="text-neutral-600">D. Length</p>
+                <p className="text-neutral-600">200.8 in</p>
+              </div>
+              <span className="w-full h-1 bg-neutral-400"></span>
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex w-full justify-between">
+                <p className="text-neutral-600">E. Approach angle</p>
+                <p className="text-neutral-600">35.8º</p>
+              </div>
+              <span className="w-full h-1 bg-neutral-400"></span>
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex w-full justify-between">
+                <p className="text-neutral-600">F. Departure angle</p>
+                <p className="text-neutral-600">34.4º</p>
+              </div>
+              <span className="w-full h-1 bg-neutral-400"></span>
+            </div>
+          </div>
+        </section>
+        <section className="w-full  flex mt-15 flex-col gap-2 justify-start items-start">
           <h3 className="text-lg font-medium text-neutral-800">
             Related Accessories
           </h3>
