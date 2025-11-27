@@ -25,8 +25,8 @@ export default function ProductInfo({
   const decrease = () => setQty((q) => (q > 1 ? q - 1 : 1));
 
   return (
-    <>
-      <div className="flex flex-col gap-1 mt-5 justify-start items-start">
+    <section className=" flex flex-col gap-4">
+      <div className="flex flex-col gap-1 mt-5 md:mt-0 justify-start items-start">
         <h1 className="text-lg font-semibold text-neutral-900">{title}</h1>
         <p className="text-neutral-500 text-sm">{description}</p>
       </div>
@@ -105,6 +105,6 @@ export default function ProductInfo({
           <IconShoppingCart size={20} />
         </button>
       </div>
-    </>
+    </section>
   );
 }

@@ -7,26 +7,28 @@ const page = () => {
   return (
     <main className=" flex flex-col min-h-screen   gap-4 justify-start items-center relative">
       <HeaderDetailsPage />
-      <section className="w-full px-4 flex mt-20 flex-col gap-2 justify-start items-center">
-        <ProductImagePreview
-          images={[
-            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_1.png?v=1692045691&width=1080',
-            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_2.png?v=1692045693&width=720',
-            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_3.png?v=1692045693&width=720',
-            'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_5.png?v=1692045692&width=720',
-          ]}
-        />
-        <ProductInfo
-          title="Along Click Model"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi saepe in aspernatur."
-          priceAED={700}
-          priceUSD={190.6}
-          colors={[
-            { name: 'black', hex: '#000000' },
-            { name: 'white', hex: '#ffffff' },
-            { name: 'red', hex: '#e63946' },
-          ]}
-        />
+      <section className="w-full max-w-7xl px-4 flex mt-20 flex-col gap-2 justify-start items-center">
+        <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ProductImagePreview
+            images={[
+              'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_1.png?v=1692045691&width=1080',
+              'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_2.png?v=1692045693&width=720',
+              'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_3.png?v=1692045693&width=720',
+              'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_5.png?v=1692045692&width=720',
+            ]}
+          />
+          <ProductInfo
+            title="Along Click Model"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi saepe in aspernatur."
+            priceAED={700}
+            priceUSD={190.6}
+            colors={[
+              { name: 'black', hex: '#000000' },
+              { name: 'white', hex: '#ffffff' },
+              { name: 'red', hex: '#e63946' },
+            ]}
+          />
+        </div>
 
         <section className=" flex flex-col mt-15 gap-2 justify-start items-start ">
           <div className="flex flex-col gap-1">

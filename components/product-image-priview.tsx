@@ -25,7 +25,7 @@ export default function ProductImagePreview({
   };
 
   return (
-    <>
+    <div className=" flex flex-col gap-4">
       <span
         className="relative bg-neutral-100 rounded w-full aspect-square h-auto overflow-hidden"
         aria-label="Product main image"
@@ -83,6 +83,6 @@ export default function ProductImagePreview({
           </button>
         ))}
       </div>
-    </>
+    </div>
   );
 }
