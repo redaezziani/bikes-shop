@@ -145,6 +145,7 @@ const page = () => {
                 src={
                   'https://murfelectricbikes.com/cdn/shop/files/7040_Bump_Main_1.png?v=1743531992&width=1080'
                 }
+                alt="related-products"
               />
             </span>
             <span className=" w-full bg-neutral-100 rounded aspect-square">
@@ -152,6 +153,7 @@ const page = () => {
                 src={
                   'https://murfelectricbikes.com/cdn/shop/files/081223_KROOZIE_2_1800x1800.png?v=1692045884'
                 }
+                alt="related-products"
               />
             </span>
             <span className=" w-full bg-neutral-100 rounded aspect-square">
@@ -159,6 +161,7 @@ const page = () => {
                 src={
                   'https://murfelectricbikes.com/cdn/shop/files/081223_KRYPTONITE_LOCK_EVO_1_1800x1800.png?v=1692046008'
                 }
+                alt="related-products"
               />
             </span>
           </div>

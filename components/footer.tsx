@@ -61,6 +61,7 @@ const Footer = () => {
       <Link href={'#'}>
         <img
           className="  w-7"
+          alt="app-logo"
           src={
             'https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68faf44efb37ee0db06f7dfe_Conformit%C3%A9_Europ%C3%A9enne_(logo).svg'
           }
@@ -68,6 +69,7 @@ const Footer = () => {
       </Link>
       <Link href={'/'}>
         <img
+          alt="ctf"
           className=" invert w-22"
           src={
             'https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68c4791a25d9d87f1f5436ce_Untitled%20(1200%20x%20720%20px)%20(7).png'
