@@ -54,7 +54,7 @@ const ModelSelector = () => {
             key={item.id}
             className={`
               relative w-full cursor-pointer rounded-md border py-3.5 px-2.5 
-              flex justify-between items-center gap-4 transition
+              flex justify-between items-center gap-2 transition
               ${
                 isActive
                   ? 'border-neutral-800 bg-neutral-100 ring-1 ring-neutral-800'
@@ -71,16 +71,26 @@ const ModelSelector = () => {
               className="absolute inset-0 z-0 opacity-0 cursor-pointer"
             />
 
-            <div className="flex flex-col text-start">
-              <h5 className="text-neutral-900 font-semibold">{item.name}</h5>
-              <p className="text-neutral-600 text-sm">{item.description}</p>
+            <div className="flex flex-col gap-1 text-start">
+              <h5
+                className={` ${
+                  isActive ? 'text-neutral-900' : 'text-neutral-700'
+                } font-medium text-sm`}
+              >
+                {item.name}
+              </h5>
+              <p className="text-neutral-600  text-xs">{item.description}</p>
             </div>
 
             <div className="text-end">
-              <strong className="text-neutral-700 font-semibold text-base">
+              <strong
+                className={` ${
+                  isActive ? 'text-neutral-700' : 'text-neutral-500'
+                }  font-semibold text-sm`}
+              >
                 ${item.price}
               </strong>
-              <span className="text-neutral-500 text-sm"> /mo</span>
+              <span className={`text-neutral-500 text-xs`}> /mo</span>
             </div>
           </label>
         );
