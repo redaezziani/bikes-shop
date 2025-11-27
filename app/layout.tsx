@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import { Onest } from 'next/font/google';
 import './globals.css';
 
-const onest = Onest({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-onest',
-  display: 'swap',
-});
+// const onest = Onest({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '600', '700'],
+//   variable: '--font-onest',
+//   display: 'swap',
+// });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${onest.className} antialiased`}>{children}</body>
+      <body className={` antialiased`}>{children}</body>
     </html>
   );
 }
