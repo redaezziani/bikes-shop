@@ -66,7 +66,7 @@ const OrderSummaryPanel = () => {
       className={`fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden backdrop-blur-md ${
         isExpanded
           ? 'bg-white/95'
-          : 'bg-neutral-900/95 md:left-auto md:right-8 md:bottom-8 md:w-80 md:rounded-xl'
+          : 'bg-neutral-900/95 md:left-auto md:right-8 md:bottom-0 md:w-80 md:rounded-xl'
       }`}
     >
       <div
