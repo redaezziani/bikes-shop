@@ -10,6 +10,7 @@ import {
   getAvailableColors,
 } from '@/store/bike-store';
 import OrderSummaryPanel from '@/components/order-summary-panel';
+import ModelPreview from '@/components/model-preview';
 
 const Page = () => {
   const currentModel = useBikeStore(getCurrentModel);
@@ -28,15 +29,11 @@ const Page = () => {
       <section className="w-full max-w-7xl flex mt-20 flex-col gap-2 justify-start items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 py-10">
           <div className="flex flex-col justify-center items-center gap-6">
-            {/* Replace with ModelPreview if you have it, otherwise keep the img tag */}
-            <div className="flex px-4">
-              <img
-                src={currentModel.image}
-                className="w-full max-w-md object-contain"
-                alt={currentModel.name}
-              />
-            </div>
-            {/* End ModelPreview replacement */}
+            <ModelPreview
+              name={currentModel.name}
+              image={currentModel.image}
+              id={currentModel.id}
+            />
 
             <div className="flex px-4 flex-col gap-1 justify-center items-center text-center">
               <h2 className="text-xl font-semibold text-neutral-900">
