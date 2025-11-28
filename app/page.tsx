@@ -40,10 +40,18 @@ export default function Home() {
             <p>Lorem ipsum dolor sit amet consectetur</p>
           </div>
         </span>
-        <div className=" h-96 w-full bg-neutral-200 rounded "></div>
+        <div className=" h-[36rem] w-full relative overflow-hidden bg-neutral-200 rounded ">
+          <iframe
+            src="https://www.komoot.com/collection/3992640/embed"
+            width="100%"
+            height="580"
+            frameBorder="0"
+            scrolling="no"
+          ></iframe>
+        </div>
       </section>
 
-      <section aria-label="products-slider" className="bg-white  w-full">
+      <section aria-label="products-slider" className="bg-white mt-6  w-full">
         <ProductsSlider />
       </section>
       <Footer />

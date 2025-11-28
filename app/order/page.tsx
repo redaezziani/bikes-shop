@@ -26,8 +26,8 @@ const Page = () => {
       {' '}
       {/* Add padding for the fixed panel */}
       <HeaderDetailsPage />
-      <section className="w-full max-w-7xl flex mt-20 flex-col gap-2 justify-start items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 py-10">
+      <section className="w-full max-w-7xl flex  flex-col gap-2 justify-start items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 pb-10">
           <div className="flex flex-col justify-center items-center gap-6">
             <ModelPreview
               name={currentModel.name}

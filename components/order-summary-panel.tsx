@@ -10,6 +10,7 @@ import {
   IconPalette,
   IconTool,
   IconX,
+  IconShoppingBag,
 } from '@tabler/icons-react';
 import {
   useBikeStore,
@@ -65,8 +66,8 @@ const OrderSummaryPanel = () => {
       transition={{ duration: 0.3 }}
       className={`fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden backdrop-blur-md ${
         isExpanded
-          ? 'bg-white/95'
-          : 'bg-neutral-900/95 md:left-auto md:right-8 md:bottom-0 md:w-80 md:rounded-xl'
+          ? 'bg-white'
+          : ' md:left-auto bg-white md:right-8 md:bottom-0 '
       }`}
     >
       <div
@@ -78,7 +79,7 @@ const OrderSummaryPanel = () => {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center gap-3">
-          <IconShoppingCart size={20} />
+          <IconShoppingBag size={20} />
           <h3 className="font-semibold text-sm">
             {isExpanded ? 'Order Summary' : 'Total Price'}
           </h3>
@@ -106,12 +107,12 @@ const OrderSummaryPanel = () => {
         </h2>
 
         {/* Model Section */}
-        <div className="mb-8 p-4 border rounded-lg bg-neutral-50">
+        <div className="mb-8 p-4 border border-neutral-700 rounded-lg bg-neutral-50">
           <div className="flex items-center gap-3 mb-4">
             <IconBike size={20} className="text-neutral-700" />
             <h3 className=" font-semibold text-neutral-800">Bike Model</h3>
           </div>
-          <div className="flex justify-between items-center py-2 border-b border-neutral-200">
+          <div className="flex justify-between items-center py-2 border-b border-dashed border-neutral-400/45">
             <span className="font-medium text-sm">{currentModel.title}</span>
             <span className="font-bold text-lg">${currentModel.price}</span>
           </div>
@@ -130,21 +131,22 @@ const OrderSummaryPanel = () => {
 
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <IconTool size={20} className="text-neutral-700" />
-            <h3 className="text-xl font-semibold text-neutral-900">
+            <h3 className="text-sm font-semibold text-neutral-800">
               Accessories ({selectedAccessoriesDetails.length})
             </h3>
           </div>
 
           {selectedAccessoriesDetails.length > 0 ? (
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               {selectedAccessoriesDetails.map((acc) => (
                 <li
                   key={acc.id}
-                  className="flex justify-between items-center p-3 rounded-lg border border-neutral-200"
+                  className="flex justify-between items-center  py-1 "
                 >
-                  <span className="font-medium text-sm">{acc.title}</span>
-                  <span className="font-semibold text-neutral-800">
+                  <span className="font-medium text-neutral-800 text-xs">
+                    {acc.title}
+                  </span>
+                  <span className="font-semibold text-xs text-neutral-600">
                     ${acc.price}
                   </span>
                 </li>
@@ -157,15 +159,38 @@ const OrderSummaryPanel = () => {
           )}
         </div>
 
-        <div className="pt-6 border-t-2 border-neutral-900">
+        <div className="pt-6 border-t border-neutral-400/45">
           <div className="flex justify-between items-center">
-            <h3 className="text-2xl font-bold text-neutral-900">Order Total</h3>
-            <span className="text-3xl font-extrabold text-green-600">
+            <h3 className="text-lg font-bold text-neutral-800">Order Total</h3>
+            <span className="text-xl font-extrabold text-neutral-600">
               ${totalPrice}
             </span>
           </div>
-          <button className="mt-6 w-full py-3 bg-neutral-900 text-white font-semibold rounded-lg hover:bg-neutral-800 transition">
-            Proceed to Checkout
+          <button className="mt-6 w-full capitalize py-1.5 flex justify-center items-center gap-2  bg-[#6760ff]  text-white font-semibold rounded-lg hover:bg-[#6760ff] transition">
+            <svg
+              className=" size-9 "
+              width="2500"
+              height="1040"
+              viewBox="0 0 452 188"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+            >
+              <title>Logo</title>
+              <defs>
+                <path id="a" d="M.06.667h451.623V188H.06V.667z" />
+              </defs>
+              <g fill="none" fillRule="evenodd">
+                <mask id="b" fill="#fff">
+                  <use xlinkHref="#a" />
+                </mask>
+                <path
+                  d="M47.2 84.934c-9.733-3.6-15.067-6.4-15.067-10.8 0-3.734 3.067-5.867 8.534-5.867 10 0 20.266 3.867 27.333 7.333l4-24.666c-5.6-2.667-17.067-7.067-32.933-7.067-11.2 0-20.534 2.933-27.2 8.4-6.934 5.733-10.534 14-10.534 24 0 18.133 11.067 25.867 29.067 32.4 11.6 4.133 15.467 7.067 15.467 11.6 0 4.4-3.734 6.933-10.534 6.933-8.4 0-22.266-4.133-31.333-9.466l-4 24.933c7.733 4.4 22.133 8.933 37.067 8.933 11.866 0 21.733-2.8 28.4-8.133C72.933 137.6 76.8 128.934 76.8 117.734c0-18.534-11.333-26.267-29.6-32.8zM141.917 70.4l4-24.533H124.8V16.085l-28.392 4.672-4.1 25.11-9.986 1.62L78.584 70.4h13.683v48.134c0 12.533 3.2 21.2 9.733 26.533 5.467 4.4 13.333 6.533 24.4 6.533 8.533 0 13.733-1.466 17.333-2.4v-26c-2 .534-6.533 1.467-9.6 1.467-6.533 0-9.333-3.333-9.333-10.933V70.4h17.117zm63.416-25.966c-9.333 0-16.8 4.9-19.733 13.7l-2-12.267h-28.933V149.6h33.066V82.267c4.134-5.067 10-6.899 18-6.899 1.734 0 3.6 0 5.867.4V45.234c-2.267-.533-4.267-.8-6.267-.8zm30.934-8.834c9.6 0 17.333-7.866 17.333-17.466C253.6 8.4 245.867.667 236.267.667 226.533.667 218.8 8.4 218.8 18.134c0 9.6 7.733 17.466 17.467 17.466zM219.6 45.867h33.2V149.6h-33.2V45.867zM346.883 55.2c-5.867-7.6-14-11.333-24.4-11.333-9.6 0-18 4-25.867 12.4l-1.733-10.4h-29.067V188l33.067-5.466V149.2c5.066 1.6 10.266 2.4 14.933 2.4 8.267 0 20.267-2.133 29.6-12.266 8.933-9.734 13.467-24.8 13.467-44.667 0-17.6-3.334-30.933-10-39.467zm-27.467 64c-2.667 5.067-6.8 7.734-11.6 7.734-3.333 0-6.267-.667-8.933-2V75.6c5.6-5.866 10.666-6.533 12.533-6.533 8.4 0 12.533 9.067 12.533 26.8 0 10.133-1.466 18-4.533 23.333zm132.267-22.4c0-16.533-3.6-29.6-10.667-38.8-7.2-9.333-18-14.133-31.733-14.133-28.134 0-45.6 20.8-45.6 54.133 0 18.667 4.666 32.667 13.866 41.6 8.267 8 20.134 12 35.467 12 14.133 0 27.2-3.333 35.467-8.8l-3.6-22.666c-8.134 4.4-17.6 6.8-28.267 6.8-6.4 0-10.8-1.334-14-4.134-3.467-2.933-5.467-7.733-6.133-14.533h54.8c.133-1.6.4-9.067.4-11.467zM396.216 88c.933-14.8 4.933-21.733 12.533-21.733 7.467 0 11.334 7.067 11.867 21.733h-24.4z"
+                  fill="#ffff"
+                  mask="url(#b)"
+                />
+              </g>
+            </svg>
+            pay with card
           </button>
         </div>
       </div>

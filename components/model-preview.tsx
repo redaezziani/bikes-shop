@@ -8,7 +8,7 @@ interface ModelPreviewProps {
 
 const ModelPreview = ({ image, name, id }: ModelPreviewProps) => {
   return (
-    <div className="flex w-full overflow-hidden px-4">
+    <div className="flex w-full sticky top-0 bg-white z-40 overflow-hidden px-4">
       <AnimatePresence mode="wait" initial={false}>
         <motion.img
           key={id}
@@ -17,7 +17,7 @@ const ModelPreview = ({ image, name, id }: ModelPreviewProps) => {
           exit={{ opacity: 0, y: -100 }}
           transition={{ duration: 0.3 }}
           src={image}
-          className="w-full max-w-md object-contain"
+          className="w-full  max-w-md object-contain"
           alt={name}
         />
       </AnimatePresence>

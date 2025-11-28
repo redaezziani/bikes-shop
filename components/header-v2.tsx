@@ -66,7 +66,7 @@ const HeaderDetailsPage = () => {
 
   return (
     <>
-      <header className="w-full border border-b border-neutral-400/25 absolute px-4 py-3 flex justify-between items-center gap-4 z-50">
+      <header className="w-full border border-b border-neutral-400/25 px-4 py-3 flex justify-between items-center gap-4 z-50">
         <svg
           className="w-24 text-neutral-950  fill-neutral-950"
           id="Layer_1"
