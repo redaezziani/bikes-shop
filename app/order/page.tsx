@@ -1,36 +1,49 @@
 'use client';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AccessorySelector from '@/components/accessory-selector';
 import HeaderDetailsPage from '@/components/header-v2';
 import ModelSelector from '@/components/select-model';
 import Link from 'next/link';
-import { useProductsStore } from '@/store/products';
+import { useProducts, useProductSelection } from '@/store/products';
 import OrderSummaryPanel from '@/components/order-summary-panel';
 import ModelPreview from '@/components/model-preview';
+import { useSearchParams } from 'next/navigation';
 
 const Page = () => {
-  // -------------------------------------------------------------------
-  // ✅ FIX: Use individual selectors to avoid creating a new object
-  //        reference and triggering the Next.js hydration error.
-  // -------------------------------------------------------------------
+  const { data, isLoading } = useProducts({ pageSize: 10 });
+  const searchParams = useSearchParams();
+  const documentIdFromUrl = searchParams.get('documentId');
 
-  // State selectors (return stable primitive/object references)
-  const currentProduct = useProductsStore((state) => state.selectedProduct);
-  const selectedColor = useProductsStore((state) => state.selectedColor);
-  const isLoading = useProductsStore((state) => state.isLoading);
+  const [currentProduct, setCurrentProduct] = useState<any>(null);
+  const products = data?.data || [];
 
-  // Use colors directly from currentProduct (already selected above)
-  const availableColors = currentProduct?.colors || [];
-
-  // Action selectors (return stable function references)
-  const setColor = useProductsStore((state) => state.setColor);
-  const fetchProducts = useProductsStore((state) => state.fetchProducts);
-
-  // -------------------------------------------------------------------
-
+  // Auto-select product from URL or first product
   useEffect(() => {
-    fetchProducts({ pageSize: 10 });
-  }, [fetchProducts]);
+    if (products.length === 0) return;
+
+    if (documentIdFromUrl) {
+      const found = products.find((p) => p.documentId === documentIdFromUrl);
+      if (found) {
+        setCurrentProduct(found);
+        return;
+      }
+    }
+
+    // Fallback to first product if no documentId in URL
+    setCurrentProduct(products[0] || null);
+  }, [documentIdFromUrl, products]);
+
+  const {
+    selectedColor,
+    setSelectedColor,
+    selectedAccessories,
+    toggleAccessory,
+    getSelectedAccessoriesDetails,
+    getSelectedColorHex,
+    getTotalPrice,
+  } = useProductSelection(currentProduct);
+
+  const availableColors = currentProduct?.colors || [];
 
   if (isLoading) {
     return (
@@ -90,7 +103,7 @@ const Page = () => {
 
             <span className="w-full bg-neutral-400/35 h-px" />
 
-            <ModelSelector />
+            <ModelSelector products={products} />
 
             <div className="flex gap-1 flex-col justify-center items-center">
               <h2 className="text-xl font-semibold text-neutral-900">Colors</h2>
@@ -100,10 +113,10 @@ const Page = () => {
               {availableColors.length > 0 && (
                 <div className="mt-4 flex justify-start flex-col gap-2">
                   <div className="flex w-full justify-start gap-3 flex-wrap">
-                    {availableColors.map((color) => (
+                    {availableColors.map((color: any) => (
                       <label
                         key={color.id}
-                        className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8 bg-white transition 
+                        className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8 bg-white transition
                           ${
                             selectedColor === color.name
                               ? 'border-neutral-900'
@@ -115,7 +128,7 @@ const Page = () => {
                           name="product-color"
                           aria-label={`Choose color ${color.name}`}
                           checked={selectedColor === color.name}
-                          onChange={() => setColor(color.name)}
+                          onChange={() => setSelectedColor(color.name)}
                           className="hidden"
                         />
                         <span
@@ -133,12 +146,16 @@ const Page = () => {
               <h2 className="text-xl pb-5 font-semibold text-neutral-900">
                 Accessories
               </h2>
-              <AccessorySelector />
+              <AccessorySelector product={currentProduct} />
             </div>
           </div>
         </div>
       </section>
-      <OrderSummaryPanel />
+      <OrderSummaryPanel
+        currentProduct={currentProduct}
+        selectedColorName={selectedColor}
+        selectedAccessoryIds={selectedAccessories}
+      />
     </main>
   );
 };

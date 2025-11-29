@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   IconX,
   IconChevronRight,
@@ -8,18 +8,15 @@ import {
   IconUser,
   IconMenu,
 } from '@tabler/icons-react';
-import { useProductsStore } from '@/store/products';
+import { useProducts } from '@/store/products';
 import Link from 'next/link';
 
 const HeaderDetailsPage = () => {
   const [open, setOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<number | null>(null);
 
-  const { products, fetchProducts } = useProductsStore();
-
-  // useEffect(() => {
-  //   fetchProducts({ pageSize: 10 });
-  // }, [fetchProducts]);
+  const { data } = useProducts({ pageSize: 10 });
+  const products = data?.data || [];
   const menuItems = [
     {
       label: 'Models',

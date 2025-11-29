@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Onest } from 'next/font/google';
 import './globals.css';
+import { QueryProvider } from '@/providers/QueryProvider';
 
 // const onest = Onest({
 //   subsets: ['latin'],
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` antialiased`}>{children}</body>
+      <body className={` antialiased`}>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }

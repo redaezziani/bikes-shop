@@ -5,35 +5,27 @@ import Footer from '@/components/footer';
 import HeaderDetailsPage from '@/components/header-v2';
 import ProductImagePreview from '@/components/product-image-priview';
 import ProductInfo from '@/components/product-info';
-import { Accessory, useProductsStore } from '@/store/products';
+import { Accessory, useProductBySlug, useProductSelection } from '@/store/products';
 import { IconShoppingCart } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const ProductDetailsPage = () => {
   const params = useParams();
   const slug = params?.slug;
+  const productSlug = Array.isArray(slug) ? slug[0] : slug;
+
+  const { data: selectedProduct, isLoading, error } = useProductBySlug(
+    productSlug as string,
+  );
+
   const {
-    selectedProduct,
-    fetchProductBySlug,
+    selectedColor,
     selectedAccessories,
-    setSelectedProduct,
-    isLoading,
-    error,
-  } = useProductsStore();
-
-  useEffect(() => {
-    // FIX: Check if slug is an array and take the first element, or use the string slug.
-    const productSlug = Array.isArray(slug) ? slug[0] : slug;
-
-    if (productSlug) {
-      fetchProductBySlug(productSlug);
-    }
-    return () => {
-      setSelectedProduct(null);
-    };
-  }, [slug, fetchProductBySlug, setSelectedProduct]);
+    setSelectedColor,
+    toggleAccessory,
+  } = useProductSelection(selectedProduct || null);
 
   const [activeAccessory, setActiveAccessory] = useState<Accessory | null>(
     null,
@@ -68,7 +60,7 @@ const ProductDetailsPage = () => {
           <h2 className="text-2xl font-bold text-red-600">
             Error Loading Product
           </h2>
-          <p className="text-neutral-600">{error}</p>
+          <p className="text-neutral-600">Product not found</p>
         </section>
         <Footer />
       </main>

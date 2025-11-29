@@ -1,20 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useProductsStore } from '@/store/products';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-const ModelSelector = () => {
+const ModelSelector = ({ products }: { products: any[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   const documentIdFromUrl = searchParams.get('documentId');
-
-  const products = useProductsStore((state) => state.products);
-  const selectedProduct = useProductsStore((state) => state.selectedProduct);
-  const setSelectedProduct = useProductsStore(
-    (state) => state.setSelectedProduct,
-  );
 
   // 🔥 Auto-select product when URL contains ?documentId=xxx
   useEffect(() => {
@@ -25,7 +19,7 @@ const ModelSelector = () => {
     if (found && found.id !== selectedProduct?.id) {
       setSelectedProduct(found);
     }
-  }, [documentIdFromUrl, products, selectedProduct, setSelectedProduct]);
+  }, [documentIdFromUrl, products, selectedProduct]);
 
   const handleSelect = (item: any) => {
     setSelectedProduct(item);

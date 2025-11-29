@@ -9,18 +9,18 @@ import {
   IconX,
   IconShoppingBag,
 } from '@tabler/icons-react';
-import { useProductsStore } from '@/store/products';
 import { useOrderStore } from '@/store/order';
 
-const OrderSummaryPanel = () => {
+const OrderSummaryPanel = ({
+  currentProduct,
+  selectedColorName,
+  selectedAccessoryIds,
+}: {
+  currentProduct: any;
+  selectedColorName: string;
+  selectedAccessoryIds: number[];
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  // ✅ Use stable selectors - get primitive values and objects from store
-  const currentProduct = useProductsStore((state) => state.selectedProduct);
-  const selectedColorName = useProductsStore((state) => state.selectedColor);
-  const selectedAccessoryIds = useProductsStore(
-    (state) => state.selectedAccessories,
-  );
 
   // ✅ Compute derived values using useMemo OUTSIDE of Zustand selectors
   const selectedAccessoriesDetails = useMemo(() => {

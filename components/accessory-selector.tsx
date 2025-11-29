@@ -1,25 +1,25 @@
 'use client';
-import React from 'react';
-import { useProductsStore } from '@/store/products';
+import React, { useState, useCallback } from 'react';
+import { useOrderStore } from '@/store/order';
 
-const AccessorySelector = () => {
-  // -------------------------------------------------------------------
-  // ✅ Improvement: Use individual selectors here too.
-  // -------------------------------------------------------------------
-  const availableAccessories = useProductsStore(
-    (state) => state.selectedProduct?.available_accessories || [],
-  );
-  const selectedAccessories = useProductsStore(
-    (state) => state.selectedAccessories,
-  );
-  const toggleAccessory = useProductsStore((state) => state.toggleAccessory);
-  // -------------------------------------------------------------------
+const AccessorySelector = ({ product }: { product: any }) => {
+  const [selectedAccessories, setSelectedAccessories] = useState<number[]>([]);
+
+  const toggleAccessory = useCallback((accessoryId: number) => {
+    setSelectedAccessories((prev) =>
+      prev.includes(accessoryId)
+        ? prev.filter((id) => id !== accessoryId)
+        : [...prev, accessoryId],
+    );
+  }, []);
+
+  const availableAccessories = product?.available_accessories || [];
 
   console.log(availableAccessories);
 
   return (
     <section className="px-4 grid w-full grid-cols-1 md:grid-cols-3 gap-4">
-      {availableAccessories.map((item) => {
+      {availableAccessories.map((item: any) => {
         const isActive = selectedAccessories.includes(item.id);
 
         return (
