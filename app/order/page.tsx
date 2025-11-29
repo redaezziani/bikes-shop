@@ -146,7 +146,11 @@ const Page = () => {
               <h2 className="text-xl pb-5 font-semibold text-neutral-900">
                 Accessories
               </h2>
-              <AccessorySelector product={currentProduct} />
+              <AccessorySelector
+                product={currentProduct}
+                selectedAccessories={selectedAccessories}
+                toggleAccessory={toggleAccessory}
+              />
             </div>
           </div>
         </div>

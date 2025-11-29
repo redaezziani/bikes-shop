@@ -1,17 +1,14 @@
 'use client';
-import React, { useState, useCallback } from 'react';
-import { useOrderStore } from '@/store/order';
 
-const AccessorySelector = ({ product }: { product: any }) => {
-  const [selectedAccessories, setSelectedAccessories] = useState<number[]>([]);
-
-  const toggleAccessory = useCallback((accessoryId: number) => {
-    setSelectedAccessories((prev) =>
-      prev.includes(accessoryId)
-        ? prev.filter((id) => id !== accessoryId)
-        : [...prev, accessoryId],
-    );
-  }, []);
+const AccessorySelector = ({
+  product,
+  selectedAccessories,
+  toggleAccessory,
+}: {
+  product: any;
+  selectedAccessories: number[];
+  toggleAccessory: (accessoryId: number) => void;
+}) => {
 
   const availableAccessories = product?.available_accessories || [];
 

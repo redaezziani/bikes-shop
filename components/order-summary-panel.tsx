@@ -10,6 +10,7 @@ import {
   IconShoppingBag,
 } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
+import type { Accessory } from '@/types/products';
 
 const OrderSummaryPanel = ({
   currentProduct,
@@ -26,17 +27,17 @@ const OrderSummaryPanel = ({
   const selectedAccessoriesDetails = useMemo(() => {
     if (!currentProduct) return [];
     const allAvailableAccs = new Map(
-      currentProduct.available_accessories.map((acc) => [acc.id, acc]),
+      currentProduct.available_accessories.map((acc: Accessory) => [acc.id, acc]),
     );
     return selectedAccessoryIds
       .map((accId: number) => allAvailableAccs.get(accId))
-      .filter((acc): acc is any => acc !== undefined);
+      .filter((acc): acc is Accessory => acc !== undefined);
   }, [currentProduct, selectedAccessoryIds]);
 
   const selectedColorHex = useMemo(() => {
     if (!currentProduct) return null;
     const color = currentProduct.colors.find(
-      (c) => c.name === selectedColorName,
+      (c: any) => c.name === selectedColorName,
     );
     return color ? color.hex : null;
   }, [currentProduct, selectedColorName]);
@@ -68,7 +69,7 @@ const OrderSummaryPanel = ({
 
   const handleAddToCart = () => {
     const selectedColor = currentProduct.colors.find(
-      (c) => c.name === selectedColorName,
+      (c: any) => c.name === selectedColorName,
     );
 
     if (selectedColor) {
