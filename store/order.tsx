@@ -1,16 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Product, Color, Accessory } from './products';
+import type { OrderItem, Order } from '@/types/order';
 
-export interface OrderItem {
-  product: Product;
-  quantity: number;
-  selectedColor: Color;
-  selectedAccessories: Accessory[];
-}
+export type { OrderItem } from '@/types/order';
 
 interface OrderState {
   items: OrderItem[];
+  customerInfo: {
+    name: string;
+    email: string;
+  };
 
   // Actions
   addItem: (
@@ -23,18 +23,24 @@ interface OrderState {
   updateQuantity: (productId: number, quantity: number) => void;
   updateColor: (productId: number, color: Color) => void;
   updateAccessories: (productId: number, accessories: Accessory[]) => void;
+  setCustomerInfo: (name: string, email: string) => void;
   clearOrder: () => void;
 
   // Computed values
   getTotalItems: () => number;
   getTotalPrice: () => number;
   getItem: (productId: number) => OrderItem | undefined;
+  getOrderData: () => Order;
 }
 
 export const useOrderStore = create<OrderState>()(
   persist(
     (set, get) => ({
       items: [],
+      customerInfo: {
+        name: '',
+        email: '',
+      },
 
       addItem: (product, color, accessories, quantity = 1) => {
         set((state) => {
@@ -126,10 +132,26 @@ export const useOrderStore = create<OrderState>()(
       getItem: (productId) => {
         return get().items.find((item) => item.product.id === productId);
       },
+
+      setCustomerInfo: (name, email) => {
+        set({ customerInfo: { name, email } });
+      },
+
+      getOrderData: () => {
+        const state = get();
+        return {
+          customer_name: state.customerInfo.name,
+          customer_email: state.customerInfo.email,
+          total_amount: state.getTotalPrice(),
+          currency: 'usd',
+          status: 'pending' as const,
+          items: state.items,
+        };
+      },
     }),
     {
       name: 'order-storage',
-      partialize: (state) => ({ items: state.items }),
+      partialize: (state) => ({ items: state.items, customerInfo: state.customerInfo }),
     },
   ),
 );
