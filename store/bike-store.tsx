@@ -122,8 +122,7 @@ const models: BikeModel[] = [
     description:
       'Lightweight frame with smooth handling, perfect for city commutes.',
     price: 900,
-    image:
-      'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_5.png?v=1692045692&width=720',
+    image: '/images/product-n1.png',
     specs: {
       speed: '35 km/h',
       range: '50–60 km',
@@ -149,8 +148,7 @@ const models: BikeModel[] = [
     description:
       'Powerful motor and extended battery life for longer journeys.',
     price: 1200,
-    image:
-      'https://murfelectricbikes.com/cdn/shop/files/081223_FRONTBASKET_2.png?v=1692045693&width=720',
+    image: '/images/product-n2.png',
     specs: {
       speed: '40 km/h',
       range: '70–90 km',

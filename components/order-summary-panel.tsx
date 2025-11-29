@@ -114,7 +114,7 @@ const OrderSummaryPanel = () => {
           </div>
           <div className="flex justify-between items-center py-2 border-b border-dashed border-neutral-400/45">
             <span className="font-medium text-sm">{currentModel.title}</span>
-            <span className="font-bold text-lg">${currentModel.price}</span>
+            <span className=" font-medium text-lg">${currentModel.price}</span>
           </div>
           <div className="flex items-center gap-4 py-2">
             <IconPalette size={18} className="text-neutral-600" />
@@ -146,7 +146,7 @@ const OrderSummaryPanel = () => {
                   <span className="font-medium text-neutral-800 text-xs">
                     {acc.title}
                   </span>
-                  <span className="font-semibold text-xs text-neutral-600">
+                  <span className=" font-medium text-xs text-neutral-600">
                     ${acc.price}
                   </span>
                 </li>
@@ -162,13 +162,14 @@ const OrderSummaryPanel = () => {
         <div className="pt-6 border-t border-neutral-400/45">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-bold text-neutral-800">Order Total</h3>
-            <span className="text-xl font-extrabold text-neutral-600">
+            <span className="text-xl font-semibold text-neutral-600">
               ${totalPrice}
             </span>
           </div>
-          <button className="mt-6 w-full capitalize py-1.5 flex justify-center items-center gap-2  bg-[#6760ff]  text-white font-semibold rounded-lg hover:bg-[#6760ff] transition">
+          <button className="mt-6 w-full capitalize py-1 flex justify-center items-center gap-2  bg-[#6760ff]  text-white font-semibold rounded-lg hover:bg-[#6760ff] transition">
+            <p className=" text-sm">pay with</p>
             <svg
-              className=" size-9 "
+              className=" size-9 mt-1 "
               width="2500"
               height="1040"
               viewBox="0 0 452 188"
@@ -190,7 +191,6 @@ const OrderSummaryPanel = () => {
                 />
               </g>
             </svg>
-            pay with card
           </button>
         </div>
       </div>
