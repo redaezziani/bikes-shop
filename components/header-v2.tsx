@@ -17,9 +17,9 @@ const HeaderDetailsPage = () => {
 
   const { products, fetchProducts } = useProductsStore();
 
-  useEffect(() => {
-    fetchProducts({ pageSize: 10 });
-  }, [fetchProducts]);
+  // useEffect(() => {
+  //   fetchProducts({ pageSize: 10 });
+  // }, [fetchProducts]);
   const menuItems = [
     {
       label: 'Models',
