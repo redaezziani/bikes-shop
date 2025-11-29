@@ -1,79 +1,91 @@
-// app/order/page.tsx
 'use client';
+import { useEffect } from 'react';
 import AccessorySelector from '@/components/accessory-selector';
 import HeaderDetailsPage from '@/components/header-v2';
 import ModelSelector from '@/components/select-model';
 import Link from 'next/link';
-import {
-  useBikeStore,
-  getCurrentModel,
-  getAvailableColors,
-} from '@/store/bike-store';
+import { useProductsStore } from '@/store/products';
 import OrderSummaryPanel from '@/components/order-summary-panel';
 import ModelPreview from '@/components/model-preview';
 
 const Page = () => {
-  const currentModel = useBikeStore(getCurrentModel);
-  const availableColors = useBikeStore(getAvailableColors);
-  const selectedColor = useBikeStore((state) => state.selectedColor);
-  const setColor = useBikeStore((state) => state.setColor);
-  // TotalPrice is now only used in the panel, so we can remove the direct hook call here.
+  // -------------------------------------------------------------------
+  // ✅ FIX: Use individual selectors to avoid creating a new object
+  //        reference and triggering the Next.js hydration error.
+  // -------------------------------------------------------------------
 
-  if (!currentModel) return null;
+  // State selectors (return stable primitive/object references)
+  const currentProduct = useProductsStore((state) => state.selectedProduct);
+  const selectedColor = useProductsStore((state) => state.selectedColor);
+  const isLoading = useProductsStore((state) => state.isLoading);
+
+  // Use colors directly from currentProduct (already selected above)
+  const availableColors = currentProduct?.colors || [];
+
+  // Action selectors (return stable function references)
+  const setColor = useProductsStore((state) => state.setColor);
+  const fetchProducts = useProductsStore((state) => state.fetchProducts);
+
+  // -------------------------------------------------------------------
+
+  useEffect(() => {
+    fetchProducts({ pageSize: 10 });
+  }, [fetchProducts]);
+
+  if (isLoading) {
+    return (
+      <main className="flex flex-col min-h-screen gap-4 justify-center items-center">
+        <div className="text-lg">Loading products...</div>
+      </main>
+    );
+  }
+
+  console.log(currentProduct);
+
+  if (!currentProduct) return null;
 
   return (
     <main className="flex flex-col min-h-screen gap-4 justify-start items-center relative pb-32 md:pb-40">
-      {' '}
-      {/* Add padding for the fixed panel */}
       <HeaderDetailsPage />
-      <section className="w-full max-w-7xl flex  flex-col gap-2 justify-start items-center">
+      <section className="w-full max-w-7xl flex flex-col gap-2 justify-start items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 pb-10">
           <div className="flex flex-col justify-center items-center gap-6">
             <ModelPreview
-              name={currentModel.name}
-              image={currentModel.image}
-              id={currentModel.id}
+              name={currentProduct.name}
+              image={currentProduct.cover_image.url}
+              id={currentProduct.documentId}
             />
 
             <div className="flex px-4 flex-col gap-1 justify-center items-center text-center">
               <h2 className="text-xl font-semibold text-neutral-900">
-                {currentModel.title}
+                {currentProduct.name}
               </h2>
               <p className="text-neutral-600 capitalize text-sm">
-                {currentModel.description}{' '}
-                <Link className="underline underline-offset-4" href="/">
+                {currentProduct.short_description}{' '}
+                <Link
+                  className="underline underline-offset-4"
+                  href={`/models/${currentProduct.slug}`}
+                >
                   more info
                 </Link>
               </p>
             </div>
 
             <div className="px-4 flex gap-5 justify-between w-full">
-              <span className="flex flex-col text-center gap-1">
-                <h4 className="text-neutral-800 font-semibold text-sm">
-                  Speed
-                </h4>
-                <p className="text-neutral-600 capitalize font-medium text-sm">
-                  {currentModel.specs.speed}
-                </p>
-              </span>
-
-              <span className="flex flex-col text-center gap-1">
-                <h4 className="text-neutral-800 font-semibold text-sm">
-                  Range
-                </h4>
-                <p className="text-neutral-600 capitalize font-medium text-sm">
-                  {currentModel.specs.range}
-                </p>
-              </span>
-
-              <span className="flex flex-col text-center gap-1">
-                <h4 className="text-neutral-800 font-semibold text-sm">
-                  Battery
-                </h4>
-                <p className="text-neutral-600 capitalize font-medium text-sm">
-                  {currentModel.specs.battery}
-                </p>
-              </span>
+              {['speed', 'range', 'battery'].map((spec) => (
+                <span key={spec} className="flex flex-col text-center gap-1">
+                  <h4 className="text-neutral-800 font-semibold text-sm">
+                    {spec.charAt(0).toUpperCase() + spec.slice(1)}
+                  </h4>
+                  <p className="text-neutral-600 capitalize font-medium text-sm">
+                    {
+                      currentProduct.specs[
+                        spec as keyof typeof currentProduct.specs
+                      ]
+                    }
+                  </p>
+                </span>
+              ))}
             </div>
 
             <span className="w-full bg-neutral-400/35 h-px" />
@@ -90,7 +102,7 @@ const Page = () => {
                   <div className="flex w-full justify-start gap-3 flex-wrap">
                     {availableColors.map((color) => (
                       <label
-                        key={color.name}
+                        key={color.id}
                         className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8 bg-white transition 
                           ${
                             selectedColor === color.name

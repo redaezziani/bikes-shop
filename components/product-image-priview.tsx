@@ -16,6 +16,7 @@ export default function ProductImagePreview({
 }: ProductImagePreviewProps) {
   const [current, setCurrent] = useState(0);
 
+  console.log('the images:', images);
   const prevImage = () => {
     setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
@@ -50,12 +51,12 @@ export default function ProductImagePreview({
         </div>
         <AnimatePresence mode="wait" initial={false}>
           <motion.img
-            key={current} // This is critical!
+            key={current}
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.3 }}
-            src={images[current]}
+            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${images[current]}`}
             alt={alt}
             className="object-cover w-full h-full"
             sizes="100%"
@@ -64,21 +65,22 @@ export default function ProductImagePreview({
       </span>
 
       <div className="grid grid-cols-5 mt-4 w-full gap-2">
-        {images.slice(0, 5).map((img, i) => (
+        {images.map((img, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Select image ${i + 1}`}
-            className={`relative rounded bg-neutral-100 aspect-square overflow-hidden border-2 ${
+            className={`relative w-full aspect-square rounded bg-neutral-100 overflow-hidden border-2 ${
               current === i ? 'border-neutral-800' : 'border-transparent'
             }`}
           >
-            <Image
-              src={img}
+            <img
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${img}`}
               alt={`Thumbnail ${i + 1}`}
-              fill
-              className="object-cover"
+              width={100}
+              height={100}
               sizes="100%"
+              className="object-cover w-full h-full"
             />
           </button>
         ))}

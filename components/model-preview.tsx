@@ -7,6 +7,7 @@ interface ModelPreviewProps {
 }
 
 const ModelPreview = ({ image, name, id }: ModelPreviewProps) => {
+  console.log(image);
   return (
     <div className="flex w-full sticky top-0 bg-white z-40 overflow-hidden px-4">
       <AnimatePresence mode="wait" initial={false}>
@@ -16,7 +17,7 @@ const ModelPreview = ({ image, name, id }: ModelPreviewProps) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
           transition={{ duration: 0.3 }}
-          src={image}
+          src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${image}`}
           className="w-full  max-w-md object-contain"
           alt={name}
         />

@@ -1,16 +1,21 @@
 'use client';
 import React from 'react';
-import { useBikeStore } from '@/store/bike-store';
+import { useProductsStore } from '@/store/products';
 
 const ModelSelector = () => {
-  const models = useBikeStore((state) => state.models);
-  const selectedModelId = useBikeStore((state) => state.selectedModelId);
-  const setModel = useBikeStore((state) => state.setModel);
+  const products = useProductsStore((state) => state.products);
+
+  console.log(products);
+  const selectedProduct = useProductsStore((state) => state.selectedProduct);
+  const setSelectedProduct = useProductsStore(
+    (state) => state.setSelectedProduct,
+  );
 
   return (
     <section className="px-4 grid w-full grid-cols-1 md:grid-cols-3 gap-4">
-      {models.map((item) => {
-        const isActive = selectedModelId === item.id;
+      {products.map((item) => {
+        const isActive = selectedProduct?.id === item.id;
+
         return (
           <label
             key={item.id}
@@ -29,9 +34,10 @@ const ModelSelector = () => {
               name="model"
               value={item.id}
               checked={isActive}
-              onChange={() => setModel(item.id)}
+              onChange={() => setSelectedProduct(item)}
               className="absolute inset-0 z-0 opacity-0 cursor-pointer"
             />
+
             <div className="flex flex-col gap-1 text-start">
               <h5
                 className={`${
@@ -40,8 +46,11 @@ const ModelSelector = () => {
               >
                 {item.name}
               </h5>
-              <p className="text-neutral-600 text-xs">{item.description}</p>
+              <p className="text-neutral-600 text-xs">
+                {item.short_description}
+              </p>
             </div>
+
             <div className="text-end">
               <strong
                 className={`${

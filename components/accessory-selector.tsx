@@ -1,20 +1,27 @@
 'use client';
 import React from 'react';
-import { useBikeStore, getAvailableAccessories } from '@/store/bike-store';
+import { useProductsStore } from '@/store/products';
 
 const AccessorySelector = () => {
-  const availableAccessories = useBikeStore(getAvailableAccessories);
-
-  const selectedAccessories = useBikeStore(
+  // -------------------------------------------------------------------
+  // ✅ Improvement: Use individual selectors here too.
+  // -------------------------------------------------------------------
+  const availableAccessories = useProductsStore(
+    (state) => state.selectedProduct?.available_accessories || [],
+  );
+  const selectedAccessories = useProductsStore(
     (state) => state.selectedAccessories,
   );
+  const toggleAccessory = useProductsStore((state) => state.toggleAccessory);
+  // -------------------------------------------------------------------
 
-  const toggleAccessory = useBikeStore((state) => state.toggleAccessory);
+  console.log(availableAccessories);
 
   return (
     <section className="px-4 grid w-full grid-cols-1 md:grid-cols-3 gap-4">
       {availableAccessories.map((item) => {
         const isActive = selectedAccessories.includes(item.id);
+
         return (
           <label
             key={item.id}
@@ -27,8 +34,6 @@ const AccessorySelector = () => {
                   : 'border-neutral-300 hover:border-neutral-500'
               }
             `}
-            // REMOVED: onClick handler is removed here.
-            // The state change will now be handled only by the input's onChange.
           >
             <span
               className={`
@@ -55,7 +60,6 @@ const AccessorySelector = () => {
               )}
             </span>
 
-            {/* This onChange handler is the only one needed now. */}
             <input
               type="checkbox"
               checked={isActive}
@@ -64,8 +68,10 @@ const AccessorySelector = () => {
             />
 
             <img
-              src={item.image}
-              alt={item.title}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${
+                item.image?.url || '/placeholder.png'
+              }`}
+              alt={item.title || item.title || 'Accessory'}
               className="w-1/2 h-16 object-contain rounded"
             />
 
@@ -86,7 +92,7 @@ const AccessorySelector = () => {
                   isActive ? 'text-neutral-900' : 'text-neutral-600'
                 }`}
               >
-                ${item.price}
+                {item.price === 0 ? 'Free' : `$ ${item.price}`}
               </strong>
             </div>
           </label>
