@@ -190,9 +190,9 @@ const OrderSummaryPanel = () => {
           </div>
           <button
             onClick={handleAddToCart}
-            className="mt-6 w-full capitalize py-1 flex justify-center items-center gap-2  bg-[#6760ff]  text-white font-semibold rounded-lg hover:bg-[#5650dd] transition"
+            className="mt-6 w-full capitalize py-2.5 flex justify-center items-center gap-2  bg-[#6760ff]  text-white font-semibold rounded-lg hover:bg-[#5650dd] transition"
           >
-            <p className=" text-sm">Add to Cart</p>
+            <p className=" text-sm">Pay With Strip</p>
           </button>
         </div>
       </div>

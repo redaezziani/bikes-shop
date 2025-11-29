@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   IconX,
   IconChevronRight,
@@ -8,51 +8,31 @@ import {
   IconUser,
   IconMenu,
 } from '@tabler/icons-react';
-
-interface SubItem {
-  name: string;
-  description: string;
-  icon?: string;
-}
-
-interface MenuItem {
-  label: string;
-  hasSubmenu: boolean;
-  subItems?: SubItem[];
-}
+import { useProductsStore } from '@/store/products';
+import Link from 'next/link';
 
 const HeaderDetailsPage = () => {
   const [open, setOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<number | null>(null);
 
-  const menuItems: MenuItem[] = [
+  const { products, fetchProducts } = useProductsStore();
+
+  useEffect(() => {
+    fetchProducts({ pageSize: 10 });
+  }, [fetchProducts]);
+  const menuItems = [
     {
       label: 'Models',
       hasSubmenu: true,
-      subItems: [
-        { name: 'The Click', description: 'Explore and Learn', icon: '🚲' },
-        { name: 'The Nest', description: 'Explore and Learn', icon: '🚲' },
-        { name: 'The Long', description: 'Explore and Learn', icon: '🚲' },
-      ],
+      dynamicProducts: true,
     },
     {
       label: 'Learn',
       hasSubmenu: true,
       subItems: [
-        {
-          name: 'Along Care',
-          description:
-            'Learn about our free home service, 3-year warranty, and network of certified service partners.',
-        },
-        {
-          name: 'Guides & Stories',
-          description:
-            'Explore tips, safety advice, and stories from along riders.',
-        },
-        {
-          name: 'Support',
-          description: 'Find answers to your questions or contact us.',
-        },
+        { name: 'Along Care', description: 'Free home service and warranty' },
+        { name: 'Guides & Stories', description: 'Safety tips and stories' },
+        { name: 'Support', description: 'Find answers and contact us' },
         { name: 'About along', description: 'Learn about us here.' },
       ],
     },
@@ -135,32 +115,48 @@ const HeaderDetailsPage = () => {
                     )}
                   </button>
 
-                  {item.hasSubmenu &&
-                    expandedMenu === index &&
-                    item.subItems && (
-                      <div className="py-4 space-y-4">
-                        {item.subItems.map((subItem, subIndex) => (
-                          <div
-                            key={subIndex}
+                  {item.hasSubmenu && expandedMenu === index && (
+                    <div className="py-4 space-y-4">
+                      {item.dynamicProducts &&
+                        products.map((p) => (
+                          <Link
+                            href={`/models/${p.slug}`}
+                            key={p.id}
                             className="flex gap-4 items-start"
                           >
-                            {subItem.icon && (
-                              <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl flex-shrink-0">
-                                {subItem.icon}
-                              </div>
-                            )}
+                            <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0 bg-gray-100">
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                                alt={p.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
                             <div className="flex-1">
                               <h3 className="font-medium text-neutral-800">
-                                {subItem.name}
+                                {p.name}
                               </h3>
                               <p className="text-sm text-neutral-500 mt-1">
-                                {subItem.description}
+                                Explore and Learn
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
+
+                      {!item.dynamicProducts &&
+                        item.subItems?.map((sub, i) => (
+                          <div key={i} className="flex gap-4 items-start">
+                            <div className="flex-1">
+                              <h3 className="font-medium text-neutral-800">
+                                {sub.name}
+                              </h3>
+                              <p className="text-sm text-neutral-500 mt-1">
+                                {sub.description}
                               </p>
                             </div>
                           </div>
                         ))}
-                      </div>
-                    )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
