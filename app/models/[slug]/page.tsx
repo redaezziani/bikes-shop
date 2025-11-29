@@ -100,6 +100,7 @@ const ProductDetailsPage = () => {
             priceAED={totalPrice}
             priceUSD={totalPrice * 0.27}
             colors={selectedProduct.colors}
+            documentId={selectedProduct.documentId}
           />
         </div>
 

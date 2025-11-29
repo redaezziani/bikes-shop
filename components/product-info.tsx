@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { IconShoppingCart } from '@tabler/icons-react';
+import { IconShoppingBag, IconShoppingCart } from '@tabler/icons-react';
+import Link from 'next/link';
 
 interface ProductInfoProps {
   title: string;
@@ -9,6 +10,7 @@ interface ProductInfoProps {
   priceAED: number;
   priceUSD: number;
   colors?: { name: string; hex: string }[];
+  documentId: string;
 }
 
 export default function ProductInfo({
@@ -17,6 +19,7 @@ export default function ProductInfo({
   priceAED,
   priceUSD,
   colors = [],
+  documentId,
 }: ProductInfoProps) {
   const [qty, setQty] = useState(1);
   const [selectedColor, setSelectedColor] = useState(colors[0]?.name || '');
@@ -31,42 +34,8 @@ export default function ProductInfo({
         <p className="text-neutral-500 text-sm">{description}</p>
       </div>
 
-      {colors.length > 0 && (
-        <div className="mt-4 flex w-full justify-start flex-col gap-2">
-          <p className="text-neutral-700 font-medium text-sm">Choose Color</p>
-
-          <div className="flex w-full justify-start gap-3 flex-wrap">
-            {colors.map((color) => (
-              <label
-                key={color.name}
-                className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8  bg-white  transition 
-                  ${
-                    selectedColor === color.name
-                      ? 'border-neutral-900'
-                      : 'border-neutral-300'
-                  }`}
-              >
-                <input
-                  type="radio"
-                  name="product-color"
-                  aria-label={`Choose color ${color.name}`}
-                  checked={selectedColor === color.name}
-                  onChange={() => setSelectedColor(color.name)}
-                  className="hidden"
-                />
-
-                <span
-                  className="size-full "
-                  style={{ backgroundColor: color.hex }}
-                ></span>
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="flex mt-5 gap-4 flex-wrap justify-start items-center w-full">
-        <div className="flex items-center gap-2 border border-neutral-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
+      <div className="flex mt-5 gap-4 flex-wrap  justify-start items-center w-full">
+        <div className=" hidden items-center gap-2 border border-neutral-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
           <button
             onClick={decrease}
             aria-label="Decrease quantity"
@@ -92,18 +61,51 @@ export default function ProductInfo({
             +
           </button>
         </div>
+        <div className="flex w-full justify-end items-end">
+          {colors.length > 0 && (
+            <div className=" flex w-full justify-start flex-col gap-2">
+              <div className="flex w-full justify-start gap-3 flex-wrap">
+                {colors.map((color) => (
+                  <label
+                    key={color.name}
+                    className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8  bg-white  transition 
+                  ${
+                    selectedColor === color.name
+                      ? 'border-neutral-900'
+                      : 'border-neutral-300'
+                  }`}
+                  >
+                    <input
+                      type="radio"
+                      name="product-color"
+                      aria-label={`Choose color ${color.name}`}
+                      checked={selectedColor === color.name}
+                      onChange={() => setSelectedColor(color.name)}
+                      className="hidden"
+                    />
 
-        <p className="text-neutral-800 font-semibold whitespace-nowrap">
-          {priceAED} AED / {priceUSD} $
-        </p>
-
-        <button
-          aria-label="Order product now"
-          className="bg-neutral-900 focus:ring cursor-pointer w-full border font-medium rounded-lg py-2 px-3 flex text-neutral-50 gap-1 justify-center items-center"
-        >
-          <p>order now</p>
-          <IconShoppingCart size={20} />
-        </button>
+                    <span
+                      className="size-full "
+                      style={{ backgroundColor: color.hex }}
+                    ></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+          <p className="text-neutral-800 font-semibold whitespace-nowrap">
+            {priceAED} AED / {priceUSD} $
+          </p>
+        </div>
+        <Link className=" w-full" href={`/order?documentId=${documentId}`}>
+          <button
+            aria-label="Order product now"
+            className="bg-neutral-900 mt-4 capitalize focus:ring cursor-pointer w-full border font-medium rounded-lg py-2 px-3 flex text-neutral-50 gap-1 justify-center items-center"
+          >
+            <IconShoppingBag size={20} />
+            <p>order now</p>
+          </button>
+        </Link>
       </div>
     </section>
   );

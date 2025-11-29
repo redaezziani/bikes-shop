@@ -1,15 +1,38 @@
 'use client';
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import { useProductsStore } from '@/store/products';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 const ModelSelector = () => {
-  const products = useProductsStore((state) => state.products);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  console.log(products);
+  const documentIdFromUrl = searchParams.get('documentId');
+
+  const products = useProductsStore((state) => state.products);
   const selectedProduct = useProductsStore((state) => state.selectedProduct);
   const setSelectedProduct = useProductsStore(
     (state) => state.setSelectedProduct,
   );
+
+  // 🔥 Auto-select product when URL contains ?documentId=xxx
+  useEffect(() => {
+    if (!documentIdFromUrl || products.length === 0) return;
+
+    const found = products.find((p) => p.documentId === documentIdFromUrl);
+
+    if (found && found.id !== selectedProduct?.id) {
+      setSelectedProduct(found);
+    }
+  }, [documentIdFromUrl, products, selectedProduct, setSelectedProduct]);
+
+  const handleSelect = (item: any) => {
+    setSelectedProduct(item);
+
+    // 🔥 Update URL with selected model documentId
+    router.push(`/order?documentId=${item.documentId}`, { scroll: false });
+  };
 
   return (
     <section className="px-4 grid w-full grid-cols-1 md:grid-cols-3 gap-4">
@@ -34,7 +57,7 @@ const ModelSelector = () => {
               name="model"
               value={item.id}
               checked={isActive}
-              onChange={() => setSelectedProduct(item)}
+              onChange={() => handleSelect(item)}
               className="absolute inset-0 z-0 opacity-0 cursor-pointer"
             />
 
