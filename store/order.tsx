@@ -11,7 +11,7 @@ interface OrderState {
   customerEmail: string;
   customerInfo: { name: string; email: string };
 
-  // Actions // test
+  
   addItem: (
     product: Product,
     color: Color,
