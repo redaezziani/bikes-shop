@@ -43,10 +43,9 @@ const ProductsSlider = () => {
             <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-neutral-300">
               {product.cover_image?.url && (
                 <>
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.cover_image.url}`}
                     alt={product.name}
-                    fill
                     className="object-cover"
                     sizes="(max-width: 768px) 85vw, 400px"
                   />
@@ -88,5 +87,6 @@ const ProductsSlider = () => {
     </section>
   );
 };
+// simple
 
 export default ProductsSlider;
