@@ -12,6 +12,7 @@ const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
   ssr: false,
 });
 
+
 export default function Home() {
   return (
     <main className=" flex flex-col    bg-white gap-4 justify-start items-center relative">
