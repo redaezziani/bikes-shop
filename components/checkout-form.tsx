@@ -5,34 +5,40 @@ import { motion } from 'framer-motion';
 import { IconMail, IconUser, IconShoppingCart } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
-import { orderService } from '@/lib/order-service';
 
 const CheckoutForm = () => {
-  const { customerInfo, setCustomerInfo, getTotalPrice, items } = useOrderStore();
+  const {
+    customerName,
+    customerEmail,
+    setCustomerInfo,
+    getTotalPrice,
+    items,
+    getCheckoutPayload,
+  } = useOrderStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomerInfo(e.target.value, customerInfo.email);
+    setCustomerInfo(e.target.value, customerEmail);
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomerInfo(customerInfo.name, e.target.value);
+    setCustomerInfo(customerName, e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!customerInfo.name.trim()) {
+    if (!customerName.trim()) {
       showToast.error('Name required', 'Please enter your name');
       return;
     }
 
-    if (!customerInfo.email.trim()) {
+    if (!customerEmail.trim()) {
       showToast.error('Email required', 'Please enter your email address');
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerInfo.email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
       showToast.error('Invalid email', 'Please enter a valid email address');
       return;
     }
@@ -45,25 +51,57 @@ const CheckoutForm = () => {
     setIsSubmitting(true);
 
     try {
-      const orderData = {
-        customer_name: customerInfo.name,
-        customer_email: customerInfo.email,
-        total_amount: getTotalPrice(),
-        currency: 'usd',
-        status: 'pending' as const,
-        items: items,
-      };
+      const checkoutPayload = getCheckoutPayload();
 
-      const result = await orderService.createOrder(orderData);
+      console.log('Checkout payload:', checkoutPayload);
+      console.log('Total items being sent:', checkoutPayload.items.length);
 
-      if (result.success) {
+      // Show breakdown of what's being sent
+      const bikes = checkoutPayload.items.filter(
+        (item) => item.item_type === 'bike',
+      );
+      const accessories = checkoutPayload.items.filter(
+        (item) => item.item_type === 'accessory',
+      );
+      console.log(
+        `Sending ${bikes.length} bike(s) and ${accessories.length} accessory/accessories`,
+      );
+
+      // Call your Stripe checkout endpoint
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/checkout`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(checkoutPayload),
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error || 'Checkout failed');
+      }
+
+      const result = await response.json();
+
+      console.log('Checkout response:', result);
+
+      if (result.url) {
         showToast.success('Order created!', 'Redirecting to payment...');
-        // TODO: Redirect to Stripe payment
+
+        // Redirect to Stripe checkout
+        window.location.href = result.url;
       } else {
-        showToast.error('Order failed', result.error);
+        showToast.error('Order failed', 'No payment URL received');
       }
     } catch (error) {
-      showToast.error('Error', 'Failed to create order');
+      console.error('Checkout error:', error);
+      showToast.error(
+        'Error',
+        error instanceof Error ? error.message : 'Failed to create order',
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -90,7 +128,7 @@ const CheckoutForm = () => {
             />
             <input
               type="text"
-              value={customerInfo.name}
+              value={customerName}
               onChange={handleNameChange}
               placeholder="John Doe"
               className="w-full pl-10 pr-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/10 transition"
@@ -111,7 +149,7 @@ const CheckoutForm = () => {
             />
             <input
               type="email"
-              value={customerInfo.email}
+              value={customerEmail}
               onChange={handleEmailChange}
               placeholder="john@example.com"
               className="w-full pl-10 pr-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/10 transition"
@@ -138,7 +176,9 @@ const CheckoutForm = () => {
             </div>
             <div className="pt-2 border-t border-neutral-300 flex justify-between text-base font-semibold text-neutral-900">
               <span>Total:</span>
-              <span className="text-[#6760ff]">${getTotalPrice().toFixed(2)}</span>
+              <span className="text-[#6760ff]">
+                ${getTotalPrice().toFixed(2)}
+              </span>
             </div>
           </div>
         </div>

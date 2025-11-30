@@ -5,18 +5,33 @@ import type { OrderItem } from '@/store/order';
 export const orderService = {
   // Format order items for Strapi
   formatOrderItems(items: OrderItem[]): OrderItemData[] {
-    return items.map((item) => ({
-      item_type: 'bike' as const,
-      product: item.product.id,
-      color_name: item.selectedColor.name,
-      color_hex: item.selectedColor.hex,
-      quantity: item.quantity,
-      unit_price: item.product.price,
-      subtotal:
-        (item.product.price +
-          item.selectedAccessories.reduce((sum, acc) => sum + acc.price, 0)) *
-        item.quantity,
-    }));
+    const formattedItems: OrderItemData[] = [];
+
+    items.forEach((item) => {
+      // Add bike item
+      formattedItems.push({
+        item_type: 'bike' as const,
+        product: item.product.id,
+        color_name: item.selectedColor.name,
+        color_hex: item.selectedColor.hex,
+        quantity: item.quantity,
+        unit_price: item.product.price,
+        subtotal: item.product.price * item.quantity,
+      });
+
+      // Add accessory items
+      item.selectedAccessories.forEach((accessory) => {
+        formattedItems.push({
+          item_type: 'accessory' as const,
+          accessory: accessory.id,
+          quantity: item.quantity,
+          unit_price: accessory.price,
+          subtotal: accessory.price * item.quantity,
+        });
+      });
+    });
+
+    return formattedItems;
   },
 
   // Create a new order in Strapi

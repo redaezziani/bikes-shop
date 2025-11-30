@@ -1,16 +1,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Product, Color, Accessory } from './products';
-import type { OrderItem, Order } from '@/types/order';
+import type { OrderItem } from '@/types/order';
 
 export type { OrderItem } from '@/types/order';
 
 interface OrderState {
   items: OrderItem[];
-  customerInfo: {
-    name: string;
-    email: string;
-  };
+  customerName: string;
+  customerEmail: string;
+  customerInfo: { name: string; email: string };
 
   // Actions
   addItem: (
@@ -26,52 +25,46 @@ interface OrderState {
   setCustomerInfo: (name: string, email: string) => void;
   clearOrder: () => void;
 
-  // Computed values
   getTotalItems: () => number;
   getTotalPrice: () => number;
-  getItem: (productId: number) => OrderItem | undefined;
-  getOrderData: () => Order;
+  getCheckoutPayload: () => {
+    customerName: string;
+    customerEmail: string;
+    items: any[];
+  };
 }
 
 export const useOrderStore = create<OrderState>()(
   persist(
     (set, get) => ({
       items: [],
-      customerInfo: {
-        name: '',
-        email: '',
-      },
+      customerName: '',
+      customerEmail: '',
+      customerInfo: { name: '', email: '' },
 
       addItem: (product, color, accessories, quantity = 1) => {
         set((state) => {
-          const existingItemIndex = state.items.findIndex(
+          const existingIndex = state.items.findIndex(
             (item) => item.product.id === product.id,
           );
 
-          if (existingItemIndex > -1) {
-            // Update existing item
-            const newItems = [...state.items];
-            newItems[existingItemIndex] = {
-              ...newItems[existingItemIndex],
-              quantity: newItems[existingItemIndex].quantity + quantity,
-              selectedColor: color,
-              selectedAccessories: accessories,
-            };
-            return { items: newItems };
-          } else {
-            // Add new item
-            return {
-              items: [
-                ...state.items,
-                {
-                  product,
-                  quantity,
-                  selectedColor: color,
-                  selectedAccessories: accessories,
-                },
-              ],
-            };
-          }
+          const newItem = {
+            product,
+            quantity,
+            selectedColor: color,
+            selectedAccessories: accessories,
+          };
+
+          return {
+            items:
+              existingIndex > -1
+                ? state.items.map((item, i) =>
+                    i === existingIndex
+                      ? { ...item, quantity: item.quantity + quantity }
+                      : item,
+                  )
+                : [...state.items, newItem],
+          };
         });
       },
 
@@ -111,8 +104,21 @@ export const useOrderStore = create<OrderState>()(
         }));
       },
 
+      setCustomerInfo: (name, email) => {
+        set({
+          customerName: name,
+          customerEmail: email,
+          customerInfo: { name, email }
+        });
+      },
+
       clearOrder: () => {
-        set({ items: [] });
+        set({
+          items: [],
+          customerName: '',
+          customerEmail: '',
+          customerInfo: { name: '', email: '' }
+        });
       },
 
       getTotalItems: () => {
@@ -129,29 +135,52 @@ export const useOrderStore = create<OrderState>()(
         }, 0);
       },
 
-      getItem: (productId) => {
-        return get().items.find((item) => item.product.id === productId);
-      },
-
-      setCustomerInfo: (name, email) => {
-        set({ customerInfo: { name, email } });
-      },
-
-      getOrderData: () => {
+      getCheckoutPayload: () => {
         const state = get();
+        const backendItems: any[] = [];
+
+        state.items.forEach((item) => {
+          backendItems.push({
+            item_type: 'bike',
+            product: {
+              id: item.product.id,
+              name: item.product.name,
+              documentId: item.product.documentId,
+            },
+            quantity: item.quantity,
+            unit_price: item.product.price,
+            color_name: item.selectedColor.name,
+            color_hex: item.selectedColor.hex,
+          });
+
+          item.selectedAccessories.forEach((accessory) => {
+            backendItems.push({
+              item_type: 'accessory',
+              accessory: {
+                id: accessory.id,
+                name: accessory.name,
+                documentId: accessory.documentId,
+              },
+              quantity: item.quantity,
+              unit_price: accessory.price,
+            });
+          });
+        });
+
         return {
-          customer_name: state.customerInfo.name,
-          customer_email: state.customerInfo.email,
-          total_amount: state.getTotalPrice(),
-          currency: 'usd',
-          status: 'pending' as const,
-          items: state.items,
+          customerName: state.customerName,
+          customerEmail: state.customerEmail,
+          items: backendItems,
         };
       },
     }),
     {
       name: 'order-storage',
-      partialize: (state) => ({ items: state.items, customerInfo: state.customerInfo }),
+      partialize: (state) => ({
+        items: state.items,
+        customerName: state.customerName,
+        customerEmail: state.customerEmail,
+      }),
     },
   ),
 );

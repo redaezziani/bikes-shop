@@ -26,7 +26,11 @@ const OrderSummaryPanel = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { customerInfo, setCustomerInfo, items, getTotalPrice: getStoreTotalPrice } = useOrderStore();
+  const customerInfo = useOrderStore((state) => state.customerInfo);
+  const setCustomerInfo = useOrderStore((state) => state.setCustomerInfo);
+  const items = useOrderStore((state) => state.items);
+  const getCheckoutPayload = useOrderStore((state) => state.getCheckoutPayload);
+  const addItem = useOrderStore((state) => state.addItem);
 
   // ✅ Compute derived values using useMemo OUTSIDE of Zustand selectors
   const selectedAccessoriesDetails = useMemo(() => {
@@ -56,8 +60,6 @@ const OrderSummaryPanel = ({
     );
     return productPrice + accessoriesPrice;
   }, [currentProduct, selectedAccessoriesDetails]);
-
-  const addItem = useOrderStore((state) => state.addItem);
 
   if (!currentProduct) return null;
 
@@ -219,33 +221,62 @@ const OrderSummaryPanel = ({
                 return;
               }
 
-              if (items.length === 0) {
-                showToast.error('No items', 'Please add items to your order');
-                return;
-              }
-
               setIsSubmitting(true);
 
               try {
-                const orderData = {
-                  customer_name: customerInfo.name,
-                  customer_email: customerInfo.email,
-                  total_amount: getStoreTotalPrice(),
-                  currency: 'usd' as const,
-                  status: 'pending' as const,
-                  items: items,
-                };
+                // Add current product configuration to store if not already added
+                const selectedColor = currentProduct.colors.find(
+                  (c: any) => c.name === selectedColorName,
+                );
 
-                const result = await orderService.createOrder(orderData);
+                if (selectedColor) {
+                  addItem(currentProduct, selectedColor, selectedAccessoriesDetails, 1);
+                }
 
-                if (result.success) {
-                  showToast.success('Order created!', 'Redirecting to payment...');
-                  // TODO: Redirect to Stripe payment
+                // Get the checkout payload with all items
+                const checkoutPayload = getCheckoutPayload();
+
+                console.log('Checkout Payload:', checkoutPayload);
+
+                if (!checkoutPayload.items || checkoutPayload.items.length === 0) {
+                  showToast.error('No items', 'Please add items to your order');
+                  setIsSubmitting(false);
+                  return;
+                }
+
+                if (!checkoutPayload.customerName || !checkoutPayload.customerEmail) {
+                  showToast.error('Customer info missing', 'Please fill in your name and email');
+                  setIsSubmitting(false);
+                  return;
+                }
+
+                // Call the checkout endpoint
+                const checkoutResponse = await fetch(
+                  `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/checkout`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(checkoutPayload),
+                  }
+                );
+
+                if (!checkoutResponse.ok) {
+                  throw new Error('Failed to create checkout session');
+                }
+
+                const checkoutData = await checkoutResponse.json();
+
+                if (checkoutData.url) {
+                  // Redirect to Stripe checkout
+                  window.location.href = checkoutData.url;
                 } else {
-                  showToast.error('Order failed', result.error);
+                  showToast.error('Payment error', 'No checkout URL received');
                 }
               } catch (error) {
-                showToast.error('Error', 'Failed to create order');
+                console.error('Checkout error:', error);
+                showToast.error('Checkout failed', error instanceof Error ? error.message : 'Failed to process checkout');
               } finally {
                 setIsSubmitting(false);
               }
