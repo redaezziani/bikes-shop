@@ -5,6 +5,7 @@ import type { OrderItem } from '@/types/order';
 
 export type { OrderItem } from '@/types/order';
 
+
 interface OrderState {
   items: OrderItem[];
   customerName: string;
