@@ -1,0 +1,543 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { IconRadar2, IconX, IconMapPin } from '@tabler/icons-react';
+import dynamic from 'next/dynamic';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+interface LeafletMapProps {
+  gpxUrl?: string;
+  gpxData?: string;
+  height?: string;
+  zoom?: number;
+  center?: [number, number];
+  onRouteDataParsed?: (data: RouteStats) => void;
+}
+
+interface RouteStats {
+  distance: number;
+  elevation: number;
+  difficulty: string;
+}
+
+export default function LeafletMap({
+  gpxUrl,
+  gpxData,
+  height = 'h-96',
+  zoom = 13,
+  center = [51.505, -0.09],
+  onRouteDataParsed,
+}: LeafletMapProps) {
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<any>(null);
+  const userMarker = useRef<L.Marker | null>(null);
+  const gpxLoadedRef = useRef(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showLocationAlert, setShowLocationAlert] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
+  const [isLocating, setIsLocating] = useState(false);
+
+  // Calculate distance between two points (Haversine formula)
+  const calculateDistance = (
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number,
+  ): number => {
+    const R = 6371; // Earth's radius in km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+  // Light green bike marker (#90EE90)
+  const createBikeMarker = (isStart = true) => {
+    return L.divIcon({
+      className: 'custom-bike-marker',
+      html: `
+        <div style="
+          width: 44px;
+          height: 44px;
+          background: #90EE90;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 3px solid white;
+          box-shadow: 0 4px 16px rgba(144, 238, 144, 0.5);
+          position: relative;
+        ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5" />
+            <path d="M9 4v13" />
+            <path d="M15 7v5.5" />
+            <path d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z" />
+            <path d="M19 18v.01" />
+          </svg>
+          <div style="
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #90EE90;
+            color: #333;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+          ">
+            ${isStart ? 'START' : 'FINISH'}
+          </div>
+        </div>
+      `,
+      iconSize: [44, 44],
+      iconAnchor: [22, 44],
+    });
+  };
+
+  // Handle location request
+  const handleFindMe = () => {
+    if (!navigator.geolocation) {
+      setLocationError('Geolocation is not supported by your browser');
+      setShowLocationAlert(true);
+      return;
+    }
+
+    setIsLocating(true);
+    setLocationError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+
+        if (map.current) {
+          // Remove previous user marker if exists
+          if (userMarker.current) {
+            map.current.removeLayer(userMarker.current);
+          }
+
+          // Center map on user location
+          map.current.setView([latitude, longitude], 15);
+
+          // Add user location marker with pulsing blue dot
+          userMarker.current = L.marker([latitude, longitude], {
+            icon: L.divIcon({
+              className: 'user-location-marker',
+              html: `
+                <div style="position: relative; width: 24px; height: 24px;">
+                  <!-- Pulsing ring -->
+                  <div style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 40px;
+                    height: 40px;
+                    background: rgba(30, 144, 255, 0.3);
+                    border-radius: 50%;
+                    animation: pulse 2s ease-out infinite;
+                  "></div>
+                  <!-- Inner dot -->
+                  <div style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 18px;
+                    height: 18px;
+                    background: #1E90FF;
+                    border-radius: 50%;
+                    border: 4px solid white;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                  "></div>
+                </div>
+                <style>
+                  @keyframes pulse {
+                    0% {
+                      transform: translate(-50%, -50%) scale(0.5);
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translate(-50%, -50%) scale(1.5);
+                      opacity: 0;
+                    }
+                  }
+                </style>
+              `,
+              iconSize: [24, 24],
+              iconAnchor: [12, 12],
+            }),
+          }).addTo(map.current);
+          userMarker.current
+            .bindPopup(
+              `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px; text-align: center;">
+              <strong style="color: #1E90FF; font-size: 15px;">You are here</strong>
+              <p style="margin: 6px 0 0 0; color: #666; font-size: 12px;">
+                Lat: ${latitude.toFixed(6)}<br/>
+                Lng: ${longitude.toFixed(6)}
+              </p>
+            </div>
+          `,
+            )
+            .openPopup();
+        }
+
+        setIsLocating(false);
+      },
+      (error) => {
+        setIsLocating(false);
+
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setLocationError(
+              'Location permission denied. Please enable location access in your browser settings.',
+            );
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setLocationError('Location information is unavailable.');
+            break;
+          case error.TIMEOUT:
+            setLocationError('Location request timed out.');
+            break;
+          default:
+            setLocationError(
+              'An unknown error occurred while getting your location.',
+            );
+        }
+
+        setShowLocationAlert(true);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      },
+    );
+  };
+
+  useEffect(() => {
+    if (!mapContainer.current) return;
+
+    // Initialize map
+    if (!map.current) {
+      map.current = L.map(mapContainer.current, {
+        zoomControl: false,
+      }).setView(center, zoom);
+
+      L.control.zoom({ position: 'bottomright' }).addTo(map.current);
+
+      L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+        {
+          attribution: '© OpenStreetMap contributors',
+          maxZoom: 19,
+        },
+      ).addTo(map.current);
+
+      // Only set loading to false if no GPX data to load
+      if (!gpxData && !gpxUrl) {
+        setIsLoading(false);
+      }
+    }
+  }, []); // Empty dependency - initialize map once
+
+  // Separate effect for GPX data processing
+  useEffect(() => {
+    if (!map.current) return;
+
+    // Process GPX data
+    const processGPXData = (data: string) => {
+      try {
+        const gpx = new DOMParser().parseFromString(data, 'text/xml');
+        const bounds = L.latLngBounds([]);
+        const trkpts = gpx.querySelectorAll('trkpt');
+
+        if (trkpts.length > 0) {
+          const latlngs: L.LatLng[] = [];
+          const elevations: number[] = [];
+
+          trkpts.forEach((trkpt) => {
+            const lat = parseFloat(trkpt.getAttribute('lat') || '0');
+            const lon = parseFloat(trkpt.getAttribute('lon') || '0');
+            const ele = parseFloat(
+              trkpt.querySelector('ele')?.textContent || '0',
+            );
+
+            const latlng = L.latLng(lat, lon);
+            latlngs.push(latlng);
+            elevations.push(ele);
+            bounds.extend(latlng);
+          });
+
+          if (latlngs.length > 0) {
+            let totalDistance = 0;
+            for (let i = 1; i < latlngs.length; i++) {
+              totalDistance += calculateDistance(
+                latlngs[i - 1].lat,
+                latlngs[i - 1].lng,
+                latlngs[i].lat,
+                latlngs[i].lng,
+              );
+            }
+
+            const elevationGain =
+              Math.max(...elevations) - Math.min(...elevations);
+            let difficulty = 'Easy';
+            if (totalDistance > 30 || elevationGain > 500)
+              difficulty = 'Moderate';
+            if (totalDistance > 50 || elevationGain > 1000) difficulty = 'Hard';
+
+            if (onRouteDataParsed) {
+              onRouteDataParsed({
+                distance: Math.round(totalDistance * 10) / 10,
+                elevation: Math.round(elevationGain),
+                difficulty,
+              });
+            }
+
+            // Light green route line
+            L.polyline(latlngs, {
+              color: '#90EE90',
+              weight: 4,
+              opacity: 0.85,
+              lineJoin: 'round',
+              lineCap: 'round',
+            }).addTo(map.current!);
+
+            L.polyline(latlngs, {
+              color: '#90EE90',
+              weight: 7,
+              opacity: 0.2,
+              lineJoin: 'round',
+              lineCap: 'round',
+            }).addTo(map.current!);
+
+            // Start marker
+            L.marker(latlngs[0], { icon: createBikeMarker(true) })
+              .bindPopup(
+                `
+                <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px;">
+                  <strong style="color: #90EE90; font-size: 15px;">Start Point</strong>
+                  <p style="margin: 6px 0 0 0; color: #666; font-size: 13px;">
+                    Elevation: ${Math.round(elevations[0])}m
+                  </p>
+                </div>
+              `,
+              )
+              .addTo(map.current!);
+
+            // End marker
+            const lastIdx = latlngs.length - 1;
+            if (
+              latlngs[0].lat !== latlngs[lastIdx].lat ||
+              latlngs[0].lng !== latlngs[lastIdx].lng
+            ) {
+              L.marker(latlngs[lastIdx], { icon: createBikeMarker(false) })
+                .bindPopup(
+                  `
+                  <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px;">
+                    <strong style="color: #90EE90; font-size: 15px;">Finish Point</strong>
+                    <p style="margin: 6px 0 0 0; color: #666; font-size: 13px;">
+                      Elevation: ${Math.round(elevations[lastIdx])}m
+                    </p>
+                  </div>
+                `,
+                )
+                .addTo(map.current!);
+            }
+
+            if (bounds.isValid()) {
+              map.current!.fitBounds(bounds, { padding: [60, 60] });
+            }
+          }
+        }
+
+        // Waypoints
+        const wpts = gpx.querySelectorAll('wpt');
+        wpts.forEach((wpt) => {
+          const lat = parseFloat(wpt.getAttribute('lat') || '0');
+          const lon = parseFloat(wpt.getAttribute('lon') || '0');
+          const name = wpt.querySelector('name')?.textContent || 'Waypoint';
+
+          L.circleMarker([lat, lon], {
+            radius: 10,
+            fillColor: '#90EE90',
+            color: '#ffffff',
+            weight: 3,
+            opacity: 1,
+            fillOpacity: 0.95,
+          })
+            .bindPopup(
+              `
+              <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px;">
+                <strong style="color: #90EE90; font-size: 15px;">${name}</strong>
+              </div>
+            `,
+            )
+            .addTo(map.current!);
+        });
+
+        gpxLoadedRef.current = true;
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error parsing GPX data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    if (gpxData && !gpxLoadedRef.current) {
+      gpxLoadedRef.current = true;
+      processGPXData(gpxData);
+    } else if (gpxUrl && !gpxLoadedRef.current) {
+      gpxLoadedRef.current = true;
+      setIsLoading(true);
+      fetch(gpxUrl)
+        .then((response) => response.text())
+        .then(processGPXData)
+        .catch((error) => {
+          console.error('Error loading GPX file:', error);
+          setIsLoading(false);
+        });
+    }
+  }, [gpxData, gpxUrl, onRouteDataParsed, calculateDistance]);
+
+  return (
+    <div className="relative">
+      {/* Loading overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 z-[1000] bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-lg">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-3 border-b-3 border-green-600 mb-3"></div>
+            <div className="text-gray-800 text-sm font-medium">
+              Loading route...
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Location Permission Alert */}
+      {showLocationAlert && (
+        <div className="absolute inset-0 z-[1001] bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-lg p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+            {/* Alert Header */}
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                  <IconMapPin size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white">
+                  Location Access
+                </h3>
+              </div>
+              <button
+                onClick={() => {
+                  setShowLocationAlert(false);
+                  setLocationError(null);
+                }}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                <IconX size={24} />
+              </button>
+            </div>
+
+            {/* Alert Body */}
+            <div className="p-6">
+              <div className="mb-4">
+                <p className="text-gray-700 leading-relaxed">
+                  {locationError ||
+                    'We need access to your location to show you on the map.'}
+                </p>
+              </div>
+
+              {locationError && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-red-800">
+                    <strong>How to enable:</strong>
+                    <br />
+                    1. Click the lock icon in your address bar
+                    <br />
+                    2. Find "Location" permissions
+                    <br />
+                    3. Select "Allow"
+                    <br />
+                    4. Refresh the page
+                  </p>
+                </div>
+              )}
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setShowLocationAlert(false);
+                    setLocationError(null);
+                  }}
+                  className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                {!locationError && (
+                  <button
+                    onClick={() => {
+                      setShowLocationAlert(false);
+                      handleFindMe();
+                    }}
+                    className="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                  >
+                    Allow Location
+                  </button>
+                )}
+                {locationError && (
+                  <button
+                    onClick={() => {
+                      setShowLocationAlert(false);
+                      setLocationError(null);
+                      handleFindMe();
+                    }}
+                    className="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                  >
+                    Try Again
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Map container */}
+      <div ref={mapContainer} className={`w-full ${height} rounded-lg`} />
+
+      {/* Find Me button */}
+      <button
+        onClick={handleFindMe}
+        disabled={isLocating}
+        className="absolute bottom-4 left-4 z-[1000] bg-white text-gray-800 rounded-full px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 flex items-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+        title="Find My Location"
+      >
+        {isLocating ? (
+          <>
+            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-600"></div>
+            <span className="text-sm">Locating...</span>
+          </>
+        ) : (
+          <>
+            <IconRadar2 size={20} className="text-blue-600" />
+            <span className="text-sm">Find Me</span>
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
