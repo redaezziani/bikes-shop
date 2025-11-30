@@ -1,6 +1,6 @@
+
 # Build stage
 FROM node:20-alpine AS builder
-
 WORKDIR /app
 
 # Copy package files
@@ -12,12 +12,21 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Accept build arguments
+ARG NEXT_PUBLIC_STRAPI_URL
+ARG NEXT_PUBLIC_STRAPI_API_URL
+ARG NEXT_PUBLIC_STRAPI_API_KEY
+
+# Set as environment variables for build
+ENV NEXT_PUBLIC_STRAPI_URL=$NEXT_PUBLIC_STRAPI_URL
+ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
+ENV NEXT_PUBLIC_STRAPI_API_KEY=$NEXT_PUBLIC_STRAPI_API_KEY
+
 # Build the application
 RUN npm run build
 
 # Production stage
 FROM node:20-alpine
-
 WORKDIR /app
 
 # Install dumb-init to handle signals properly
@@ -45,10 +54,6 @@ USER nextjs
 
 # Expose port
 EXPOSE 3000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
 # Start application
 CMD ["dumb-init", "npm", "start"]
