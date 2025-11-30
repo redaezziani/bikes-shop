@@ -1,9 +1,16 @@
+'use client';
+
+import dynamic from 'next/dynamic';
 import Footer from '@/components/footer';
 import HeroSlider from '@/components/hero-slider';
 import OfferCard from '@/components/offer-card';
 import ProductsSlider from '@/components/products-slider';
 import YouTubePlayer from '@/components/youtube-player';
-import { IconBike } from '@tabler/icons-react';
+import Link from 'next/link';
+
+const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -41,13 +48,20 @@ export default function Home() {
           </div>
         </span>
         <div className=" h-[36rem] w-full relative overflow-hidden bg-neutral-200 rounded ">
-          <iframe
-            src="https://www.komoot.com/collection/3992640/embed"
-            width="100%"
-            height="580"
-            frameBorder="0"
-            scrolling="no"
-          ></iframe>
+          <div className="w-full h-full">
+            <LeafletMap
+              gpxUrl="/gpx/Desert-Ride.gpx"
+              height="h-full"
+              zoom={11}
+              center={[51.505, -0.09]}
+            />
+          </div>
+          <Link
+            href="/routes"
+            className="absolute bottom-4 right-4 bg-neutral-800 hover:bg-neutral-700 text-white px-4 py-2 rounded font-semibold text-sm z-10"
+          >
+            View All Routes
+          </Link>
         </div>
       </section>
 
