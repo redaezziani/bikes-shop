@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { IconRadar2, IconX, IconMapPin } from '@tabler/icons-react';
-import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -32,6 +31,7 @@ export default function LeafletMap({
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
   const userMarker = useRef<L.Marker | null>(null);
+  const watchIdRef = useRef<number | null>(null);
   const gpxLoadedRef = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showLocationAlert, setShowLocationAlert] = useState(false);
@@ -58,46 +58,61 @@ export default function LeafletMap({
     return R * c;
   };
 
-  // Light green bike marker (#90EE90)
+  // Light green bike marker with arrow label (#90EE90)
   const createBikeMarker = (isStart = true) => {
     return L.divIcon({
       className: 'custom-bike-marker',
       html: `
-        <div style="
-          width: 44px;
-          height: 44px;
-          background: #90EE90;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 3px solid white;
-          box-shadow: 0 4px 16px rgba(144, 238, 144, 0.5);
-          position: relative;
-        ">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5" />
-            <path d="M9 4v13" />
-            <path d="M15 7v5.5" />
-            <path d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z" />
-            <path d="M19 18v.01" />
-          </svg>
+        <div style="position: relative;">
+          <!-- Label with arrow pointing down -->
           <div style="
             position: absolute;
-            top: -28px;
+            bottom: 52px;
             left: 50%;
             transform: translateX(-50%);
             background: #90EE90;
             color: #333;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
           ">
             ${isStart ? 'START' : 'FINISH'}
+            <!-- Arrow pointing down -->
+            <div style="
+              position: absolute;
+              bottom: -6px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 0;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-top: 8px solid #90EE90;
+            "></div>
+          </div>
+          <!-- Marker circle -->
+          <div style="
+            width: 44px;
+            height: 44px;
+            background: #90EE90;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            box-shadow: 0 4px 16px rgba(144, 238, 144, 0.5);
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5" />
+              <path d="M9 4v13" />
+              <path d="M15 7v5.5" />
+              <path d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z" />
+              <path d="M19 18v.01" />
+            </svg>
           </div>
         </div>
       `,
@@ -106,7 +121,65 @@ export default function LeafletMap({
     });
   };
 
-  // Handle location request
+  // Red incident marker with arrow label
+  const createIncidentMarker = (label: string) => {
+    return L.divIcon({
+      className: 'custom-incident-marker',
+      html: `
+        <div style="position: relative;">
+          <!-- Label with arrow pointing down -->
+          <div style="
+            position: absolute;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #F39C12;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+          ">
+            ${label}
+            <!-- Arrow pointing down -->
+            <div style="
+              position: absolute;
+              bottom: -6px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 0;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-top: 8px solid #F39C12;
+            "></div>
+          </div>
+          <!-- Marker circle -->
+          <div style="
+            width: 40px;
+            height: 40px;
+            background: #E74C3C;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+          </div>
+        </div>
+      `,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+  };
+
+  // Handle location request with continuous tracking
   const handleFindMe = () => {
     if (!navigator.geolocation) {
       setLocationError('Geolocation is not supported by your browser');
@@ -117,9 +190,15 @@ export default function LeafletMap({
     setIsLocating(true);
     setLocationError(null);
 
-    navigator.geolocation.getCurrentPosition(
+    // Clear any existing watch
+    if (watchIdRef.current !== null) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+    }
+
+    // Use watchPosition for continuous updates
+    watchIdRef.current = navigator.geolocation.watchPosition(
       (position) => {
-        const { latitude, longitude } = position.coords;
+        const { latitude, longitude, accuracy } = position.coords;
 
         if (map.current) {
           // Remove previous user marker if exists
@@ -127,8 +206,11 @@ export default function LeafletMap({
             map.current.removeLayer(userMarker.current);
           }
 
-          // Center map on user location
-          map.current.setView([latitude, longitude], 15);
+          // Center map on user location (only on first location)
+          if (isLocating) {
+            map.current.setView([latitude, longitude], 15);
+            setIsLocating(false);
+          }
 
           // Add user location marker with pulsing blue dot
           userMarker.current = L.marker([latitude, longitude], {
@@ -144,7 +226,7 @@ export default function LeafletMap({
                     transform: translate(-50%, -50%);
                     width: 40px;
                     height: 40px;
-                    background: rgba(30, 144, 255, 0.3);
+                    background: rgba(144, 238, 144, 0.3);
                     border-radius: 50%;
                     animation: pulse 2s ease-out infinite;
                   "></div>
@@ -156,7 +238,7 @@ export default function LeafletMap({
                     transform: translate(-50%, -50%);
                     width: 18px;
                     height: 18px;
-                    background: #1E90FF;
+                    background: #90EE90;
                     border-radius: 50%;
                     border: 4px solid white;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -179,25 +261,29 @@ export default function LeafletMap({
               iconAnchor: [12, 12],
             }),
           }).addTo(map.current);
-          userMarker.current
-            .bindPopup(
-              `
+
+          userMarker.current.bindPopup(
+            `
             <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px; text-align: center;">
-              <strong style="color: #1E90FF; font-size: 15px;">You are here</strong>
+              <strong style="color: #90EE90; font-size: 15px;">You are here</strong>
               <p style="margin: 6px 0 0 0; color: #666; font-size: 12px;">
                 Lat: ${latitude.toFixed(6)}<br/>
-                Lng: ${longitude.toFixed(6)}
+                Lng: ${longitude.toFixed(6)}<br/>
+                Accuracy: ±${Math.round(accuracy)}m
               </p>
             </div>
           `,
-            )
-            .openPopup();
+          );
         }
-
-        setIsLocating(false);
       },
       (error) => {
         setIsLocating(false);
+
+        // Clear watch on error
+        if (watchIdRef.current !== null) {
+          navigator.geolocation.clearWatch(watchIdRef.current);
+          watchIdRef.current = null;
+        }
 
         switch (error.code) {
           case error.PERMISSION_DENIED:
@@ -209,7 +295,7 @@ export default function LeafletMap({
             setLocationError('Location information is unavailable.');
             break;
           case error.TIMEOUT:
-            setLocationError('Location request timed out.');
+            setLocationError('Location request timed out. Please try again.');
             break;
           default:
             setLocationError(
@@ -222,10 +308,19 @@ export default function LeafletMap({
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 0,
+        maximumAge: 5000, // Accept cached position up to 5 seconds old
       },
     );
   };
+
+  // Cleanup watch on unmount
+  useEffect(() => {
+    return () => {
+      if (watchIdRef.current !== null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -364,25 +459,20 @@ export default function LeafletMap({
           }
         }
 
-        // Waypoints
+        // Waypoints with arrow labels
         const wpts = gpx.querySelectorAll('wpt');
         wpts.forEach((wpt) => {
           const lat = parseFloat(wpt.getAttribute('lat') || '0');
           const lon = parseFloat(wpt.getAttribute('lon') || '0');
           const name = wpt.querySelector('name')?.textContent || 'Waypoint';
 
-          L.circleMarker([lat, lon], {
-            radius: 10,
-            fillColor: '#90EE90',
-            color: '#ffffff',
-            weight: 3,
-            opacity: 1,
-            fillOpacity: 0.95,
+          L.marker([lat, lon], {
+            icon: createIncidentMarker(name),
           })
             .bindPopup(
               `
               <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px;">
-                <strong style="color: #90EE90; font-size: 15px;">${name}</strong>
+                <strong style="color: #E74C3C; font-size: 15px;">${name}</strong>
               </div>
             `,
             )
@@ -419,7 +509,7 @@ export default function LeafletMap({
       {isLoading && (
         <div className="absolute inset-0 z-[1000] bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-lg">
           <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-3 border-b-3 border-green-600 mb-3"></div>
+            <div className="w-4 h-4 border-2 border-green-600/30 border-t-green-600 rounded-full animate-spin mb-3"></div>
             <div className="text-gray-800 text-sm font-medium">
               Loading route...
             </div>
@@ -432,7 +522,7 @@ export default function LeafletMap({
         <div className="absolute inset-0 z-[1001] bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-lg p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
             {/* Alert Header */}
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                   <IconMapPin size={24} className="text-white" />
@@ -472,7 +562,7 @@ export default function LeafletMap({
                     <br />
                     3. Select "Allow"
                     <br />
-                    4. Refresh the page
+                    4. Refresh the page and try again
                   </p>
                 </div>
               )}
@@ -493,7 +583,7 @@ export default function LeafletMap({
                       setShowLocationAlert(false);
                       handleFindMe();
                     }}
-                    className="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                    className="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
                   >
                     Allow Location
                   </button>
@@ -505,7 +595,7 @@ export default function LeafletMap({
                       setLocationError(null);
                       handleFindMe();
                     }}
-                    className="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                    className="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
                   >
                     Try Again
                   </button>
@@ -528,12 +618,12 @@ export default function LeafletMap({
       >
         {isLocating ? (
           <>
-            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-600"></div>
+            <div className="w-4 h-4 border-2 border-green-600/30 border-t-green-600 rounded-full animate-spin"></div>
             <span className="text-sm">Locating...</span>
           </>
         ) : (
           <>
-            <IconRadar2 size={20} className="text-blue-600" />
+            <IconRadar2 size={20} className="text-green-600" />
             <span className="text-sm">Find Me</span>
           </>
         )}
