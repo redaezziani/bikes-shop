@@ -29,7 +29,7 @@ const ProductsSlider = () => {
   const products = data?.data || [];
 
   return (
-    <section className="w-full pl-4">
+    <section className="w-full ">
       <Swiper
         modules={[Pagination]}
         spaceBetween={16}
@@ -40,7 +40,7 @@ const ProductsSlider = () => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
-            <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-neutral-300">
+            <div className="relative flex flex-col gap-2  overflow-hidden h-[500px]  ">
               {product.cover_image?.url && (
                 <>
                   <img
@@ -49,17 +49,22 @@ const ProductsSlider = () => {
                     className="object-cover"
                     sizes="(max-width: 768px) 85vw, 400px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 </>
               )}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-4xl font-bold">{product.name}</h3>
-                <p className="text-sm mb-6 font-semibold">
+              <div className="absolute bottom-0 flex flex-col gap-1.5 justify-start items-start left-0 right-0 p-6">
+                <h3 className="text-xl text-neutral-800 font-bold">
+                  {product.name}
+                </h3>
+                <p className="text-sm text-neutral-600  font-semibold">
                   Starting at ${product.price.toLocaleString()}
                 </p>
+                <p className="text-xs line-clamp-2 mb-6 text-neutral-500 ">
+                  {product.short_description}
+                </p>
+
                 <div className="flex gap-3">
                   <Link href={`/models/${product.slug}`}>
-                    <button className="bg-white w-40 text-gray-800 rounded px-4 py-2.5 font-bold text-sm hover:bg-gray-100 transition">
+                    <button className="cut-corner text-sm bg-neutral-900 text-white px-8 py-2.5 font-semibold hover:bg-neutral-900/90 shadow-lg">
                       Learn More
                     </button>
                   </Link>

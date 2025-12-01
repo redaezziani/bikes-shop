@@ -11,6 +11,18 @@
   --color-primary: #3e6ae1;
 }
 
+.cut-corner {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+.cut-corner-hover {
+  transition: all 0.3s ease;
+}
+
+.cut-corner-hover:hover {
+  clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 0 100%);
+}
+
 body {
   font-family: 'Nunito Sans', sans-serif;
   font-optical-sizing: auto;
