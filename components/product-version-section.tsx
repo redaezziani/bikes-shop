@@ -2,14 +2,13 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { useProducts } from '@/store/products';
+import { useSectionTwo } from '@/store/section-two';
 import Link from 'next/link';
-import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const ProductsSlider = () => {
-  const { data, isLoading } = useProducts({ pageSize: 10 });
+const ProductVersionSection = () => {
+  const { data, isLoading } = useSectionTwo({ pageSize: 10 });
 
   if (isLoading) {
     return (
@@ -26,7 +25,17 @@ const ProductsSlider = () => {
     );
   }
 
-  const products = data?.data || [];
+  const sections = data?.data || [];
+
+  const getLinkHref = (section: (typeof sections)[0]) => {
+    if (section.external_link) {
+      return section.external_link;
+    }
+    if (section.product?.slug) {
+      return `/models/${section.product.slug}`;
+    }
+    return '#';
+  };
 
   return (
     <section className="w-full pl-4">
@@ -38,28 +47,29 @@ const ProductsSlider = () => {
         pagination={{ clickable: true }}
         className="px-4"
       >
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
+        {sections.map((section) => (
+          <SwiperSlide key={section.id}>
             <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-neutral-300">
-              {product.cover_image?.url && (
+              {section.cover_image?.url && (
                 <>
                   <img
-                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.cover_image.url}`}
-                    alt={`dubai-famly-cargo-${product.name}`}
-                    className="object-cover"
-                    sizes="(max-width: 768px) 85vw, 400px"
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image.url}`}
+                    alt={section.title}
+                    className="object-cover w-full h-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 </>
               )}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-4xl font-bold">{product.name}</h3>
-                <p className="text-sm mb-6 font-semibold">
-                  Starting at ${product.price.toLocaleString()}
+                <h3 className="text-2xl capitalize font-bold">
+                  {section.title}
+                </h3>
+                <p className="text-sm mt-1 lowercase  mb-6 ">
+                  {section.description}
                 </p>
                 <div className="flex gap-3">
-                  <Link href={`/models/${product.slug}`}>
-                    <button className="bg-white w-40 text-gray-800 rounded px-4 py-2.5 font-bold text-sm hover:bg-gray-100 transition">
+                  <Link href={getLinkHref(section)}>
+                    <button className="bg-white w-40 text-gray-900 font-medium rounded-lg px-4 py-2 text-sm hover:bg-gray-100 transition">
                       Learn More
                     </button>
                   </Link>
@@ -87,6 +97,4 @@ const ProductsSlider = () => {
     </section>
   );
 };
-// simple
-
-export default ProductsSlider;
+export default ProductVersionSection;
