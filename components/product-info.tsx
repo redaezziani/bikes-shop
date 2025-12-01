@@ -94,7 +94,7 @@ export default function ProductInfo({
             </div>
           )}
           <p className="text-neutral-800 font-semibold whitespace-nowrap">
-            {priceAED} AED / {priceUSD} $
+            {Math.round(priceAED)} AED / {priceUSD.toFixed(2)} $
           </p>
         </div>
         <Link className=" w-full" href={`/order?documentId=${documentId}`}>
