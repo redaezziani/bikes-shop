@@ -2,14 +2,13 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { useProducts } from '@/store/products';
+import { useSectionTwo } from '@/store/section-two';
 import Link from 'next/link';
-import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const ProductsSlider = () => {
-  const { data, isLoading } = useProducts({ pageSize: 10 });
+const ProductVersionSection = () => {
+  const { data, isLoading } = useSectionTwo({ pageSize: 10 });
 
   if (isLoading) {
     return (
@@ -26,10 +25,20 @@ const ProductsSlider = () => {
     );
   }
 
-  const products = data?.data || [];
+  const sections = data?.data || [];
+
+  const getLinkHref = (section: (typeof sections)[0]) => {
+    if (section.external_link) {
+      return section.external_link;
+    }
+    if (section.product?.slug) {
+      return `/models/${section.product.slug}`;
+    }
+    return '#';
+  };
 
   return (
-    <section className="w-full ">
+    <section className="w-full pl-4">
       <Swiper
         modules={[Pagination]}
         spaceBetween={16}
@@ -38,33 +47,29 @@ const ProductsSlider = () => {
         pagination={{ clickable: true }}
         className="px-4"
       >
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <div className="relative flex flex-col gap-2  overflow-hidden h-[500px]  ">
-              {product.cover_image?.url && (
+        {sections.map((section) => (
+          <SwiperSlide key={section.id}>
+            <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-neutral-300">
+              {section.cover_image?.url && (
                 <>
                   <img
-                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.cover_image.url}`}
-                    alt={product.name}
-                    className="object-cover"
-                    sizes="(max-width: 768px) 85vw, 400px"
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image.url}`}
+                    alt={section.title}
+                    className="object-cover w-full h-full"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 </>
               )}
-              <div className="absolute bottom-0 flex flex-col gap-1.5 justify-start items-start left-0 right-0 p-6">
-                <h3 className="text-xl text-neutral-800 font-bold">
-                  {product.name}
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="text-2xl capitalize font-bold">
+                  {section.title}
                 </h3>
-                <p className="text-sm text-neutral-600  font-semibold">
-                  Starting at ${product.price.toLocaleString()}
+                <p className="text-sm mt-1 lowercase  mb-6 ">
+                  {section.description}
                 </p>
-                <p className="text-xs line-clamp-2 mb-6 text-neutral-500 ">
-                  {product.short_description}
-                </p>
-
                 <div className="flex gap-3">
-                  <Link href={`/models/${product.slug}`}>
-                    <button className="cut-corner text-sm bg-neutral-900 text-white px-8 py-2.5 font-semibold hover:bg-neutral-900/90 shadow-lg">
+                  <Link href={getLinkHref(section)}>
+                    <button className="bg-white w-40 text-gray-900 font-medium rounded-lg px-4 py-2 text-sm hover:bg-gray-100 transition">
                       Learn More
                     </button>
                   </Link>
@@ -92,6 +97,4 @@ const ProductsSlider = () => {
     </section>
   );
 };
-// simple
-
-export default ProductsSlider;
+export default ProductVersionSection;

@@ -127,35 +127,18 @@ const ProductDetailsPage = () => {
           <img className=" mt-5" src={'/images/model-click.jpg'} alt="" />
 
           <div className="grid pb-5 gap-4 mt-5 w-full grid-cols-1 md:grid-cols-2">
-            <div className="flex w-full flex-col gap-1">
-              <div className="flex w-full justify-between">
-                <p className="text-neutral-600">Speed</p>
-                <p className="text-neutral-600">
-                  {selectedProduct.specs.speed}
-                </p>
+            {selectedProduct.specs.map((spec) => (
+              <div key={spec.id} className="flex w-full flex-col gap-1">
+                <div className="flex w-full justify-between">
+                  <p className="text-neutral-600">{spec.name}</p>
+                  <p className="text-neutral-600">
+                    {spec.value}
+                    {spec.measure && ` ${spec.measure}`}
+                  </p>
+                </div>
+                <span className="w-full h-1 bg-neutral-400"></span>
               </div>
-              <span className="w-full h-1 bg-neutral-400"></span>
-            </div>
-
-            <div className="flex w-full flex-col gap-1">
-              <div className="flex w-full justify-between">
-                <p className="text-neutral-600">Range</p>
-                <p className="text-neutral-600">
-                  {selectedProduct.specs.range}
-                </p>
-              </div>
-              <span className="w-full h-1 bg-neutral-400"></span>
-            </div>
-
-            <div className="flex w-full flex-col gap-1">
-              <div className="flex w-full justify-between">
-                <p className="text-neutral-600">Battery</p>
-                <p className="text-neutral-600">
-                  {selectedProduct.specs.battery}
-                </p>
-              </div>
-              <span className="w-full h-1 bg-neutral-400"></span>
-            </div>
+            ))}
 
             <div className="flex w-full flex-col gap-1">
               <div className="flex w-full justify-between">

@@ -13,9 +13,10 @@ export interface Product {
   publishedAt: string;
   cover_image: CoverImage;
   preview_images: PreviewImage[];
-  specs: Specs;
+  specs: Spec[];
   colors: Color[];
   available_accessories: Accessory[];
+  specs_image?: CoverImage;
 }
 
 export interface CoverImage {
@@ -62,17 +63,18 @@ export interface ImageFormat {
 
 export interface PreviewImage extends CoverImage {}
 
-export interface Specs {
+export interface Spec {
   id: number;
-  speed: string;
-  range: string;
-  battery: string;
+  name: string;
+  value: string;
+  measure?: string;
 }
 
 export interface Color {
   id: number;
   name: string;
   hex: string;
+  quantity?: number;
 }
 
 export interface Accessory {

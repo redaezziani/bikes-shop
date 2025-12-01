@@ -4,8 +4,9 @@ import dynamic from 'next/dynamic';
 import Footer from '@/components/footer';
 import HeroSlider from '@/components/hero-slider';
 import OfferCard from '@/components/offer-card';
-import ProductsSlider from '@/components/products-slider';
+import ProductVersionSection from '@/components/product-version-section';
 import YouTubePlayer from '@/components/youtube-player';
+import BlogSection from '@/components/blog-section';
 import Link from 'next/link';
 
 const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
@@ -17,8 +18,8 @@ export default function Home() {
   return (
     <main className=" flex flex-col    bg-white gap-4 justify-start items-center relative">
       <HeroSlider />
-      <section aria-label="products-slider" className="bg-white  w-full">
-        <ProductsSlider />
+      <section aria-label="product-version-section" className="bg-white  w-full">
+        <ProductVersionSection />
       </section>
       <section className="w-full px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         <OfferCard
@@ -66,9 +67,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="products-slider" className="bg-white mt-6  w-full">
-        <ProductsSlider />
-      </section>
+      <BlogSection />
       <Footer />
       <section className=" fixed  gap-2 flex justify-center z-30 h-16 shadow-xl  bg-white w-full bottom-0 pt-2 pb-6 px-4">
         <button className=" w-10 h-10 md:w-full gap-2 flex justify-center items-center    ">
