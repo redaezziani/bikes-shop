@@ -24,6 +24,7 @@ const buildProductsQueryString = (params?: {
     'populate[2]=specs',
     'populate[3]=colors',
     'populate[4]=available_accessories.image',
+    'populate[5]=specs_image',
   ];
 
   if (params?.page) {
@@ -67,6 +68,7 @@ export const useProductBySlug = (slug: string) => {
         'populate[2]=specs',
         'populate[3]=colors',
         'populate[4]=available_accessories.image',
+        'populate[5]=specs_image',
         `filters[slug][$eq]=${slug}`,
       ].join('&');
 
@@ -90,6 +92,7 @@ export const useProductById = (id: number) => {
         'populate[2]=specs',
         'populate[3]=colors',
         'populate[4]=available_accessories.image',
+        'populate[5]=specs_image',
       ].join('&');
 
       const response = await api.get<{ data: Product }>(

@@ -83,17 +83,14 @@ const OrderContent = () => {
             </div>
 
             <div className="px-4 flex gap-5 justify-between w-full">
-              {['speed', 'range', 'battery'].map((spec) => (
-                <span key={spec} className="flex flex-col text-center gap-1">
+              {currentProduct.specs.slice(0, 3).map((spec: any) => (
+                <span key={spec.id} className="flex flex-col text-center gap-1">
                   <h4 className="text-neutral-800 font-semibold text-sm">
-                    {spec.charAt(0).toUpperCase() + spec.slice(1)}
+                    {spec.name}
                   </h4>
                   <p className="text-neutral-600 capitalize font-medium text-sm">
-                    {
-                      currentProduct.specs[
-                        spec as keyof typeof currentProduct.specs
-                      ]
-                    }
+                    {spec.value}
+                    {spec.measure && ` ${spec.measure}`}
                   </p>
                 </span>
               ))}
