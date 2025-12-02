@@ -294,9 +294,6 @@ export default function LeafletMap({
         dragging: true,
         // Enable touch zoom with two fingers only
         touchZoom: true,
-        // Disable single tap zoom
-        tap: false,
-        // Disable double click zoom
         doubleClickZoom: false,
       }).setView(center, zoom);
 
