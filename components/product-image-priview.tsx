@@ -28,7 +28,7 @@ export default function ProductImagePreview({
   return (
     <div className=" flex flex-col gap-4">
       <span
-        className="relative bg-neutral-100 rounded w-full aspect-square h-auto overflow-hidden"
+        className="relative bg-zinc-100 rounded w-full aspect-square h-auto overflow-hidden"
         aria-label="Product main image"
         role="img"
       >
@@ -38,7 +38,7 @@ export default function ProductImagePreview({
             onClick={prevImage}
             className="p-1  cursor-pointer rounded-full transition"
           >
-            <IconChevronLeft className="text-neutral-700" size={20} />
+            <IconChevronLeft className="text-zinc-700" size={20} />
           </button>
 
           <button
@@ -46,7 +46,7 @@ export default function ProductImagePreview({
             onClick={nextImage}
             className="p-1 cursor-pointer  rounded-full transition"
           >
-            <IconChevronRight className="text-neutral-900" size={20} />
+            <IconChevronRight className="text-zinc-900" size={20} />
           </button>
         </div>
         <AnimatePresence mode="wait" initial={false}>
@@ -70,8 +70,8 @@ export default function ProductImagePreview({
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Select image ${i + 1}`}
-            className={`relative w-full aspect-square rounded bg-neutral-100 overflow-hidden border-2 ${
-              current === i ? 'border-neutral-800' : 'border-transparent'
+            className={`relative w-full aspect-square rounded bg-zinc-100 overflow-hidden border-2 ${
+              current === i ? 'border-zinc-800' : 'border-transparent'
             }`}
           >
             <img

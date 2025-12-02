@@ -2,7 +2,7 @@ import React from 'react';
 
 // Mock Footer component
 const Footer = () => (
-  <footer className="w-full bg-white py-12 px-6 text-center text-sm text-neutral-500 border-t border-neutral-200">
+  <footer className="w-full bg-white py-12 px-6 text-center text-sm text-zinc-500 border-t border-zinc-200">
     <p>© 2025 along · Leap Originals FZ-LLC</p>
   </footer>
 );
@@ -13,17 +13,17 @@ export default function TermsPage() {
       {/* Header */}
       <section className="w-full px-6 md:px-12 py-12 md:py-16 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 ">
+          <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 ">
             along — <span className="">Terms & Conditions</span>
           </h1>
 
-          <div className="space-y-1 text-sm text-neutral-600">
+          <div className="space-y-1 text-sm text-zinc-600">
             <p>
               Leap Originals FZ-LLC · Ras Al Khaimah Free Zone, United Arab
               Emirates
             </p>
             <p>
-              <strong className="text-neutral-700">Effective Date:</strong> 1
+              <strong className="text-zinc-700">Effective Date:</strong> 1
               November 2025
             </p>
           </div>
@@ -33,13 +33,13 @@ export default function TermsPage() {
       {/* Body */}
       <section className="w-full px-6 md:px-12 py-12 md:py-16">
         <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col gap-12 text-neutral-700 leading-relaxed">
+          <div className="flex flex-col gap-12 text-zinc-700 leading-relaxed">
             {/* Quick Summary */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 Quick Summary
               </h2>
-              <div className="space-y-3 text-neutral-700">
+              <div className="space-y-3 text-zinc-700">
                 <p>
                   UAE-only sales · Payment by credit card or bank transfer (Cash
                   on Delivery is not available) · Ground-level delivery in 2–3
@@ -54,7 +54,7 @@ export default function TermsPage() {
                   · Governed by UAE law, Ras Al Khaimah courts
                 </p>
               </div>
-              <p className="text-sm text-neutral-600 mt-4">
+              <p className="text-sm text-zinc-600 mt-4">
                 Please read these Terms together with our Shipping & Returns
                 Policy and Warranty Policy.
               </p>
@@ -62,40 +62,40 @@ export default function TermsPage() {
 
             {/* 1. Interpretation */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 1. Interpretation
               </h2>
-              <div className="space-y-2 text-neutral-700">
+              <div className="space-y-2 text-zinc-700">
                 <p>
-                  <strong className="text-neutral-900">Products</strong> means
+                  <strong className="text-zinc-900">Products</strong> means
                   bicycles and accessories offered for sale by along.
                 </p>
                 <p>
-                  <strong className="text-neutral-900">Services</strong> means
+                  <strong className="text-zinc-900">Services</strong> means
                   assembly and safety briefing arranged by along or its
                   authorized service partners.
                 </p>
                 <p>
-                  <strong className="text-neutral-900">Website</strong> means
+                  <strong className="text-zinc-900">Website</strong> means
                   weridealong.com.
                 </p>
                 <p>
-                  <strong className="text-neutral-900">we, us, our</strong>{' '}
-                  means Leap Originals FZ-LLC.
+                  <strong className="text-zinc-900">we, us, our</strong> means
+                  Leap Originals FZ-LLC.
                 </p>
                 <p>
-                  <strong className="text-neutral-900">you, your</strong> means
-                  the purchaser of Products or Services.
+                  <strong className="text-zinc-900">you, your</strong> means the
+                  purchaser of Products or Services.
                 </p>
               </div>
             </div>
 
             {/* 2. Application */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 2. Application of these Terms
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 These Terms apply to all sales of Products and Services via the
                 Website or otherwise. Together with your order and our order
                 confirmation (the Contract), they form the entire agreement and
@@ -105,10 +105,10 @@ export default function TermsPage() {
 
             {/* 3. Placing an Order */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 3. Placing an Order
               </h2>
-              <ul className="space-y-2 text-neutral-700">
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>
@@ -140,10 +140,10 @@ export default function TermsPage() {
 
             {/* 4. Price & Payment */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 4. Price & Payment
               </h2>
-              <ul className="space-y-2 text-neutral-700">
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>Prices shown are in AED.</span>
@@ -169,10 +169,10 @@ export default function TermsPage() {
 
             {/* 5. Risk & Ownership */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 5. Risk & Ownership
               </h2>
-              <ul className="space-y-2 text-neutral-700">
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>Ownership passes when payment is received.</span>
@@ -186,10 +186,8 @@ export default function TermsPage() {
 
             {/* 6. Delivery */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
-                6. Delivery
-              </h2>
-              <ul className="space-y-2 text-neutral-700">
+              <h2 className="text-2xl font-bold text-zinc-900 ">6. Delivery</h2>
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>Territory: UAE only.</span>
@@ -227,10 +225,10 @@ export default function TermsPage() {
 
             {/* 7. Assembly & Safety Briefing */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 7. Assembly & Safety Briefing
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 Assembly is arranged for the next day after delivery (subject to
                 availability). If you postpone assembly, the return window does
                 not extend.
@@ -239,10 +237,10 @@ export default function TermsPage() {
 
             {/* 8. Damage in Transit */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 8. Damage in Transit
               </h2>
-              <ul className="space-y-2 text-neutral-700">
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>If the box is visibly damaged, refuse delivery.</span>
@@ -259,24 +257,24 @@ export default function TermsPage() {
             </div>
 
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 9. Cancellations (Before Dispatch)
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 You may cancel only before the order is dispatched. After
                 dispatch, it becomes a return under our policy.
               </p>
             </div>
 
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 10. Returns & Exchanges
               </h2>
-              <p className="text-neutral-700 ">
+              <p className="text-zinc-700 ">
                 Returns accepted only if assembly has not taken place and all
                 boxes remain sealed.
               </p>
-              <ul className="space-y-2 text-neutral-700">
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>Window: 7 days from delivery.</span>
@@ -309,10 +307,10 @@ export default function TermsPage() {
             </div>
 
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 11. Warranty
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 Warranty covers manufacturing defects as described in our
                 Warranty Policy (frame 3 years; other parts 18 months;
                 exclusions apply).
@@ -321,10 +319,10 @@ export default function TermsPage() {
 
             {/* 12. Liability */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 12. Liability
               </h2>
-              <ul className="space-y-2 text-neutral-700">
+              <ul className="space-y-2 text-zinc-700">
                 <li className="flex gap-3">
                   <span className=" font-bold">•</span>
                   <span>
@@ -340,10 +338,10 @@ export default function TermsPage() {
 
             {/* 13. Force Majeure */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 13. Force Majeure
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 We are not liable for delays caused by events outside our
                 control.
               </p>
@@ -351,30 +349,30 @@ export default function TermsPage() {
 
             {/* 14. Promotions */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 14. Promotions
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 Promotions are subject to availability and their own terms.
               </p>
             </div>
 
             {/* 15. Data & Privacy */}
             <div className="">
-              <h2 className="text-2xl font-bold text-neutral-900 ">
+              <h2 className="text-2xl font-bold text-zinc-900 ">
                 15. Data & Privacy
               </h2>
-              <p className="text-neutral-700">
+              <p className="text-zinc-700">
                 We process personal data in accordance with our Privacy Policy.
               </p>
             </div>
 
             {/* Contact */}
-            <div className="text-center pt-8 mt-8 border-t border-neutral-200">
-              <p className="text-neutral-600">
+            <div className="text-center pt-8 mt-8 border-t border-zinc-200">
+              <p className="text-zinc-600">
                 © 2025 along · Leap Originals FZ-LLC
               </p>
-              <p className="text-neutral-600 mt-2">
+              <p className="text-zinc-600 mt-2">
                 Contact:{' '}
                 <a
                   className=" hover:text-blue-700 underline"

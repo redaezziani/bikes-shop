@@ -41,8 +41,8 @@ const ModelSelector = ({ products }: { products: any[] }) => {
               flex justify-between items-center gap-2 transition
               ${
                 isActive
-                  ? 'border-neutral-800 bg-neutral-100 ring-1 ring-neutral-800'
-                  : 'border-neutral-300 hover:border-neutral-500'
+                  ? 'border-zinc-800 bg-zinc-100 ring-1 ring-zinc-800'
+                  : 'border-zinc-300 hover:border-zinc-500'
               }
             `}
           >
@@ -58,25 +58,23 @@ const ModelSelector = ({ products }: { products: any[] }) => {
             <div className="flex flex-col gap-1 text-start">
               <h5
                 className={`${
-                  isActive ? 'text-neutral-900' : 'text-neutral-700'
+                  isActive ? 'text-zinc-900' : 'text-zinc-700'
                 } font-medium text-sm`}
               >
                 {item.name}
               </h5>
-              <p className="text-neutral-600 text-xs">
-                {item.short_description}
-              </p>
+              <p className="text-zinc-600 text-xs">{item.short_description}</p>
             </div>
 
             <div className="text-end">
               <strong
                 className={`${
-                  isActive ? 'text-neutral-700' : 'text-neutral-500'
+                  isActive ? 'text-zinc-700' : 'text-zinc-500'
                 } font-semibold text-sm`}
               >
                 ${item.price}
               </strong>
-              <span className="text-neutral-500 text-xs"> /mo</span>
+              <span className="text-zinc-500 text-xs"> /mo</span>
             </div>
           </label>
         );

@@ -111,27 +111,27 @@ const CheckoutForm = () => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full max-w-md mx-auto p-6 bg-white rounded-xl border border-neutral-200 shadow-lg"
+      className="w-full max-w-md mx-auto p-6 bg-white rounded-xl border border-zinc-200 shadow-lg"
     >
-      <h2 className="text-2xl font-bold mb-6 text-neutral-900">Checkout</h2>
+      <h2 className="text-2xl font-bold mb-6 text-zinc-900">Checkout</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name Input */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-2">
+          <label className="block text-sm font-medium text-zinc-700 mb-2">
             Full Name
           </label>
           <div className="relative">
             <IconUser
               size={18}
-              className="absolute left-3 top-3.5 text-neutral-400"
+              className="absolute left-3 top-3.5 text-zinc-400"
             />
             <input
               type="text"
               value={customerName}
               onChange={handleNameChange}
               placeholder="John Doe"
-              className="w-full pl-10 pr-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/10 transition"
+              className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
               required
             />
           </div>
@@ -139,42 +139,42 @@ const CheckoutForm = () => {
 
         {/* Email Input */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-2">
+          <label className="block text-sm font-medium text-zinc-700 mb-2">
             Email Address
           </label>
           <div className="relative">
             <IconMail
               size={18}
-              className="absolute left-3 top-3.5 text-neutral-400"
+              className="absolute left-3 top-3.5 text-zinc-400"
             />
             <input
               type="email"
               value={customerEmail}
               onChange={handleEmailChange}
               placeholder="john@example.com"
-              className="w-full pl-10 pr-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/10 transition"
+              className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
               required
             />
           </div>
         </div>
 
         {/* Order Summary */}
-        <div className="mt-6 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+        <div className="mt-6 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
           <div className="flex items-center gap-2 mb-3">
-            <IconShoppingCart size={18} className="text-neutral-700" />
-            <h3 className="font-semibold text-neutral-800">Order Summary</h3>
+            <IconShoppingCart size={18} className="text-zinc-700" />
+            <h3 className="font-semibold text-zinc-800">Order Summary</h3>
           </div>
 
           <div className="space-y-2">
-            <div className="flex justify-between text-sm text-neutral-600">
+            <div className="flex justify-between text-sm text-zinc-600">
               <span>Items:</span>
               <span className="font-medium">{items.length}</span>
             </div>
-            <div className="flex justify-between text-sm text-neutral-600">
+            <div className="flex justify-between text-sm text-zinc-600">
               <span>Subtotal:</span>
               <span className="font-medium">${getTotalPrice().toFixed(2)}</span>
             </div>
-            <div className="pt-2 border-t border-neutral-300 flex justify-between text-base font-semibold text-neutral-900">
+            <div className="pt-2 border-t border-zinc-300 flex justify-between text-base font-semibold text-zinc-900">
               <span>Total:</span>
               <span className="text-[#6760ff]">
                 ${getTotalPrice().toFixed(2)}
@@ -188,7 +188,7 @@ const CheckoutForm = () => {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={isSubmitting || items.length === 0}
-          className="w-full mt-6 py-3 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-neutral-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2"
+          className="w-full mt-6 py-3 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>
@@ -204,7 +204,7 @@ const CheckoutForm = () => {
         </motion.button>
 
         {items.length === 0 && (
-          <p className="text-center text-sm text-neutral-500 mt-4">
+          <p className="text-center text-sm text-zinc-500 mt-4">
             Add items to your cart to continue
           </p>
         )}

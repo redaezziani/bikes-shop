@@ -30,16 +30,16 @@ export default function ProductInfo({
   return (
     <section className=" flex flex-col gap-4">
       <div className="flex flex-col gap-1 mt-5 md:mt-0 justify-start items-start">
-        <h1 className="text-lg font-semibold text-neutral-900">{title}</h1>
-        <p className="text-neutral-500 text-sm">{description}</p>
+        <h1 className="text-lg font-semibold text-zinc-900">{title}</h1>
+        <p className="text-zinc-500 text-sm">{description}</p>
       </div>
 
       <div className="flex mt-5 gap-4 flex-wrap  justify-start items-center w-full">
-        <div className=" hidden items-center gap-2 border border-neutral-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
+        <div className=" hidden items-center gap-2 border border-zinc-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
           <button
             onClick={decrease}
             aria-label="Decrease quantity"
-            className="text-neutral-700 hover:text-neutral-900 px-2 font-semibold"
+            className="text-zinc-700 hover:text-zinc-900 px-2 font-semibold"
           >
             -
           </button>
@@ -50,13 +50,13 @@ export default function ProductInfo({
             value={qty}
             onChange={(e) => setQty(Math.max(1, Number(e.target.value)))}
             aria-label="Product quantity"
-            className="w-12 text-center bg-transparent outline-none text-neutral-800 font-medium"
+            className="w-12 text-center bg-transparent outline-none text-zinc-800 font-medium"
           />
 
           <button
             onClick={increase}
             aria-label="Increase quantity"
-            className="text-neutral-700 hover:text-neutral-900 px-2 font-semibold"
+            className="text-zinc-700 hover:text-zinc-900 px-2 font-semibold"
           >
             +
           </button>
@@ -71,8 +71,8 @@ export default function ProductInfo({
                     className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8  bg-white  transition 
                   ${
                     selectedColor === color.name
-                      ? 'border-neutral-900'
-                      : 'border-neutral-300'
+                      ? 'border-zinc-900'
+                      : 'border-zinc-300'
                   }`}
                   >
                     <input
@@ -93,14 +93,14 @@ export default function ProductInfo({
               </div>
             </div>
           )}
-          <p className="text-neutral-800 font-semibold whitespace-nowrap">
+          <p className="text-zinc-800 font-semibold whitespace-nowrap">
             {Math.round(priceAED)} AED / {priceUSD.toFixed(2)} $
           </p>
         </div>
         <Link className=" w-full" href={`/order?documentId=${documentId}`}>
           <button
             aria-label="Order product now"
-            className="bg-neutral-900 mt-4 capitalize focus:ring cursor-pointer w-full border font-medium rounded-lg py-2 px-3 flex text-neutral-50 gap-1 justify-center items-center"
+            className="bg-zinc-900 mt-4 capitalize focus:ring cursor-pointer w-full border font-medium rounded-lg py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
           >
             <IconShoppingBag size={20} />
             <p>order now</p>

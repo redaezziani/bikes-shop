@@ -17,7 +17,7 @@ const ProductVersionSection = () => {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="min-w-[85%] h-[500px] bg-neutral-200 animate-pulse rounded-lg"
+              className="min-w-[85%] h-[500px] bg-zinc-200 animate-pulse rounded-lg"
             />
           ))}
         </div>
@@ -49,7 +49,7 @@ const ProductVersionSection = () => {
       >
         {sections.map((section) => (
           <SwiperSlide key={section.id}>
-            <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-neutral-300">
+            <div className="relative rounded-lg overflow-hidden h-[500px] bg-gradient-to-b bg-zinc-300">
               {section.cover_image?.url && (
                 <>
                   <img

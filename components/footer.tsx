@@ -49,7 +49,7 @@ const Footer = () => {
           alt=""
         />
       </div>
-      <div className="flex gap-6 justify-center text-neutral-600 font-semibold flex-col md:flex-row text-sm items-center ">
+      <div className="flex gap-6 justify-center text-zinc-600 font-semibold flex-col md:flex-row text-sm items-center ">
         {footerLinks.map((l, i) => {
           return (
             <Link key={`${l.label}-${i}`} className="" href={l.link}>

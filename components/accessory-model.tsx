@@ -31,7 +31,7 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1 rounded-full hover:bg-neutral-200"
+          className="absolute top-4 right-4 p-1 rounded-full hover:bg-zinc-200"
         >
           <IconX size={20} />
         </button>
@@ -44,11 +44,11 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
           />
         )}
 
-        <h3 className="text-xl font-semibold text-neutral-900 mb-2">
+        <h3 className="text-xl font-semibold text-zinc-900 mb-2">
           {accessory.title || accessory.name}
         </h3>
-        <p className="text-sm text-neutral-700 mb-4">{accessory.description}</p>
-        <p className="text-lg font-bold text-neutral-800">${accessory.price}</p>
+        <p className="text-sm text-zinc-700 mb-4">{accessory.description}</p>
+        <p className="text-lg font-bold text-zinc-800">${accessory.price}</p>
 
         {accessory.url && (
           <a

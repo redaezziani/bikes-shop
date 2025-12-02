@@ -109,7 +109,7 @@ const Header = () => {
           <div className="relative">
             <button
               onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
-              className="text-white font-semibold text-sm hover:text-neutral-200 transition-colors flex items-center gap-1"
+              className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
             >
               Models
               <IconChevronDown
@@ -128,7 +128,7 @@ const Header = () => {
                       key={p.id}
                       href={`/models/${p.slug}`}
                       onClick={() => setModelsDropdownOpen(false)}
-                      className="flex gap-3 items-center px-4 py-3 hover:bg-neutral-50 transition-colors"
+                      className="flex gap-3 items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                     >
                       {p.preview_images[0] && (
                         <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-gray-100">
@@ -140,17 +140,17 @@ const Header = () => {
                         </div>
                       )}
                       <div>
-                        <h3 className="font-medium text-neutral-800 text-sm">
+                        <h3 className="font-medium text-zinc-800 text-sm">
                           {p.name}
                         </h3>
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-xs text-zinc-500">
                           Explore and Learn
                         </p>
                       </div>
                     </Link>
                   ))
                 ) : (
-                  <div className="px-4 py-3 text-neutral-600 text-sm">
+                  <div className="px-4 py-3 text-zinc-600 text-sm">
                     No models available
                   </div>
                 )}
@@ -160,13 +160,13 @@ const Header = () => {
 
           <Link
             href="/blog"
-            className="text-white font-semibold text-sm hover:text-neutral-200 transition-colors"
+            className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors"
           >
             Blog
           </Link>
           <Link
             href="/routes"
-            className="text-white font-semibold text-sm hover:text-neutral-200 transition-colors"
+            className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors"
           >
             Routes
           </Link>
@@ -189,7 +189,7 @@ const Header = () => {
         <div className="flex flex-col h-full">
           <div className="flex justify-end p-4">
             <button onClick={() => setOpen(false)} className="p-2">
-              <IconX className="text-neutral-500" size={18} />
+              <IconX className="text-zinc-500" size={18} />
             </button>
           </div>
 
@@ -201,12 +201,12 @@ const Header = () => {
                     onClick={() => item.hasSubmenu && toggleSubmenu(index)}
                     className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
                   >
-                    <span className="text-neutral-800 font-medium uppercase text-sm">
+                    <span className="text-zinc-800 font-medium uppercase text-sm">
                       {item.label}
                     </span>
                     {item.hasSubmenu && (
                       <IconChevronDown
-                        className={`text-neutral-500 transition-transform ${
+                        className={`text-zinc-500 transition-transform ${
                           expandedMenu === index ? 'rotate-180' : ''
                         }`}
                         size={20}
@@ -231,10 +231,10 @@ const Header = () => {
                                 />
                               </div>
                               <div className="flex-1">
-                                <h3 className="font-medium text-neutral-800">
+                                <h3 className="font-medium text-zinc-800">
                                   {p.name}
                                 </h3>
-                                <p className="text-sm text-neutral-500 mt-1">
+                                <p className="text-sm text-zinc-500 mt-1">
                                   Explore and Learn
                                 </p>
                               </div>
@@ -251,10 +251,10 @@ const Header = () => {
                                 </div>
                               )}
                               <div className="flex-1">
-                                <h3 className="font-medium text-neutral-800">
+                                <h3 className="font-medium text-zinc-800">
                                   {subItem.name}
                                 </h3>
-                                <p className="text-sm text-neutral-500 mt-1">
+                                <p className="text-sm text-zinc-500 mt-1">
                                   {subItem.description}
                                 </p>
                               </div>
@@ -270,17 +270,17 @@ const Header = () => {
           <div className="border-t border-gray-200 px-6 py-4">
             <button className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200">
               <div className="flex items-center gap-3">
-                <IconWorld size={20} className="text-neutral-600" />
+                <IconWorld size={20} className="text-zinc-600" />
                 <div>
                   <div className="text-base font-medium">United States</div>
                   <div className="text-sm text-gray-500">English</div>
                 </div>
               </div>
-              <IconChevronRight size={20} className="text-neutral-500" />
+              <IconChevronRight size={20} className="text-zinc-500" />
             </button>
 
             <button className="w-full flex items-center gap-3 py-4 text-left">
-              <IconUser size={20} className="text-neutral-600" />
+              <IconUser size={20} className="text-zinc-600" />
               <span className="text-base font-medium">Account</span>
             </button>
           </div>

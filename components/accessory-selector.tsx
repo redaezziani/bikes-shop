@@ -9,7 +9,6 @@ const AccessorySelector = ({
   selectedAccessories: number[];
   toggleAccessory: (accessoryId: number) => void;
 }) => {
-
   const availableAccessories = product?.available_accessories || [];
 
   console.log(availableAccessories);
@@ -27,8 +26,8 @@ const AccessorySelector = ({
               flex gap-3 transition
               ${
                 isActive
-                  ? 'border-neutral-800 bg-neutral-100 ring-1 ring-neutral-800'
-                  : 'border-neutral-300 hover:border-neutral-500'
+                  ? 'border-zinc-800 bg-zinc-100 ring-1 ring-zinc-800'
+                  : 'border-zinc-300 hover:border-zinc-500'
               }
             `}
           >
@@ -37,8 +36,8 @@ const AccessorySelector = ({
                 absolute top-2 left-2 h-4 w-4 flex items-center justify-center rounded-sm border
                 ${
                   isActive
-                    ? 'bg-neutral-800 border-neutral-800'
-                    : 'bg-white border-neutral-400'
+                    ? 'bg-zinc-800 border-zinc-800'
+                    : 'bg-white border-zinc-400'
                 }
               `}
             >
@@ -75,18 +74,18 @@ const AccessorySelector = ({
             <div className="flex flex-col gap-1">
               <h5
                 className={`text-sm font-semibold ${
-                  isActive ? 'text-neutral-900' : 'text-neutral-700'
+                  isActive ? 'text-zinc-900' : 'text-zinc-700'
                 }`}
               >
                 {item.title}
               </h5>
-              <p className="text-neutral-600 text-xs">{item.description}</p>
+              <p className="text-zinc-600 text-xs">{item.description}</p>
             </div>
 
             <div className="text-start">
               <strong
                 className={`text-sm font-semibold ${
-                  isActive ? 'text-neutral-900' : 'text-neutral-600'
+                  isActive ? 'text-zinc-900' : 'text-zinc-600'
                 }`}
               >
                 {item.price === 0 ? 'Free' : `$ ${item.price}`}
