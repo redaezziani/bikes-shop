@@ -13,57 +13,80 @@ const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
   ssr: false,
 });
 
-
 export default function Home() {
   return (
-    <main className=" flex flex-col    bg-white gap-4 justify-start items-center relative">
+    <main className="flex flex-col bg-white justify-start items-center relative">
       <HeroSlider />
-      <section aria-label="product-version-section" className="bg-white  w-full">
+      <section
+        aria-label="product-version-section"
+        className="bg-white mt-10 w-full"
+      >
         <ProductVersionSection />
       </section>
-      <section className="w-full px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <OfferCard
-          title="Current Offers"
-          description="Explore limited-time offers on Tesla vehicles."
-          image="/images/tesla-offer.jpg"
-        />
-        <OfferCard
-          title="Special Deals"
-          description="Exclusive discounts only for this season."
-          image="/images/sale.jpg"
-        />
-        <OfferCard
-          title="New Arrivals"
-          description="Discover the latest models available now."
-          image="/images/new.jpg"
-        />
+      <section className="w-full px-4 lg:px-0 lg:max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <OfferCard
+            title="Current Offers"
+            description="Explore limited-time offers on Tesla vehicles."
+            image="/images/tesla-offer.jpg"
+          />
+          <OfferCard
+            title="Special Deals"
+            description="Exclusive discounts only for this season."
+            image="/images/sale.jpg"
+          />
+          <OfferCard
+            title="New Arrivals"
+            description="Discover the latest models available now."
+            image="/images/new.jpg"
+          />
+        </div>
       </section>
 
-      <section className=" grid w-full grid-cols-1 md:grid-cols-2 gap-6 px-4">
-        <span className=" relative h-96  w-full flex flex-col gap-2  rounded ">
-          <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
-          <div className="flex flex-col justify-start ">
-            <h3 className=" text-neutral-800 text-lg font-semibold capitalize">
-              Text here
-            </h3>
-            <p>Lorem ipsum dolor sit amet consectetur</p>
+      <section className="w-full px-4 lg:px-0 lg:max-w-6xl mx-auto py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col rounded-lg overflow-hidden  transition-shadow">
+            <div className="relative h-96 w-full overflow-hidden bg-neutral-200">
+              <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
+            </div>
+            <div className="flex flex-col justify-start py-5 bg-white">
+              <h3 className="text-neutral-800 text-lg font-semibold mb-2">
+                Master Your Riding Skills
+              </h3>
+              <p className="text-neutral-600 text-sm leading-6">
+                Discover essential techniques and tips to improve your cycling
+                performance. Learn from experienced riders how to navigate
+                different terrains, maintain balance, and maximize your biking
+                experience.
+              </p>
+            </div>
           </div>
-        </span>
-        <div className=" h-[36rem] w-full relative overflow-hidden bg-neutral-200 rounded ">
-          <div className="w-full h-full">
-            <LeafletMap
-              gpxUrl="/gpx/Desert-Ride.gpx"
-              height="h-full"
-              zoom={11}
-              center={[51.505, -0.09]}
-            />
+          <div className="flex flex-col rounded-lg overflow-hidden  transition-shadow">
+            <div className="relative w-full h-96 bg-neutral-200">
+              <LeafletMap
+                gpxUrl="/gpx/Desert-Ride.gpx"
+                height="h-96"
+                zoom={11}
+                center={[51.505, -0.09]}
+              />
+              <Link
+                href="/routes"
+                className="absolute bottom-4 right-4 bg-neutral-800 hover:bg-neutral-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm z-10 transition-colors shadow-md"
+              >
+                View All Routes
+              </Link>
+            </div>
+            <div className=" py-5 bg-white">
+              <h3 className="text-neutral-800 text-lg font-semibold mb-2">
+                Explore Scenic Routes
+              </h3>
+              <p className="text-neutral-600 text-sm leading-6">
+                Discover amazing biking routes in your area. From mountain
+                trails to scenic coastal paths, find the perfect route for your
+                next adventure.
+              </p>
+            </div>
           </div>
-          <Link
-            href="/routes"
-            className="absolute bottom-4 right-4 bg-neutral-800 hover:bg-neutral-700 text-white px-4 py-2 rounded font-semibold text-sm z-10"
-          >
-            View All Routes
-          </Link>
         </div>
       </section>
 
@@ -82,8 +105,8 @@ export default function Home() {
             Ask On Whatsapp
           </p>
         </button>
-        <button className="border h-10 bg-neutral-400/10 border-neutral-400/45 flex justify-center items-center gap-2 rounded w-full">
-          <p className=" text-neutral-700 capitalize font-semibold text-xs">
+        <button className="border h-10 border-neutral-400/45 flex justify-center items-center gap-2 rounded w-full hover:bg-neutral-50 transition-colors">
+          <p className="text-neutral-700 capitalize font-semibold text-xs">
             Book your Free test ride
           </p>
         </button>

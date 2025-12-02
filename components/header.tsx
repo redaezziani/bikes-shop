@@ -69,12 +69,14 @@ const Header = () => {
     setExpandedMenu(expandedMenu === index ? null : index);
   };
 
+  const [modelsDropdownOpen, setModelsDropdownOpen] = useState(false);
+
   return (
     <>
-      <header className="w-full absolute px-4 py-3 flex justify-between items-center gap-4 z-50">
+      <header className="w-full absolute px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-4 z-50">
         <Link href="/">
           <svg
-            className="w-24 text-white  fill-white"
+            className="w-20 sm:w-24 lg:w-28 text-white fill-white"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
@@ -101,9 +103,79 @@ const Header = () => {
             </g>
           </svg>
         </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-8">
+          <div className="relative">
+            <button
+              onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
+              className="text-white font-semibold text-sm hover:text-neutral-200 transition-colors flex items-center gap-1"
+            >
+              Models
+              <IconChevronDown
+                size={16}
+                className={`transition-transform ${
+                  modelsDropdownOpen ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {modelsDropdownOpen && (
+              <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+                {products.length > 0 ? (
+                  products.map((p) => (
+                    <Link
+                      key={p.id}
+                      href={`/models/${p.slug}`}
+                      onClick={() => setModelsDropdownOpen(false)}
+                      className="flex gap-3 items-center px-4 py-3 hover:bg-neutral-50 transition-colors"
+                    >
+                      {p.preview_images[0] && (
+                        <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-gray-100">
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                            alt={p.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="font-medium text-neutral-800 text-sm">
+                          {p.name}
+                        </h3>
+                        <p className="text-xs text-neutral-500">
+                          Explore and Learn
+                        </p>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="px-4 py-3 text-neutral-600 text-sm">
+                    No models available
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <Link
+            href="/blog"
+            className="text-white font-semibold text-sm hover:text-neutral-200 transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/routes"
+            className="text-white font-semibold text-sm hover:text-neutral-200 transition-colors"
+          >
+            Routes
+          </Link>
+        </nav>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="py-1.5 px-4 bg-white/10 text-white font-bold capitalize text-sm rounded backdrop-blur-sm"
+          className="lg:hidden py-2 px-3 sm:px-4  text-white font-bold capitalize text-sm  transition-colors"
         >
           <IconMenu size={20} />
         </button>
@@ -142,11 +214,10 @@ const Header = () => {
                     )}
                   </button>
 
-                  {item.hasSubmenu &&
-                    expandedMenu === index && (
-                      <div className="py-4 space-y-4">
-                        {index === 0 && products.length > 0 ? (
-                          products.map((p) => (
+                  {item.hasSubmenu && expandedMenu === index && (
+                    <div className="py-4 space-y-4">
+                      {index === 0 && products.length > 0
+                        ? products.map((p) => (
                             <Link
                               href={`/models/${p.slug}`}
                               key={p.id}
@@ -169,8 +240,7 @@ const Header = () => {
                               </div>
                             </Link>
                           ))
-                        ) : (
-                          item.subItems?.map((subItem, subIndex) => (
+                        : item.subItems?.map((subItem, subIndex) => (
                             <div
                               key={subIndex}
                               className="flex gap-4 items-start"
@@ -189,10 +259,9 @@ const Header = () => {
                                 </p>
                               </div>
                             </div>
-                          ))
-                        )}
-                      </div>
-                    )}
+                          ))}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

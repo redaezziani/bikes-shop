@@ -195,6 +195,8 @@ export default function LeafletMap({
       navigator.geolocation.clearWatch(watchIdRef.current);
     }
 
+    let isFirstLocation = true;
+
     // Use watchPosition for continuous updates
     watchIdRef.current = navigator.geolocation.watchPosition(
       (position) => {
@@ -207,9 +209,10 @@ export default function LeafletMap({
           }
 
           // Center map on user location (only on first location)
-          if (isLocating) {
+          if (isFirstLocation) {
             map.current.setView([latitude, longitude], 15);
             setIsLocating(false);
+            isFirstLocation = false;
           }
 
           // Add user location marker with pulsing blue dot
@@ -306,9 +309,9 @@ export default function LeafletMap({
         setShowLocationAlert(true);
       },
       {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 5000, // Accept cached position up to 5 seconds old
+        enableHighAccuracy: false, // Set to false for faster results on mobile
+        timeout: 30000, // Increase timeout to 30 seconds
+        maximumAge: 0, // Don't use cached position, get fresh location
       },
     );
   };
