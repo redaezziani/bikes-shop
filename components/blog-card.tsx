@@ -31,12 +31,15 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             {blog.title}
           </h3>
           {blog.excerpt && (
-            <p className="text-sm text-zinc-600 mb-4 line-clamp-2 font-medium grow">
+            <p className="text-sm text-zinc-700 mb-4 line-clamp-2 font-medium grow">
               {blog.excerpt}
             </p>
           )}
           <div className="flex w-full">
-            <button className=" py-2 px-3 rounded-lg font-medium text-zinc-800 capitalize text-sm bg-white w-44">
+            <button
+              className=" py-2 px-3 rounded-lg font-medium text-zinc-800 capitalize text-sm bg-white w-44"
+              aria-label={`Learn more about ${blog.title}`}
+            >
               learn more
             </button>
           </div>

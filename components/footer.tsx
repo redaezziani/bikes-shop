@@ -28,26 +28,34 @@ const Footer = () => {
   return (
     <footer className="  bg-white   w-full gap-6 pt-6 pb-20 md:pb-9 flex items-center justify-start flex-col px-4 min-h-96">
       <div className=" flex gap-4 justify-center items-center ">
-        <img
-          className=" w-7  invert  "
-          src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68c29d91e957b241f6dccb80_instagram-logo.svg"
-          alt=""
-        />
-        <img
-          className=" w-7  "
-          src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68df22c37c9a4a25963b9931_black-and-white-youtube-icon.webp"
-          alt=""
-        />
-        <img
-          className=" w-7  "
-          src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68df22c46f6856d122d30db2_brand_strava_icon_158683.png"
-          alt=""
-        />
-        <img
-          className=" w-5 invert "
-          src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/6902c249d28cd1dbe350572e_linkedin-app-white-icon.webp"
-          alt=""
-        />
+        <Link href="#" aria-label="Follow us on Instagram">
+          <img
+            className=" w-7  invert  "
+            src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68c29d91e957b241f6dccb80_instagram-logo.svg"
+            alt="Instagram"
+          />
+        </Link>
+        <Link href="#" aria-label="Subscribe to our YouTube channel">
+          <img
+            className=" w-7  "
+            src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68df22c37c9a4a25963b9931_black-and-white-youtube-icon.webp"
+            alt="YouTube"
+          />
+        </Link>
+        <Link href="#" aria-label="Follow us on Strava">
+          <img
+            className=" w-7  "
+            src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68df22c46f6856d122d30db2_brand_strava_icon_158683.png"
+            alt="Strava"
+          />
+        </Link>
+        <Link href="#" aria-label="Connect with us on LinkedIn">
+          <img
+            className=" w-5 invert "
+            src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/6902c249d28cd1dbe350572e_linkedin-app-white-icon.webp"
+            alt="LinkedIn"
+          />
+        </Link>
       </div>
       <div className="flex gap-6 justify-center text-zinc-600 font-semibold flex-col md:flex-row text-sm items-center ">
         {footerLinks.map((l, i) => {

@@ -74,13 +74,14 @@ const Header = () => {
   return (
     <>
       <header className="w-full absolute px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-4 z-50">
-        <Link href="/">
+        <Link href="/" aria-label="Go to homepage">
           <svg
             className="w-20 sm:w-24 lg:w-28 text-white fill-white"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
             viewBox="0 0 100 45"
+            aria-hidden="true"
           >
             <g>
               <path d="M97.37,10.74c-.13-1.2-2.55-.93-3.49-.87-1.69.12-1.85.28-1.72,2.05-3.98-4.2-10.41-2.93-13.35,1.8-1.81,2.91-2.15,7.05-.94,10.25,2.17,5.71,9.96,8.09,14.29,3.29-.14,1.4.04,2.78-.79,4.01-1.55,2.28-5.21,2.61-7.43,1.21-.59-.37-1.02-.99-1.7-1.22-2.58.5-6.48.36-3.31,3.8,3.73,4.04,12.34,4.37,16.05.19,1.87-2.11,2.31-4.94,2.43-7.67.25-5.54-.17-11.29-.04-16.85ZM86.98,24.96c-6.03-.41-6.01-9.86-.35-10.57,7.78-.98,7.52,11.06.35,10.57Z" />
@@ -110,6 +111,9 @@ const Header = () => {
             <button
               onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
               className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
+              aria-label="View bike models"
+              aria-expanded={modelsDropdownOpen}
+              aria-haspopup="true"
             >
               Models
               <IconChevronDown
@@ -117,6 +121,7 @@ const Header = () => {
                 className={`transition-transform ${
                   modelsDropdownOpen ? 'rotate-180' : ''
                 }`}
+                aria-hidden="true"
               />
             </button>
 
@@ -176,8 +181,10 @@ const Header = () => {
         <button
           onClick={() => setOpen(true)}
           className="lg:hidden py-2 px-3 sm:px-4  text-white font-bold capitalize text-sm  transition-colors"
+          aria-label="Open navigation menu"
+          aria-expanded={open}
         >
-          <IconMenu size={20} />
+          <IconMenu size={20} aria-hidden="true" />
         </button>
       </header>
 
@@ -188,8 +195,12 @@ const Header = () => {
       >
         <div className="flex flex-col h-full">
           <div className="flex justify-end p-4">
-            <button onClick={() => setOpen(false)} className="p-2">
-              <IconX className="text-zinc-500" size={18} />
+            <button
+              onClick={() => setOpen(false)}
+              className="p-2"
+              aria-label="Close navigation menu"
+            >
+              <IconX className="text-zinc-500" size={18} aria-hidden="true" />
             </button>
           </div>
 
@@ -200,6 +211,8 @@ const Header = () => {
                   <button
                     onClick={() => item.hasSubmenu && toggleSubmenu(index)}
                     className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                    aria-label={item.hasSubmenu ? `${item.label} menu` : item.label}
+                    aria-expanded={item.hasSubmenu ? expandedMenu === index : undefined}
                   >
                     <span className="text-zinc-800 font-medium uppercase text-sm">
                       {item.label}
@@ -210,6 +223,7 @@ const Header = () => {
                           expandedMenu === index ? 'rotate-180' : ''
                         }`}
                         size={20}
+                        aria-hidden="true"
                       />
                     )}
                   </button>
@@ -268,19 +282,25 @@ const Header = () => {
           </nav>
 
           <div className="border-t border-gray-200 px-6 py-4">
-            <button className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200">
+            <button
+              className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+              aria-label="Change language and region settings"
+            >
               <div className="flex items-center gap-3">
-                <IconWorld size={20} className="text-zinc-600" />
+                <IconWorld size={20} className="text-zinc-600" aria-hidden="true" />
                 <div>
                   <div className="text-base font-medium">United States</div>
                   <div className="text-sm text-gray-500">English</div>
                 </div>
               </div>
-              <IconChevronRight size={20} className="text-zinc-500" />
+              <IconChevronRight size={20} className="text-zinc-500" aria-hidden="true" />
             </button>
 
-            <button className="w-full flex items-center gap-3 py-4 text-left">
-              <IconUser size={20} className="text-zinc-600" />
+            <button
+              className="w-full flex items-center gap-3 py-4 text-left"
+              aria-label="Access your account"
+            >
+              <IconUser size={20} className="text-zinc-600" aria-hidden="true" />
               <span className="text-base font-medium">Account</span>
             </button>
           </div>
