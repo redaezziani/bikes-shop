@@ -8,46 +8,35 @@ interface BlogCardProps {
 }
 
 const BlogCard = ({ blog }: BlogCardProps) => {
-  const formattedDate = new Date(blog.publishedAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
   return (
     <Link href={`/blog/${blog.slug}`}>
-      <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-        {blog.featured_image?.url && (
-          <div className="relative h-48 overflow-hidden bg-neutral-200">
-            <img
-              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`}
-              alt={blog.title}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
+      <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
+        {blog.featured_image?.url ? (
+          <img
+            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`}
+            alt={blog.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-neutral-400 to-neutral-600" />
         )}
-        <div className="p-4 flex flex-col flex-grow">
-          {blog.category && (
-            <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-2">
-              {blog.category}
-            </span>
-          )}
-          <h3 className="text-lg font-bold text-neutral-900 mb-2 line-clamp-2">
+
+        {/* Dark overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+        {/* Content overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+          <h3 className="text-3xl font-bold mb-2">
             {blog.title}
           </h3>
           {blog.excerpt && (
-            <p className="text-sm text-neutral-600 mb-4 line-clamp-3 flex-grow">
+            <p className="text-neutral-200 text-sm mb-6 line-clamp-2">
               {blog.excerpt}
             </p>
           )}
-          <div className="flex items-center justify-between pt-4 border-t border-neutral-200">
-            <span className="text-xs text-neutral-500">
-              {formattedDate}
-            </span>
-            <span className="text-sm font-semibold text-neutral-800 hover:text-neutral-600 transition-colors">
-              Read More →
-            </span>
-          </div>
+          <button className="px-8 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-md text-white font-medium hover:bg-white/20 transition-all duration-300">
+            Learn More
+          </button>
         </div>
       </div>
     </Link>
