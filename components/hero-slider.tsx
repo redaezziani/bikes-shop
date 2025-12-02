@@ -33,7 +33,7 @@ const HeroSlider = () => {
   return (
     <div
       id="hero"
-      className="w-full h-72 sm:h-96 lg:h-screen relative bg-neutral-400"
+      className="w-full h-72 sm:h-96 lg:h-screen relative bg-zinc-400"
     >
       <Header />
       <Swiper
@@ -58,7 +58,7 @@ const HeroSlider = () => {
                   {slide.title}
                 </h1>
                 <div className="flex w-full justify-center items-center gap-2">
-                  <button className="bg-white hover:bg-neutral-100 text-neutral-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg">
+                  <button className="bg-white hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg">
                     learn more
                   </button>
                 </div>

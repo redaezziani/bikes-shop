@@ -68,10 +68,10 @@ const OrderContent = () => {
             />
 
             <div className="flex px-4 flex-col gap-1 justify-center items-center text-center">
-              <h2 className="text-xl font-semibold text-neutral-900">
+              <h2 className="text-xl font-semibold text-zinc-900">
                 {currentProduct.name}
               </h2>
-              <p className="text-neutral-600 capitalize text-sm">
+              <p className="text-zinc-600 capitalize text-sm">
                 {currentProduct.short_description}{' '}
                 <Link
                   className="underline underline-offset-4"
@@ -85,10 +85,10 @@ const OrderContent = () => {
             <div className="px-4 flex gap-5 justify-between w-full">
               {currentProduct.specs.slice(0, 3).map((spec: any) => (
                 <span key={spec.id} className="flex flex-col text-center gap-1">
-                  <h4 className="text-neutral-800 font-semibold text-sm">
+                  <h4 className="text-zinc-800 font-semibold text-sm">
                     {spec.name}
                   </h4>
-                  <p className="text-neutral-600 capitalize font-medium text-sm">
+                  <p className="text-zinc-600 capitalize font-medium text-sm">
                     {spec.value}
                     {spec.measure && ` ${spec.measure}`}
                   </p>
@@ -96,13 +96,13 @@ const OrderContent = () => {
               ))}
             </div>
 
-            <span className="w-full bg-neutral-400/35 h-px" />
+            <span className="w-full bg-zinc-400/35 h-px" />
 
             <ModelSelector products={products} />
 
             <div className="flex gap-1 flex-col justify-center items-center">
-              <h2 className="text-xl font-semibold text-neutral-900">Colors</h2>
-              <p className="text-neutral-600 capitalize text-sm">
+              <h2 className="text-xl font-semibold text-zinc-900">Colors</h2>
+              <p className="text-zinc-600 capitalize text-sm">
                 Choose the color that you want.
               </p>
               {availableColors.length > 0 && (
@@ -114,8 +114,8 @@ const OrderContent = () => {
                         className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8 bg-white transition
                           ${
                             selectedColor === color.name
-                              ? 'border-neutral-900'
-                              : 'border-neutral-300'
+                              ? 'border-zinc-900'
+                              : 'border-zinc-300'
                           }`}
                       >
                         <input
@@ -138,7 +138,7 @@ const OrderContent = () => {
             </div>
 
             <div className="flex gap-1 mt-5 flex-col justify-center items-center">
-              <h2 className="text-xl pb-5 font-semibold text-neutral-900">
+              <h2 className="text-xl pb-5 font-semibold text-zinc-900">
                 Accessories
               </h2>
               <AccessorySelector

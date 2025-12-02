@@ -36,7 +36,10 @@ const OrderSummaryPanel = ({
   const selectedAccessoriesDetails = useMemo(() => {
     if (!currentProduct) return [];
     const allAvailableAccs = new Map(
-      currentProduct.available_accessories.map((acc: Accessory) => [acc.id, acc]),
+      currentProduct.available_accessories.map((acc: Accessory) => [
+        acc.id,
+        acc,
+      ]),
     );
     return selectedAccessoryIds
       .map((accId: number) => allAvailableAccs.get(accId))
@@ -81,8 +84,9 @@ const OrderSummaryPanel = ({
 
     if (selectedColor) {
       addItem(currentProduct, selectedColor, selectedAccessoriesDetails, 1);
-      showToast.success(`${currentProduct.name} added to cart!`,
-        `Color: ${selectedColorName} | Accessories: ${selectedAccessoriesDetails.length}`
+      showToast.success(
+        `${currentProduct.name} added to cart!`,
+        `Color: ${selectedColorName} | Accessories: ${selectedAccessoriesDetails.length}`,
       );
     }
   };
@@ -100,10 +104,10 @@ const OrderSummaryPanel = ({
       }`}
     >
       <div
-        className={`flex justify-between border-neutral-400/25 items-center px-4 py-4 md:px-6 md:py-4 transition-colors duration-300 cursor-pointer ${
+        className={`flex justify-between border-zinc-400/25 items-center px-4 py-4 md:px-6 md:py-4 transition-colors duration-300 cursor-pointer ${
           isExpanded
-            ? 'bg-white text-neutral-900 border-b border-neutral-200'
-            : 'bg-white text-neutral-800 border-t md:border-t-0 md:rounded-t-xl'
+            ? 'bg-white text-zinc-900 border-b border-zinc-200'
+            : 'bg-white text-zinc-800 border-t md:border-t-0 md:rounded-t-xl'
         }`}
         onClick={() => setIsExpanded(!isExpanded)}
       >
@@ -113,21 +117,23 @@ const OrderSummaryPanel = ({
             <h3 className="font-semibold text-sm">
               {isExpanded ? 'Order Configuration' : 'Order Summary'}
             </h3>
-            <p className="text-xs text-neutral-500">{selectedAccessoriesDetails.length} accessories</p>
+            <p className="text-xs text-zinc-500">
+              {selectedAccessoriesDetails.length} accessories
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <p className="text-xs text-neutral-500">Total</p>
+            <p className="text-xs text-zinc-500">Total</p>
             <span className="text-lg font-bold text-[#6760ff]">
               ${totalPrice.toFixed(2)}
             </span>
           </div>
           <motion.button whileTap={{ scale: 0.95 }}>
             {isExpanded ? (
-              <IconX size={20} className="text-neutral-800" />
+              <IconX size={20} className="text-zinc-800" />
             ) : (
-              <IconChevronUp size={20} className="text-neutral-800" />
+              <IconChevronUp size={20} className="text-zinc-800" />
             )}
           </motion.button>
         </div>
@@ -137,25 +143,29 @@ const OrderSummaryPanel = ({
         className={`p-6 overflow-y-auto ${isExpanded ? 'block' : 'hidden'}`}
         style={{ height: isExpanded ? 'calc(100vh - 80px)' : '0' }}
       >
-        <h2 className="text-xl font-bold mb-6 text-neutral-800">
+        <h2 className="text-xl font-bold mb-6 text-zinc-800">
           Your Configuration
         </h2>
 
         {/* Product Section */}
-        <div className="mb-6 p-4 border border-neutral-200 rounded-lg bg-neutral-50">
+        <div className="mb-6 p-4 border border-zinc-200 rounded-lg bg-zinc-50">
           <div className="flex items-center gap-3 mb-4">
-            <IconBike size={20} className="text-neutral-700" />
-            <h3 className="font-semibold text-neutral-800">Product</h3>
+            <IconBike size={20} className="text-zinc-700" />
+            <h3 className="font-semibold text-zinc-800">Product</h3>
           </div>
-          <div className="flex justify-between items-center py-2 border-b border-dashed border-neutral-300">
+          <div className="flex justify-between items-center py-2 border-b border-dashed border-zinc-300">
             <span className="font-medium text-sm">{currentProduct.name}</span>
-            <span className="font-medium text-lg">${currentProduct.price.toFixed(2)}</span>
+            <span className="font-medium text-lg">
+              ${currentProduct.price.toFixed(2)}
+            </span>
           </div>
           <div className="flex items-center gap-4 py-2">
-            <span className="text-sm text-neutral-600">Color:</span>
-            <span className="font-medium text-sm capitalize">{selectedColorName}</span>
+            <span className="text-sm text-zinc-600">Color:</span>
+            <span className="font-medium text-sm capitalize">
+              {selectedColorName}
+            </span>
             <div
-              className="size-5 rounded-md border border-neutral-300"
+              className="size-5 rounded-md border border-zinc-300"
               style={{ backgroundColor: selectedColorHex || '#cccccc' }}
             />
           </div>
@@ -164,7 +174,7 @@ const OrderSummaryPanel = ({
         {/* Accessories Section */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <h3 className="text-sm font-semibold text-neutral-800">
+            <h3 className="text-sm font-semibold text-zinc-800">
               Accessories ({selectedAccessoriesDetails.length})
             </h3>
           </div>
@@ -174,28 +184,28 @@ const OrderSummaryPanel = ({
               {selectedAccessoriesDetails.map((acc) => (
                 <li
                   key={acc.id}
-                  className="flex justify-between items-center py-1 px-2 bg-neutral-50 rounded"
+                  className="flex justify-between items-center py-1 px-2 bg-zinc-50 rounded"
                 >
-                  <span className="font-medium text-neutral-800 text-xs">
+                  <span className="font-medium text-zinc-800 text-xs">
                     {acc.title || acc.name}
                   </span>
-                  <span className="font-medium text-xs text-neutral-600">
+                  <span className="font-medium text-xs text-zinc-600">
                     ${acc.price.toFixed(2)}
                   </span>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-neutral-500 p-3 bg-white rounded-lg border border-dashed text-sm mb-4">
+            <p className="text-zinc-500 p-3 bg-white rounded-lg border border-dashed text-sm mb-4">
               No accessories selected.
             </p>
           )}
         </div>
 
         {/* Order Total */}
-        <div className="pt-4 border-t border-neutral-300 mb-6">
+        <div className="pt-4 border-t border-zinc-300 mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-bold text-neutral-800">Order Total</h3>
+            <h3 className="text-lg font-bold text-zinc-800">Order Total</h3>
             <span className="text-xl font-bold text-[#6760ff]">
               ${totalPrice.toFixed(2)}
             </span>
@@ -212,12 +222,18 @@ const OrderSummaryPanel = ({
               }
 
               if (!customerInfo.email.trim()) {
-                showToast.error('Email required', 'Please enter your email address');
+                showToast.error(
+                  'Email required',
+                  'Please enter your email address',
+                );
                 return;
               }
 
               if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerInfo.email)) {
-                showToast.error('Invalid email', 'Please enter a valid email address');
+                showToast.error(
+                  'Invalid email',
+                  'Please enter a valid email address',
+                );
                 return;
               }
 
@@ -230,7 +246,12 @@ const OrderSummaryPanel = ({
                 );
 
                 if (selectedColor) {
-                  addItem(currentProduct, selectedColor, selectedAccessoriesDetails, 1);
+                  addItem(
+                    currentProduct,
+                    selectedColor,
+                    selectedAccessoriesDetails,
+                    1,
+                  );
                 }
 
                 // Get the checkout payload with all items
@@ -238,14 +259,23 @@ const OrderSummaryPanel = ({
 
                 console.log('Checkout Payload:', checkoutPayload);
 
-                if (!checkoutPayload.items || checkoutPayload.items.length === 0) {
+                if (
+                  !checkoutPayload.items ||
+                  checkoutPayload.items.length === 0
+                ) {
                   showToast.error('No items', 'Please add items to your order');
                   setIsSubmitting(false);
                   return;
                 }
 
-                if (!checkoutPayload.customerName || !checkoutPayload.customerEmail) {
-                  showToast.error('Customer info missing', 'Please fill in your name and email');
+                if (
+                  !checkoutPayload.customerName ||
+                  !checkoutPayload.customerEmail
+                ) {
+                  showToast.error(
+                    'Customer info missing',
+                    'Please fill in your name and email',
+                  );
                   setIsSubmitting(false);
                   return;
                 }
@@ -259,7 +289,7 @@ const OrderSummaryPanel = ({
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(checkoutPayload),
-                  }
+                  },
                 );
 
                 if (!checkoutResponse.ok) {
@@ -276,7 +306,12 @@ const OrderSummaryPanel = ({
                 }
               } catch (error) {
                 console.error('Checkout error:', error);
-                showToast.error('Checkout failed', error instanceof Error ? error.message : 'Failed to process checkout');
+                showToast.error(
+                  'Checkout failed',
+                  error instanceof Error
+                    ? error.message
+                    : 'Failed to process checkout',
+                );
               } finally {
                 setIsSubmitting(false);
               }
@@ -285,20 +320,22 @@ const OrderSummaryPanel = ({
           >
             {/* Name Input */}
             <div>
-              <label className="block text-xs font-medium text-neutral-700 mb-2">
+              <label className="block text-xs font-medium text-zinc-700 mb-2">
                 Full Name
               </label>
               <div className="relative">
                 <IconUser
                   size={18}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none"
                 />
                 <input
                   type="text"
                   value={customerInfo.name}
-                  onChange={(e) => setCustomerInfo(e.target.value, customerInfo.email)}
+                  onChange={(e) =>
+                    setCustomerInfo(e.target.value, customerInfo.email)
+                  }
                   placeholder="John Doe"
-                  className="w-full pl-10 pr-3 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-400 transition text-sm"
+                  className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                   required
                 />
               </div>
@@ -306,20 +343,22 @@ const OrderSummaryPanel = ({
 
             {/* Email Input */}
             <div>
-              <label className="block text-xs font-medium text-neutral-700 mb-2">
+              <label className="block text-xs font-medium text-zinc-700 mb-2">
                 Email Address
               </label>
               <div className="relative">
                 <IconMail
                   size={18}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none"
                 />
                 <input
                   type="email"
                   value={customerInfo.email}
-                  onChange={(e) => setCustomerInfo(customerInfo.name, e.target.value)}
+                  onChange={(e) =>
+                    setCustomerInfo(customerInfo.name, e.target.value)
+                  }
                   placeholder="john@example.com"
-                  className="w-full pl-10 pr-3 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-400 transition text-sm"
+                  className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                   required
                 />
               </div>
@@ -330,7 +369,7 @@ const OrderSummaryPanel = ({
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting || items.length === 0}
-              className="w-full mt-4 py-2.5 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-neutral-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
+              className="w-full mt-4 py-2.5 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
             >
               {isSubmitting ? (
                 <>
@@ -346,7 +385,7 @@ const OrderSummaryPanel = ({
             </motion.button>
 
             {items.length === 0 && (
-              <p className="text-center text-xs text-neutral-500 mt-2">
+              <p className="text-center text-xs text-zinc-500 mt-2">
                 Add items to your cart to continue
               </p>
             )}
