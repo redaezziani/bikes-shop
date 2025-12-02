@@ -73,8 +73,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full absolute px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-4 z-50">
-        <Link href="/" aria-label="Go to homepage">
+      <header className="w-[95%] bg-zinc-900/90 rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
+        <Link href="/" className=" cursor-pointer" aria-label="Go to homepage">
           <svg
             className="w-20 sm:w-24 lg:w-28 text-white fill-white"
             id="Layer_1"
@@ -133,7 +133,7 @@ const Header = () => {
                       key={p.id}
                       href={`/models/${p.slug}`}
                       onClick={() => setModelsDropdownOpen(false)}
-                      className="flex gap-3 items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
+                      className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                     >
                       {p.preview_images[0] && (
                         <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-gray-100">
@@ -165,13 +165,13 @@ const Header = () => {
 
           <Link
             href="/blog"
-            className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
           >
             Blog
           </Link>
           <Link
             href="/routes"
-            className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
           >
             Routes
           </Link>
@@ -180,7 +180,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 sm:px-4  text-white font-bold capitalize text-sm  transition-colors"
+          className="lg:hidden py-2 px-3 sm:px-4 cursor-pointer  text-white font-bold capitalize text-sm  transition-colors"
           aria-label="Open navigation menu"
           aria-expanded={open}
         >
@@ -211,8 +211,12 @@ const Header = () => {
                   <button
                     onClick={() => item.hasSubmenu && toggleSubmenu(index)}
                     className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                    aria-label={item.hasSubmenu ? `${item.label} menu` : item.label}
-                    aria-expanded={item.hasSubmenu ? expandedMenu === index : undefined}
+                    aria-label={
+                      item.hasSubmenu ? `${item.label} menu` : item.label
+                    }
+                    aria-expanded={
+                      item.hasSubmenu ? expandedMenu === index : undefined
+                    }
                   >
                     <span className="text-zinc-800 font-medium uppercase text-sm">
                       {item.label}
@@ -287,20 +291,32 @@ const Header = () => {
               aria-label="Change language and region settings"
             >
               <div className="flex items-center gap-3">
-                <IconWorld size={20} className="text-zinc-600" aria-hidden="true" />
+                <IconWorld
+                  size={20}
+                  className="text-zinc-600"
+                  aria-hidden="true"
+                />
                 <div>
                   <div className="text-base font-medium">United States</div>
                   <div className="text-sm text-gray-500">English</div>
                 </div>
               </div>
-              <IconChevronRight size={20} className="text-zinc-500" aria-hidden="true" />
+              <IconChevronRight
+                size={20}
+                className="text-zinc-500"
+                aria-hidden="true"
+              />
             </button>
 
             <button
               className="w-full flex items-center gap-3 py-4 text-left"
               aria-label="Access your account"
             >
-              <IconUser size={20} className="text-zinc-600" aria-hidden="true" />
+              <IconUser
+                size={20}
+                className="text-zinc-600"
+                aria-hidden="true"
+              />
               <span className="text-base font-medium">Account</span>
             </button>
           </div>

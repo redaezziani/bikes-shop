@@ -15,7 +15,7 @@ const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
 
 export default function Home() {
   return (
-    <main className="flex flex-col bg-white justify-start items-center relative">
+    <main className="flex flex-col bg-white justify-center items-center relative">
       <HeroSlider />
       <section
         aria-label="product-version-section"
@@ -23,7 +23,7 @@ export default function Home() {
       >
         <ProductVersionSection />
       </section>
-      <section className="w-full px-4 lg:px-0 lg:max-w-6xl mx-auto">
+      <section className="w-full mt-10 px-4 lg:px-0 lg:max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <OfferCard
             title="Current Offers"
@@ -34,11 +34,6 @@ export default function Home() {
             title="Special Deals"
             description="Exclusive discounts only for this season."
             image="/images/sale.jpg"
-          />
-          <OfferCard
-            title="New Arrivals"
-            description="Discover the latest models available now."
-            image="/images/new.jpg"
           />
         </div>
       </section>
