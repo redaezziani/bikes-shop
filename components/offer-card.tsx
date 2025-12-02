@@ -6,7 +6,7 @@ interface OfferCardProps {
 
 const OfferCard: React.FC<OfferCardProps> = ({ title, description, image }) => {
   return (
-    <div className=" bg-zinc-100 rounded-xl overflow-hidden  transition">
+    <div className=" bg-zinc-100 rounded-lg overflow-hidden  transition">
       <div className="w-full bg-zinc-200 h-48 relative">
         {/* <img src={image} alt={title} className="w-full h-full object-cover" /> */}
       </div>

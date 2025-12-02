@@ -33,7 +33,7 @@ const HeroSlider = () => {
   return (
     <div
       id="hero"
-      className="w-full h-72 sm:h-96 lg:h-screen relative bg-zinc-400"
+      className="w-full flex items-center flex-col  h-72 sm:h-96 lg:h-screen relative bg-zinc-400"
     >
       <Header />
       <Swiper
