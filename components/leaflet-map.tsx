@@ -58,66 +58,22 @@ export default function LeafletMap({
     return R * c;
   };
 
-  // Light green bike marker with arrow label (#90EE90)
+  // Simple small circle marker for start/end points
   const createBikeMarker = (isStart = true) => {
     return L.divIcon({
       className: 'custom-bike-marker',
       html: `
-        <div style="position: relative;">
-          <!-- Label with arrow pointing down -->
-          <div style="
-            position: absolute;
-            bottom: 52px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #90EE90;
-            color: #333;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            white-space: nowrap;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-          ">
-            ${isStart ? 'START' : 'FINISH'}
-            <!-- Arrow pointing down -->
-            <div style="
-              position: absolute;
-              bottom: -6px;
-              left: 50%;
-              transform: translateX(-50%);
-              width: 0;
-              height: 0;
-              border-left: 8px solid transparent;
-              border-right: 8px solid transparent;
-              border-top: 8px solid #90EE90;
-            "></div>
-          </div>
-          <!-- Marker circle -->
-          <div style="
-            width: 44px;
-            height: 44px;
-            background: #90EE90;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid white;
-            box-shadow: 0 4px 16px rgba(144, 238, 144, 0.5);
-          ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5" />
-              <path d="M9 4v13" />
-              <path d="M15 7v5.5" />
-              <path d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z" />
-              <path d="M19 18v.01" />
-            </svg>
-          </div>
-        </div>
+        <div style="
+          width: 12px;
+          height: 12px;
+          background: #10B981;
+          border-radius: 50%;
+          border: 2px solid white;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        "></div>
       `,
-      iconSize: [44, 44],
-      iconAnchor: [22, 44],
+      iconSize: [12, 12],
+      iconAnchor: [6, 6],
     });
   };
 
@@ -215,7 +171,7 @@ export default function LeafletMap({
             isFirstLocation = false;
           }
 
-          // Add user location marker with pulsing blue dot
+          // Add user location marker with pulsing emerald dot
           userMarker.current = L.marker([latitude, longitude], {
             icon: L.divIcon({
               className: 'user-location-marker',
@@ -229,7 +185,7 @@ export default function LeafletMap({
                     transform: translate(-50%, -50%);
                     width: 40px;
                     height: 40px;
-                    background: rgba(144, 238, 144, 0.3);
+                    background: rgba(16, 185, 129, 0.3);
                     border-radius: 50%;
                     animation: pulse 2s ease-out infinite;
                   "></div>
@@ -241,7 +197,7 @@ export default function LeafletMap({
                     transform: translate(-50%, -50%);
                     width: 18px;
                     height: 18px;
-                    background: #90EE90;
+                    background: #10B981;
                     border-radius: 50%;
                     border: 4px solid white;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -268,7 +224,7 @@ export default function LeafletMap({
           userMarker.current.bindPopup(
             `
             <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px; text-align: center;">
-              <strong style="color: #90EE90; font-size: 15px;">You are here</strong>
+              <strong style="color: #10B981; font-size: 15px;">You are here</strong>
               <p style="margin: 6px 0 0 0; color: #666; font-size: 12px;">
                 Lat: ${latitude.toFixed(6)}<br/>
                 Lng: ${longitude.toFixed(6)}<br/>
@@ -332,15 +288,53 @@ export default function LeafletMap({
     if (!map.current) {
       map.current = L.map(mapContainer.current, {
         zoomControl: false,
+        // Require Ctrl/Cmd key for scroll zoom on desktop, two fingers on mobile
+        scrollWheelZoom: false,
+        // Disable dragging initially - will be enabled with proper gestures
+        dragging: true,
+        // Enable touch zoom with two fingers only
+        touchZoom: true,
+        // Disable single tap zoom
+        tap: false,
+        // Disable double click zoom
+        doubleClickZoom: false,
       }).setView(center, zoom);
+
+      // Enable scroll wheel zoom only with Ctrl/Cmd key
+      map.current.on('wheel', (e: any) => {
+        if (e.originalEvent.ctrlKey || e.originalEvent.metaKey) {
+          map.current.scrollWheelZoom.enable();
+        } else {
+          map.current.scrollWheelZoom.disable();
+        }
+      });
+
+      // Add custom handler for touch events
+      let touchCount = 0;
+      mapContainer.current.addEventListener('touchstart', (e) => {
+        touchCount = e.touches.length;
+      });
+
+      mapContainer.current.addEventListener(
+        'touchmove',
+        (e) => {
+          if (touchCount < 2) {
+            // Prevent scrolling if less than 2 fingers
+            e.preventDefault();
+          }
+        },
+        { passive: false },
+      );
 
       L.control.zoom({ position: 'bottomright' }).addTo(map.current);
 
+      // Use CartoDB Positron without attribution to hide the Ukrainian flag
       L.tileLayer(
         'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
         {
-          attribution: '© OpenStreetMap contributors',
+          attribution: '',
           maxZoom: 19,
+          subdomains: 'abcd',
         },
       ).addTo(map.current);
 
@@ -405,19 +399,20 @@ export default function LeafletMap({
               });
             }
 
-            // Light green route line
+            // Calmer emerald-500 route line (#10B981)
             L.polyline(latlngs, {
-              color: '#90EE90',
+              color: '#10B981',
               weight: 4,
-              opacity: 0.85,
+              opacity: 0.8,
               lineJoin: 'round',
               lineCap: 'round',
             }).addTo(map.current!);
 
+            // Subtle shadow/glow effect
             L.polyline(latlngs, {
-              color: '#90EE90',
+              color: '#10B981',
               weight: 7,
-              opacity: 0.2,
+              opacity: 0.15,
               lineJoin: 'round',
               lineCap: 'round',
             }).addTo(map.current!);
@@ -427,7 +422,7 @@ export default function LeafletMap({
               .bindPopup(
                 `
                 <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px;">
-                  <strong style="color: #90EE90; font-size: 15px;">Start Point</strong>
+                  <strong style="color: #10B981; font-size: 15px;">Start Point</strong>
                   <p style="margin: 6px 0 0 0; color: #666; font-size: 13px;">
                     Elevation: ${Math.round(elevations[0])}m
                   </p>
@@ -446,7 +441,7 @@ export default function LeafletMap({
                 .bindPopup(
                   `
                   <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px;">
-                    <strong style="color: #90EE90; font-size: 15px;">Finish Point</strong>
+                    <strong style="color: #10B981; font-size: 15px;">Finish Point</strong>
                     <p style="margin: 6px 0 0 0; color: #666; font-size: 13px;">
                       Elevation: ${Math.round(elevations[lastIdx])}m
                     </p>
@@ -508,11 +503,16 @@ export default function LeafletMap({
 
   return (
     <div className="relative">
+      {/* Two-finger gesture hint overlay - shows briefly on mobile */}
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[999] bg-black/75 text-white text-xs px-3 py-2 rounded-full pointer-events-none md:hidden">
+        Use two fingers to zoom and pan
+      </div>
+
       {/* Loading overlay */}
       {isLoading && (
         <div className="absolute inset-0 z-[1000] bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-lg">
           <div className="text-center">
-            <div className="w-4 h-4 border-2 border-green-600/30 border-t-green-600 rounded-full animate-spin mb-3"></div>
+            <div className="w-4 h-4 border-2 border-emerald-600/30 border-t-emerald-600 rounded-full animate-spin mb-3"></div>
             <div className="text-gray-800 text-sm font-medium">
               Loading route...
             </div>
@@ -525,7 +525,7 @@ export default function LeafletMap({
         <div className="absolute inset-0 z-[1001] bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-lg p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
             {/* Alert Header */}
-            <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                   <IconMapPin size={24} className="text-white" />
@@ -586,7 +586,7 @@ export default function LeafletMap({
                       setShowLocationAlert(false);
                       handleFindMe();
                     }}
-                    className="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
+                    className="flex-1 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
                   >
                     Allow Location
                   </button>
@@ -598,7 +598,7 @@ export default function LeafletMap({
                       setLocationError(null);
                       handleFindMe();
                     }}
-                    className="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
+                    className="flex-1 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
                   >
                     Try Again
                   </button>
@@ -610,7 +610,11 @@ export default function LeafletMap({
       )}
 
       {/* Map container */}
-      <div ref={mapContainer} className={`w-full ${height} rounded-lg`} />
+      <div
+        ref={mapContainer}
+        className={`w-full ${height} rounded-lg touch-pan-y`}
+        style={{ touchAction: 'pan-y' }}
+      />
 
       {/* Find Me button */}
       <button
@@ -621,12 +625,12 @@ export default function LeafletMap({
       >
         {isLocating ? (
           <>
-            <div className="w-4 h-4 border-2 border-green-600/30 border-t-green-600 rounded-full animate-spin"></div>
+            <div className="w-4 h-4 border-2 border-emerald-600/30 border-t-emerald-600 rounded-full animate-spin"></div>
             <span className="text-sm">Locating...</span>
           </>
         ) : (
           <>
-            <IconRadar2 size={20} className="text-green-600" />
+            <IconRadar2 size={20} className="text-emerald-600" />
             <span className="text-sm">Find Me</span>
           </>
         )}
