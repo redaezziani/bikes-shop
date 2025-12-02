@@ -12,10 +12,13 @@ const OfferCard: React.FC<OfferCardProps> = ({ title, description, image }) => {
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-gray-600 mt-2">{description}</p>
+        <h3 className="text-xl font-semibold text-zinc-900">{title}</h3>
+        <p className="text-zinc-700 mt-2">{description}</p>
 
-        <button className="mt-4 w-1/2 bg-white  rounded-lg py-2 font-medium hover:bg-white transition">
+        <button
+          className="mt-4 w-1/2 bg-white  rounded-lg py-2 font-medium hover:bg-white transition"
+          aria-label={`Learn more about ${title}`}
+        >
           Learn More
         </button>
       </div>

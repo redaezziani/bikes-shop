@@ -43,6 +43,14 @@ const HeroSlider = () => {
         pagination={{ clickable: true }}
         loop={true}
         className="h-full"
+        a11y={{
+          enabled: true,
+          prevSlideMessage: 'Previous slide',
+          nextSlideMessage: 'Next slide',
+          firstSlideMessage: 'This is the first slide',
+          lastSlideMessage: 'This is the last slide',
+          paginationBulletMessage: 'Go to slide {{index}}',
+        }}
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
@@ -58,7 +66,10 @@ const HeroSlider = () => {
                   {slide.title}
                 </h1>
                 <div className="flex w-full justify-center items-center gap-2">
-                  <button className="bg-white hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg">
+                  <button
+                    className="bg-white hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg"
+                    aria-label="Learn more about our electric bikes"
+                  >
                     learn more
                   </button>
                 </div>
