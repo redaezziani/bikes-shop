@@ -57,7 +57,7 @@ const ProductVersionSection = () => {
                     alt={section.title}
                     className="object-cover w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
                 </>
               )}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">

@@ -1,6 +1,6 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import { Pagination, EffectFade } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -13,7 +13,8 @@ const HeroSlider = () => {
     {
       id: 1,
       title: 'Ride Smarter. Live Better.',
-      image: 'https://gocycle.com/wp-content/uploads/2022/01/intro4_mob.jpg',
+      image:
+        'https://images.pon.bike/_sb/f/249415/1577x1051/1d432e81fd/250217_gazelle_3949_argb_low.jpg/m/785x588/filters:quality(70)',
     },
     {
       id: 2,
@@ -30,33 +31,38 @@ const HeroSlider = () => {
   ];
 
   return (
-    <div id="hero" className="w-full h-144 relative bg-neutral-400">
+    <div
+      id="hero"
+      className="w-full h-72 sm:h-96 lg:h-screen relative bg-neutral-400"
+    >
       <Header />
       <Swiper
-        modules={[Pagination, Autoplay, EffectFade]}
+        modules={[Pagination, EffectFade]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         pagination={{ clickable: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
         loop={true}
         className="h-full"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="h-full px-4 relative w-full flex justify-center items-center">
-              <div className="flex -mt-80 relative z-10 justify-center items-center text-center flex-col w-full gap-2">
-                <h1 className="text-2xl text-white font-bold">{slide.title}</h1>
-                <div className="flex w-full justify-center items-center gap-2">
-                  <button className="bg-white w-1/2 text-neutral-800 rounded px-3 py-2.5 capitalize font-bold text-sm">
-                    learn more
-                  </button>
-                </div>
-              </div>
+            <div className="h-full px-4  relative w-full flex justify-center items-center">
               <img
                 src={slide.image}
                 alt={slide.title}
                 className="h-full w-full absolute top-0 left-0 object-cover"
               />
+              <div className="absolute inset-0 bg-black/40 z-5" />
+              <div className="flex  relative z-10 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
+                <h1 className="text-xl sm:text-3xl lg:text-5xl text-white font-bold leading-tight drop-shadow-lg">
+                  {slide.title}
+                </h1>
+                <div className="flex w-full justify-center items-center gap-2">
+                  <button className="bg-white hover:bg-neutral-100 text-neutral-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg">
+                    learn more
+                  </button>
+                </div>
+              </div>
             </div>
           </SwiperSlide>
         ))}
