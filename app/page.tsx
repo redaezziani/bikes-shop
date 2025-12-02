@@ -43,9 +43,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full px-4 lg:px-0 lg:max-w-6xl mx-auto py-12">
+      <section className="w-full  lg:px-0 lg:max-w-6xl mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex flex-col rounded-lg overflow-hidden  transition-shadow">
+          <div className="flex px-4 md:px-0 flex-col rounded-lg overflow-hidden  transition-shadow">
             <div className="relative h-96 w-full overflow-hidden bg-zinc-200">
               <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
             </div>
@@ -69,15 +69,9 @@ export default function Home() {
                 zoom={11}
                 center={[51.505, -0.09]}
               />
-              <Link
-                href="/routes"
-                className="absolute bottom-4 right-4 bg-zinc-800 hover:bg-zinc-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm z-10 transition-colors shadow-md"
-              >
-                View All Routes
-              </Link>
             </div>
-            <div className=" py-5 bg-white">
-              <h3 className="text-zinc-800 text-lg font-semibold mb-2">
+            <div className=" py-5 px-4 bg-white">
+              <h3 className="text-zinc-800 text-2xl font-semibold mb-2">
                 Explore Scenic Routes
               </h3>
               <p className="text-zinc-600 text-sm leading-6">
@@ -85,6 +79,11 @@ export default function Home() {
                 trails to scenic coastal paths, find the perfect route for your
                 next adventure.
               </p>
+              <Link href={'/routes'}>
+                <button className=" py-2.5 px-3 rounded-lg mt-4 font-medium text-zinc-100 capitalize text-sm bg-zinc-900 w-32">
+                  learn more
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -92,7 +91,7 @@ export default function Home() {
 
       <BlogSection />
       <Footer />
-      <section className=" fixed  gap-2 flex justify-center z-30 h-16 shadow-xl  bg-white w-full bottom-0 pt-2 pb-6 px-4">
+      <section className=" fixed  gap-2 flex justify-center z-40 h-16 shadow-xl  bg-white w-full bottom-0 pt-2 pb-6 px-4">
         <button className=" w-10 h-10 md:w-full gap-2 flex justify-center items-center    ">
           <svg
             className=" fill-zinc-700 stroke-zinc-700 size-6"

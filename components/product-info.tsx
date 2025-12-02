@@ -84,10 +84,23 @@ export default function ProductInfo({
                       className="hidden"
                     />
 
-                    <span
-                      className="size-full "
-                      style={{ backgroundColor: color.hex }}
-                    ></span>
+                    {color.hex.includes('-') ? (
+                      // Dual color display - split the hex and show both colors
+                      <>
+                        <span
+                          className="size-full"
+                          style={{
+                            background: `linear-gradient(45deg, ${color.hex.split('-')[0]} 50%, ${color.hex.split('-')[1]} 50%)`,
+                          }}
+                        ></span>
+                      </>
+                    ) : (
+                      // Single color display
+                      <span
+                        className="size-full"
+                        style={{ backgroundColor: color.hex }}
+                      ></span>
+                    )}
                   </label>
                 ))}
               </div>

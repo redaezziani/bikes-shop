@@ -499,7 +499,7 @@ export default function LeafletMap({
   }, [gpxData, gpxUrl, onRouteDataParsed, calculateDistance]);
 
   return (
-    <div className="relative">
+    <div className="relative z-10">
       {/* Two-finger gesture hint overlay - shows briefly on mobile */}
       <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[999] bg-black/75 text-white text-xs px-3 py-2 rounded-full pointer-events-none md:hidden">
         Use two fingers to zoom and pan
