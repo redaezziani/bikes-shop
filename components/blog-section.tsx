@@ -33,16 +33,7 @@ const BlogSection = () => {
   const blogs = data?.data || [];
 
   return (
-    <section className="w-full pl-4 py-12 bg-white">
-      <div className="text-start mb-12 px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-2">
-          Latest Blog Posts
-        </h2>
-        <p className="text-zinc-600 text-sm">
-          Stay updated with our latest articles and insights
-        </p>
-      </div>
-
+    <section className="w-full pl-4 py-5 bg-white">
       {blogs.length > 0 ? (
         <>
           <Swiper
