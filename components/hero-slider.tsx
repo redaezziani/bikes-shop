@@ -1,6 +1,6 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, EffectFade } from 'swiper/modules';
+import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -37,12 +37,17 @@ const HeroSlider = () => {
     >
       <Header />
       <Swiper
-        modules={[Pagination, EffectFade]}
+        modules={[Pagination, EffectFade, Autoplay]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         pagination={{ clickable: true }}
         loop={true}
-        className="h-full"
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        speed={1000}
+        className="h-full w-full"
         a11y={{
           enabled: true,
           prevSlideMessage: 'Previous slide',
@@ -54,14 +59,14 @@ const HeroSlider = () => {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="h-full px-4  relative w-full flex justify-center items-center">
+            <div className="h-full px-4 z-10  relative w-full flex justify-center items-center">
               <img
                 src={slide.image}
                 alt={slide.title}
                 className="h-full w-full absolute top-0 left-0 object-cover"
               />
-              <div className="absolute inset-0 bg-black/40 z-5" />
-              <div className="flex  relative z-10 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="flex relative z-20 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
                 <h1 className="text-xl sm:text-3xl lg:text-5xl text-white font-bold leading-tight drop-shadow-lg">
                   {slide.title}
                 </h1>

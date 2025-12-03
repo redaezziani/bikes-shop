@@ -73,15 +73,15 @@ const OrderContent = () => {
               <h2 className="text-xl font-semibold text-zinc-900">
                 {currentProduct.name}
               </h2>
-              <p className="text-zinc-600 capitalize text-sm">
+              <p className="text-zinc-600 line-clamp-1 capitalize text-sm">
                 {currentProduct.short_description}{' '}
-                <Link
-                  className="underline underline-offset-4"
-                  href={`/models/${currentProduct.slug}`}
-                >
-                  more info
-                </Link>
               </p>
+              <Link
+                className="underline text-zinc-600 underline-offset-4"
+                href={`/models/${currentProduct.slug}`}
+              >
+                more info
+              </Link>
             </div>
 
             <div className="px-4 flex gap-5 justify-between w-full">
