@@ -33,16 +33,16 @@ const BlogSection = () => {
   const blogs = data?.data || [];
 
   return (
-    <section className="w-full pl-4 py-5 bg-white">
+    <section className="w-full pl-4 pb-5 bg-white">
       {blogs.length > 0 ? (
         <>
           <Swiper
             modules={[Pagination]}
             spaceBetween={16}
-            slidesPerView={1.2}
+            slidesPerView={'auto'}
             centeredSlides={false}
             pagination={{ clickable: true }}
-            className="px-4"
+            className="px-4 blog-swiper"
           >
             {blogs.map((blog) => (
               <SwiperSlide key={blog.id}>
@@ -67,6 +67,9 @@ const BlogSection = () => {
       )}
 
       <style jsx global>{`
+        .blog-swiper .swiper-slide {
+          width: 85%;
+        }
         .swiper-pagination {
           position: relative;
           margin-top: 1.5rem;
