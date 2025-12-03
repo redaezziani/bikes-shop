@@ -11,6 +11,8 @@ import ModelPreview from '@/components/model-preview';
 
 const OrderContent = () => {
   const { data, isLoading } = useProducts({ pageSize: 10 });
+
+  console.log(data);
   const searchParams = useSearchParams();
   const documentIdFromUrl = searchParams.get('documentId');
 

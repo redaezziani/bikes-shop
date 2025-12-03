@@ -4,6 +4,11 @@ import { useBlogs } from '@/store/blogs';
 import BlogCard from './blog-card';
 import Link from 'next/link';
 import { IconArrowRight } from '@tabler/icons-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const BlogSection = () => {
   const { data, isLoading } = useBlogs({ pageSize: 6 });
@@ -44,11 +49,30 @@ const BlogSection = () => {
 
         {blogs.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Swiper
+              modules={[Pagination, Navigation]}
+              spaceBetween={24}
+              slidesPerView={1}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 24,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 24,
+                },
+              }}
+              pagination={{ clickable: true }}
+              navigation={true}
+              className="blog-swiper"
+            >
               {blogs.map((blog) => (
-                <BlogCard key={blog.id} blog={blog} />
+                <SwiperSlide key={blog.id}>
+                  <BlogCard blog={blog} />
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
             <div className="flex justify-end mt-12">
               <Link
                 href="/blog"
@@ -65,6 +89,34 @@ const BlogSection = () => {
           </div>
         )}
       </div>
+
+      <style jsx global>{`
+        .blog-swiper {
+          padding-bottom: 3rem;
+        }
+        .blog-swiper .swiper-pagination {
+          bottom: 0;
+        }
+        .blog-swiper .swiper-pagination-bullet {
+          background: #9ca3af;
+          opacity: 1;
+          width: 8px;
+          height: 8px;
+        }
+        .blog-swiper .swiper-pagination-bullet-active {
+          background: #1f2937;
+        }
+        .blog-swiper .swiper-button-next,
+        .blog-swiper .swiper-button-prev {
+          color: #1f2937;
+          width: 40px;
+          height: 40px;
+        }
+        .blog-swiper .swiper-button-next:after,
+        .blog-swiper .swiper-button-prev:after {
+          font-size: 20px;
+        }
+      `}</style>
     </section>
   );
 };

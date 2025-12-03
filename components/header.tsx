@@ -73,7 +73,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-[95%] bg-zinc-900/90 rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
+      <header className="w-[95%]  rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
         <Link href="/" className=" cursor-pointer" aria-label="Go to homepage">
           <svg
             className="w-20 sm:w-24 lg:w-28 text-white fill-white"
