@@ -5,10 +5,9 @@ import BlogCard from './blog-card';
 import Link from 'next/link';
 import { IconArrowRight } from '@tabler/icons-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
 const BlogSection = () => {
   const { data, isLoading } = useBlogs({ pageSize: 6 });
@@ -50,7 +49,7 @@ const BlogSection = () => {
         {blogs.length > 0 ? (
           <>
             <Swiper
-              modules={[Pagination, Navigation]}
+              modules={[Pagination]}
               spaceBetween={24}
               slidesPerView={1}
               breakpoints={{
@@ -64,7 +63,6 @@ const BlogSection = () => {
                 },
               }}
               pagination={{ clickable: true }}
-              navigation={true}
               className="blog-swiper"
             >
               {blogs.map((blog) => (
@@ -105,16 +103,6 @@ const BlogSection = () => {
         }
         .blog-swiper .swiper-pagination-bullet-active {
           background: #1f2937;
-        }
-        .blog-swiper .swiper-button-next,
-        .blog-swiper .swiper-button-prev {
-          color: #1f2937;
-          width: 40px;
-          height: 40px;
-        }
-        .blog-swiper .swiper-button-next:after,
-        .blog-swiper .swiper-button-prev:after {
-          font-size: 20px;
         }
       `}</style>
     </section>
