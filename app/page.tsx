@@ -24,7 +24,7 @@ export default function Home() {
         <ProductVersionSection />
       </section>
       <section className="w-full mt-10 px-4 lg:px-0 lg:max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <OfferCard
             title="Current Offers"
             description="Explore limited-time offers on Tesla vehicles."
