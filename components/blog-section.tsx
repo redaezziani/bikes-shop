@@ -71,7 +71,7 @@ const BlogSection = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className="flex justify-end mt-12">
+            <div className="flex justify-end ">
               <Link
                 href="/blog"
                 className=" text-sm flex justify-center items-end text-zinc-900 hover:text-zinc-800  font-semibold transition-colors"

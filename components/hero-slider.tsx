@@ -1,39 +1,69 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
+import Link from 'next/link';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
 import Header from './header';
+import { useSectionOne } from '@/store/section-one';
 
 const HeroSlider = () => {
-  const slides = [
-    {
-      id: 1,
-      title: 'Ride Smarter. Live Better.',
-      image:
-        'https://images.pon.bike/_sb/f/249415/1577x1051/1d432e81fd/250217_gazelle_3949_argb_low.jpg/m/785x588/filters:quality(70)',
-    },
-    {
-      id: 2,
-      title: 'Experience Ultimate Freedom',
-      image:
-        'https://images.unsplash.com/photo-1571333250630-f0230c320b6d?w=800&q=80',
-    },
-    {
-      id: 3,
-      title: 'Journey Into Tomorrow',
-      image:
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
-    },
-  ];
+  const { data: sectionOneData, isLoading, error } = useSectionOne();
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div
+        id="hero"
+        className="w-full flex items-center flex-col h-170 lg:h-screen relative bg-zinc-400"
+      >
+        <Header />
+        <div className="h-full w-full flex items-center justify-center">
+          <div className="text-white text-xl">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div
+        id="hero"
+        className="w-full flex items-center flex-col h-170 lg:h-screen relative bg-zinc-400"
+      >
+        <Header />
+        <div className="h-full w-full flex items-center justify-center">
+          <div className="text-white text-xl">Error loading slides</div>
+        </div>
+      </div>
+    );
+  }
+
+  const slides = sectionOneData?.data || [];
+
+  // Show empty state if no slides
+  if (slides.length === 0) {
+    return (
+      <div
+        id="hero"
+        className="w-full flex items-center flex-col h-170 lg:h-screen relative bg-zinc-400"
+      >
+        <Header />
+        <div className="h-full w-full flex items-center justify-center">
+          <div className="text-white text-xl">No slides available</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
       id="hero"
-      className="w-full flex items-center flex-col  h-72 sm:h-96 lg:h-screen relative bg-zinc-400"
+      className="w-full flex items-center flex-col  h-170 lg:h-screen relative bg-zinc-400"
     >
       <Header />
       <Swiper
@@ -57,31 +87,51 @@ const HeroSlider = () => {
           paginationBulletMessage: 'Go to slide {{index}}',
         }}
       >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.id}>
-            <div className="h-full px-4 z-10  relative w-full flex justify-center items-center">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="h-full w-full absolute top-0 left-0 object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40" />
-              <div className="flex relative z-20 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
-                <h1 className="text-xl sm:text-3xl lg:text-5xl text-white font-bold leading-tight drop-shadow-lg">
-                  {slide.title}
-                </h1>
-                <div className="flex w-full justify-center items-center gap-2">
-                  <button
-                    className="bg-white hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg"
-                    aria-label="Learn more about our electric bikes"
-                  >
-                    learn more
-                  </button>
+        {slides.map((slide) => {
+          const imageUrl = slide.cover_image?.url
+            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${slide.cover_image.url}`
+            : '/placeholder-image.jpg';
+          const productSlug = slide.product?.slug;
+          const productName = slide.product?.name;
+
+          return (
+            <SwiperSlide key={slide.id}>
+              <div className="h-full px-4 z-10  relative w-full flex justify-start items-start">
+                <img
+                  src={imageUrl}
+                  alt={slide.title}
+                  className="h-full w-full absolute top-0 left-0 object-cover"
+                />
+                <div className="flex relative mt-20 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
+                  <h1 className="text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">
+                    {slide.title}
+                  </h1>
+                  <div className="flex w-full justify-center items-center gap-2">
+                    {productSlug && productName ? (
+                      <Link href={`/models/${productSlug}`}>
+                        <button
+                          className="bg-white line-clamp-1 w-44 hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg"
+                          aria-label={`Discover ${productName}`}
+                        >
+                          <p className=" line-clamp-1">
+                            Discover {productName}
+                          </p>
+                        </button>
+                      </Link>
+                    ) : (
+                      <button
+                        className="bg-white w-44 hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg"
+                        aria-label="Learn more"
+                      >
+                        learn more
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
       <style jsx global>{`

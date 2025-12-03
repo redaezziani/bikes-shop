@@ -180,11 +180,11 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 sm:px-4 cursor-pointer  text-white font-bold capitalize text-sm  transition-colors"
+          className="lg:hidden py-2 px-3 sm:px-4 backdrop-blur-lg bg-white/10 w-20 flex justify-center items-center rounded-lg cursor-pointer  text-white font-bold capitalize text-sm  transition-colors"
           aria-label="Open navigation menu"
           aria-expanded={open}
         >
-          <IconMenu size={20} aria-hidden="true" />
+          Menu
         </button>
       </header>
 
