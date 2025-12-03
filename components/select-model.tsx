@@ -10,7 +10,6 @@ const ModelSelector = ({ products }: { products: any[] }) => {
 
   const documentIdFromUrl = searchParams.get('documentId');
 
-  // 🔥 Auto-select product when URL contains ?documentId=xxx
   useEffect(() => {
     if (!documentIdFromUrl || products.length === 0) return;
 
@@ -23,8 +22,6 @@ const ModelSelector = ({ products }: { products: any[] }) => {
 
   const handleSelect = (item: any) => {
     setSelectedProduct(item);
-
-    // 🔥 Update URL with selected model documentId
     router.push(`/order?documentId=${item.documentId}`, { scroll: false });
   };
 
@@ -63,7 +60,9 @@ const ModelSelector = ({ products }: { products: any[] }) => {
               >
                 {item.name}
               </h5>
-              <p className="text-zinc-600 text-xs">{item.short_description}</p>
+              <p className="text-zinc-600 line-clamp-3 text-xs">
+                {item.short_description}
+              </p>
             </div>
 
             <div className="text-end">

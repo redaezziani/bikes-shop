@@ -1,7 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { IconShoppingBag, IconShoppingCart } from '@tabler/icons-react';
+import {
+  IconArrowRight,
+  IconShoppingBag,
+  IconShoppingCart,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 
 interface ProductInfoProps {
@@ -90,7 +94,9 @@ export default function ProductInfo({
                         <span
                           className="size-full"
                           style={{
-                            background: `linear-gradient(45deg, ${color.hex.split('-')[0]} 50%, ${color.hex.split('-')[1]} 50%)`,
+                            background: `linear-gradient(45deg, ${
+                              color.hex.split('-')[0]
+                            } 50%, ${color.hex.split('-')[1]} 50%)`,
                           }}
                         ></span>
                       </>
@@ -113,10 +119,10 @@ export default function ProductInfo({
         <Link className=" w-full" href={`/order?documentId=${documentId}`}>
           <button
             aria-label="Order product now"
-            className="bg-zinc-900 mt-4 capitalize focus:ring cursor-pointer w-full border font-medium rounded-lg py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
+            className="bg-zinc-900 mt-4 capitalize focus:ring cursor-pointer w-full border font-medium hover:gap-2 transition-all ease-in-out rounded-lg py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
           >
-            <IconShoppingBag size={20} />
             <p>order now</p>
+            <IconArrowRight size={18} />
           </button>
         </Link>
       </div>

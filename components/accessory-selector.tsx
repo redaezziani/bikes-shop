@@ -79,16 +79,22 @@ const AccessorySelector = ({
               >
                 {item.title}
               </h5>
-              <p className="text-zinc-600 text-xs">{item.description}</p>
+              <p className="text-zinc-600 line-clamp-3 text-xs">
+                {item.description}
+              </p>
             </div>
 
-            <div className="text-start">
+            <div className="text-start w-32">
               <strong
-                className={`text-sm font-semibold ${
-                  isActive ? 'text-zinc-900' : 'text-zinc-600'
+                className={`text-xs font-semibold ${
+                  item.price === 0
+                    ? 'text-green-500'
+                    : isActive
+                    ? 'text-zinc-900'
+                    : 'text-zinc-600'
                 }`}
               >
-                {item.price === 0 ? 'Free' : `$ ${item.price}`}
+                {item.price === 0 ? 'Free' : `$${item.price}`}
               </strong>
             </div>
           </label>
