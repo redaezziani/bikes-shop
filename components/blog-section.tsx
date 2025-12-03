@@ -50,15 +50,6 @@ const BlogSection = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="flex justify-end px-4 mt-6">
-            <Link
-              href="/blog"
-              className="text-sm flex justify-center items-center gap-1 text-zinc-900 hover:text-zinc-800 font-semibold transition-colors"
-            >
-              View All Posts
-              <IconArrowRight size={16} />
-            </Link>
-          </div>
         </>
       ) : (
         <div className="text-center py-12 px-4">
