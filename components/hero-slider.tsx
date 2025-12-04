@@ -96,21 +96,21 @@ const HeroSlider = () => {
 
           return (
             <SwiperSlide key={slide.id}>
-              <div className="h-full px-4 z-10  relative w-full flex justify-start items-start">
+              <div className="h-full px-4 z-10  relative w-full flex justify-start items-start md:justify-center">
                 <img
                   src={imageUrl}
                   alt={slide.title}
                   className="h-full w-full absolute top-0 left-0 object-cover"
                 />
-                <div className="flex relative mt-20 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
-                  <h1 className="text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">
+                <div className="flex relative mt-20 md:mt-40 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
+                  <h1 className=" text-2xl md:text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">
                     {slide.title}
                   </h1>
                   <div className="flex w-full justify-center items-center gap-2">
                     {productSlug && productName ? (
                       <Link href={`/models/${productSlug}`}>
                         <button
-                          className="bg-white line-clamp-1 w-44 hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg"
+                          className="bg-white min-w-40 text-gray-900 font-medium rounded-lg px-4 py-2.5 text-sm hover:bg-gray-100 transition"
                           aria-label={`Discover ${productName}`}
                         >
                           <p className=" line-clamp-1">

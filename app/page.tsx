@@ -23,7 +23,7 @@ export default function Home() {
       >
         <ProductVersionSection />
       </section>
-      <section className="w-full mt-10 px-4 lg:px-0 lg:max-w-6xl mx-auto">
+      <section className="w-full mt-10   lg:max-w-7xl px-4 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <OfferCard
             title="Current Offers"
@@ -39,13 +39,13 @@ export default function Home() {
       </section>
 
       <section className="w-full  lg:px-0 lg:max-w-6xl mx-auto py-12">
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex px-4 md:px-0 flex-col rounded-lg overflow-hidden  transition-shadow">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex px-4 border border-zinc-300/26 md:px-0 flex-col rounded-lg overflow-hidden  transition-shadow">
             <div className="relative h-96 w-full overflow-hidden bg-zinc-200">
               <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
             </div>
-            <div className="flex flex-col justify-start py-5 bg-white">
-              <h3 className="text-zinc-900 text-lg font-semibold mb-2">
+            <div className="flex flex-col px-4 justify-start py-5 bg-white">
+              <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
                 Master Your Riding Skills
               </h3>
               <p className="text-zinc-700 text-sm leading-6">
@@ -56,7 +56,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col rounded-lg overflow-hidden  transition-shadow">
+          <div className="flex flex-col border border-zinc-300/26 rounded-lg overflow-hidden  transition-shadow">
             <div className="relative w-full h-96 bg-zinc-200">
               <LeafletMap
                 gpxUrl="/gpx/Desert-Ride.gpx"
@@ -84,7 +84,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </div> */}
+        </div>
       </section>
 
       <BlogSection />
