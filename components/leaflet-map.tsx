@@ -30,7 +30,7 @@ export default function LeafletMap({
   onRouteDataParsed,
 }: LeafletMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<L.Map | null>(null);
+  const map = useRef<any>(null);
   const userMarker = useRef<L.Marker | null>(null);
   const watchIdRef = useRef<number | null>(null);
   const gpxLoadedRef = useRef(false);
@@ -58,7 +58,7 @@ export default function LeafletMap({
   };
 
   // Simple small circle marker for start/end points
-  const createBikeMarker = (_isStart = true) => {
+  const createBikeMarker = (isStart = true) => {
     return L.divIcon({
       className: 'custom-bike-marker',
       html: `
@@ -331,12 +331,11 @@ export default function LeafletMap({
       }).setView(center, zoom);
 
       // Enable scroll wheel zoom only with Ctrl/Cmd key
-      map.current.on('wheel', (e: L.LeafletEvent) => {
-        const wheelEvent = (e as unknown as { originalEvent: WheelEvent }).originalEvent;
-        if (wheelEvent.ctrlKey || wheelEvent.metaKey) {
-          map.current?.scrollWheelZoom.enable();
+      map.current.on('wheel', (e: any) => {
+        if (e.originalEvent.ctrlKey || e.originalEvent.metaKey) {
+          map.current.scrollWheelZoom.enable();
         } else {
-          map.current?.scrollWheelZoom.disable();
+          map.current.scrollWheelZoom.disable();
         }
       });
 
