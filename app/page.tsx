@@ -5,6 +5,7 @@ import OfferCard from '@/components/offer-card';
 import ProductVersionSection from '@/components/product-version-section';
 import BlogSection from '@/components/blog-section';
 import Link from 'next/link';
+import VideoPlayer from '@/components/video-player';
 
 export default function Home() {
   return (
@@ -31,17 +32,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* <section className="w-full  lg:px-0 lg:max-w-6xl mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg overflow-hidden  transition-shadow">
-            <div className="relative h-96 w-full overflow-hidden bg-zinc-100">
-              <YouTubePlayer url="https://youtu.be/0NBLaYf-_TM?si=mSJcdhPsKAqiVOjR" />
+      <section className="w-full  lg:px-0  mx-auto py-12">
+        <div className="grid grid-cols-1  gap-6">
+          <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none  overflow-hidden  transition-shadow">
+            <div className="relative  w-full overflow-hidden bg-zinc-100">
+              <VideoPlayer />
             </div>
             <div className="flex flex-col px-4 justify-start py-5 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
                 Master Your Riding Skills
               </h3>
-              <p className="text-zinc-700 text-sm leading-6">
+              <p className="text-zinc-700 md:w-3xl text-sm leading-6">
                 Discover essential techniques and tips to improve your cycling
                 performance. Learn from experienced riders how to navigate
                 different terrains, maintain balance, and maximize your biking
@@ -49,7 +50,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
+          {/* <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
             <div className="relative w-full h-96 bg-zinc-100">
               <LeafletMap
                 gpxUrl="/gpx/Desert-Ride.gpx"
@@ -76,9 +77,9 @@ export default function Home() {
                 </button>
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
-      </section> */}
+      </section>
 
       <BlogSection />
       <Footer />
