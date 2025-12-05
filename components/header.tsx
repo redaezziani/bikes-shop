@@ -109,7 +109,7 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
           <Link
-            href="/routes"
+            href="/order"
             className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
           >
             Order Now

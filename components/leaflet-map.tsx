@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { IconRadar2, IconX, IconMapPin } from '@tabler/icons-react';
+import { IconRadar2 } from '@tabler/icons-react';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { toast } from 'sonner';
 
 interface LeafletMapProps {
   gpxUrl?: string;
@@ -34,8 +35,6 @@ export default function LeafletMap({
   const watchIdRef = useRef<number | null>(null);
   const gpxLoadedRef = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [showLocationAlert, setShowLocationAlert] = useState(false);
-  const [locationError, setLocationError] = useState<string | null>(null);
   const [isLocating, setIsLocating] = useState(false);
 
   // Calculate distance between two points (Haversine formula)
@@ -138,13 +137,11 @@ export default function LeafletMap({
   // Handle location request with continuous tracking
   const handleFindMe = () => {
     if (!navigator.geolocation) {
-      setLocationError('Geolocation is not supported by your browser');
-      setShowLocationAlert(true);
+      toast.error('Geolocation is not supported by your browser');
       return;
     }
 
     setIsLocating(true);
-    setLocationError(null);
 
     // Clear any existing watch
     if (watchIdRef.current !== null) {
@@ -152,30 +149,29 @@ export default function LeafletMap({
     }
 
     let isFirstLocation = true;
+    let hasTriedLowAccuracy = false;
 
-    // Use watchPosition for continuous updates
-    watchIdRef.current = navigator.geolocation.watchPosition(
-      (position) => {
-        const { latitude, longitude, accuracy } = position.coords;
+    const locationSuccess = (position: GeolocationPosition) => {
+      const { latitude, longitude, accuracy } = position.coords;
 
-        if (map.current) {
-          // Remove previous user marker if exists
-          if (userMarker.current) {
-            map.current.removeLayer(userMarker.current);
-          }
+      if (map.current) {
+        // Remove previous user marker if exists
+        if (userMarker.current) {
+          map.current.removeLayer(userMarker.current);
+        }
 
-          // Center map on user location (only on first location)
-          if (isFirstLocation) {
-            map.current.setView([latitude, longitude], 15);
-            setIsLocating(false);
-            isFirstLocation = false;
-          }
+        // Center map on user location (only on first location)
+        if (isFirstLocation) {
+          map.current.setView([latitude, longitude], 15);
+          setIsLocating(false);
+          isFirstLocation = false;
+        }
 
-          // Add user location marker with pulsing emerald dot
-          userMarker.current = L.marker([latitude, longitude], {
-            icon: L.divIcon({
-              className: 'user-location-marker',
-              html: `
+        // Add user location marker with pulsing emerald dot
+        userMarker.current = L.marker([latitude, longitude], {
+          icon: L.divIcon({
+            className: 'user-location-marker',
+            html: `
                 <div style="position: relative; width: 24px; height: 24px;">
                   <!-- Pulsing ring -->
                   <div style="
@@ -216,13 +212,13 @@ export default function LeafletMap({
                   }
                 </style>
               `,
-              iconSize: [24, 24],
-              iconAnchor: [12, 12],
-            }),
-          }).addTo(map.current);
+            iconSize: [24, 24],
+            iconAnchor: [12, 12],
+          }),
+        }).addTo(map.current);
 
-          userMarker.current.bindPopup(
-            `
+        userMarker.current.bindPopup(
+          `
             <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 10px; text-align: center;">
               <strong style="color: #10B981; font-size: 15px;">You are here</strong>
               <p style="margin: 6px 0 0 0; color: #666; font-size: 12px;">
@@ -232,42 +228,79 @@ export default function LeafletMap({
               </p>
             </div>
           `,
-          );
-        }
-      },
-      (error) => {
-        setIsLocating(false);
+        );
+      }
+    };
 
-        // Clear watch on error
-        if (watchIdRef.current !== null) {
-          navigator.geolocation.clearWatch(watchIdRef.current);
-          watchIdRef.current = null;
-        }
+    const locationError = (error: GeolocationPositionError) => {
+      setIsLocating(false);
 
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            setLocationError(
-              'Location permission denied. Please enable location access in your browser settings.',
-            );
-            break;
-          case error.POSITION_UNAVAILABLE:
-            setLocationError('Location information is unavailable.');
-            break;
-          case error.TIMEOUT:
-            setLocationError('Location request timed out. Please try again.');
-            break;
-          default:
-            setLocationError(
-              'An unknown error occurred while getting your location.',
-            );
-        }
+      // Clear watch on error
+      if (watchIdRef.current !== null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
+      }
 
-        setShowLocationAlert(true);
-      },
+      // If high accuracy failed with POSITION_UNAVAILABLE, try low accuracy
+      if (
+        error.code === error.POSITION_UNAVAILABLE &&
+        !hasTriedLowAccuracy
+      ) {
+        hasTriedLowAccuracy = true;
+        console.log('Retrying with low accuracy mode...');
+
+        // Try with getCurrentPosition and low accuracy as fallback
+        navigator.geolocation.getCurrentPosition(
+          locationSuccess,
+          (retryError) => {
+            // If retry also fails, show error
+            switch (retryError.code) {
+              case retryError.PERMISSION_DENIED:
+                toast.error('Location access denied. Enable it in browser settings.');
+                break;
+              case retryError.POSITION_UNAVAILABLE:
+                toast.error('Unable to determine location. Check GPS/location services.');
+                break;
+              case retryError.TIMEOUT:
+                toast.error('Location request timed out. Try again.');
+                break;
+              default:
+                toast.error('Failed to get your location.');
+            }
+          },
+          {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 60000, // Accept cached position up to 1 minute old
+          },
+        );
+        return;
+      }
+
+      // Show error if first try or retry failed
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          toast.error('Location access denied. Enable it in browser settings.');
+          break;
+        case error.POSITION_UNAVAILABLE:
+          toast.error('Unable to determine location. Check GPS/location services.');
+          break;
+        case error.TIMEOUT:
+          toast.error('Location request timed out. Try again.');
+          break;
+        default:
+          toast.error('Failed to get your location.');
+      }
+    };
+
+    // Try with high accuracy first using watchPosition
+    watchIdRef.current = navigator.geolocation.watchPosition(
+      locationSuccess,
+      locationError,
       {
-        enableHighAccuracy: false, // Set to false for faster results on mobile
-        timeout: 30000, // Increase timeout to 30 seconds
-        maximumAge: 0, // Don't use cached position, get fresh location
+        enableHighAccuracy: true,
+        timeout: 10000, // 10 seconds timeout
+        maximumAge: 5000, // Accept cached position up to 5 seconds old
       },
     );
   };
@@ -512,95 +545,6 @@ export default function LeafletMap({
             <div className="w-4 h-4 border-2 border-emerald-600/30 border-t-emerald-600 rounded-full animate-spin mb-3"></div>
             <div className="text-gray-800 text-sm font-medium">
               Loading route...
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Custom Location Permission Alert */}
-      {showLocationAlert && (
-        <div className="absolute inset-0 z-[1001] bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-lg p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
-            {/* Alert Header */}
-            <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <IconMapPin size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">
-                  Location Access
-                </h3>
-              </div>
-              <button
-                onClick={() => {
-                  setShowLocationAlert(false);
-                  setLocationError(null);
-                }}
-                className="text-white/80 hover:text-white transition-colors"
-              >
-                <IconX size={24} />
-              </button>
-            </div>
-
-            {/* Alert Body */}
-            <div className="p-6">
-              <div className="mb-4">
-                <p className="text-gray-700 leading-relaxed">
-                  {locationError ||
-                    'We need access to your location to show you on the map.'}
-                </p>
-              </div>
-
-              {locationError && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                  <p className="text-sm text-red-800">
-                    <strong>How to enable:</strong>
-                    <br />
-                    1. Click the lock icon in your address bar
-                    <br />
-                    2. Find "Location" permissions
-                    <br />
-                    3. Select "Allow"
-                    <br />
-                    4. Refresh the page and try again
-                  </p>
-                </div>
-              )}
-
-              <div className="flex gap-3">
-                <button
-                  onClick={() => {
-                    setShowLocationAlert(false);
-                    setLocationError(null);
-                  }}
-                  className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
-                >
-                  Cancel
-                </button>
-                {!locationError && (
-                  <button
-                    onClick={() => {
-                      setShowLocationAlert(false);
-                      handleFindMe();
-                    }}
-                    className="flex-1 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
-                  >
-                    Allow Location
-                  </button>
-                )}
-                {locationError && (
-                  <button
-                    onClick={() => {
-                      setShowLocationAlert(false);
-                      setLocationError(null);
-                      handleFindMe();
-                    }}
-                    className="flex-1 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
-                  >
-                    Try Again
-                  </button>
-                )}
-              </div>
             </div>
           </div>
         </div>

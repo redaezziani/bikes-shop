@@ -41,16 +41,19 @@ const HeaderDetailsPage = () => {
     setExpandedMenu(expandedMenu === index ? null : index);
   };
 
+  const [modelsDropdownOpen, setModelsDropdownOpen] = useState(false);
+
   return (
     <>
-      <header className="w-full border border-b border-zinc-400/25 px-4 py-3 flex justify-between items-center gap-4 z-50">
-        <Link href="/">
+      <header className="w-full border border-b border-zinc-400/25 px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
+        <Link href="/" aria-label="Go to homepage">
           <svg
-            className="w-24 text-zinc-950  fill-zinc-950"
+            className="w-20 sm:w-24 lg:w-28 text-zinc-950 fill-zinc-950"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
             viewBox="0 0 100 45"
+            aria-hidden="true"
           >
             <g>
               <path d="M97.37,10.74c-.13-1.2-2.55-.93-3.49-.87-1.69.12-1.85.28-1.72,2.05-3.98-4.2-10.41-2.93-13.35,1.8-1.81,2.91-2.15,7.05-.94,10.25,2.17,5.71,9.96,8.09,14.29,3.29-.14,1.4.04,2.78-.79,4.01-1.55,2.28-5.21,2.61-7.43,1.21-.59-.37-1.02-.99-1.7-1.22-2.58.5-6.48.36-3.31,3.8,3.73,4.04,12.34,4.37,16.05.19,1.87-2.11,2.31-4.94,2.43-7.67.25-5.54-.17-11.29-.04-16.85ZM86.98,24.96c-6.03-.41-6.01-9.86-.35-10.57,7.78-.98,7.52,11.06.35,10.57Z" />
@@ -73,9 +76,91 @@ const HeaderDetailsPage = () => {
             </g>
           </svg>
         </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-8">
+          <Link
+            href="/order"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Order Now
+          </Link>
+          <Link
+            href="/blog"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/routes"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Routes
+          </Link>
+
+          <div className="relative">
+            <button
+              onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
+              className="text-zinc-950 font-semibold text-sm hover:text-zinc-600 transition-colors flex items-center gap-1"
+              aria-label="View bike models"
+              aria-expanded={modelsDropdownOpen}
+              aria-haspopup="true"
+            >
+              Models
+              <IconChevronDown
+                size={16}
+                className={`transition-transform ${
+                  modelsDropdownOpen ? 'rotate-180' : ''
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {modelsDropdownOpen && (
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+                {products.length > 0 ? (
+                  products.map((p) => (
+                    <Link
+                      key={p.id}
+                      href={`/models/${p.slug}`}
+                      onClick={() => setModelsDropdownOpen(false)}
+                      className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
+                    >
+                      {p.preview_images[0] && (
+                        <div className="w-10 h-10 rounded overflow-hidden shrink-0 bg-gray-100">
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                            alt={p.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="font-medium text-zinc-800 text-sm">
+                          {p.name}
+                        </h3>
+                        <p className="text-xs text-zinc-500">
+                          Explore and Learn
+                        </p>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="px-4 py-3 text-zinc-600 text-sm">
+                    No models available
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </nav>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="py-1.5 px-4 bg-white/10 text-zinc-950 font-bold capitalize text-sm rounded backdrop-blur-sm"
+          className="lg:hidden py-1.5 px-4 bg-white/10 text-zinc-950 font-bold capitalize text-sm rounded backdrop-blur-sm"
+          aria-label="Open navigation menu"
+          aria-expanded={open}
         >
           <IconMenu size={20} />
         </button>
@@ -123,7 +208,7 @@ const HeaderDetailsPage = () => {
                             key={p.id}
                             className="flex gap-4 items-start"
                           >
-                            <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0 bg-gray-100">
+                            <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
                               <img
                                 src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
                                 alt={p.name}
