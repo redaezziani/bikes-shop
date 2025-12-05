@@ -1,17 +1,10 @@
-'use client';
-
 import dynamic from 'next/dynamic';
 import Footer from '@/components/footer';
 import HeroSlider from '@/components/hero-slider';
 import OfferCard from '@/components/offer-card';
 import ProductVersionSection from '@/components/product-version-section';
-import YouTubePlayer from '@/components/youtube-player';
 import BlogSection from '@/components/blog-section';
 import Link from 'next/link';
-
-const LeafletMap = dynamic(() => import('@/components/leaflet-map'), {
-  ssr: false,
-});
 
 export default function Home() {
   return (
@@ -38,7 +31,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full  lg:px-0 lg:max-w-6xl mx-auto py-12">
+      {/* <section className="w-full  lg:px-0 lg:max-w-6xl mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg overflow-hidden  transition-shadow">
             <div className="relative h-96 w-full overflow-hidden bg-zinc-100">
@@ -85,7 +78,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <BlogSection />
       <Footer />
