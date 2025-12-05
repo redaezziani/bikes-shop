@@ -2,8 +2,6 @@
 
 import { useBlogs } from '@/store/blogs';
 import BlogCard from './blog-card';
-import Link from 'next/link';
-import { IconArrowRight } from '@tabler/icons-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
