@@ -1,4 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-
+body {
+  filter: grayscale(100);
+}

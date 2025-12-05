@@ -609,7 +609,7 @@ export default function LeafletMap({
       {/* Map container */}
       <div
         ref={mapContainer}
-        className={`w-full ${height} rounded-lg touch-pan-y`}
+        className={`w-full ${height}  touch-pan-y`}
         style={{ touchAction: 'pan-y' }}
       />
 

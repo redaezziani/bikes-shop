@@ -119,7 +119,7 @@ export default function ProductInfo({
         <Link className=" w-full" href={`/order?documentId=${documentId}`}>
           <button
             aria-label="Order product now"
-            className="bg-zinc-900 mt-4 capitalize focus:ring cursor-pointer w-full border font-medium hover:gap-2 transition-all ease-in-out rounded-lg py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
+            className="bg-zinc-900 mt-4 capitalize  cursor-pointer w-full  font-medium hover:gap-2 transition-all ease-in-out rounded-xl py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
           >
             <p>order now</p>
             <IconArrowRight size={18} />

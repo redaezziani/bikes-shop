@@ -26,7 +26,7 @@ const ModelSelector = ({ products }: { products: any[] }) => {
   };
 
   return (
-    <section className="px-4 grid w-full grid-cols-1 md:grid-cols-3 gap-4">
+    <section className="px-4 grid w-full grid-cols-1  gap-4">
       {products.map((item) => {
         const isActive = selectedProduct?.id === item.id;
 

@@ -16,7 +16,6 @@ export default function ProductImagePreview({
 }: ProductImagePreviewProps) {
   const [current, setCurrent] = useState(0);
 
-  console.log('the images:', images);
   const prevImage = () => {
     setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
@@ -28,7 +27,7 @@ export default function ProductImagePreview({
   return (
     <div className=" flex flex-col gap-4">
       <span
-        className="relative bg-zinc-100 rounded w-full aspect-square h-auto overflow-hidden"
+        className="relative bg-zinc-100 md:bg-transparent rounded w-full aspect-square h-auto overflow-hidden"
         aria-label="Product main image"
         role="img"
       >
@@ -64,7 +63,7 @@ export default function ProductImagePreview({
         </AnimatePresence>
       </span>
 
-      <div className="grid grid-cols-5 mt-4 w-full gap-2">
+      <div className="grid grid-cols-5 md:grid-cols-8 mt-4 w-full gap-2">
         {images.map((img, i) => (
           <button
             key={i}
