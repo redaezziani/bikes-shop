@@ -12,6 +12,7 @@ const buildBlogsQueryString = (params?: {
 }): string => {
   const queryParts = [
     'populate[0]=featured_image',
+    'sort[0]=createdAt:asc',
   ];
 
   if (params?.page) {

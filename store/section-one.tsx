@@ -13,6 +13,7 @@ const buildSectionOneQueryString = (params?: {
     'populate[0]=cover_image',
     'populate[1]=product',
     'populate[2]=product.cover_image',
+    'sort[0]=createdAt:asc',
   ];
 
   if (params?.page) {
