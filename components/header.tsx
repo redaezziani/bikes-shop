@@ -76,7 +76,7 @@ const Header = () => {
       <header className="w-[95%]  rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
         <Link href="/" className=" cursor-pointer" aria-label="Go to homepage">
           <svg
-            className="w-20 sm:w-24 lg:w-28 text-white fill-white"
+            className="w-26  lg:w-28 text-white fill-white"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"

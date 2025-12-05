@@ -59,7 +59,7 @@ const HeroSlider = () => {
   return (
     <div
       id="hero"
-      className="w-full flex items-center flex-col  h-170 lg:h-screen relative bg-zinc-400"
+      className="w-full flex items-center flex-col  h-140 lg:h-[80vh] relative bg-zinc-400"
     >
       <Header />
       <Swiper
@@ -103,7 +103,7 @@ const HeroSlider = () => {
                   className="object-cover"
                 />
                 <div className="flex relative mt-20 md:mt-40 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
-                  <h1 className=" text-2xl md:text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">
+                  <h1 className=" text-lg md:text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">
                     {slide.title}
                   </h1>
                   <div className="flex w-full justify-center items-center gap-2">
