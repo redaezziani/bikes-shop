@@ -3,6 +3,8 @@
 import { Blog } from '@/types/blogs';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import BlogTableOfContents from './blog-table-of-contents';
+import { useState, useEffect } from 'react';
 
 interface BlogPostDetailProps {
   blog: Blog | null;
@@ -10,19 +12,32 @@ interface BlogPostDetailProps {
 }
 
 const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
+  const [headingCounter, setHeadingCounter] = useState(0);
+
+  useEffect(() => {
+    setHeadingCounter(0);
+  }, [blog]);
+
   if (isLoading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="h-8 w-64 bg-zinc-200 animate-pulse rounded mb-4"></div>
-        <div className="h-6 w-32 bg-zinc-200 animate-pulse rounded mb-8"></div>
-        <div className="h-96 w-full bg-zinc-200 animate-pulse rounded mb-8"></div>
-        <div className="space-y-4">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div
-              key={i}
-              className="h-4 w-full bg-zinc-200 animate-pulse rounded"
-            ></div>
-          ))}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="w-full lg:w-64 order-1 lg:order-2">
+            <div className="h-64 bg-zinc-200 animate-pulse rounded"></div>
+          </div>
+          <div className="flex-1 lg:max-w-3xl order-2 lg:order-1">
+            <div className="h-8 w-64 bg-zinc-200 animate-pulse rounded mb-4"></div>
+            <div className="h-6 w-32 bg-zinc-200 animate-pulse rounded mb-8"></div>
+            <div className="h-96 w-full bg-zinc-200 animate-pulse rounded mb-8"></div>
+            <div className="space-y-4">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className="h-4 w-full bg-zinc-200 animate-pulse rounded"
+                ></div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -53,118 +68,136 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
   const readingTime = Math.ceil(blog.content.split(' ').length / 200);
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-12">
-      <div className="mb-8">
-        <Link
-          href="/blog"
-          className="text-zinc-600 hover:text-zinc-900 text-sm font-semibold mb-6 inline-block"
-        >
-          ← Back to Blog
-        </Link>
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="flex flex-col lg:flex-row gap-8">
+        <article className="flex-1 lg:max-w-3xl order-2 lg:order-1">
+          <div className="mb-8">
+            <Link
+              href="/blog"
+              className="text-zinc-600 hover:text-zinc-900 text-sm font-semibold mb-6 inline-block"
+            >
+              ← Back to Blog
+            </Link>
 
-        {blog.category && (
-          <span className="inline-block text-xs ml-5 font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full mb-4">
-            {blog.category}
-          </span>
-        )}
+            {blog.category && (
+              <span className="inline-block text-xs ml-5 font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full mb-4">
+                {blog.category}
+              </span>
+            )}
 
-        <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">
-          {blog.title}
-        </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">
+              {blog.title}
+            </h1>
 
-        <div className="flex items-center gap-4 text-zinc-600 text-sm">
-          <span>{formattedDate}</span>
-          <span className="text-zinc-300">•</span>
-          <span>{readingTime} min read</span>
-        </div>
-      </div>
+            <div className="flex items-center gap-4 text-zinc-600 text-sm">
+              <span>{formattedDate}</span>
+              <span className="text-zinc-300">•</span>
+              <span>{readingTime} min read</span>
+            </div>
+          </div>
 
-      {blog.featured_image?.url && (
-        <div className="mb-12 rounded-lg overflow-hidden bg-zinc-200 h-96 md:h-[500px]">
-          <img
-            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`}
-            alt={blog.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
-
-      <div className="prose prose-zinc max-w-none mb-12">
-        <ReactMarkdown
-          components={{
-            h2: ({ node, ...props }) => (
-              <h2
-                className="text-lg font-bold text-zinc-900 mt-8 mb-4"
-                {...props}
+          {blog.featured_image?.url && (
+            <div className="mb-12 rounded-lg overflow-hidden bg-zinc-200 h-96 md:h-[500px]">
+              <img
+                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`}
+                alt={blog.title}
+                className="w-full h-full object-cover"
               />
-            ),
-            h3: ({ node, ...props }) => (
-              <h3
-                className="text-base font-bold text-zinc-900 mt-6 mb-3"
-                {...props}
-              />
-            ),
-            p: ({ node, ...props }) => (
-              <p className="text-zinc-700 leading-7 mb-6" {...props} />
-            ),
-            ul: ({ node, ...props }) => (
-              <ul
-                className="list-disc list-inside text-zinc-700 mb-6 space-y-2"
-                {...props}
-              />
-            ),
-            ol: ({ node, ...props }) => (
-              <ol
-                className="list-decimal list-inside text-zinc-700 mb-6 space-y-2"
-                {...props}
-              />
-            ),
-            li: ({ node, ...props }) => (
-              <li className="text-zinc-700" {...props} />
-            ),
-            blockquote: ({ node, ...props }) => (
-              <blockquote
-                className="border-l-4 border-zinc-300 pl-4 py-2 my-6 italic text-zinc-600 bg-zinc-50 p-4"
-                {...props}
-              />
-            ),
-            a: ({ node, ...props }) => (
-              <a
-                className="text-blue-600 hover:text-blue-800 underline"
-                {...props}
-              />
-            ),
-            img: ({ node, ...props }) => (
-              <img className="rounded-lg my-6 w-full" {...props} />
-            ),
-          }}
-        >
-          {blog.content}
-        </ReactMarkdown>
-      </div>
-
-      <div className="border-t border-zinc-200 pt-8">
-        {blog.meta_description && (
-          <p className="text-zinc-600 italic mb-6">
-            <strong>Summary:</strong> {blog.meta_description}
-          </p>
-        )}
-
-        <div className="flex justify-between items-center">
-          <Link
-            href="/blog"
-            className="text-zinc-800 hover:text-zinc-600 font-semibold"
-          >
-            ← Back to Blog
-          </Link>
-          {blog.category && (
-            <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full">
-              {blog.category}
-            </span>
+            </div>
           )}
+
+          <div className="prose prose-zinc max-w-none mb-12">
+            <ReactMarkdown
+              components={{
+                h2: ({ node, ...props }) => {
+                  const id = `heading-${headingCounter}`;
+                  setHeadingCounter(prev => prev + 1);
+                  return (
+                    <h2
+                      id={id}
+                      className="text-lg font-bold text-zinc-900 mt-8 mb-4 scroll-mt-24"
+                      {...props}
+                    />
+                  );
+                },
+                h3: ({ node, ...props }) => {
+                  const id = `heading-${headingCounter}`;
+                  setHeadingCounter(prev => prev + 1);
+                  return (
+                    <h3
+                      id={id}
+                      className="text-base font-bold text-zinc-900 mt-6 mb-3 scroll-mt-24"
+                      {...props}
+                    />
+                  );
+                },
+                p: ({ node, ...props }) => (
+                  <p className="text-zinc-700 leading-7 mb-6" {...props} />
+                ),
+                ul: ({ node, ...props }) => (
+                  <ul
+                    className="list-disc list-inside text-zinc-700 mb-6 space-y-2"
+                    {...props}
+                  />
+                ),
+                ol: ({ node, ...props }) => (
+                  <ol
+                    className="list-decimal list-inside text-zinc-700 mb-6 space-y-2"
+                    {...props}
+                  />
+                ),
+                li: ({ node, ...props }) => (
+                  <li className="text-zinc-700" {...props} />
+                ),
+                blockquote: ({ node, ...props }) => (
+                  <blockquote
+                    className="border-l-4 border-zinc-300 pl-4 py-2 my-6 italic text-zinc-600 bg-zinc-50 p-4"
+                    {...props}
+                  />
+                ),
+                a: ({ node, ...props }) => (
+                  <a
+                    className="text-blue-600 hover:text-blue-800 underline"
+                    {...props}
+                  />
+                ),
+                img: ({ node, ...props }) => (
+                  <img className="rounded-lg my-6 w-full" {...props} />
+                ),
+              }}
+            >
+              {blog.content}
+            </ReactMarkdown>
+          </div>
+
+          <div className="border-t border-zinc-200 pt-8">
+            {blog.meta_description && (
+              <p className="text-zinc-600 italic mb-6">
+                <strong>Summary:</strong> {blog.meta_description}
+              </p>
+            )}
+
+            <div className="flex justify-between items-center">
+              <Link
+                href="/blog"
+                className="text-zinc-800 hover:text-zinc-600 font-semibold"
+              >
+                ← Back to Blog
+              </Link>
+              {blog.category && (
+                <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full">
+                  {blog.category}
+                </span>
+              )}
+            </div>
+          </div>
+        </article>
+
+        <div className="order-1 lg:order-2">
+          <BlogTableOfContents content={blog.content} />
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 
