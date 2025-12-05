@@ -58,7 +58,7 @@ const HeroSlider = () => {
   return (
     <div
       id="hero"
-      className="w-full flex items-center flex-col  h-100 lg:h-[80vh] relative bg-zinc-400"
+      className="w-full flex items-center flex-col  h-130 lg:h-[80vh] relative bg-zinc-400"
     >
       <Header />
       <Swiper

@@ -162,9 +162,10 @@ const ProductVersionSection = () => {
                               : 'Learn more'
                           }
                         >
-                          {section.product
-                            ? `${productName} Details`
-                            : 'Learn More'}
+                          {section.button_text ||
+                            (section.product
+                              ? `${productName} Details`
+                              : 'Learn More')}
                         </button>
                       </Link>
                     </div>
