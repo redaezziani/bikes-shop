@@ -8,6 +8,7 @@ export interface SectionTwo {
   description: string;
   product?: Product;
   external_link?: string;
+  button_text?: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

@@ -1,5 +1,7 @@
 import dynamic from 'next/dynamic';
 import HeroSlider from '@/components/hero-slider';
+import MapboxMap from '@/components/map-box';
+import Link from 'next/link';
 
 // Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
@@ -53,14 +55,9 @@ export default function Home() {
               </p>
             </div>
           </div>
-          {/* <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
-            <div className="relative w-full h-96 bg-zinc-100">
-              <LeafletMap
-                gpxUrl="/gpx/Desert-Ride.gpx"
-                height="h-96"
-                zoom={11}
-                center={[51.505, -0.09]}
-              />
+          <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
+            <div className="relative w-full h-96 md:h-170 bg-zinc-100">
+              <MapboxMap gpxUrl="/gpx/Desert-Ride.gpx" />
             </div>
             <div className=" py-5 px-4 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
@@ -80,7 +77,7 @@ export default function Home() {
                 </button>
               </Link>
             </div>
-          </div> */}
+          </div>
         </div>
       </section>
 

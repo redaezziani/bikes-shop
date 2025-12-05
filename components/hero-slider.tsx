@@ -114,7 +114,7 @@ const HeroSlider = () => {
                           aria-label={`Discover ${productName}`}
                         >
                           <p className=" line-clamp-1">
-                            Discover {productName}
+                            {slide.button_text || `Discover ${productName}`}
                           </p>
                         </button>
                       </Link>
@@ -123,7 +123,7 @@ const HeroSlider = () => {
                         className="bg-white w-44 hover:bg-zinc-100 text-zinc-800 rounded-lg px-6 py-2.5 sm:px-8 sm:py-3 capitalize font-bold text-xs sm:text-sm lg:text-base transition-colors shadow-lg"
                         aria-label="Learn more"
                       >
-                        learn more
+                        {slide.button_text || 'learn more'}
                       </button>
                     )}
                   </div>

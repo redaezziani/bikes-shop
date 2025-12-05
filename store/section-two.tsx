@@ -12,6 +12,7 @@ const buildSectionTwoQueryString = (params?: {
   const queryParts = [
     'populate[0]=cover_image',
     'populate[1]=product',
+    'sort[0]=createdAt:asc',
   ];
 
   if (params?.page) {
