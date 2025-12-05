@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   IconChevronUp,
@@ -12,15 +12,14 @@ import {
 } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
-import { orderService } from '@/lib/order-service';
-import type { Accessory } from '@/types/products';
+import type { Accessory, Product } from '@/types/products';
 
 const OrderSummaryPanel = ({
   currentProduct,
   selectedColorName,
   selectedAccessoryIds,
 }: {
-  currentProduct: any;
+  currentProduct: Product;
   selectedColorName: string;
   selectedAccessoryIds: number[];
 }) => {
@@ -49,7 +48,7 @@ const OrderSummaryPanel = ({
   const selectedColorHex = useMemo(() => {
     if (!currentProduct) return null;
     const color = currentProduct.colors.find(
-      (c: any) => c.name === selectedColorName,
+      (c) => c.name === selectedColorName,
     );
     return color ? color.hex : null;
   }, [currentProduct, selectedColorName]);
@@ -75,20 +74,6 @@ const OrderSummaryPanel = ({
       height: '100vh',
       y: 0,
     },
-  };
-
-  const handleAddToCart = () => {
-    const selectedColor = currentProduct.colors.find(
-      (c: any) => c.name === selectedColorName,
-    );
-
-    if (selectedColor) {
-      addItem(currentProduct, selectedColor, selectedAccessoriesDetails, 1);
-      showToast.success(
-        `${currentProduct.name} added to cart!`,
-        `Color: ${selectedColorName} | Accessories: ${selectedAccessoriesDetails.length}`,
-      );
-    }
   };
 
   return (
@@ -242,7 +227,7 @@ const OrderSummaryPanel = ({
               try {
                 // Add current product configuration to store if not already added
                 const selectedColor = currentProduct.colors.find(
-                  (c: any) => c.name === selectedColorName,
+                  (c) => c.name === selectedColorName,
                 );
 
                 if (selectedColor) {

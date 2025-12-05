@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import {
   IconArrowRight,
-  IconShoppingBag,
-  IconShoppingCart,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 

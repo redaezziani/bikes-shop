@@ -1,11 +1,12 @@
 import dynamic from 'next/dynamic';
-import Footer from '@/components/footer';
 import HeroSlider from '@/components/hero-slider';
-import OfferCard from '@/components/offer-card';
-import ProductVersionSection from '@/components/product-version-section';
-import BlogSection from '@/components/blog-section';
-import Link from 'next/link';
-import VideoPlayer from '@/components/video-player';
+
+// Lazy load below-the-fold components
+const Footer = dynamic(() => import('@/components/footer'));
+const OfferCard = dynamic(() => import('@/components/offer-card'));
+const ProductVersionSection = dynamic(() => import('@/components/product-version-section'));
+const BlogSection = dynamic(() => import('@/components/blog-section'));
+const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
 export default function Home() {
   return (

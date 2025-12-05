@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface OfferCardProps {
   title: string;
   description: string;
@@ -8,7 +10,15 @@ const OfferCard: React.FC<OfferCardProps> = ({ title, description, image }) => {
   return (
     <div className=" bg-zinc-100 rounded-lg overflow-hidden  transition">
       <div className="w-full bg-zinc-200 h-48 relative">
-        {/* <img src={image} alt={title} className="w-full h-full object-cover" /> */}
+        <Image
+          src={image}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+          loading="lazy"
+          quality={80}
+        />
       </div>
 
       <div className="p-6">

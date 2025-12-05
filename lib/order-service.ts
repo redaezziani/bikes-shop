@@ -54,8 +54,8 @@ export const orderService = {
       const orderId = createdOrder.id;
 
       // Then create order items and link them to the order
-      if ((orderData as any).items && (orderData as any).items.length > 0) {
-        const itemsData = this.formatOrderItems((orderData as any).items || []);
+      if ('items' in orderData && orderData.items && orderData.items.length > 0) {
+        const itemsData = this.formatOrderItems(orderData.items || []);
 
         for (const item of itemsData) {
           await api.post('/order-items', {
@@ -68,11 +68,12 @@ export const orderService = {
       }
 
       return { success: true, data: createdOrder };
-    } catch (error: any) {
-      console.error('Order creation error:', error.response?.data);
+    } catch (error) {
+      const apiError = error as { response?: { data?: { error?: { message?: string }; message?: string } } };
+      console.error('Order creation error:', apiError.response?.data);
       return {
         success: false,
-        error: error.response?.data?.error?.message || error.response?.data?.message || 'Failed to create order',
+        error: apiError.response?.data?.error?.message || apiError.response?.data?.message || 'Failed to create order',
       };
     }
   },
@@ -87,10 +88,11 @@ export const orderService = {
         data: { status },
       });
       return { success: true, data: response.data.data };
-    } catch (error: any) {
+    } catch (error) {
+      const apiError = error as { response?: { data?: { message?: string } } };
       return {
         success: false,
-        error: error.response?.data?.message || 'Failed to update order',
+        error: apiError.response?.data?.message || 'Failed to update order',
       };
     }
   },
@@ -100,10 +102,11 @@ export const orderService = {
     try {
       const response = await api.get<OrderResponse>(`/orders/${documentId}`);
       return { success: true, data: response.data.data };
-    } catch (error: any) {
+    } catch (error) {
+      const apiError = error as { response?: { data?: { message?: string } } };
       return {
         success: false,
-        error: error.response?.data?.message || 'Order not found',
+        error: apiError.response?.data?.message || 'Order not found',
       };
     }
   },
@@ -115,10 +118,11 @@ export const orderService = {
         `/orders?filters[customer_email][$eq]=${email}`,
       );
       return { success: true, data: response.data.data };
-    } catch (error: any) {
+    } catch (error) {
+      const apiError = error as { response?: { data?: { message?: string } } };
       return {
         success: false,
-        error: error.response?.data?.message || 'Failed to fetch orders',
+        error: apiError.response?.data?.message || 'Failed to fetch orders',
       };
     }
   },
@@ -138,10 +142,11 @@ export const orderService = {
         },
       });
       return { success: true, data: response.data.data };
-    } catch (error: any) {
+    } catch (error) {
+      const apiError = error as { response?: { data?: { message?: string } } };
       return {
         success: false,
-        error: error.response?.data?.message || 'Failed to update payment info',
+        error: apiError.response?.data?.message || 'Failed to update payment info',
       };
     }
   },

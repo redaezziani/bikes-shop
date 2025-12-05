@@ -9,11 +9,7 @@ interface BlogCardProps {
 }
 
 const BlogCard = ({ blog }: BlogCardProps) => {
-  const formattedDate = new Date(blog.publishedAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+ 
 
   const imageUrl = blog.featured_image?.url
     ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`

@@ -50,8 +50,8 @@ const VideoPlayer = () => {
         loop
         muted
         playsInline
-        preload="metadata"
-        poster="/video-poster.jpg" // Optional: add a poster image
+        preload="none"
+        poster="/video-poster.jpg"
       >
         <source src="/video.mp4" type="video/mp4" />
         Your browser does not support the video tag.

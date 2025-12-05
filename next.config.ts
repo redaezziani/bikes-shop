@@ -17,8 +17,22 @@ const nextConfig: NextConfig = {
       },
     ],
     dangerouslyAllowSVG: true,
-    unoptimized: true,
+    unoptimized: false,
+    formats: ['image/avif', 'image/webp'],
   },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  experimental: {
+    optimizePackageImports: ['swiper', '@tabler/icons-react', 'motion', 'react-markdown'],
+  },
+  modularizeImports: {
+    '@tabler/icons-react': {
+      transform: '@tabler/icons-react/dist/esm/icons/{{member}}',
+    },
+  },
+  // Target modern browsers to avoid unnecessary polyfills
+  transpilePackages: [],
 };
 
 export default nextConfig;

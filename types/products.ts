@@ -33,9 +33,9 @@ export interface CoverImage {
   mime: string;
   size: number;
   url: string;
-  previewUrl: any;
+  previewUrl: string | null;
   provider: string;
-  provider_metadata: any;
+  provider_metadata: Record<string, unknown> | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -53,7 +53,7 @@ export interface ImageFormat {
   hash: string;
   ext: string;
   mime: string;
-  path: any;
+  path: string | null;
   width: number;
   height: number;
   size: number;
@@ -61,7 +61,7 @@ export interface ImageFormat {
   url: string;
 }
 
-export interface PreviewImage extends CoverImage {}
+export type PreviewImage = CoverImage;
 
 export interface Spec {
   id: number;

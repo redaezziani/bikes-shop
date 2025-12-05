@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { motion, AnimatePresence } from 'motion/react';
 

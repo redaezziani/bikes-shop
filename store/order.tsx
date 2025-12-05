@@ -31,7 +31,15 @@ interface OrderState {
   getCheckoutPayload: () => {
     customerName: string;
     customerEmail: string;
-    items: any[];
+    items: Array<{
+      item_type: string;
+      product?: { id: number; name: string; documentId: string };
+      accessory?: { id: number; name?: string; documentId?: string };
+      quantity: number;
+      unit_price: number;
+      color_name?: string;
+      color_hex?: string;
+    }>;
   };
 }
 
@@ -138,7 +146,15 @@ export const useOrderStore = create<OrderState>()(
 
       getCheckoutPayload: () => {
         const state = get();
-        const backendItems: any[] = [];
+        const backendItems: Array<{
+          item_type: string;
+          product?: { id: number; name: string; documentId: string };
+          accessory?: { id: number; name?: string; documentId?: string };
+          quantity: number;
+          unit_price: number;
+          color_name?: string;
+          color_hex?: string;
+        }> = [];
 
         state.items.forEach((item) => {
           backendItems.push({

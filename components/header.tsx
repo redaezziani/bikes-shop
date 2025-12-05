@@ -6,7 +6,6 @@ import {
   IconChevronDown,
   IconWorld,
   IconUser,
-  IconMenu,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useProducts } from '@/store/products';

@@ -1,27 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { Product } from '@/types/products';
 
-const ModelSelector = ({ products }: { products: any[] }) => {
+const ModelSelector = ({ products }: { products: Product[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   const documentIdFromUrl = searchParams.get('documentId');
 
-  useEffect(() => {
-    if (!documentIdFromUrl || products.length === 0) return;
+  // Derive selected product from URL and products list
+  const selectedProduct = products.find((p) => p.documentId === documentIdFromUrl) || null;
 
-    const found = products.find((p) => p.documentId === documentIdFromUrl);
-
-    if (found && found.id !== selectedProduct?.id) {
-      setSelectedProduct(found);
-    }
-  }, [documentIdFromUrl, products, selectedProduct]);
-
-  const handleSelect = (item: any) => {
-    setSelectedProduct(item);
+  const handleSelect = (item: Product) => {
     router.push(`/order?documentId=${item.documentId}`, { scroll: false });
   };
 
