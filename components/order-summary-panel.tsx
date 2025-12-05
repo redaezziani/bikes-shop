@@ -112,7 +112,7 @@ const OrderSummaryPanel = ({
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center gap-3">
-          <IconShoppingBag size={20} className="text-[#6760ff]" />
+          <IconShoppingBag size={20} className=" text-zinc-900" />
           <div className="flex flex-col gap-0.5">
             <h3 className="font-semibold text-sm">
               {isExpanded ? 'Order Configuration' : 'Order Summary'}
@@ -125,7 +125,7 @@ const OrderSummaryPanel = ({
         <div className="flex items-center gap-4">
           <div className="text-right">
             <p className="text-xs text-zinc-500">Total</p>
-            <span className="text-lg font-bold text-[#6760ff]">
+            <span className="text-lg font-bold  text-zinc-900">
               ${totalPrice.toFixed(2)}
             </span>
           </div>
@@ -206,7 +206,7 @@ const OrderSummaryPanel = ({
         <div className="pt-4 border-t border-zinc-300 mb-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold text-zinc-800">Order Total</h3>
-            <span className="text-xl font-bold text-[#6760ff]">
+            <span className="text-xl font-bold  text-zinc-900">
               ${totalPrice.toFixed(2)}
             </span>
           </div>
@@ -369,7 +369,7 @@ const OrderSummaryPanel = ({
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting || items.length === 0}
-              className="w-full mt-4 py-2.5 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
+              className="w-full mt-4 py-2.5 bg-zinc-950  disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
             >
               {isSubmitting ? (
                 <>

@@ -62,6 +62,7 @@ const Header = () => {
       ],
     },
     { label: 'Shop', hasSubmenu: false },
+    { label: 'Shop', hasSubmenu: false },
     { label: 'Support', hasSubmenu: false },
   ];
 
@@ -107,6 +108,25 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
+          <Link
+            href="/routes"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
+          >
+            Order Now
+          </Link>
+          <Link
+            href="/blog"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/routes"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
+          >
+            Routes
+          </Link>
+
           <div className="relative">
             <button
               onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
@@ -126,7 +146,7 @@ const Header = () => {
             </button>
 
             {modelsDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
                 {products.length > 0 ? (
                   products.map((p) => (
                     <Link
@@ -162,19 +182,6 @@ const Header = () => {
               </div>
             )}
           </div>
-
-          <Link
-            href="/blog"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/routes"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Routes
-          </Link>
         </nav>
 
         {/* Mobile Menu Button */}

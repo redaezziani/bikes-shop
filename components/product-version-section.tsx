@@ -108,7 +108,7 @@ const ProductVersionSection = () => {
 
             return (
               <SwiperSlide key={section.id}>
-                <article className="relative rounded-lg overflow-hidden h-[500px] bg-zinc-300">
+                <article className="relative select-none rounded-lg overflow-hidden h-[500px] bg-zinc-300">
                   {imageUrl && (
                     <>
                       <Image

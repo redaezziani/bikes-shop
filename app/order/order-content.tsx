@@ -8,18 +8,17 @@ import Link from 'next/link';
 import { useProducts, useProductSelection } from '@/store/products';
 import OrderSummaryPanel from '@/components/order-summary-panel';
 import ModelPreview from '@/components/model-preview';
+import ProductImagePreview from '@/components/product-image-priview';
 
 const OrderContent = () => {
   const { data, isLoading } = useProducts({ pageSize: 10 });
 
-  console.log(data);
   const searchParams = useSearchParams();
   const documentIdFromUrl = searchParams.get('documentId');
 
   const [currentProduct, setCurrentProduct] = useState<any>(null);
   const products = data?.data || [];
 
-  // Auto-select product from URL or first product
   useEffect(() => {
     if (products.length === 0) return;
 
@@ -50,25 +49,40 @@ const OrderContent = () => {
   if (isLoading) {
     return (
       <main className="flex flex-col min-h-screen gap-4 justify-center items-center">
-        <div className="text-lg">Loading products...</div>
+        <main className="flex flex-col min-h-screen gap-4 justify-center items-center">
+          <span className=" flex gap-1 justify-center items-center">
+            <div className="w-3 h-3 border-2 border-white/30 border-t-black rounded-full animate-spin" />
+            Processing...
+          </span>
+        </main>
       </main>
     );
   }
 
   if (!currentProduct) return null;
 
+  const allImages = (currentProduct.preview_images || [])
+    .map((img) => img.url)
+    .filter((url): url is string => !!url);
+
   return (
     <main className="flex flex-col min-h-screen gap-4 justify-start items-center relative pb-32 md:pb-40">
       <HeaderDetailsPage />
       <section className="w-full max-w-7xl flex flex-col gap-2 justify-start items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 pb-10">
-          <div className="flex flex-col justify-center items-center gap-6">
-            <ModelPreview
-              name={currentProduct.name}
-              image={currentProduct.cover_image.url}
-              id={currentProduct.documentId}
-            />
-
+          <div className="flex md:p-10 md:mt-14">
+            <span className="  md:block hidden">
+              <ProductImagePreview images={allImages} />
+            </span>
+            <span className=" block md:hidden">
+              <ModelPreview
+                name={currentProduct.name}
+                image={currentProduct.cover_image.url}
+                id={currentProduct.documentId}
+              />
+            </span>
+          </div>
+          <div className="flex flex-col border-l border-zinc-300/26 md:mt-32 gap-6">
             <div className="flex px-4 flex-col gap-1 justify-center items-center text-center">
               <h2 className="text-xl font-semibold text-zinc-900">
                 {currentProduct.name}

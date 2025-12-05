@@ -63,7 +63,7 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
         </Link>
 
         {blog.category && (
-          <span className="inline-block text-xs font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full mb-4">
+          <span className="inline-block text-xs ml-5 font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full mb-4">
             {blog.category}
           </span>
         )}

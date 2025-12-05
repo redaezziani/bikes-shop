@@ -165,7 +165,7 @@ const ProductDetailsPage = () => {
               Upgrade your ride with accessories designed to pair perfectly with
               this product.
             </p>
-            <div className="grid w-full mt-5 grid-cols-2 gap-2">
+            <div className="grid w-full mt-5 grid-cols-2 md:grid-cols-3 gap-2">
               {selectedProduct.available_accessories.slice(0, 3).map((acc) => (
                 <span
                   key={acc.id}

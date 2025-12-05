@@ -39,7 +39,7 @@ const BlogSection = () => {
           <Swiper
             modules={[Pagination]}
             spaceBetween={16}
-            slidesPerView={'auto'}
+            slidesPerView={2}
             centeredSlides={false}
             pagination={{ clickable: true }}
             className="px-4 blog-swiper"

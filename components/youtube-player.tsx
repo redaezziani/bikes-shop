@@ -68,7 +68,7 @@ export default function YouTubeAutoPlayer({ url }: Props) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-80 bg-zinc-200 rounded overflow-hidden"
+      className="relative w-full h-80 bg-zinc-100 rounded overflow-hidden"
     >
       <YouTube
         videoId={videoId}

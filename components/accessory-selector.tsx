@@ -14,7 +14,7 @@ const AccessorySelector = ({
   console.log(availableAccessories);
 
   return (
-    <section className="px-4 grid w-full grid-cols-1 md:grid-cols-3 gap-4">
+    <section className="px-4 grid w-full grid-cols-1  gap-4">
       {availableAccessories.map((item: any) => {
         const isActive = selectedAccessories.includes(item.id);
 

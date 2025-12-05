@@ -26,7 +26,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="  bg-white   w-full gap-6 pt-6 pb-20 md:pb-9 flex items-center justify-start flex-col px-4 min-h-96">
+    <footer className="  bg-white  border border-t border-zinc-300/26  w-full gap-6 pt-6 pb-20 md:pb-9 flex items-center justify-start flex-col px-4 min-h-96">
       <div className=" flex gap-4 justify-center items-center ">
         <Link href="#" aria-label="Follow us on Instagram">
           <img
