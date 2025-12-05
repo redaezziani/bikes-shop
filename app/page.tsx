@@ -4,7 +4,9 @@ import HeroSlider from '@/components/hero-slider';
 // Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
 const OfferCard = dynamic(() => import('@/components/offer-card'));
-const ProductVersionSection = dynamic(() => import('@/components/product-version-section'));
+const ProductVersionSection = dynamic(
+  () => import('@/components/product-version-section'),
+);
 const BlogSection = dynamic(() => import('@/components/blog-section'));
 const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
