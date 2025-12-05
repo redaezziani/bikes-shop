@@ -2,11 +2,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
-
 import Header from './header';
 import { useSectionOne } from '@/store/section-one';
 

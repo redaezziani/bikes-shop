@@ -4,8 +4,6 @@ import { useBlogs } from '@/store/blogs';
 import BlogCard from './blog-card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 const BlogSection = () => {
   const { data, isLoading } = useBlogs({ pageSize: 6 });

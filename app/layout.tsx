@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import './globals.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { ToasterProvider } from '@/providers/Toaster';
 
