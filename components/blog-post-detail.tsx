@@ -4,7 +4,7 @@ import { Blog } from '@/types/blogs';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import BlogTableOfContents from './blog-table-of-contents';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface BlogPostDetailProps {
   blog: Blog | null;
@@ -13,10 +13,12 @@ interface BlogPostDetailProps {
 
 const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
   const [headingCounter, setHeadingCounter] = useState(0);
+  const [currentBlogId, setCurrentBlogId] = useState(blog?.id);
 
-  useEffect(() => {
+  if (blog?.id !== currentBlogId) {
+    setCurrentBlogId(blog?.id);
     setHeadingCounter(0);
-  }, [blog]);
+  }
 
   if (isLoading) {
     return (

@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { IconX } from '@tabler/icons-react';
 import { Accessory } from '@/store/products';

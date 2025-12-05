@@ -45,7 +45,7 @@ export interface OrderCreatePayload {
 
 export interface OrderResponse {
   data: Order;
-  meta?: any;
+  meta?: Record<string, unknown>;
 }
 
 export interface OrdersResponse {

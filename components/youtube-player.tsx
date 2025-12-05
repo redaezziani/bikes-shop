@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import YouTube, { YouTubeEvent } from 'react-youtube';
 
 interface Props {
@@ -8,9 +8,8 @@ interface Props {
 }
 
 export default function YouTubeAutoPlayer({ url }: Props) {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YouTubeEvent['target'] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   // Extract video ID from URL
   const getVideoId = (url: string) => {
@@ -53,18 +52,6 @@ export default function YouTubeAutoPlayer({ url }: Props) {
     event.target.mute(); // muted by default
   };
 
-  const togglePlay = () => {
-    if (!playerRef.current) return;
-
-    if (isPlaying) {
-      playerRef.current.pauseVideo();
-    } else {
-      playerRef.current.playVideo();
-    }
-
-    setIsPlaying(!isPlaying);
-  };
-
   return (
     <div
       ref={containerRef}
@@ -73,8 +60,6 @@ export default function YouTubeAutoPlayer({ url }: Props) {
       <YouTube
         videoId={videoId}
         onReady={onReady}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
         opts={{
           height: '100%',
           width: '100%',

@@ -46,7 +46,7 @@ export default function TermsPage() {
                   working days with next-day assembly
                 </p>
                 <p>
-                  Change-of-mind returns: 7 days, only if assembly hasn't taken
+                  Change-of-mind returns: 7 days, only if assembly hasn&apos;t taken
                   place and all boxes remain sealed
                 </p>
                 <p>

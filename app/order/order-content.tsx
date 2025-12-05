@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AccessorySelector from '@/components/accessory-selector';
 import HeaderDetailsPage from '@/components/header-v2';
@@ -16,22 +16,19 @@ const OrderContent = () => {
   const searchParams = useSearchParams();
   const documentIdFromUrl = searchParams.get('documentId');
 
-  const [currentProduct, setCurrentProduct] = useState<any>(null);
   const products = data?.data || [];
 
-  useEffect(() => {
-    if (products.length === 0) return;
+  // Derive current product from URL and products list
+  const currentProduct = useMemo(() => {
+    if (products.length === 0) return null;
 
     if (documentIdFromUrl) {
       const found = products.find((p) => p.documentId === documentIdFromUrl);
-      if (found) {
-        setCurrentProduct(found);
-        return;
-      }
+      if (found) return found;
     }
 
     // Fallback to first product if no documentId in URL
-    setCurrentProduct(products[0] || null);
+    return products[0] || null;
   }, [documentIdFromUrl, products]);
 
   const {
@@ -39,9 +36,6 @@ const OrderContent = () => {
     setSelectedColor,
     selectedAccessories,
     toggleAccessory,
-    getSelectedAccessoriesDetails,
-    getSelectedColorHex,
-    getTotalPrice,
   } = useProductSelection(currentProduct);
 
   const availableColors = currentProduct?.colors || [];
@@ -62,8 +56,8 @@ const OrderContent = () => {
   if (!currentProduct) return null;
 
   const allImages = (currentProduct.preview_images || [])
-    .map((img: any) => img.url)
-    .filter((url: any): url is string => !!url);
+    .map((img) => img.url)
+    .filter((url): url is string => !!url);
 
   return (
     <main className="flex flex-col min-h-screen gap-4 justify-start items-center relative pb-32 md:pb-40">
@@ -99,7 +93,7 @@ const OrderContent = () => {
             </div>
 
             <div className="px-4 flex gap-5 justify-between w-full">
-              {currentProduct.specs.slice(0, 3).map((spec: any) => (
+              {currentProduct.specs.slice(0, 3).map((spec) => (
                 <span key={spec.id} className="flex flex-col text-center gap-1">
                   <h4 className="text-zinc-800 font-semibold text-sm">
                     {spec.name}
@@ -124,7 +118,7 @@ const OrderContent = () => {
               {availableColors.length > 0 && (
                 <div className="mt-4 flex justify-start flex-col gap-2">
                   <div className="flex w-full justify-start gap-3 flex-wrap">
-                    {availableColors.map((color: any) => (
+                    {availableColors.map((color) => (
                       <label
                         key={color.id}
                         className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8 bg-white transition

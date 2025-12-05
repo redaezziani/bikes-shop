@@ -1,11 +1,13 @@
 'use client';
 
+import { Product } from '@/types/products';
+
 const AccessorySelector = ({
   product,
   selectedAccessories,
   toggleAccessory,
 }: {
-  product: any;
+  product: Product;
   selectedAccessories: number[];
   toggleAccessory: (accessoryId: number) => void;
 }) => {
@@ -15,7 +17,7 @@ const AccessorySelector = ({
 
   return (
     <section className="px-4 grid w-full grid-cols-1  gap-4">
-      {availableAccessories.map((item: any) => {
+      {availableAccessories.map((item) => {
         const isActive = selectedAccessories.includes(item.id);
 
         return (

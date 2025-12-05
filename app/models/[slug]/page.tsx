@@ -10,7 +10,6 @@ import {
   useProductBySlug,
   useProductSelection,
 } from '@/store/products';
-import { IconShoppingCart } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -27,10 +26,7 @@ const ProductDetailsPage = () => {
   } = useProductBySlug(productSlug as string);
 
   const {
-    selectedColor,
     selectedAccessories,
-    setSelectedColor,
-    toggleAccessory,
   } = useProductSelection(selectedProduct || null);
 
   const [activeAccessory, setActiveAccessory] = useState<Accessory | null>(
@@ -73,8 +69,6 @@ const ProductDetailsPage = () => {
     );
   }
 
-  const previewImageUrls =
-    selectedProduct.preview_images?.map((img) => img.url) || [];
   const allImages = (selectedProduct.preview_images || [])
     .map((img) => img.url)
     .filter((url): url is string => !!url);
