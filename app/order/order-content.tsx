@@ -62,8 +62,8 @@ const OrderContent = () => {
   if (!currentProduct) return null;
 
   const allImages = (currentProduct.preview_images || [])
-    .map((img) => img.url)
-    .filter((url): url is string => !!url);
+    .map((img: any) => img.url)
+    .filter((url: any): url is string => !!url);
 
   return (
     <main className="flex flex-col min-h-screen gap-4 justify-start items-center relative pb-32 md:pb-40">
