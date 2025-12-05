@@ -4,8 +4,6 @@ import { Pagination } from 'swiper/modules';
 import { useSectionTwo } from '@/store/section-two';
 import Link from 'next/link';
 import Image from 'next/image';
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 const ProductVersionSection = () => {
   const { data, isLoading } = useSectionTwo({ pageSize: 10 });
