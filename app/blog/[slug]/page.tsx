@@ -1,14 +1,17 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import React from 'react';
 import { useBlogBySlug } from '@/store/blogs';
 import BlogPostDetail from '@/components/blog-post-detail';
 import Footer from '@/components/footer';
 import Link from 'next/link';
 
-const BlogPostPage = () => {
-  const params = useParams();
-  const slug = params?.slug;
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+const BlogPostPage = ({ params }: BlogPostPageProps) => {
+  const { slug } = React.use(params);
   const blogSlug = Array.isArray(slug) ? slug[0] : slug;
 
   const { data: blog, isLoading } = useBlogBySlug(blogSlug as string);
