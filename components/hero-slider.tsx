@@ -41,7 +41,6 @@ const HeroSlider = () => {
 
   const slides = sectionOneData?.data || [];
 
-  // Show empty state if no slides
   if (slides.length === 0) {
     return (
       <div
