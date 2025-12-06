@@ -2,43 +2,55 @@ name: Deploy Next.js to VPS
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Production
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
+        env:
+          STRAPI_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
+          STRAPI_API_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
+          STRAPI_API_KEY: ${{ secrets.NEXT_PUBLIC_STRAPI_API_KEY }}
         with:
-          host: 72.61.203.223
-          username: root
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          envs: STRAPI_URL,STRAPI_API_URL,STRAPI_API_KEY
           script: |
             echo "🚀 Starting deployment..."
+
             cd ~/bikes-shop
-            
-            echo "📥 Pulling latest code..."
+
+            echo "Pulling latest code..."
             git pull origin main
-            
-            echo "🐳 Rebuilding Docker containers..."
+
+            echo "Rebuilding Docker containers..."
             docker compose down
+
+            # Use the environment variables passed from GitHub
+            export NEXT_PUBLIC_STRAPI_URL="$STRAPI_URL"
+            export NEXT_PUBLIC_STRAPI_API_URL="$STRAPI_API_URL"
+            export NEXT_PUBLIC_STRAPI_API_KEY="$STRAPI_API_KEY"
+
             docker compose up -d --build
-            
-            echo "🧹 Cleaning up..."
+
+            echo "Cleaning up..."
             docker system prune -f
-            
-            echo "✅ Deployment completed!"
-      
+
+            echo "Deployment completed!"
+
       - name: Deployment Status
         if: success()
-        run: echo "✅ Deployment successful!"
-      
+        run: echo "Deployment successful!"
+
       - name: Deployment Failed
         if: failure()
-        run: echo "❌ Deployment failed!"
+        run: echo "Deployment failed!"
