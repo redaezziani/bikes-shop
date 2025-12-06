@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import type mapboxgl from 'mapbox-gl';
 
 type RouteStats = {
   distance: number; // km
@@ -11,29 +10,31 @@ type RouteStats = {
 };
 
 interface MapboxMapProps {
-  gpxUrl?: string; // url to fetch GPX file
-  gpxData?: string; // raw GPX XML string
-  height?: string; // tailwind class for height (e.g. 'h-96')
+  gpxUrl?: string;
+  gpxData?: string;
+  height?: string;
   zoom?: number;
-  center?: [number, number]; // [lat, lng]
+  center?: [number, number];
   onRouteDataParsed?: (data: RouteStats) => void;
-  mapStyle?: string; // mapbox style url
+  mapStyle?: string;
 }
 
-// NOTE: ensure NEXT_PUBLIC_MAPBOX_TOKEN is set in your env (or pass token via prop)
-if (typeof window !== 'undefined') {
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
-  if (!token) {
-    // don't throw — leave console warning for developer
-    // mapboxgl will error if token is missing when creating the map
-    // so this helps debug quickly
-    // eslint-disable-next-line no-console
-    console.warn(
-      'NEXT_PUBLIC_MAPBOX_TOKEN is not set. Mapbox will not initialize without it.',
-    );
+// Lazy load Mapbox GL JS and CSS only when needed
+const loadMapboxGL = async () => {
+  if (typeof window === 'undefined') return null;
+
+  // Load CSS dynamically
+  if (!document.querySelector('link[href*="mapbox-gl.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css';
+    document.head.appendChild(link);
   }
-  mapboxgl.accessToken = token;
-}
+
+  // Dynamic import of mapbox-gl
+  const mapboxgl = await import('mapbox-gl');
+  return mapboxgl.default;
+};
 
 export default function MapboxMap({
   gpxUrl,
@@ -41,11 +42,14 @@ export default function MapboxMap({
   zoom = 12,
   center = [51.505, -0.09],
   onRouteDataParsed,
-  mapStyle = 'mapbox://styles/mapbox/outdoors-v11',
+  mapStyle = 'mapbox://styles/mapbox/light-v11',
 }: MapboxMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [mapboxgl, setMapboxgl] = useState<
+    typeof import('mapbox-gl').default | null
+  >(null);
 
   // Utility: simple haversine distance (km)
   const haversine = (
@@ -83,7 +87,6 @@ export default function MapboxMap({
       const lat = parseFloat(pt.getAttribute('lat') || '0');
       const lon = parseFloat(pt.getAttribute('lon') || '0');
       const ele = parseFloat(pt.querySelector('ele')?.textContent || '0');
-      // Mapbox GL expects [lng, lat]
       coordinates.push([lon, lat]);
       elevations.push(ele);
     });
@@ -141,26 +144,41 @@ export default function MapboxMap({
     };
   };
 
-  // Initialize map once
+  // Load Mapbox GL library
   useEffect(() => {
-    if (!containerRef.current) return;
-    if (mapRef.current) return; // already initialized
+    let mounted = true;
 
-    // Basic token check
-    if (!mapboxgl.accessToken) {
-      console.error('Mapbox token not found. Set NEXT_PUBLIC_MAPBOX_TOKEN.');
-      setIsLoading(false);
-      return;
-    }
+    loadMapboxGL().then((mapbox) => {
+      if (!mounted || !mapbox) return;
+
+      const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
+      if (!token) {
+        console.warn('NEXT_PUBLIC_MAPBOX_TOKEN is not set.');
+        setIsLoading(false);
+        return;
+      }
+
+      mapbox.accessToken = token;
+      setMapboxgl(mapbox);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // Initialize map once Mapbox GL is loaded
+  useEffect(() => {
+    if (!containerRef.current || !mapboxgl) return;
+    if (mapRef.current) return;
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
       style: mapStyle,
-      center: [center[1], center[0]], // mapbox expects [lng, lat]
+      center: [center[1], center[0]],
       zoom,
     });
 
-    // Add controls
     map.addControl(
       new mapboxgl.NavigationControl({ showCompass: true }),
       'bottom-right',
@@ -176,21 +194,21 @@ export default function MapboxMap({
 
     mapRef.current = map;
 
-    // Clean up
     return () => {
       map.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [mapboxgl, center, zoom, mapStyle]);
 
   // Load GPX when provided
   useEffect(() => {
+    if (!mapboxgl) return;
+
     const loadAndRenderGPX = async (gpxXml: string) => {
       if (!mapRef.current) return;
 
       const { lineFeature, waypoints, stats } = parseGPXToGeoJSON(gpxXml);
 
-      // Remove old source if exists
       if (mapRef.current.getSource('route')) {
         try {
           if (mapRef.current.getLayer('route-line'))
@@ -201,7 +219,7 @@ export default function MapboxMap({
             { type: 'FeatureCollection', features: [lineFeature] },
           );
         } catch (err) {
-          // if removal failed, continue to recreate sources below
+          // Continue to recreate sources
         }
       } else {
         mapRef.current.addSource('route', {
@@ -209,40 +227,36 @@ export default function MapboxMap({
           data: { type: 'FeatureCollection', features: [lineFeature] },
         });
 
-        // Glow / shadow layer
         mapRef.current.addLayer({
           id: 'route-line-glow',
           type: 'line',
           source: 'route',
           layout: { 'line-join': 'round', 'line-cap': 'round' },
           paint: {
-            'line-color': '#10B981',
+            'line-color': '#32870f',
             'line-width': 10,
             'line-opacity': 0.12,
           },
         });
 
-        // Main route line
         mapRef.current.addLayer({
           id: 'route-line',
           type: 'line',
           source: 'route',
           layout: { 'line-join': 'round', 'line-cap': 'round' },
           paint: {
-            'line-color': '#10B981',
+            'line-color': '#32870f',
             'line-width': 4,
             'line-opacity': 0.95,
           },
         });
       }
 
-      // Markers: start and end
       const coords = lineFeature.geometry.coordinates as [number, number][];
       if (coords.length > 0) {
         const start = coords[0];
         const end = coords[coords.length - 1];
 
-        // helper to create marker element
         const createMarkerEl = (color: string, size = 14) => {
           const el = document.createElement('div');
           el.style.width = `${size}px`;
@@ -254,7 +268,6 @@ export default function MapboxMap({
           return el;
         };
 
-        // remove existing markers - we attach them as map properties for cleanup
         if ((mapRef.current as any)._startMarker) {
           (mapRef.current as any)._startMarker.remove();
           (mapRef.current as any)._endMarker.remove();
@@ -285,7 +298,6 @@ export default function MapboxMap({
         (mapRef.current as any)._startMarker = startMarker;
         (mapRef.current as any)._endMarker = endMarker;
 
-        // Fit bounds nicely
         const bounds = coords.reduce(
           (b, c) => b.extend(c as [number, number]),
           new mapboxgl.LngLatBounds(
@@ -296,7 +308,6 @@ export default function MapboxMap({
         mapRef.current.fitBounds(bounds, { padding: 60, maxZoom: 16 });
       }
 
-      // Add waypoints as simple markers (if any)
       if (mapRef.current.getSource('wpts')) {
         (mapRef.current.getSource('wpts') as mapboxgl.GeoJSONSource).setData({
           type: 'FeatureCollection',
@@ -325,8 +336,6 @@ export default function MapboxMap({
       }
 
       setIsLoading(false);
-
-      // emit stats
       onRouteDataParsed?.(stats);
     };
 
@@ -342,7 +351,6 @@ export default function MapboxMap({
           if (!cancelled) await loadAndRenderGPX(text);
         }
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.error('Error loading GPX', err);
         setIsLoading(false);
       }
@@ -353,12 +361,12 @@ export default function MapboxMap({
     return () => {
       cancelled = true;
     };
-  }, [gpxData, gpxUrl]);
+  }, [gpxData, gpxUrl, mapboxgl, onRouteDataParsed]);
 
   return (
     <div className="relative">
       <div
-        className={`w-full  h-96 md:h-170 rounded overflow-hidden bg-zinc-50`}
+        className="w-full h-96 md:h-170 rounded overflow-hidden bg-zinc-50"
         ref={containerRef}
       />
 

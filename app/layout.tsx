@@ -6,11 +6,6 @@ import { ToasterProvider } from '@/providers/Toaster';
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-nunito-sans',
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'arial'],
 });
 
 export const metadata: Metadata = {
@@ -69,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={nunitoSans.variable}>
+    <html lang="en" className="">
       <head>
         {/* Structured Data for Local Business */}
         <script

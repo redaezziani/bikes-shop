@@ -1,5 +1,3 @@
-# Modern browsers that support ES2022+ features
-# This avoids unnecessary polyfills for Array.at, Array.flat, Object.fromEntries, etc.
 Chrome >= 92
 Firefox >= 90
 Safari >= 15.4
