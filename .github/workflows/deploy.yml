@@ -8,11 +8,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Production
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         env:
@@ -26,13 +26,13 @@ jobs:
           envs: STRAPI_URL,STRAPI_API_URL,STRAPI_API_KEY
           script: |
             echo "🚀 Starting deployment..."
-            
+
             cd ~/bikes-shop
-            
+
             echo "📥 Pulling latest code..."
             git stash
             git pull origin main
-            
+
             echo "📝 Creating .env file for Docker build..."
             cat > .env << EOF
             NEXT_PUBLIC_STRAPI_URL=$STRAPI_URL
@@ -40,28 +40,23 @@ jobs:
             NEXT_PUBLIC_STRAPI_API_KEY=$STRAPI_API_KEY
             NODE_ENV=production
             EOF
-            
-            echo "🐳 Stopping and removing containers..."
+
+            echo "🐳 Rebuilding Docker containers..."
             docker compose down
-            
-            echo "🧹 Clearing Docker cache (one-time clean build)..."
-            docker builder prune -af
-            
-            echo "🔨 Building fresh containers..."
-            docker compose build --no-cache --pull
-            
+            docker compose build --pull
+
             echo "🚀 Starting containers..."
             docker compose up -d
-            
+
             echo "🧹 Cleaning up old images..."
             docker image prune -f
-            
+
             echo "✅ Deployment completed!"
-      
+
       - name: Deployment Status
         if: success()
         run: echo "✅ Deployment successful!"
-      
+
       - name: Deployment Failed
         if: failure()
         run: echo "❌ Deployment failed!"
