@@ -32,9 +32,6 @@ jobs:
             echo "Pulling latest code..."
             git pull origin main
 
-            echo "Rebuilding Docker containers..."
-            docker compose down
-
             # Create .env file with environment variables for docker-compose
             echo "Creating .env file for Docker build..."
             cat > .env << EOF
@@ -44,12 +41,17 @@ jobs:
             NODE_ENV=production
             EOF
 
-            docker compose up -d --build
+            echo "Rebuilding Docker containers with cache..."
+            # Build with cache - much faster for small changes
+            docker compose build --pull
 
-            echo "Cleaning up..."
-            docker system prune -f
+            echo "Restarting containers..."
+            docker compose up -d
 
-            echo "Deployment completed!"
+            echo "Cleaning up old images..."
+            docker image prune -f
+
+            echo "✅ Deployment completed!"
 
       - name: Deployment Status
         if: success()
