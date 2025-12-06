@@ -11,7 +11,7 @@ export interface Offer {
   documentId: string;
   title: string;
   description: string;
-  featured_image?: OfferImage;
+  cover_image?: OfferImage;
   button_text?: string;
   link?: string;
   createdAt: string;
