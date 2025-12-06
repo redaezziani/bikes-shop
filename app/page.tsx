@@ -101,7 +101,7 @@ export default async function Home() {
           aria-label="Ask questions on WhatsApp"
         >
           <svg
-            className=" fill-zinc-700 stroke-zinc-700 size-6"
+            className=" fill-[#32870f] stroke-[#32870f] size-6"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
             aria-hidden="true"
