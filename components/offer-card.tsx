@@ -9,15 +9,15 @@ interface OfferCardProps {
 }
 
 const OfferCard = ({ offer }: OfferCardProps) => {
-  const imageUrl = offer.featured_image?.url
-    ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${offer.featured_image.url}`
+  const imageUrl = offer.cover_image?.url
+    ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${offer.cover_image.url}`
     : '';
 
   const href = offer.link || '#';
 
   return (
     <Link href={href}>
-      <article className="relative rounded-lg overflow-hidden h-[400px] bg-zinc-300">
+      <article className="relative rounded-lg overflow-hidden h-[400px] bg-zinc-80le0">
         {imageUrl && (
           <>
             <Image
@@ -30,17 +30,15 @@ const OfferCard = ({ offer }: OfferCardProps) => {
               placeholder="blur"
               blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
             />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"
-              aria-hidden="true"
-            ></div>
           </>
         )}
 
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h2 className="text-2xl font-bold">{offer.title}</h2>
           {offer.description && (
-            <p className="text-sm mt-1 line-clamp-2 mb-6">{offer.description}</p>
+            <p className="text-sm mt-1 line-clamp-2 mb-6">
+              {offer.description}
+            </p>
           )}
           <div className="flex gap-3">
             <button

@@ -8,7 +8,7 @@ const buildOffersQueryString = (params?: {
   page?: number;
   pageSize?: number;
 }): string => {
-  const queryParts = ['populate[0]=featured_image', 'sort[0]=createdAt:desc'];
+  const queryParts = ['populate[0]=cover_image', 'sort[0]=createdAt:desc'];
 
   if (params?.page) {
     queryParts.push(`pagination[page]=${params.page}`);
@@ -25,7 +25,7 @@ export async function getOffersData(params?: {
   page?: number;
   pageSize?: number;
 }): Promise<OffersResponse> {
-  const url = `${STRAPI_API_URL}/offers?${buildOffersQueryString(params)}`;
+  const url = `${STRAPI_API_URL}/section-threes?${buildOffersQueryString(params)}`;
 
   const response = await fetch(url, {
     headers: {
