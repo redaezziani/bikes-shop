@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import HeroSlider from '@/components/hero-slider';
 import MapboxMap from '@/components/map-box';
 import Link from 'next/link';
+import { getSectionOneData } from '@/lib/section-one-service';
 
 // Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
@@ -12,10 +13,14 @@ const ProductVersionSection = dynamic(
 const BlogSection = dynamic(() => import('@/components/blog-section'));
 const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
-export default function Home() {
+export default async function Home() {
+  // Fetch hero slider data on the server with caching
+  const sectionOneData = await getSectionOneData();
+  const slides = sectionOneData?.data || [];
+
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
-      <HeroSlider />
+      <HeroSlider slides={slides} />
       <section
         aria-label="product-version-section"
         className="bg-white mt-10 w-full"

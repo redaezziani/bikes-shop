@@ -4,42 +4,13 @@ import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from './header';
-import { useSectionOne } from '@/store/section-one';
+import { SectionOne } from '@/types/section-one';
 
-const HeroSlider = () => {
-  const { data: sectionOneData, isLoading, error } = useSectionOne();
+interface HeroSliderProps {
+  slides: SectionOne[];
+}
 
-  // Show loading state
-  if (isLoading) {
-    return (
-      <div
-        id="hero"
-        className="w-full flex items-center flex-col h-170 lg:h-screen relative bg-zinc-400"
-      >
-        <Header />
-        <div className="h-full w-full flex items-center justify-center">
-          <div className="text-white text-xl">Loading...</div>
-        </div>
-      </div>
-    );
-  }
-
-  // Show error state
-  if (error) {
-    return (
-      <div
-        id="hero"
-        className="w-full flex items-center flex-col h-170 lg:h-screen relative bg-zinc-400"
-      >
-        <Header />
-        <div className="h-full w-full flex items-center justify-center">
-          <div className="text-white text-xl">Error loading slides</div>
-        </div>
-      </div>
-    );
-  }
-
-  const slides = sectionOneData?.data || [];
+const HeroSlider = ({ slides }: HeroSliderProps) => {
 
   if (slides.length === 0) {
     return (
