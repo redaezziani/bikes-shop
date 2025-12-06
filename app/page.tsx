@@ -1,22 +1,26 @@
 import dynamic from 'next/dynamic';
 import HeroSlider from '@/components/hero-slider';
+import ProductVersionSection from '@/components/product-version-section';
 import MapboxMap from '@/components/map-box';
 import Link from 'next/link';
 import { getSectionOneData } from '@/lib/section-one-service';
+import { getSectionTwoData } from '@/lib/section-two-service';
 
 // Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
 const OfferCard = dynamic(() => import('@/components/offer-card'));
-const ProductVersionSection = dynamic(
-  () => import('@/components/product-version-section'),
-);
 const BlogSection = dynamic(() => import('@/components/blog-section'));
 const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
 export default async function Home() {
-  // Fetch hero slider data on the server with caching
-  const sectionOneData = await getSectionOneData();
+  // Fetch data on the server with caching (in parallel)
+  const [sectionOneData, sectionTwoData] = await Promise.all([
+    getSectionOneData(),
+    getSectionTwoData({ pageSize: 10 }),
+  ]);
+
   const slides = sectionOneData?.data || [];
+  const productSections = sectionTwoData?.data || [];
 
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
@@ -25,7 +29,7 @@ export default async function Home() {
         aria-label="product-version-section"
         className="bg-white mt-10 w-full"
       >
-        <ProductVersionSection />
+        <ProductVersionSection sections={productSections} />
       </section>
       <section className="w-full mt-10   lg:max-w-7xl px-4 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
