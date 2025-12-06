@@ -6,17 +6,25 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_STRAPI_URL: http://72.61.203.223:1337
-        NEXT_PUBLIC_STRAPI_API_URL: http://72.61.203.223:1337/api
-        NEXT_PUBLIC_STRAPI_API_KEY: 4a0ee16d83444b242f221621458dbfb300dd533d6516d34ea9da4992d98bffc8fe452f587a6b04755efa1187aef6b2d80713fc475ba1710b54cff1ad48334e3fccbb768e8028bf4c1c3efbf3f8e3d74452e1e6fa6ca0fb5f8c826551f22fa179b97ddb75668ad52b8ae3749d50e830c186824afe23cb0cbcbd1764518455cd01
+        - NEXT_PUBLIC_STRAPI_URL=${NEXT_PUBLIC_STRAPI_URL}
+        - NEXT_PUBLIC_STRAPI_API_URL=${NEXT_PUBLIC_STRAPI_API_URL}
+        - NEXT_PUBLIC_STRAPI_API_KEY=${NEXT_PUBLIC_STRAPI_API_KEY}
     container_name: bikes-shop-nextjs
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      test:
+        [
+          'CMD',
+          'wget',
+          '--quiet',
+          '--tries=1',
+          '--spider',
+          'http://localhost:3000',
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
