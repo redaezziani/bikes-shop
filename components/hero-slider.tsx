@@ -98,6 +98,7 @@ const HeroSlider = () => {
                   fill
                   sizes="100vw"
                   priority={slide.id === slides[0]?.id}
+                  fetchPriority={slide.id === slides[0]?.id ? 'high' : 'auto'}
                   quality={85}
                   className="object-cover"
                 />
