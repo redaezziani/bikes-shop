@@ -7,23 +7,26 @@ import Link from 'next/link';
 import { getSectionOneData } from '@/lib/section-one-service';
 import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';
+import { getOffersData } from '@/lib/offers-service';
 
 // Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
-const OfferCard = dynamic(() => import('@/components/offer-card'));
+const OffersSection = dynamic(() => import('@/components/offers-section'));
 const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
 export default async function Home() {
   // Fetch all data on the server with caching (in parallel)
-  const [sectionOneData, sectionTwoData, blogsData] = await Promise.all([
+  const [sectionOneData, sectionTwoData, blogsData, offersData] = await Promise.all([
     getSectionOneData(),
     getSectionTwoData({ pageSize: 10 }),
     getBlogsData({ pageSize: 6 }),
+    getOffersData({ pageSize: 10 }),
   ]);
 
   const slides = sectionOneData?.data || [];
   const productSections = sectionTwoData?.data || [];
   const blogs = blogsData?.data || [];
+  const offers = offersData?.data || [];
 
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
@@ -34,20 +37,7 @@ export default async function Home() {
       >
         <ProductVersionSection sections={productSections} />
       </section>
-      <section className="w-full mt-10   lg:max-w-7xl px-4 mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <OfferCard
-            title="Current Offers"
-            description="Explore limited-time offers on Tesla vehicles."
-            image="/images/tesla-offer.jpg"
-          />
-          <OfferCard
-            title="Special Deals"
-            description="Exclusive discounts only for this season."
-            image="/images/sale.jpg"
-          />
-        </div>
-      </section>
+      <OffersSection offers={offers} />
 
       <section className="w-full  lg:px-0  mx-auto py-12">
         <div className="grid grid-cols-1  gap-6">

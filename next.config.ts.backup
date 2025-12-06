@@ -1,21 +1,4 @@
-import type { NextConfig } from 'next';
+hello world my name is jalal and I do full stack programing 
 
-const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '1337',
-        pathname: '/uploads/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.alongweride.com',
-        pathname: '/uploads/**',
-      },
-    ],
-  },
-};
 
-export default nextConfig;
+
