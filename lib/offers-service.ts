@@ -8,10 +8,7 @@ const buildOffersQueryString = (params?: {
   page?: number;
   pageSize?: number;
 }): string => {
-  const queryParts = [
-    'populate[0]=featured_image',
-    'sort[0]=createdAt:desc',
-  ];
+  const queryParts = ['populate[0]=featured_image', 'sort[0]=createdAt:desc'];
 
   if (params?.page) {
     queryParts.push(`pagination[page]=${params.page}`);
@@ -40,7 +37,7 @@ export async function getOffersData(params?: {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch offers data: ${response.statusText}`);
+    // throw new Error(`Failed to fetch offers data: ${response.statusText}`);
   }
 
   return response.json();
