@@ -1,26 +1,38 @@
 import dynamic from 'next/dynamic';
 import HeroSlider from '@/components/hero-slider';
+import ProductVersionSection from '@/components/product-version-section';
+import BlogSection from '@/components/blog-section';
 import MapboxMap from '@/components/map-box';
 import Link from 'next/link';
+import { getSectionOneData } from '@/lib/section-one-service';
+import { getSectionTwoData } from '@/lib/section-two-service';
+import { getBlogsData } from '@/lib/blogs-service';
 
 // Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
 const OfferCard = dynamic(() => import('@/components/offer-card'));
-const ProductVersionSection = dynamic(
-  () => import('@/components/product-version-section'),
-);
-const BlogSection = dynamic(() => import('@/components/blog-section'));
 const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
-export default function Home() {
+export default async function Home() {
+  // Fetch all data on the server with caching (in parallel)
+  const [sectionOneData, sectionTwoData, blogsData] = await Promise.all([
+    getSectionOneData(),
+    getSectionTwoData({ pageSize: 10 }),
+    getBlogsData({ pageSize: 6 }),
+  ]);
+
+  const slides = sectionOneData?.data || [];
+  const productSections = sectionTwoData?.data || [];
+  const blogs = blogsData?.data || [];
+
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
-      <HeroSlider />
+      <HeroSlider slides={slides} />
       <section
         aria-label="product-version-section"
         className="bg-white mt-10 w-full"
       >
-        <ProductVersionSection />
+        <ProductVersionSection sections={productSections} />
       </section>
       <section className="w-full mt-10   lg:max-w-7xl px-4 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -81,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      <BlogSection />
+      <BlogSection blogs={blogs} />
       <Footer />
       <section className=" fixed  gap-2 flex justify-center z-40 h-16 shadow-xl  bg-white w-full bottom-0 pt-2 pb-6 px-4">
         <button
@@ -113,4 +125,3 @@ export default function Home() {
   );
 }
 
-// test

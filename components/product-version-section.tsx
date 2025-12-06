@@ -1,36 +1,15 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { useSectionTwo } from '@/store/section-two';
+import { SectionTwo } from '@/types/section-two';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const ProductVersionSection = () => {
-  const { data, isLoading } = useSectionTwo({ pageSize: 10 });
+interface ProductVersionSectionProps {
+  sections: SectionTwo[];
+}
 
-  if (isLoading) {
-    return (
-      <section
-        className="w-full pl-4"
-        aria-label="Featured electric bikes"
-        aria-live="polite"
-        aria-busy="true"
-      >
-        <div className="flex gap-4 overflow-hidden px-4">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="min-w-[85%] h-[500px] bg-zinc-200 animate-pulse rounded-lg"
-              role="status"
-              aria-label="Loading bike model"
-            />
-          ))}
-        </div>
-      </section>
-    );
-  }
-
-  const sections = data?.data || [];
+const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
 
   const getLinkHref = (section: (typeof sections)[0]) => {
     if (section.external_link) {

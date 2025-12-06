@@ -6,6 +6,11 @@ import { ToasterProvider } from '@/providers/Toaster';
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
+  display: 'swap', // Use font-display: swap for better performance
+  preload: true,
+  fallback: ['system-ui', 'arial'],
+  adjustFontFallback: true, // Reduce layout shift
+  variable: '--font-nunito-sans',
 });
 
 export const metadata: Metadata = {
@@ -66,6 +71,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <head>
+        {/* Preconnect to external domains for faster resource loading */}
+        <link rel="preconnect" href="https://api.alongweride.com" />
+        <link rel="dns-prefetch" href="https://api.alongweride.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         {/* Structured Data for Local Business */}
         <script
           type="application/ld+json"

@@ -1,32 +1,15 @@
 'use client';
 
-import { useBlogs } from '@/store/blogs';
+import { Blog } from '@/types/blogs';
 import BlogCard from './blog-card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
-const BlogSection = () => {
-  const { data, isLoading } = useBlogs({ pageSize: 6 });
+interface BlogSectionProps {
+  blogs: Blog[];
+}
 
-  if (isLoading) {
-    return (
-      <section className="w-full pl-4 py-8">
-        <div className="mb-8 px-4">
-          <div className="h-8 w-48 bg-zinc-200 animate-pulse rounded"></div>
-        </div>
-        <div className="flex gap-4 overflow-hidden px-4">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="min-w-[85%] h-[500px] bg-zinc-200 animate-pulse rounded-lg"
-            />
-          ))}
-        </div>
-      </section>
-    );
-  }
-
-  const blogs = data?.data || [];
+const BlogSection = ({ blogs }: BlogSectionProps) => {
 
   return (
     <section className="w-full pl-4 pb-5 bg-white">
