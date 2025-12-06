@@ -177,6 +177,7 @@ export default function MapboxMap({
       style: mapStyle,
       center: [center[1], center[0]],
       zoom,
+      cooperativeGestures: true, // Require Ctrl+scroll or two-finger touch for zoom/pan
     });
 
     map.addControl(
