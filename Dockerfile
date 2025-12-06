@@ -1,17 +1,14 @@
 # Build stage
-FROM node:20-alpine AS deps
-WORKDIR /app
-
-# Copy only package files for better layer caching
-COPY package*.json ./
-RUN npm ci
-
-# Build stage
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
 COPY . .
 
 # Accept build arguments
@@ -28,33 +25,25 @@ ENV NEXT_PUBLIC_STRAPI_API_KEY=$NEXT_PUBLIC_STRAPI_API_KEY
 RUN npm run build
 
 # Production stage
-FROM node:20-alpine AS runner
+FROM node:20-alpine
 WORKDIR /app
 
 # Install dumb-init to handle signals properly
 RUN apk add --no-cache dumb-init
 
-ENV NODE_ENV=production
-
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-# Copy necessary files
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-
-# Change ownership
-RUN chown -R nextjs:nodejs /app
+# Copy standalone output from builder
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
 
 # Expose port
 EXPOSE 3000
 
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-# Start application using standalone output
+# Start application using standalone server
 CMD ["dumb-init", "node", "server.js"]
