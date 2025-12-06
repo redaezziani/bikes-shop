@@ -30,11 +30,9 @@ jobs:
             cd ~/bikes-shop
             
             echo "📥 Pulling latest code..."
-            # Stash any local changes to avoid conflicts
             git stash
             git pull origin main
             
-            # Create .env file with environment variables for docker-compose
             echo "📝 Creating .env file for Docker build..."
             cat > .env << EOF
             NEXT_PUBLIC_STRAPI_URL=$STRAPI_URL
@@ -43,9 +41,14 @@ jobs:
             NODE_ENV=production
             EOF
             
-            echo "🐳 Rebuilding Docker containers..."
+            echo "🐳 Stopping and removing containers..."
             docker compose down
-            docker compose build --pull
+            
+            echo "🧹 Clearing Docker cache (one-time clean build)..."
+            docker builder prune -af
+            
+            echo "🔨 Building fresh containers..."
+            docker compose build --no-cache --pull
             
             echo "🚀 Starting containers..."
             docker compose up -d
