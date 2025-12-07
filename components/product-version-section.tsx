@@ -4,14 +4,14 @@ import { Pagination } from 'swiper/modules';
 import { SectionTwo } from '@/types/section-two';
 import Link from 'next/link';
 import Image from 'next/image';
-import 'swiper/css';
-import 'swiper/css/pagination';
+
 
 interface ProductVersionSectionProps {
   sections: SectionTwo[];
 }
 
 const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
+
   const getLinkHref = (section: (typeof sections)[0]) => {
     if (section.external_link) {
       return section.external_link;
@@ -156,21 +156,7 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
           })}
         </Swiper>
 
-        <style jsx global>{`
-          .swiper-pagination {
-            position: relative;
-            margin-top: 1.5rem;
-          }
-          .swiper-pagination-bullet {
-            background: #9ca3af;
-            opacity: 1;
-            width: 8px;
-            height: 8px;
-          }
-          .swiper-pagination-bullet-active {
-            background: #1f2937;
-          }
-        `}</style>
+        
       </section>
     </>
   );

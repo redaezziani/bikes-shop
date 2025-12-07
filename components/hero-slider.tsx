@@ -1,19 +1,18 @@
-'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from './header';
 import { SectionOne } from '@/types/section-one';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
+
+
 
 interface HeroSliderProps {
   slides: SectionOne[];
 }
 
 const HeroSlider = ({ slides }: HeroSliderProps) => {
+
   if (slides.length === 0) {
     return (
       <div
@@ -107,23 +106,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
         })}
       </Swiper>
 
-      <style jsx global>{`
-        #hero .swiper-pagination {
-          bottom: 20px !important;
-          position: absolute !important;
-          z-index: 50 !important;
-        }
-        #hero .swiper-pagination-bullet {
-          background: white !important;
-          opacity: 0.5 !important;
-          width: 8px;
-          height: 8px;
-        }
-        #hero .swiper-pagination-bullet-active {
-          opacity: 1 !important;
-          background: white !important;
-        }
-      `}</style>
+     
     </div>
   );
 };
