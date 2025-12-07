@@ -4,13 +4,14 @@ import { Pagination } from 'swiper/modules';
 import { SectionTwo } from '@/types/section-two';
 import Link from 'next/link';
 import Image from 'next/image';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 interface ProductVersionSectionProps {
   sections: SectionTwo[];
 }
 
 const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
-
   const getLinkHref = (section: (typeof sections)[0]) => {
     if (section.external_link) {
       return section.external_link;
