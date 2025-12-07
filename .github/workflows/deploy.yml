@@ -5,50 +5,73 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    name: Deploy to Production
+    name: Build and Push Docker Image
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/redaezziani/bikes-shop-nextjs:latest
+          build-args: |
+            NEXT_PUBLIC_STRAPI_URL=${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
+            NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
+            NEXT_PUBLIC_STRAPI_API_KEY=${{ secrets.NEXT_PUBLIC_STRAPI_API_KEY }}
+            NEXT_PUBLIC_MAPBOX_TOKEN=${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
+          cache-from: type=registry,ref=ghcr.io/redaezziani/bikes-shop-nextjs:buildcache
+          cache-to: type=registry,ref=ghcr.io/redaezziani/bikes-shop-nextjs:buildcache,mode=max
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy to VPS
+
+    steps:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
-        env:
-          STRAPI_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
-          STRAPI_API_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
-          STRAPI_API_KEY: ${{ secrets.NEXT_PUBLIC_STRAPI_API_KEY }}
-          MAPBOX_TOKEN: ${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: STRAPI_URL,STRAPI_API_URL,STRAPI_API_KEY,MAPBOX_TOKEN
           script: |
-            echo "🚀 Starting deployment..."
-
+            echo "🚀 Starting Next.js deployment..."
             cd ~/bikes-shop
 
             echo "📥 Pulling latest code..."
             git stash
             git pull origin main
 
-            echo "📝 Creating .env file for Docker build..."
-            cat > .env << EOF
-            NEXT_PUBLIC_STRAPI_URL=$STRAPI_URL
-            NEXT_PUBLIC_STRAPI_API_URL=$STRAPI_API_URL
-            NEXT_PUBLIC_STRAPI_API_KEY=$STRAPI_API_KEY
-            NEXT_PUBLIC_MAPBOX_TOKEN=$MAPBOX_TOKEN
-            NODE_ENV=production
-            EOF
+            echo "🔐 Login to GitHub Container Registry..."
+            echo "${{ secrets.GH_PAT }}" | docker login ghcr.io -u redaezziani --password-stdin
 
-            echo "🐳 Rebuilding Docker containers..."
+            echo "📦 Pulling latest image..."
+            docker pull ghcr.io/redaezziani/bikes-shop-nextjs:latest
+
+            echo "🐳 Restarting container..."
             docker compose down
-            docker compose build --pull
-
-            echo "🚀 Starting containers..."
             docker compose up -d
+
+            echo "⏳ Waiting for Next.js to start..."
+            sleep 10
 
             echo "🧹 Cleaning up old images..."
             docker image prune -f
@@ -57,8 +80,8 @@ jobs:
 
       - name: Deployment Status
         if: success()
-        run: echo "✅ Deployment successful!"
+        run: echo "✅ Next.js deployed successfully!"
 
       - name: Deployment Failed
         if: failure()
-        run: echo "❌ Deployment failed!"
+        run: echo "❌ Next.js deployment failed!"
