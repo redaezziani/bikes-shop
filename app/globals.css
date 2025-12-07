@@ -1,2 +1,62 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import '@tailwindcss/typography';
+
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+/* --- Swiper pagination (product section) --- */
+.swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.swiper-pagination-bullet {
+  background: #9ca3af;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+
+
+
+/* --- Swiper pagination (hero slider) --- */
+#hero .swiper-pagination {
+  bottom: 20px !important;
+  position: absolute !important;
+  z-index: 50 !important;
+}
+
+#hero .swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.5 !important;
+  width: 8px;
+  height: 8px;
+}
+
+#hero .swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: white !important;
+}
+
+/* --- Offers swiper slides --- */
+.offers-swiper .swiper-slide {
+  width: 85%;
+}
+
+/* --- Swiper pagination (all) --- */
+.swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.swiper-pagination-bullet {
+  background: #9ca3af;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+
+.swiper-pagination-bullet-active {
+  background: #1f2937;
+}
