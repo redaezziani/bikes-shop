@@ -1,9 +1,10 @@
 @import 'tailwindcss';
-@import '@tailwindcss/typography';
+@plugin '@tailwindcss/typography';
 
+/* Import only critical Swiper CSS inline */
 @import 'swiper/css';
-@import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
+@import 'swiper/css/effect-fade';
 
 /* --- Swiper pagination (product section) --- */
 .swiper-pagination {
@@ -17,8 +18,6 @@
   width: 8px;
   height: 8px;
 }
-
-
 
 /* --- Swiper pagination (hero slider) --- */
 #hero .swiper-pagination {
