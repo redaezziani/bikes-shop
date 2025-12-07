@@ -1,10 +1,7 @@
-'use client';
-
 import { Blog } from '@/types/blogs';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
 import BlogTableOfContents from './blog-table-of-contents';
-import { useMemo } from 'react';
+import BlogMarkdownContent from './blog-markdown-content';
 
 interface BlogPostDetailProps {
   blog: Blog | null;
@@ -12,12 +9,6 @@ interface BlogPostDetailProps {
 }
 
 const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
-  // Create a counter closure to generate unique IDs during render
-  const createHeadingIdGenerator = () => {
-    let counter = 0;
-    return () => `heading-${counter++}`;
-  };
-
   if (isLoading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -67,67 +58,6 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
 
   const readingTime = Math.ceil(blog.content.split(' ').length / 200);
 
-  // Memoize the markdown components to prevent re-creating them on every render
-  const markdownComponents = useMemo(() => {
-    const getHeadingId = createHeadingIdGenerator();
-
-    return {
-      h2: ({ node, ...props }: any) => {
-        const id = getHeadingId();
-        return (
-          <h2
-            id={id}
-            className="text-lg font-bold text-zinc-900 mt-8 mb-4 scroll-mt-24"
-            {...props}
-          />
-        );
-      },
-      h3: ({ node, ...props }: any) => {
-        const id = getHeadingId();
-        return (
-          <h3
-            id={id}
-            className="text-base font-bold text-zinc-900 mt-6 mb-3 scroll-mt-24"
-            {...props}
-          />
-        );
-      },
-      p: ({ node, ...props }: any) => (
-        <p className="text-zinc-700 leading-7 mb-6" {...props} />
-      ),
-      ul: ({ node, ...props }: any) => (
-        <ul
-          className="list-disc list-inside text-zinc-700 mb-6 space-y-2"
-          {...props}
-        />
-      ),
-      ol: ({ node, ...props }: any) => (
-        <ol
-          className="list-decimal list-inside text-zinc-700 mb-6 space-y-2"
-          {...props}
-        />
-      ),
-      li: ({ node, ...props }: any) => (
-        <li className="text-zinc-700" {...props} />
-      ),
-      blockquote: ({ node, ...props }: any) => (
-        <blockquote
-          className="border-l-4 border-zinc-300 pl-4 py-2 my-6 italic text-zinc-600 bg-zinc-50 p-4"
-          {...props}
-        />
-      ),
-      a: ({ node, ...props }: any) => (
-        <a
-          className="text-blue-600 hover:text-blue-800 underline"
-          {...props}
-        />
-      ),
-      img: ({ node, ...props }: any) => (
-        <img className="rounded-lg my-6 w-full" {...props} />
-      ),
-    };
-  }, [blog?.id]); // Regenerate when blog changes
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex flex-col lg:flex-row gap-8">
@@ -167,11 +97,7 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
             </div>
           )}
 
-          <div className="prose prose-zinc max-w-none mb-12">
-            <ReactMarkdown components={markdownComponents}>
-              {blog.content}
-            </ReactMarkdown>
-          </div>
+          <BlogMarkdownContent content={blog.content} blogId={blog.id} />
 
           <div className="border-t border-zinc-200 pt-8">
             {blog.meta_description && (

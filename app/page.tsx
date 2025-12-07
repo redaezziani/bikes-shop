@@ -9,13 +9,11 @@ import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';
 import { getOffersData } from '@/lib/offers-service';
 
-// Lazy load below-the-fold components
 const Footer = dynamic(() => import('@/components/footer'));
 const OffersSection = dynamic(() => import('@/components/offers-section'));
 const VideoPlayer = dynamic(() => import('@/components/video-player'));
 
 export default async function Home() {
-  // Fetch all data on the server with caching (in parallel)
   const [sectionOneData, sectionTwoData, blogsData, offersData] = await Promise.all([
     getSectionOneData(),
     getSectionTwoData({ pageSize: 10 }),
