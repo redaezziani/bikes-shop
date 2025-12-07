@@ -5,13 +5,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Header from './header';
 import { SectionOne } from '@/types/section-one';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
 interface HeroSliderProps {
   slides: SectionOne[];
 }
 
 const HeroSlider = ({ slides }: HeroSliderProps) => {
-
   if (slides.length === 0) {
     return (
       <div

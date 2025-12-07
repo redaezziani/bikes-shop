@@ -1,11 +1,2 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
-
-/* Import only critical Swiper CSS inline */
-@import 'swiper/css';
-@import 'swiper/css/pagination';
-@import 'swiper/css/effect-fade';
-
-/* body {
-  filter: grayscale(100);
-} */
