@@ -1,5 +1,3 @@
-'use client';
-
 import { Blog } from '@/types/blogs';
 import Link from 'next/link';
 import Image from 'next/image';
