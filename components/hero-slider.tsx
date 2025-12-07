@@ -1,3 +1,4 @@
+'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
@@ -5,14 +6,11 @@ import Image from 'next/image';
 import Header from './header';
 import { SectionOne } from '@/types/section-one';
 
-
-
 interface HeroSliderProps {
   slides: SectionOne[];
 }
 
 const HeroSlider = ({ slides }: HeroSliderProps) => {
-
   if (slides.length === 0) {
     return (
       <div
@@ -105,8 +103,6 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
           );
         })}
       </Swiper>
-
-     
     </div>
   );
 };
