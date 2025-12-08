@@ -6,6 +6,9 @@ import PartnersSearch from '@/components/partners-search';
 import { getAlongCarePageData } from '@/lib/along-care-service';
 import { getPartnersData } from '@/lib/partners-service';
 
+// Force dynamic rendering since we depend on external API
+export const dynamic = 'force-dynamic';
+
 export default async function AlongCarePage() {
   // Fetch data from the APIs
   const [pageData, partnersData] = await Promise.all([
