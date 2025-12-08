@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import HeroSlider from '@/components/hero-slider';
 import ProductVersionSection from '@/components/product-version-section';
 import BlogSection from '@/components/blog-section';
@@ -9,9 +9,12 @@ import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';
 import { getOffersData } from '@/lib/offers-service';
 
-const Footer = dynamic(() => import('@/components/footer'));
-const OffersSection = dynamic(() => import('@/components/offers-section'));
-const VideoPlayer = dynamic(() => import('@/components/video-player'));
+const Footer = dynamicImport(() => import('@/components/footer'));
+const OffersSection = dynamicImport(() => import('@/components/offers-section'));
+const VideoPlayer = dynamicImport(() => import('@/components/video-player'));
+
+// Force dynamic rendering since we depend on external API
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const [sectionOneData, sectionTwoData, blogsData, offersData] = await Promise.all([
