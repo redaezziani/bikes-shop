@@ -12,7 +12,7 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
 
   const filteredPartners = searchCity
     ? partners.filter((partner) =>
-        partner.city.toLowerCase().includes(searchCity.toLowerCase())
+        partner.city.toLowerCase().includes(searchCity.toLowerCase()),
       )
     : partners;
 
@@ -20,11 +20,12 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
     <section id="find-partner" className="w-full px-6 md:px-12 py-16 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="mb-12">
-          <h2 className="text-4xl font-bold text-zinc-900 mb-4">
+          <h2 className="text-3xl font-bold text-zinc-900 mb-4">
             Find a Service Partner
           </h2>
           <p className="text-lg text-zinc-600">
-            Our certified partners provide professional service using genuine parts.
+            Our certified partners provide professional service using genuine
+            parts.
           </p>
         </div>
 
@@ -36,7 +37,7 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
             placeholder="Search by city..."
             value={searchCity}
             onChange={(e) => setSearchCity(e.target.value)}
-            className="w-full px-4 py-3 border border-zinc-300 focus:outline-none focus:border-zinc-900"
+            className="w-full px-4 py-3 border rounded-lg border-zinc-300 focus:outline-none focus:border-zinc-900"
           />
         </div>
 
@@ -46,13 +47,15 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
             filteredPartners.map((partner) => (
               <div
                 key={partner.id}
-                className="bg-zinc-50 p-6 border border-zinc-200"
+                className="bg-zinc-50 p-6 border rounded-lg border-zinc-200"
               >
                 <h3 className="text-xl font-bold text-zinc-900 mb-3">
                   {partner.name}
                 </h3>
                 <div className="space-y-1 text-zinc-700 mb-4">
-                  <p>{partner.city}, {partner.country}</p>
+                  <p>
+                    {partner.city}, {partner.country}
+                  </p>
                 </div>
                 {partner.link && (
                   <a

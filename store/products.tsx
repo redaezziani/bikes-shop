@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   Product,
   Accessory,
@@ -110,6 +110,13 @@ export const useProductSelection = (product: Product | null) => {
     product?.colors[0]?.name || '',
   );
   const [selectedAccessories, setSelectedAccessories] = useState<number[]>([]);
+
+  // Auto-select first color when product changes and colors are available
+  useEffect(() => {
+    if (product && product.colors.length > 0) {
+      setSelectedColor(product.colors[0].name);
+    }
+  }, [product]);
 
   const toggleAccessory = useCallback((accessoryId: number) => {
     setSelectedAccessories((prev) =>

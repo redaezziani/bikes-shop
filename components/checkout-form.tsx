@@ -172,12 +172,12 @@ const CheckoutForm = () => {
             </div>
             <div className="flex justify-between text-sm text-zinc-600">
               <span>Subtotal:</span>
-              <span className="font-medium">${getTotalPrice().toFixed(2)}</span>
+              <span className="font-medium">AED {getTotalPrice().toFixed(2)}</span>
             </div>
             <div className="pt-2 border-t border-zinc-300 flex justify-between text-base font-semibold text-zinc-900">
               <span>Total:</span>
               <span className="text-[#6760ff]">
-                ${getTotalPrice().toFixed(2)}
+                AED {getTotalPrice().toFixed(2)}
               </span>
             </div>
           </div>
@@ -203,7 +203,7 @@ const CheckoutForm = () => {
           ) : (
             <>
               <IconShoppingCart size={18} />
-              Pay ${getTotalPrice().toFixed(2)}
+              Pay AED {getTotalPrice().toFixed(2)}
             </>
           )}
         </motion.button>

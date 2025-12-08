@@ -47,7 +47,7 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
           {accessory.title || accessory.name}
         </h3>
         <p className="text-sm text-zinc-700 mb-4">{accessory.description}</p>
-        <p className="text-lg font-bold text-zinc-800">${accessory.price}</p>
+        <p className="text-lg font-bold text-zinc-800">AED {accessory.price}</p>
 
         {accessory.url && (
           <a

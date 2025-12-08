@@ -4,14 +4,14 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import PartnersSearch from '@/components/partners-search';
 import ContactForm from '@/components/contact-form';
+import Breadcrumbs from '@/components/breadcrumbs';
 import { getAlongCarePageData } from '@/lib/along-care-service';
 import { getPartnersData } from '@/lib/partners-service';
+import HeaderDetailsPage from '@/components/header-v2';
 
-// Force dynamic rendering since we depend on external API
 export const dynamic = 'force-dynamic';
 
 export default async function AlongCarePage() {
-  // Fetch data from the APIs
   const [pageData, partnersData] = await Promise.all([
     getAlongCarePageData(),
     getPartnersData({ pageSize: 100 }),
@@ -22,52 +22,70 @@ export default async function AlongCarePage() {
 
   return (
     <>
-      <Header />
+      <HeaderDetailsPage />
       <main className="flex flex-col w-full bg-white items-center">
-        {/* Hero Section */}
-        <section className="w-full px-6 md:px-12 py-20 md:py-32 bg-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-zinc-900 mb-6">
-              {title}
-            </h1>
-            {description && (
-              <p className="text-xl md:text-2xl text-zinc-600 leading-relaxed">
-                {description}
-              </p>
-            )}
+        <section className="w-full px-6 md:px-12 py-10  bg-white">
+          <div className="max-w-4xl ">
+            <Breadcrumbs className="py-8" />
+            <div className="">
+              <h1 className="text-3xl md:text-6xl font-bold text-zinc-900 mb-2">
+                {title}
+              </h1>
+              {description && (
+                <p className="text-md md:text-2xl text-zinc-600 leading-relaxed">
+                  {description}
+                </p>
+              )}
+            </div>
           </div>
         </section>
 
-        {/* Main Content Section */}
         <section className="w-full px-6 md:px-12 py-16 bg-white">
           <div className="max-w-3xl mx-auto">
-            {/* Render Markdown Content */}
             <div className="prose max-w-none">
               <ReactMarkdown
                 components={{
                   h2: ({ node, ...props }: any) => (
-                    <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 mt-10 mb-3 first:mt-0" {...props} />
+                    <h2
+                      className="text-xl md:text-2xl font-semibold text-zinc-900 mt-10 mb-3 first:mt-0"
+                      {...props}
+                    />
                   ),
                   h3: ({ node, ...props }: any) => (
-                    <h3 className="text-lg md:text-xl font-semibold text-zinc-900 mt-6 mb-2" {...props} />
+                    <h3
+                      className="text-lg md:text-xl font-semibold text-zinc-900 mt-6 mb-2"
+                      {...props}
+                    />
                   ),
                   p: ({ node, ...props }: any) => (
-                    <p className="text-sm md:text-base text-zinc-600 leading-relaxed mb-3" {...props} />
+                    <p
+                      className="text-sm md:text-base text-zinc-600 leading-relaxed mb-3"
+                      {...props}
+                    />
                   ),
                   ul: ({ node, ...props }: any) => (
                     <ul className="space-y-1.5 mb-4" {...props} />
                   ),
                   li: ({ node, ...props }: any) => (
-                    <li className="text-sm md:text-base text-zinc-600 ml-6 pl-2" {...props} />
+                    <li
+                      className="text-sm md:text-base text-zinc-600 ml-6 pl-2"
+                      {...props}
+                    />
                   ),
                   strong: ({ node, ...props }: any) => (
-                    <strong className="font-semibold text-zinc-900" {...props} />
+                    <strong
+                      className="font-semibold text-zinc-900"
+                      {...props}
+                    />
                   ),
                   em: ({ node, ...props }: any) => (
                     <em className="italic text-zinc-500 text-xs" {...props} />
                   ),
                   a: ({ node, ...props }: any) => (
-                    <a className="text-zinc-900 underline hover:text-zinc-600 transition" {...props} />
+                    <a
+                      className="text-zinc-900 underline hover:text-zinc-600 transition"
+                      {...props}
+                    />
                   ),
                 }}
               >
@@ -77,7 +95,7 @@ export default async function AlongCarePage() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-16 pt-8 border-t border-zinc-200">
-              <Link href="/contact" className="flex-1">
+              <Link href="#contact-us" className="flex-1">
                 <button className="w-full bg-zinc-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-zinc-800 transition">
                   Contact Us
                 </button>
@@ -89,7 +107,6 @@ export default async function AlongCarePage() {
               </a>
               <Link href="/warranty-policy" className="flex-1">
                 <button className="w-full border border-zinc-300 text-zinc-700 font-medium px-6 py-3 rounded-lg hover:bg-zinc-50 transition">
-
                   Warranty Policy
                 </button>
               </Link>
@@ -97,11 +114,9 @@ export default async function AlongCarePage() {
           </div>
         </section>
 
-        {/* Find Service Partner Section */}
         <PartnersSearch partners={partners} />
 
-        {/* Contact Section */}
-        <section className="w-full px-6 md:px-12 py-16 bg-zinc-50">
+        <section className="w-full px-6 md:px-12 py-16">
           <div className="max-w-2xl mx-auto">
             <ContactForm
               title="Need Help with Along Care?"
