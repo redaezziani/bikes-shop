@@ -42,29 +42,29 @@ export default async function AlongCarePage() {
         <section className="w-full px-6 md:px-12 py-16 bg-white">
           <div className="max-w-3xl mx-auto">
             {/* Render Markdown Content */}
-            <div className="prose prose-lg max-w-none">
+            <div className="prose max-w-none">
               <ReactMarkdown
                 components={{
                   h2: ({ node, ...props }: any) => (
-                    <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900 mt-12 mb-4 first:mt-0" {...props} />
+                    <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 mt-10 mb-3 first:mt-0" {...props} />
                   ),
                   h3: ({ node, ...props }: any) => (
-                    <h3 className="text-xl md:text-2xl font-semibold text-zinc-900 mt-8 mb-3" {...props} />
+                    <h3 className="text-lg md:text-xl font-semibold text-zinc-900 mt-6 mb-2" {...props} />
                   ),
                   p: ({ node, ...props }: any) => (
-                    <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4" {...props} />
+                    <p className="text-sm md:text-base text-zinc-600 leading-relaxed mb-3" {...props} />
                   ),
                   ul: ({ node, ...props }: any) => (
-                    <ul className="space-y-2 mb-6" {...props} />
+                    <ul className="space-y-1.5 mb-4" {...props} />
                   ),
                   li: ({ node, ...props }: any) => (
-                    <li className="text-base md:text-lg text-zinc-600 ml-6 pl-2" {...props} />
+                    <li className="text-sm md:text-base text-zinc-600 ml-6 pl-2" {...props} />
                   ),
                   strong: ({ node, ...props }: any) => (
                     <strong className="font-semibold text-zinc-900" {...props} />
                   ),
                   em: ({ node, ...props }: any) => (
-                    <em className="italic text-zinc-500 text-sm" {...props} />
+                    <em className="italic text-zinc-500 text-xs" {...props} />
                   ),
                   a: ({ node, ...props }: any) => (
                     <a className="text-zinc-900 underline hover:text-zinc-600 transition" {...props} />
