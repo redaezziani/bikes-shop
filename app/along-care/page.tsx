@@ -94,37 +94,16 @@ export default async function AlongCarePage() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-16 pt-8 border-t border-zinc-200">
-              <Link href="#contact-us" className="flex-1">
-                <button className="w-full bg-zinc-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-zinc-800 transition">
-                  Contact Us
-                </button>
-              </Link>
-              <a href="#find-partner" className="flex-1">
-                <button className="w-full border border-zinc-900 text-zinc-900 font-medium px-6 py-3 rounded-lg hover:bg-zinc-50 transition">
-                  Find Service Partner
-                </button>
-              </a>
-              <Link href="/warranty-policy" className="flex-1">
-                <button className="w-full border border-zinc-300 text-zinc-700 font-medium px-6 py-3 rounded-lg hover:bg-zinc-50 transition">
+            <div className="mt-16 pt-8 border-t border-zinc-200">
+              <Link href="/warranty-policy" className="block">
+                <button className="w-full bg-white text-zinc-900 border border-zinc-900 font-medium px-8 py-3 rounded-lg hover:bg-zinc-50 transition">
                   Warranty Policy
                 </button>
               </Link>
             </div>
           </div>
         </section>
-
         <PartnersSearch partners={partners} />
-
-        <section className="w-full px-6 md:px-12 py-16">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm
-              title="Need Help with Along Care?"
-              description="Have questions about our service warranty, or need assistance? Send us a message and our team will get back to you shortly."
-            />
-          </div>
-        </section>
-
         <Footer />
       </main>
     </>

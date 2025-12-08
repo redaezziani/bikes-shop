@@ -12,11 +12,17 @@ export interface Order {
   documentId?: string;
   customer_name: string;
   customer_email: string;
+  customer_phone?: string;
+  customer_address?: string;
+  customer_city?: string;
+  customer_country?: string;
+  note?: string;
+  agreed_to_terms: boolean;
   total_amount: number;
   currency: string;
   stripe_session_id?: string;
   stripe_payment_intent?: string;
-  status: 'pending' | 'paid' | 'failed' | 'shipped';
+  payment_status: 'pending' | 'paid' | 'failed' | 'refunded' | 'shipped';
   items: OrderItem[];
   createdAt?: string;
   updatedAt?: string;
@@ -37,9 +43,15 @@ export interface OrderItemData {
 export interface OrderCreatePayload {
   customer_name: string;
   customer_email: string;
+  customer_phone?: string;
+  customer_address?: string;
+  customer_city?: string;
+  customer_country?: string;
+  note?: string;
+  agreed_to_terms: boolean;
   total_amount: number;
   currency: string;
-  status: 'pending' | 'paid' | 'failed' | 'shipped';
+  payment_status: 'pending' | 'paid' | 'failed' | 'refunded' | 'shipped';
   items: OrderItemData[];
 }
 

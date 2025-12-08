@@ -41,9 +41,15 @@ export const orderService = {
       const orderPayload = {
         customer_name: orderData.customer_name,
         customer_email: orderData.customer_email,
+        customer_phone: orderData.customer_phone,
+        customer_address: orderData.customer_address,
+        customer_city: orderData.customer_city,
+        customer_country: orderData.customer_country,
+        note: orderData.note,
+        agreed_to_terms: orderData.agreed_to_terms,
         total_amount: orderData.total_amount,
         currency: orderData.currency,
-        status: orderData.status,
+        payment_status: orderData.payment_status,
       };
 
       const orderResponse = await api.post<OrderResponse>('/orders', {
@@ -78,14 +84,14 @@ export const orderService = {
     }
   },
 
-  // Update order status
+  // Update order payment status
   async updateOrderStatus(
     documentId: string,
-    status: 'pending' | 'paid' | 'failed' | 'shipped',
+    payment_status: 'pending' | 'paid' | 'failed' | 'refunded' | 'shipped',
   ) {
     try {
       const response = await api.put<OrderResponse>(`/orders/${documentId}`, {
-        data: { status },
+        data: { payment_status },
       });
       return { success: true, data: response.data.data };
     } catch (error) {
@@ -138,7 +144,7 @@ export const orderService = {
         data: {
           stripe_session_id: stripeSessionId,
           stripe_payment_intent: stripePaymentIntent,
-          status: 'paid',
+          payment_status: 'paid',
         },
       });
       return { success: true, data: response.data.data };

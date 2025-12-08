@@ -2,7 +2,14 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { IconMail, IconUser, IconShoppingCart } from '@tabler/icons-react';
+import {
+  IconMail,
+  IconUser,
+  IconShoppingCart,
+  IconPhone,
+  IconMapPin,
+  IconNote,
+} from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
 
@@ -10,19 +17,41 @@ const CheckoutForm = () => {
   const {
     customerName,
     customerEmail,
+    customerPhone,
+    customerAddress,
+    customerCity,
+    customerCountry,
+    note,
+    agreedToTerms,
     setCustomerInfo,
+    setAgreedToTerms,
     getTotalPrice,
     items,
     getCheckoutPayload,
   } = useOrderStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomerInfo(e.target.value, customerEmail);
-  };
+  const handleFieldChange = (field: string, value: string) => {
+    const fields = {
+      name: customerName,
+      email: customerEmail,
+      phone: customerPhone,
+      address: customerAddress,
+      city: customerCity,
+      country: customerCountry,
+      note: note,
+      [field]: value,
+    };
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomerInfo(customerName, e.target.value);
+    setCustomerInfo(
+      fields.name,
+      fields.email,
+      fields.phone,
+      fields.address,
+      fields.city,
+      fields.country,
+      fields.note
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,6 +69,11 @@ const CheckoutForm = () => {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
       showToast.error('Invalid email', 'Please enter a valid email address');
+      return;
+    }
+
+    if (!agreedToTerms) {
+      showToast.error('Terms required', 'Please agree to the terms and conditions');
       return;
     }
 
@@ -129,7 +163,7 @@ const CheckoutForm = () => {
             <input
               type="text"
               value={customerName}
-              onChange={handleNameChange}
+              onChange={(e) => handleFieldChange('name', e.target.value)}
               placeholder="John Doe"
               className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
               required
@@ -150,12 +184,118 @@ const CheckoutForm = () => {
             <input
               type="email"
               value={customerEmail}
-              onChange={handleEmailChange}
+              onChange={(e) => handleFieldChange('email', e.target.value)}
               placeholder="john@example.com"
               className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
               required
             />
           </div>
+        </div>
+
+        {/* Phone Input */}
+        <div>
+          <label className="block text-sm font-medium text-zinc-700 mb-2">
+            Phone Number (Optional)
+          </label>
+          <div className="relative">
+            <IconPhone
+              size={18}
+              className="absolute left-3 top-3.5 text-zinc-400"
+            />
+            <input
+              type="tel"
+              value={customerPhone}
+              onChange={(e) => handleFieldChange('phone', e.target.value)}
+              placeholder="+971 50 123 4567"
+              className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+            />
+          </div>
+        </div>
+
+        {/* Address Input */}
+        <div>
+          <label className="block text-sm font-medium text-zinc-700 mb-2">
+            Address (Optional)
+          </label>
+          <div className="relative">
+            <IconMapPin
+              size={18}
+              className="absolute left-3 top-3.5 text-zinc-400"
+            />
+            <input
+              type="text"
+              value={customerAddress}
+              onChange={(e) => handleFieldChange('address', e.target.value)}
+              placeholder="Street address"
+              className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+            />
+          </div>
+        </div>
+
+        {/* City and Country */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-zinc-700 mb-2">
+              City (Optional)
+            </label>
+            <input
+              type="text"
+              value={customerCity}
+              onChange={(e) => handleFieldChange('city', e.target.value)}
+              placeholder="Dubai"
+              className="w-full px-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-zinc-700 mb-2">
+              Country (Optional)
+            </label>
+            <input
+              type="text"
+              value={customerCountry}
+              onChange={(e) => handleFieldChange('country', e.target.value)}
+              placeholder="UAE"
+              className="w-full px-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+            />
+          </div>
+        </div>
+
+        {/* Note */}
+        <div>
+          <label className="block text-sm font-medium text-zinc-700 mb-2">
+            Order Notes (Optional)
+          </label>
+          <div className="relative">
+            <IconNote
+              size={18}
+              className="absolute left-3 top-3.5 text-zinc-400"
+            />
+            <textarea
+              value={note}
+              onChange={(e) => handleFieldChange('note', e.target.value)}
+              placeholder="Any special instructions?"
+              rows={3}
+              className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition resize-none"
+            />
+          </div>
+        </div>
+
+        {/* Terms and Conditions */}
+        <div className="flex items-start gap-3 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+          <input
+            type="checkbox"
+            id="terms"
+            checked={agreedToTerms}
+            onChange={(e) => setAgreedToTerms(e.target.checked)}
+            className="mt-1 w-4 h-4 text-zinc-900 border-zinc-300 rounded focus:ring-zinc-900"
+            required
+          />
+          <label htmlFor="terms" className="text-sm text-zinc-700">
+            I agree to the{' '}
+            <a href="/terms-conditions" className="text-zinc-900 underline hover:text-zinc-700">
+              terms and conditions
+            </a>
+          </label>
         </div>
 
         {/* Order Summary */}
@@ -191,6 +331,7 @@ const CheckoutForm = () => {
             isSubmitting ||
             !customerName.trim() ||
             !customerEmail.trim() ||
+            !agreedToTerms ||
             items.length === 0
           }
           className="w-full mt-6 py-3 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2"
@@ -213,9 +354,9 @@ const CheckoutForm = () => {
             Add items to your cart to continue
           </p>
         ) : (
-          (!customerName.trim() || !customerEmail.trim()) && (
+          (!customerName.trim() || !customerEmail.trim() || !agreedToTerms) && (
             <p className="text-center text-sm text-zinc-500 mt-4">
-              Please fill in your name and email to continue
+              Please fill in required fields and agree to terms to continue
             </p>
           )
         )}
