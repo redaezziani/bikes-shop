@@ -38,37 +38,35 @@ export default async function AlongCarePage() {
         </section>
 
         {/* Main Content Section */}
-        <section className="w-full px-6 md:px-12 py-16 bg-zinc-50">
-          <div className="max-w-4xl mx-auto">
+        <section className="w-full px-6 md:px-12 py-16 bg-white">
+          <div className="max-w-3xl mx-auto">
             {/* Render Markdown Content */}
-            <div className="prose prose-zinc max-w-none space-y-12">
+            <div className="prose prose-lg max-w-none">
               <ReactMarkdown
                 components={{
                   h2: ({ node, ...props }: any) => (
-                    <div className="bg-white p-8 md:p-12 rounded-lg">
-                      <h2 className="text-3xl font-bold text-zinc-900 mb-4" {...props} />
-                    </div>
+                    <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900 mt-12 mb-4 first:mt-0" {...props} />
                   ),
                   h3: ({ node, ...props }: any) => (
-                    <h3 className="text-2xl font-bold text-zinc-900 mb-3" {...props} />
+                    <h3 className="text-xl md:text-2xl font-semibold text-zinc-900 mt-8 mb-3" {...props} />
                   ),
                   p: ({ node, ...props }: any) => (
-                    <p className="text-lg text-zinc-700 leading-relaxed mb-4" {...props} />
+                    <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4" {...props} />
                   ),
                   ul: ({ node, ...props }: any) => (
-                    <ul className="list-disc list-inside text-zinc-700 mb-4 space-y-2" {...props} />
-                  ),
-                  ol: ({ node, ...props }: any) => (
-                    <ol className="list-decimal list-inside text-zinc-700 mb-4 space-y-2" {...props} />
+                    <ul className="space-y-2 mb-6" {...props} />
                   ),
                   li: ({ node, ...props }: any) => (
-                    <li className="text-zinc-700" {...props} />
+                    <li className="text-base md:text-lg text-zinc-600 ml-6 pl-2" {...props} />
                   ),
-                  blockquote: ({ node, ...props }: any) => (
-                    <blockquote className="border-l-4 border-zinc-300 pl-4 py-2 my-6 italic text-zinc-600" {...props} />
+                  strong: ({ node, ...props }: any) => (
+                    <strong className="font-semibold text-zinc-900" {...props} />
+                  ),
+                  em: ({ node, ...props }: any) => (
+                    <em className="italic text-zinc-500 text-sm" {...props} />
                   ),
                   a: ({ node, ...props }: any) => (
-                    <a className="text-blue-600 hover:text-blue-800 underline" {...props} />
+                    <a className="text-zinc-900 underline hover:text-zinc-600 transition" {...props} />
                   ),
                 }}
               >
@@ -77,19 +75,19 @@ export default async function AlongCarePage() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-12">
+            <div className="flex flex-col sm:flex-row gap-4 mt-16 pt-8 border-t border-zinc-200">
               <Link href="/contact" className="flex-1">
-                <button className="w-full bg-zinc-900 text-white font-medium px-6 py-3 rounded-xl hover:bg-zinc-800 transition">
+                <button className="w-full bg-zinc-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-zinc-800 transition">
                   Contact Us
                 </button>
               </Link>
               <a href="#find-partner" className="flex-1">
-                <button className="w-full border border-zinc-900 text-zinc-900 font-medium px-6 py-3 rounded-xl hover:bg-zinc-50 transition">
+                <button className="w-full border border-zinc-900 text-zinc-900 font-medium px-6 py-3 rounded-lg hover:bg-zinc-50 transition">
                   Find Service Partner
                 </button>
               </a>
               <Link href="/warranty-policy" className="flex-1">
-                <button className="w-full border border-zinc-300 text-zinc-700 font-medium px-6 py-3 rounded-xl hover:bg-zinc-50 transition">
+                <button className="w-full border border-zinc-300 text-zinc-700 font-medium px-6 py-3 rounded-lg hover:bg-zinc-50 transition">
                   Warranty Policy
                 </button>
               </Link>
