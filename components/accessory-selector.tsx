@@ -96,7 +96,7 @@ const AccessorySelector = ({
                     : 'text-zinc-600'
                 }`}
               >
-                {item.price === 0 ? 'Free' : `$${item.price}`}
+                {item.price === 0 ? 'Free' : `AED ${item.price}`}
               </strong>
             </div>
           </label>

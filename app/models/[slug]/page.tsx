@@ -13,6 +13,7 @@ import {
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 const ProductDetailsPage = () => {
   const params = useParams();
@@ -111,9 +112,22 @@ const ProductDetailsPage = () => {
                   {...props}
                 />
               ),
-              img: ({ node, ...props }) => (
-                <img className="mt-2 mb-4 rounded-lg" {...props} />
-              ),
+              img: ({ node, src, alt, ...props }) => {
+                // Only use Image component if src is a string
+                if (typeof src === 'string' && src) {
+                  return (
+                    <Image
+                      src={src}
+                      alt={(alt as string) || ''}
+                      width={800}
+                      height={600}
+                      className="mt-2 mb-4 rounded-lg"
+                    />
+                  );
+                }
+                // Fallback to regular img tag for non-string sources
+                return <img src={src as string} alt={alt as string} className="mt-2 mb-4 rounded-lg" {...props} />;
+              },
             }}
           >
             {selectedProduct.long_description}
@@ -124,7 +138,17 @@ const ProductDetailsPage = () => {
           <h3 className="  font-semibold text-zinc-700 text-2xl">
             Key Specifications
           </h3>
-          <img className=" mt-5" src={'/images/model-click.jpg'} alt="" />
+          {selectedProduct.specs_image && (
+            <Image
+              className="mt-5"
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${selectedProduct.specs_image.url}`}
+              alt={selectedProduct.specs_image.alternativeText || 'Product specifications'}
+              width={selectedProduct.specs_image.width}
+              height={selectedProduct.specs_image.height}
+              quality={90}
+              priority
+            />
+          )}
 
           <div className="grid pb-5 gap-4 mt-5 w-full grid-cols-1 md:grid-cols-2">
             {selectedProduct.specs.map((spec) => (
@@ -161,17 +185,21 @@ const ProductDetailsPage = () => {
             </p>
             <div className="grid w-full mt-5 grid-cols-2 md:grid-cols-3 gap-2">
               {selectedProduct.available_accessories.slice(0, 3).map((acc) => (
-                <span
+                <div
                   key={acc.id}
-                  className="w-full bg-zinc-100 rounded aspect-square cursor-pointer"
+                  className="w-full bg-zinc-100 rounded aspect-square cursor-pointer relative overflow-hidden"
                   onClick={() => setActiveAccessory(acc)}
                 >
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${acc.image?.url}`}
-                    alt={acc.name || acc.title || 'Related Accessory'}
-                    className="object-cover w-full h-full rounded"
-                  />
-                </span>
+                  {acc.image && (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${acc.image.url}`}
+                      alt={acc.name || acc.title || 'Related Accessory'}
+                      fill
+                      className="object-cover rounded"
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                    />
+                  )}
+                </div>
               ))}
             </div>
           </section>

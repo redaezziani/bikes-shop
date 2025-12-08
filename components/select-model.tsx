@@ -62,7 +62,7 @@ const ModelSelector = ({ products }: { products: Product[] }) => {
                   isActive ? 'text-zinc-700' : 'text-zinc-500'
                 } font-semibold text-sm`}
               >
-                ${item.price}
+                AED {item.price}
               </strong>
               <span className="text-zinc-500 text-xs"> /mo</span>
             </div>

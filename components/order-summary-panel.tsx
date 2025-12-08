@@ -111,7 +111,7 @@ const OrderSummaryPanel = ({
           <div className="text-right">
             <p className="text-xs text-zinc-500">Total</p>
             <span className="text-lg font-bold  text-zinc-900">
-              ${totalPrice.toFixed(2)}
+              AED {totalPrice.toFixed(2)}
             </span>
           </div>
           <motion.button whileTap={{ scale: 0.95 }}>
@@ -141,7 +141,7 @@ const OrderSummaryPanel = ({
           <div className="flex justify-between items-center py-2 border-b border-dashed border-zinc-300">
             <span className="font-medium text-sm">{currentProduct.name}</span>
             <span className="font-medium text-lg">
-              ${currentProduct.price.toFixed(2)}
+              AED {currentProduct.price.toFixed(2)}
             </span>
           </div>
           <div className="flex items-center gap-4 py-2">
@@ -175,7 +175,7 @@ const OrderSummaryPanel = ({
                     {acc.title || acc.name}
                   </span>
                   <span className="font-medium text-xs text-zinc-600">
-                    ${acc.price.toFixed(2)}
+                    AED {acc.price.toFixed(2)}
                   </span>
                 </li>
               ))}
@@ -192,7 +192,7 @@ const OrderSummaryPanel = ({
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold text-zinc-800">Order Total</h3>
             <span className="text-xl font-bold  text-zinc-900">
-              ${totalPrice.toFixed(2)}
+              AED {totalPrice.toFixed(2)}
             </span>
           </div>
 
@@ -368,7 +368,7 @@ const OrderSummaryPanel = ({
               ) : (
                 <>
                   <IconShoppingBag size={16} />
-                  Pay ${totalPrice.toFixed(2)}
+                  Pay AED {totalPrice.toFixed(2)}
                 </>
               )}
             </motion.button>

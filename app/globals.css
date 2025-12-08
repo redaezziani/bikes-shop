@@ -1,12 +1,15 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-/* Import only critical Swiper CSS inline */
 @import 'swiper/css';
 @import 'swiper/css/pagination';
 @import 'swiper/css/effect-fade';
 
-/* --- Swiper pagination (product section) --- */
+*,
+html {
+  scroll-behavior: smooth;
+}
+
 .swiper-pagination {
   position: relative;
   margin-top: 1.5rem;
@@ -19,7 +22,6 @@
   height: 8px;
 }
 
-/* --- Swiper pagination (hero slider) --- */
 #hero .swiper-pagination {
   bottom: 20px !important;
   position: absolute !important;
@@ -38,12 +40,10 @@
   background: white !important;
 }
 
-/* --- Offers swiper slides --- */
 .offers-swiper .swiper-slide {
   width: 85%;
 }
 
-/* --- Swiper pagination (all) --- */
 .swiper-pagination {
   position: relative;
   margin-top: 1.5rem;

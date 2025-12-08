@@ -11,7 +11,7 @@ interface ContactFormProps {
 
 export default function ContactForm({
   title = 'Get in Touch',
-  description = 'Have questions? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.',
+  description = "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
   className = '',
 }: ContactFormProps) {
   const [formData, setFormData] = useState({
@@ -27,7 +27,7 @@ export default function ContactForm({
   }>({ type: null, message: '' });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
@@ -47,8 +47,14 @@ export default function ContactForm({
       return;
     }
 
-    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      setSubmitStatus({ type: 'error', message: 'Please enter a valid email address' });
+    if (
+      !formData.email.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+    ) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid email address',
+      });
       setIsSubmitting(false);
       return;
     }
@@ -65,7 +71,7 @@ export default function ContactForm({
       if (result.success) {
         setSubmitStatus({
           type: 'success',
-          message: 'Thank you for contacting us! We\'ll get back to you soon.',
+          message: "Thank you for contacting us! We'll get back to you soon.",
         });
         setFormData({ name: '', email: '', phone: '', message: '' });
       } else {
@@ -85,14 +91,15 @@ export default function ContactForm({
   };
 
   return (
-    <div className={`bg-white rounded-lg border border-zinc-200 p-8 md:p-12 ${className}`}>
+    <div
+      id="#contact-us"
+      className={`bg-white rounded-lg border border-zinc-200 p-8 md:p-12 ${className}`}
+    >
       <div className="mb-8">
         <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900 mb-3">
           {title}
         </h2>
-        <p className="text-base md:text-lg text-zinc-600">
-          {description}
-        </p>
+        <p className="text-base md:text-lg text-zinc-600">{description}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
