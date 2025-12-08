@@ -9,6 +9,9 @@ import {
   IconShoppingBag,
   IconMail,
   IconUser,
+  IconPhone,
+  IconMapPin,
+  IconNote,
 } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
@@ -28,6 +31,8 @@ const OrderSummaryPanel = ({
   const customerInfo = useOrderStore((state) => state.customerInfo);
   const setCustomerInfo = useOrderStore((state) => state.setCustomerInfo);
   const items = useOrderStore((state) => state.items);
+  const agreedToTerms = useOrderStore((state) => state.agreedToTerms);
+  const setAgreedToTerms = useOrderStore((state) => state.setAgreedToTerms);
   const getCheckoutPayload = useOrderStore((state) => state.getCheckoutPayload);
   const addItem = useOrderStore((state) => state.addItem);
 
@@ -222,6 +227,14 @@ const OrderSummaryPanel = ({
                 return;
               }
 
+              if (!agreedToTerms) {
+                showToast.error(
+                  'Terms required',
+                  'Please agree to the terms and conditions',
+                );
+                return;
+              }
+
               setIsSubmitting(true);
 
               try {
@@ -304,7 +317,7 @@ const OrderSummaryPanel = ({
             className="space-y-4"
           >
             {/* Name Input */}
-            <div>
+            <div className=" text-red-400">
               <label className="block text-xs font-medium text-zinc-700 mb-2">
                 Full Name
               </label>
@@ -317,7 +330,15 @@ const OrderSummaryPanel = ({
                   type="text"
                   value={customerInfo.name}
                   onChange={(e) =>
-                    setCustomerInfo(e.target.value, customerInfo.email)
+                    setCustomerInfo(
+                      e.target.value,
+                      customerInfo.email,
+                      customerInfo.phone,
+                      customerInfo.address,
+                      customerInfo.city,
+                      customerInfo.country,
+                      customerInfo.note,
+                    )
                   }
                   placeholder="John Doe"
                   className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
@@ -340,13 +361,180 @@ const OrderSummaryPanel = ({
                   type="email"
                   value={customerInfo.email}
                   onChange={(e) =>
-                    setCustomerInfo(customerInfo.name, e.target.value)
+                    setCustomerInfo(
+                      customerInfo.name,
+                      e.target.value,
+                      customerInfo.phone,
+                      customerInfo.address,
+                      customerInfo.city,
+                      customerInfo.country,
+                      customerInfo.note,
+                    )
                   }
                   placeholder="john@example.com"
                   className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                   required
                 />
               </div>
+            </div>
+
+            {/* Phone Input */}
+            <div>
+              <label className="block text-xs font-medium text-zinc-700 mb-2">
+                Phone Number (Optional)
+              </label>
+              <div className="relative">
+                <IconPhone
+                  size={18}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none"
+                />
+                <input
+                  type="tel"
+                  value={customerInfo.phone}
+                  onChange={(e) =>
+                    setCustomerInfo(
+                      customerInfo.name,
+                      customerInfo.email,
+                      e.target.value,
+                      customerInfo.address,
+                      customerInfo.city,
+                      customerInfo.country,
+                      customerInfo.note,
+                    )
+                  }
+                  placeholder="+971 50 123 4567"
+                  className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Address Input */}
+            <div>
+              <label className="block text-xs font-medium text-zinc-700 mb-2">
+                Address (Optional)
+              </label>
+              <div className="relative">
+                <IconMapPin
+                  size={18}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none"
+                />
+                <input
+                  type="text"
+                  value={customerInfo.address}
+                  onChange={(e) =>
+                    setCustomerInfo(
+                      customerInfo.name,
+                      customerInfo.email,
+                      customerInfo.phone,
+                      e.target.value,
+                      customerInfo.city,
+                      customerInfo.country,
+                      customerInfo.note,
+                    )
+                  }
+                  placeholder="Street address"
+                  className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
+                />
+              </div>
+            </div>
+
+            {/* City and Country */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-zinc-700 mb-2">
+                  City (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={customerInfo.city}
+                  onChange={(e) =>
+                    setCustomerInfo(
+                      customerInfo.name,
+                      customerInfo.email,
+                      customerInfo.phone,
+                      customerInfo.address,
+                      e.target.value,
+                      customerInfo.country,
+                      customerInfo.note,
+                    )
+                  }
+                  placeholder="Dubai"
+                  className="w-full px-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-zinc-700 mb-2">
+                  Country (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={customerInfo.country}
+                  onChange={(e) =>
+                    setCustomerInfo(
+                      customerInfo.name,
+                      customerInfo.email,
+                      customerInfo.phone,
+                      customerInfo.address,
+                      customerInfo.city,
+                      e.target.value,
+                      customerInfo.note,
+                    )
+                  }
+                  placeholder="UAE"
+                  className="w-full px-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Order Notes */}
+            <div>
+              <label className="block text-xs font-medium text-zinc-700 mb-2">
+                Order Notes (Optional)
+              </label>
+              <div className="relative">
+                <IconNote
+                  size={18}
+                  className="absolute left-3 top-3 text-zinc-500 pointer-events-none"
+                />
+                <textarea
+                  value={customerInfo.note}
+                  onChange={(e) =>
+                    setCustomerInfo(
+                      customerInfo.name,
+                      customerInfo.email,
+                      customerInfo.phone,
+                      customerInfo.address,
+                      customerInfo.city,
+                      customerInfo.country,
+                      e.target.value,
+                    )
+                  }
+                  placeholder="Any special instructions?"
+                  rows={3}
+                  className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm resize-none"
+                />
+              </div>
+            </div>
+
+            {/* Terms and Conditions */}
+            <div className="flex items-start gap-3 p-3 bg-zinc-50 rounded-lg border border-zinc-200">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="mt-0.5 w-4 h-4 text-zinc-900 border-zinc-300 rounded focus:ring-zinc-900"
+                required
+              />
+              <label htmlFor="terms" className="text-xs text-zinc-700">
+                I agree to the{' '}
+                <a
+                  href="/terms-conditions"
+                  className="text-zinc-900 underline hover:text-zinc-700"
+                >
+                  terms and conditions
+                </a>
+              </label>
             </div>
 
             {/* Submit Button */}
@@ -356,7 +544,8 @@ const OrderSummaryPanel = ({
               disabled={
                 isSubmitting ||
                 !customerInfo.name.trim() ||
-                !customerInfo.email.trim()
+                !customerInfo.email.trim() ||
+                !agreedToTerms
               }
               className="w-full mt-4 py-2.5 bg-zinc-950  disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
             >
@@ -373,9 +562,11 @@ const OrderSummaryPanel = ({
               )}
             </motion.button>
 
-            {(!customerInfo.name.trim() || !customerInfo.email.trim()) && (
+            {(!customerInfo.name.trim() ||
+              !customerInfo.email.trim() ||
+              !agreedToTerms) && (
               <p className="text-center text-xs text-zinc-500 mt-2">
-                Please fill in your name and email to continue
+                Please fill in required fields and agree to terms to continue
               </p>
             )}
           </form>
