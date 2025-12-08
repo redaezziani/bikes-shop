@@ -94,9 +94,9 @@ export default async function AlongCarePage() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex justify-center mt-16 pt-8 border-t border-zinc-200">
-              <Link href="/warranty-policy">
-                <button className="bg-white text-zinc-900 border border-zinc-900 font-medium px-8 py-3 rounded-lg hover:bg-zinc-50 transition">
+            <div className="mt-16 pt-8 border-t border-zinc-200">
+              <Link href="/warranty-policy" className="block">
+                <button className="w-full bg-white text-zinc-900 border border-zinc-900 font-medium px-8 py-3 rounded-lg hover:bg-zinc-50 transition">
                   Warranty Policy
                 </button>
               </Link>

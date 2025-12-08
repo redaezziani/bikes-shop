@@ -10,9 +10,23 @@ interface OrderState {
   items: OrderItem[];
   customerName: string;
   customerEmail: string;
-  customerInfo: { name: string; email: string };
+  customerPhone: string;
+  customerAddress: string;
+  customerCity: string;
+  customerCountry: string;
+  note: string;
+  agreedToTerms: boolean;
+  customerInfo: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+    note: string;
+  };
 
-  
+
   addItem: (
     product: Product,
     color: Color,
@@ -23,7 +37,16 @@ interface OrderState {
   updateQuantity: (productId: number, quantity: number) => void;
   updateColor: (productId: number, color: Color) => void;
   updateAccessories: (productId: number, accessories: Accessory[]) => void;
-  setCustomerInfo: (name: string, email: string) => void;
+  setCustomerInfo: (
+    name: string,
+    email: string,
+    phone?: string,
+    address?: string,
+    city?: string,
+    country?: string,
+    note?: string
+  ) => void;
+  setAgreedToTerms: (agreed: boolean) => void;
   clearOrder: () => void;
 
   getTotalItems: () => number;
@@ -31,6 +54,12 @@ interface OrderState {
   getCheckoutPayload: () => {
     customerName: string;
     customerEmail: string;
+    customerPhone?: string;
+    customerAddress?: string;
+    customerCity?: string;
+    customerCountry?: string;
+    note?: string;
+    agreedToTerms: boolean;
     items: Array<{
       item_type: string;
       product?: { id: number; name: string; documentId: string };
@@ -49,7 +78,21 @@ export const useOrderStore = create<OrderState>()(
       items: [],
       customerName: '',
       customerEmail: '',
-      customerInfo: { name: '', email: '' },
+      customerPhone: '',
+      customerAddress: '',
+      customerCity: '',
+      customerCountry: '',
+      note: '',
+      agreedToTerms: false,
+      customerInfo: {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        country: '',
+        note: '',
+      },
 
       addItem: (product, color, accessories, quantity = 1) => {
         set((state) => {
@@ -113,12 +156,21 @@ export const useOrderStore = create<OrderState>()(
         }));
       },
 
-      setCustomerInfo: (name, email) => {
+      setCustomerInfo: (name, email, phone = '', address = '', city = '', country = '', note = '') => {
         set({
           customerName: name,
           customerEmail: email,
-          customerInfo: { name, email }
+          customerPhone: phone,
+          customerAddress: address,
+          customerCity: city,
+          customerCountry: country,
+          note: note,
+          customerInfo: { name, email, phone, address, city, country, note },
         });
+      },
+
+      setAgreedToTerms: (agreed) => {
+        set({ agreedToTerms: agreed });
       },
 
       clearOrder: () => {
@@ -126,7 +178,21 @@ export const useOrderStore = create<OrderState>()(
           items: [],
           customerName: '',
           customerEmail: '',
-          customerInfo: { name: '', email: '' }
+          customerPhone: '',
+          customerAddress: '',
+          customerCity: '',
+          customerCountry: '',
+          note: '',
+          agreedToTerms: false,
+          customerInfo: {
+            name: '',
+            email: '',
+            phone: '',
+            address: '',
+            city: '',
+            country: '',
+            note: '',
+          },
         });
       },
 
@@ -187,6 +253,12 @@ export const useOrderStore = create<OrderState>()(
         return {
           customerName: state.customerName,
           customerEmail: state.customerEmail,
+          customerPhone: state.customerPhone || undefined,
+          customerAddress: state.customerAddress || undefined,
+          customerCity: state.customerCity || undefined,
+          customerCountry: state.customerCountry || undefined,
+          note: state.note || undefined,
+          agreedToTerms: state.agreedToTerms,
           items: backendItems,
         };
       },
@@ -197,6 +269,12 @@ export const useOrderStore = create<OrderState>()(
         items: state.items,
         customerName: state.customerName,
         customerEmail: state.customerEmail,
+        customerPhone: state.customerPhone,
+        customerAddress: state.customerAddress,
+        customerCity: state.customerCity,
+        customerCountry: state.customerCountry,
+        note: state.note,
+        agreedToTerms: state.agreedToTerms,
       }),
     },
   ),
