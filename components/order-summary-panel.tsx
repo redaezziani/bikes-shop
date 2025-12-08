@@ -317,7 +317,7 @@ const OrderSummaryPanel = ({
             className="space-y-4"
           >
             {/* Name Input */}
-            <div className=" text-red-400">
+            <div>
               <label className="block text-xs font-medium text-zinc-700 mb-2">
                 Full Name
               </label>
