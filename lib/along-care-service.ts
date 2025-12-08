@@ -12,8 +12,8 @@ export async function getAlongCarePageData(): Promise<AlongCarePageResponse> {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${STRAPI_API_KEY}`,
     },
-    // Cache for 5 minutes, revalidate in background
-    next: { revalidate: 300 },
+    // Cache for 1 minute, revalidate in background
+    next: { revalidate: 60 },
   });
 
   if (!response.ok) {

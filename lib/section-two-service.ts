@@ -36,8 +36,8 @@ export async function getSectionTwoData(params?: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${STRAPI_API_KEY}`,
     },
-    // Cache for 10 minutes, revalidate in background
-    next: { revalidate: 600 },
+    // Cache for 1 minute, revalidate in background
+    next: { revalidate: 60 },
   });
 
   if (!response.ok) {
