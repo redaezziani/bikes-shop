@@ -187,7 +187,12 @@ const CheckoutForm = () => {
         <motion.button
           whileTap={{ scale: 0.98 }}
           type="submit"
-          disabled={isSubmitting || items.length === 0}
+          disabled={
+            isSubmitting ||
+            !customerName.trim() ||
+            !customerEmail.trim() ||
+            items.length === 0
+          }
           className="w-full mt-6 py-3 bg-[#6760ff] hover:bg-[#5650dd] disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
@@ -203,10 +208,16 @@ const CheckoutForm = () => {
           )}
         </motion.button>
 
-        {items.length === 0 && (
+        {items.length === 0 ? (
           <p className="text-center text-sm text-zinc-500 mt-4">
             Add items to your cart to continue
           </p>
+        ) : (
+          (!customerName.trim() || !customerEmail.trim()) && (
+            <p className="text-center text-sm text-zinc-500 mt-4">
+              Please fill in your name and email to continue
+            </p>
+          )
         )}
       </form>
     </motion.div>

@@ -1,16 +1,14 @@
 import type { Metadata } from 'next';
-import { Nunito_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { ToasterProvider } from '@/providers/Toaster';
 
-const nunitoSans = Nunito_Sans({
-  subsets: ['latin'],
-  display: 'swap', // Use font-display: swap for better performance
-  preload: true,
-  fallback: ['system-ui', 'arial'],
-  adjustFontFallback: true, // Reduce layout shift
-  variable: '--font-nunito-sans',
+const weissenhofGrotesk = localFont({
+  src: '../public/fonts/fonnts.com-Weissenhof_Grotesk_W01_Regular.ttf',
+  display: 'swap',
+  variable: '--font-weissenhof',
+  fallback: ['system-ui', 'arial', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -131,7 +129,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${nunitoSans.className} antialiased`}>
+      <body className={`${weissenhofGrotesk.className} antialiased`}>
         <QueryProvider>
           <ToasterProvider />
           {children}

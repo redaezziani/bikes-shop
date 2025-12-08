@@ -353,7 +353,11 @@ const OrderSummaryPanel = ({
             <motion.button
               whileTap={{ scale: 0.98 }}
               type="submit"
-              disabled={isSubmitting || items.length === 0}
+              disabled={
+                isSubmitting ||
+                !customerInfo.name.trim() ||
+                !customerInfo.email.trim()
+              }
               className="w-full mt-4 py-2.5 bg-zinc-950  disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
             >
               {isSubmitting ? (
@@ -369,9 +373,9 @@ const OrderSummaryPanel = ({
               )}
             </motion.button>
 
-            {items.length === 0 && (
+            {(!customerInfo.name.trim() || !customerInfo.email.trim()) && (
               <p className="text-center text-xs text-zinc-500 mt-2">
-                Add items to your cart to continue
+                Please fill in your name and email to continue
               </p>
             )}
           </form>
