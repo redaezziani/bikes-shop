@@ -40,7 +40,7 @@ export default function MapboxMap({
   gpxUrl,
   gpxData,
   zoom = 12,
-  center = [51.505, -0.09],
+  center = [25.2048, 55.2708], // Dubai coordinates
   onRouteDataParsed,
   mapStyle = 'mapbox://styles/mapbox/light-v11',
 }: MapboxMapProps) {
