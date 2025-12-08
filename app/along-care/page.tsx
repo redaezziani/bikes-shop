@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import PartnersSearch from '@/components/partners-search';
+import ContactForm from '@/components/contact-form';
 import { getAlongCarePageData } from '@/lib/along-care-service';
 import { getPartnersData } from '@/lib/partners-service';
 
@@ -88,6 +89,7 @@ export default async function AlongCarePage() {
               </a>
               <Link href="/warranty-policy" className="flex-1">
                 <button className="w-full border border-zinc-300 text-zinc-700 font-medium px-6 py-3 rounded-lg hover:bg-zinc-50 transition">
+
                   Warranty Policy
                 </button>
               </Link>
@@ -97,6 +99,16 @@ export default async function AlongCarePage() {
 
         {/* Find Service Partner Section */}
         <PartnersSearch partners={partners} />
+
+        {/* Contact Section */}
+        <section className="w-full px-6 md:px-12 py-16 bg-zinc-50">
+          <div className="max-w-2xl mx-auto">
+            <ContactForm
+              title="Need Help with Along Care?"
+              description="Have questions about our service warranty, or need assistance? Send us a message and our team will get back to you shortly."
+            />
+          </div>
+        </section>
 
         <Footer />
       </main>
