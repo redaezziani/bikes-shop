@@ -15,7 +15,10 @@ export default function Breadcrumbs({ customLabels = {}, className = '' }: Bread
   // Default labels for common paths
   const defaultLabels: Record<string, string> = {
     'along-care': 'Along Care',
+    'privacy-policy': 'Privacy Policy',
+    'shipping-returns': 'Shipping and Returns',
     'terms-conditions': 'Terms & Conditions',
+    'warranty': 'Warranty',
     'warranty-policy': 'Warranty Policy',
     blog: 'Blog',
     models: 'Models',
