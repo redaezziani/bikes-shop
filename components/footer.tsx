@@ -18,11 +18,11 @@ const Footer = () => {
     },
     {
       label: 'Warranty',
-      link: '/along-warranty-policy',
+      link: '/warranty',
     },
     {
       label: 'Shipping & Returns',
-      link: '/shipping-returns-policy',
+      link: '/shipping-returns',
     },
   ];
 
@@ -130,7 +130,7 @@ const Footer = () => {
       {/* Contact Form Modal */}
       {showContactForm && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 bg-black/50 z-50 flex items-start md:items-center justify-center p-4 overflow-y-auto"
           onClick={() => setShowContactForm(false)}
         >
           <div

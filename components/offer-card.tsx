@@ -41,7 +41,7 @@ const OfferCard = ({ offer }: OfferCardProps) => {
         )}
         <Link
           href={href}
-          className="bg-zinc-100 w-1/2 text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-800 transition text-center"
+          className="bg-zinc-100 max-w-[70%] text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-800 transition text-center"
         >
           {offer.button_text || 'Learn More'}
         </Link>
