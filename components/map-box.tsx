@@ -193,6 +193,11 @@ export default function MapboxMap({
       'bottom-right',
     );
 
+    // Mark the map as ready to accept sources/layers
+    map.on('load', () => {
+      (map as any)._styleLoaded = true;
+    });
+
     mapRef.current = map;
 
     return () => {
@@ -207,6 +212,13 @@ export default function MapboxMap({
 
     const loadAndRenderGPX = async (gpxXml: string) => {
       if (!mapRef.current) return;
+
+      // Wait for map style to load before adding sources/layers
+      if (!(mapRef.current as any)._styleLoaded) {
+        await new Promise<void>((resolve) => {
+          mapRef.current?.once('load', () => resolve());
+        });
+      }
 
       const { lineFeature, waypoints, stats } = parseGPXToGeoJSON(gpxXml);
 
