@@ -523,14 +523,20 @@ const OrderSummaryPanel = ({
                 id="terms"
                 checked={agreedToTerms}
                 onChange={(e) => setAgreedToTerms(e.target.checked)}
-                className="mt-0.5 w-4 h-4 text-zinc-900 border-zinc-300 rounded focus:ring-zinc-900"
+                className="mt-0.5 w-5 h-5 text-zinc-900 bg-white border-2 border-zinc-400 rounded cursor-pointer focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 checked:bg-zinc-900 checked:border-zinc-900 accent-zinc-900"
                 required
               />
-              <label htmlFor="terms" className="text-xs text-zinc-700">
+              <label
+                htmlFor="terms"
+                className="text-xs text-zinc-700 cursor-pointer flex-1"
+              >
                 I agree to the{' '}
                 <a
                   href="/terms-conditions"
-                  className="text-zinc-900 underline hover:text-zinc-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-900 underline hover:text-zinc-700 font-medium"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   terms and conditions
                 </a>

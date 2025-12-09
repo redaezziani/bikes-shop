@@ -37,10 +37,6 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
         fadeEffect={{ crossFade: true }}
         pagination={{ clickable: true }}
         loop={true}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
         speed={1000}
         className="h-full w-full"
         a11y={{

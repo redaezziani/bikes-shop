@@ -1,12 +1,6 @@
 'use client';
 import { useState } from 'react';
-import {
-  IconX,
-  IconChevronRight,
-  IconChevronDown,
-  IconWorld,
-  IconUser,
-} from '@tabler/icons-react';
+import { IconX, IconChevronDown } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useProducts } from '@/store/products';
 
@@ -60,9 +54,6 @@ const Header = () => {
         { name: 'About along', description: 'Learn about us here.' },
       ],
     },
-    { label: 'Shop', hasSubmenu: false },
-    { label: 'Shop', hasSubmenu: false },
-    { label: 'Support', hasSubmenu: false },
   ];
 
   const toggleSubmenu = (index: number) => {
@@ -124,6 +115,20 @@ const Header = () => {
             className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
           >
             Routes
+          </Link>
+          <Link
+            href="https://wa.me/971523160662"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
+          >
+            Support
+          </Link>
+          <Link
+            href="tel:+971523160662"
+            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
+          >
+            Phone
           </Link>
 
           <div className="relative">
@@ -212,6 +217,61 @@ const Header = () => {
 
           <nav className="flex-1 overflow-y-auto px-6">
             <ul>
+              <li>
+                <Link
+                  href="/order"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Order Now
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Blog
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/routes"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Routes
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://wa.me/971523160662"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Support
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="tel:+971523160662"
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Phone
+                  </span>
+                </Link>
+              </li>
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <button
@@ -290,42 +350,6 @@ const Header = () => {
               ))}
             </ul>
           </nav>
-
-          <div className="border-t border-gray-200 px-6 py-4">
-            <button
-              className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-              aria-label="Change language and region settings"
-            >
-              <div className="flex items-center gap-3">
-                <IconWorld
-                  size={20}
-                  className="text-zinc-600"
-                  aria-hidden="true"
-                />
-                <div>
-                  <div className="text-base font-medium">United States</div>
-                  <div className="text-sm text-gray-500">English</div>
-                </div>
-              </div>
-              <IconChevronRight
-                size={20}
-                className="text-zinc-500"
-                aria-hidden="true"
-              />
-            </button>
-
-            <button
-              className="w-full flex items-center gap-3 py-4 text-left"
-              aria-label="Access your account"
-            >
-              <IconUser
-                size={20}
-                className="text-zinc-600"
-                aria-hidden="true"
-              />
-              <span className="text-base font-medium">Account</span>
-            </button>
-          </div>
         </div>
       </div>
     </>

@@ -16,41 +16,37 @@ const OfferCard = ({ offer }: OfferCardProps) => {
   const href = offer.link || '#';
 
   return (
-    <Link href={href}>
-      <article className="relative rounded-lg overflow-hidden h-[400px] bg-zinc-80le0">
-        {imageUrl && (
-          <>
-            <Image
-              src={imageUrl}
-              alt={offer.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-              quality={85}
-              placeholder="blur"
-              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-            />
-          </>
-        )}
-
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <h2 className="text-2xl font-bold">{offer.title}</h2>
-          {offer.description && (
-            <p className="text-sm mt-1 line-clamp-2 mb-6">
-              {offer.description}
-            </p>
-          )}
-          <div className="flex gap-3">
-            <button
-              className="bg-white min-w-40 text-gray-900 font-medium rounded-lg px-4 py-2 text-sm hover:bg-gray-100 transition"
-              aria-label={`Learn more about ${offer.title}`}
-            >
-              {offer.button_text || 'Learn More'}
-            </button>
-          </div>
+    <article className="flex flex-col rounded-lg overflow-hidden border border-zinc-200 bg-white  transition-shadow">
+      {imageUrl && (
+        <div className="relative w-full h-[240px]">
+          <Image
+            src={imageUrl}
+            alt={offer.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+          />
         </div>
-      </article>
-    </Link>
+      )}
+
+      <div className="flex flex-col bg-zinc-50 flex-grow p-6">
+        <h2 className="text-xl font-bold text-zinc-900 mb-3">{offer.title}</h2>
+        {offer.description && (
+          <p className="text-sm text-zinc-600 mb-6 line-clamp-3 flex-grow">
+            {offer.description}
+          </p>
+        )}
+        <Link
+          href={href}
+          className="bg-zinc-100 w-1/2 text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-800 transition text-center"
+        >
+          {offer.button_text || 'Learn More'}
+        </Link>
+      </div>
+    </article>
   );
 };
 

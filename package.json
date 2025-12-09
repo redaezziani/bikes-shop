@@ -8,12 +8,10 @@
     "start": "next start",
     "lint": "eslint"
   },
-
   "browserslist": [
-  "defaults",
-  "not IE 11"
-]
-,
+    "defaults",
+    "not IE 11"
+  ],
   "dependencies": {
     "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/typography": "^0.5.19",
