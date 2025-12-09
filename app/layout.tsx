@@ -1,15 +1,7 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { ToasterProvider } from '@/providers/Toaster';
-
-const weissenhofGrotesk = localFont({
-  src: '../public/fonts/fonnts.com-Weissenhof_Grotesk_W01_Regular.ttf',
-  display: 'swap',
-  variable: '--font-weissenhof',
-  fallback: ['system-ui', 'arial', 'sans-serif'],
-});
 
 export const metadata: Metadata = {
   title: 'Electric Cargo Bikes Dubai | E-Bike Delivery Solutions UAE',
@@ -129,7 +121,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${weissenhofGrotesk.className} antialiased`}>
+      <body className="antialiased">
         <QueryProvider>
           <ToasterProvider />
           {children}
