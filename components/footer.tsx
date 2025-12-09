@@ -1,12 +1,13 @@
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import Script from 'next/script';
 
 const Footer = () => {
+  const [showContactForm, setShowContactForm] = useState(false);
+
   const footerLinks = [
-    {
-      label: 'Contact Us',
-      link: '/contact-us',
-    },
     {
       label: 'Privacy Policy',
       link: '/privacy-policy',
@@ -93,6 +94,12 @@ const Footer = () => {
         </Link>
       </div>
       <div className="flex gap-6 justify-center text-zinc-600 font-semibold flex-col md:flex-row text-sm items-center ">
+        <button
+          onClick={() => setShowContactForm(true)}
+          className="text-zinc-600 font-semibold hover:text-zinc-900 transition-colors"
+        >
+          Contact Us
+        </button>
         {footerLinks.map((l, i) => {
           return (
             <Link key={`${l.label}-${i}`} className="" href={l.link}>
@@ -119,6 +126,67 @@ const Footer = () => {
           }
         />
       </Link>
+
+      {/* Contact Form Modal */}
+      {showContactForm && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm"
+            onClick={() => setShowContactForm(false)}
+          />
+          <div className="fixed inset-4 md:inset-10 lg:inset-20 bg-white rounded-lg shadow-2xl z-50 flex flex-col">
+            <div className="flex justify-between items-center p-4 border-b border-zinc-200">
+              <h2 className="text-xl font-semibold text-zinc-900">Contact Us</h2>
+              <button
+                onClick={() => setShowContactForm(false)}
+                className="p-2 hover:bg-zinc-100 rounded-lg transition-colors"
+                aria-label="Close contact form"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <iframe
+                src="https://serv.weridealong.com/widget/form/aYVTWBZRh8H9lEd0Q491"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                }}
+                id="inline-aYVTWBZRh8H9lEd0Q491"
+                data-layout="{'id':'INLINE'}"
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+                data-form-name="Contact Form Website"
+                data-height="1014"
+                data-layout-iframe-id="inline-aYVTWBZRh8H9lEd0Q491"
+                data-form-id="aYVTWBZRh8H9lEd0Q491"
+                title="Contact Form Website"
+              />
+            </div>
+          </div>
+          <Script
+            src="https://serv.weridealong.com/js/form_embed.js"
+            strategy="lazyOnload"
+          />
+        </>
+      )}
     </footer>
   );
 };

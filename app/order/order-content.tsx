@@ -9,6 +9,7 @@ import { useProducts, useProductSelection } from '@/store/products';
 import OrderSummaryPanel from '@/components/order-summary-panel';
 import ModelPreview from '@/components/model-preview';
 import ProductImagePreview from '@/components/product-image-priview';
+import FixedBottomBar from '@/components/fixed-bottom-bar';
 
 const OrderContent = () => {
   const { data, isLoading } = useProducts({ pageSize: 10 });
@@ -165,6 +166,7 @@ const OrderContent = () => {
         selectedColorName={selectedColor}
         selectedAccessoryIds={selectedAccessories}
       />
+      <FixedBottomBar />
     </main>
   );
 };
