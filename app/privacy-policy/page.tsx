@@ -2,13 +2,13 @@ import ReactMarkdown from 'react-markdown';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import Breadcrumbs from '@/components/breadcrumbs';
-import { getTermsConditionsPageData } from '@/lib/terms-conditions-service';
+import { getPrivacyPolicyPageData } from '@/lib/privacy-policy-service';
 import HeaderDetailsPage from '@/components/header-v2';
 
 export const dynamic = 'force-dynamic';
 
-export default async function TermsConditionsPage() {
-  const pageData = await getTermsConditionsPageData();
+export default async function PrivacyPolicyPage() {
+  const pageData = await getPrivacyPolicyPageData();
 
   const { title, description, content } = pageData.data;
 
