@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Script from 'next/script';
 
 const Footer = () => {
@@ -129,43 +129,32 @@ const Footer = () => {
 
       {/* Contact Form Modal */}
       {showContactForm && (
-        <>
+        <div
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto"
+          onClick={() => setShowContactForm(false)}
+        >
           <div
-            className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm"
-            onClick={() => setShowContactForm(false)}
-          />
-          <div className="fixed inset-4 md:inset-10 lg:inset-20 bg-white rounded-lg shadow-2xl z-50 flex flex-col">
-            <div className="flex justify-between items-center p-4 border-b border-zinc-200">
-              <h2 className="text-xl font-semibold text-zinc-900">Contact Us</h2>
+            className="bg-white rounded-lg w-full max-w-2xl my-8 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center p-4 border-b border-zinc-200 sticky top-0 bg-white z-10">
+              <h2 className="text-xl font-semibold text-zinc-900">
+                Contact Us
+              </h2>
               <button
                 onClick={() => setShowContactForm(false)}
-                className="p-2 hover:bg-zinc-100 rounded-lg transition-colors"
+                className="text-zinc-500 hover:text-zinc-700 text-2xl leading-none"
                 aria-label="Close contact form"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                &times;
               </button>
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="relative">
               <iframe
                 src="https://serv.weridealong.com/widget/form/aYVTWBZRh8H9lEd0Q491"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                }}
+                className="w-full border-none"
                 id="inline-aYVTWBZRh8H9lEd0Q491"
+                style={{ height: '600px' }}
                 data-layout="{'id':'INLINE'}"
                 data-trigger-type="alwaysShow"
                 data-trigger-value=""
@@ -185,7 +174,7 @@ const Footer = () => {
             src="https://serv.weridealong.com/js/form_embed.js"
             strategy="lazyOnload"
           />
-        </>
+        </div>
       )}
     </footer>
   );
