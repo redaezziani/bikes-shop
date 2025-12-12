@@ -70,39 +70,6 @@ const HeaderDetailsPage = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          <Link
-            href="/order"
-            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
-          >
-            Order Now
-          </Link>
-          <Link
-            href="/blog"
-            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/routes"
-            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
-          >
-            Routes
-          </Link>
-          <Link
-            href="https://wa.me/971523160662"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
-          >
-            Support
-          </Link>
-          <Link
-            href="tel:+971523160662"
-            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
-          >
-            Phone
-          </Link>
-
           <div className="relative">
             <button
               onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
@@ -158,6 +125,44 @@ const HeaderDetailsPage = () => {
               </div>
             )}
           </div>
+          <Link
+            href="/care"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Along Care
+          </Link>
+          <Link
+            href="/guides"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Guides & Stories
+          </Link>
+          <Link
+            href="/about"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            About along
+          </Link>
+          <Link
+            href="/blog"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="https://wa.me/971523160662"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Support
+          </Link>
+          <Link
+            href="/order"
+            className="text-zinc-950 cursor-pointer font-semibold text-sm hover:text-zinc-600 transition-colors"
+          >
+            Order
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -186,13 +191,80 @@ const HeaderDetailsPage = () => {
           <nav className="flex-1 overflow-y-auto px-6">
             <ul>
               <li>
+                <button
+                  onClick={() => toggleSubmenu(0)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Models
+                  </span>
+                  <IconChevronDown
+                    className={`text-zinc-500 transition-transform ${
+                      expandedMenu === 0 ? 'rotate-180' : ''
+                    }`}
+                    size={20}
+                  />
+                </button>
+
+                {expandedMenu === 0 && (
+                  <div className="py-4 space-y-4">
+                    {products.map((p) => (
+                      <Link
+                        href={`/models/${p.slug}`}
+                        key={p.id}
+                        onClick={() => setOpen(false)}
+                        className="flex gap-4 items-start"
+                      >
+                        <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                            alt={p.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-zinc-800">
+                            {p.name}
+                          </h3>
+                          <p className="text-sm text-zinc-500 mt-1">
+                            Explore and Learn
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </li>
+              <li>
                 <Link
-                  href="/order"
+                  href="/care"
                   onClick={() => setOpen(false)}
                   className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Order Now
+                    Along Care
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/guides"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Guides & Stories
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    About along
                   </span>
                 </Link>
               </li>
@@ -204,17 +276,6 @@ const HeaderDetailsPage = () => {
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
                     Blog
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/routes"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Routes
                   </span>
                 </Link>
               </li>
@@ -232,77 +293,15 @@ const HeaderDetailsPage = () => {
               </li>
               <li>
                 <Link
-                  href="tel:+971523160662"
+                  href="/order"
+                  onClick={() => setOpen(false)}
                   className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Phone
+                    Order
                   </span>
                 </Link>
               </li>
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => item.hasSubmenu && toggleSubmenu(index)}
-                    className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                  >
-                    <span className="text-zinc-800 font-medium uppercase text-sm">
-                      {item.label}
-                    </span>
-                    {item.hasSubmenu && (
-                      <IconChevronDown
-                        className={`text-zinc-500 transition-transform ${
-                          expandedMenu === index ? 'rotate-180' : ''
-                        }`}
-                        size={20}
-                      />
-                    )}
-                  </button>
-
-                  {item.hasSubmenu && expandedMenu === index && (
-                    <div className="py-4 space-y-4">
-                      {item.dynamicProducts &&
-                        products.map((p) => (
-                          <Link
-                            href={`/models/${p.slug}`}
-                            key={p.id}
-                            className="flex gap-4 items-start"
-                          >
-                            <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
-                              <img
-                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
-                                alt={p.name}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="font-medium text-zinc-800">
-                                {p.name}
-                              </h3>
-                              <p className="text-sm text-zinc-500 mt-1">
-                                Explore and Learn
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
-
-                      {!item.dynamicProducts &&
-                        item.subItems?.map((sub, i) => (
-                          <div key={i} className="flex gap-4 items-start">
-                            <div className="flex-1">
-                              <h3 className="font-medium text-zinc-800">
-                                {sub.name}
-                              </h3>
-                              <p className="text-sm text-zinc-500 mt-1">
-                                {sub.description}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  )}
-                </li>
-              ))}
             </ul>
           </nav>
         </div>

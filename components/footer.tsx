@@ -36,7 +36,7 @@ const Footer = () => {
           rel="noopener noreferrer"
         >
           <img
-            className=" w-6 "
+            className=" w-5 "
             src="https://images.icon-icons.com/3912/PNG/512/komoot_logo_icon_247893.png"
             alt="Komoot"
           />
@@ -48,7 +48,7 @@ const Footer = () => {
           rel="noopener noreferrer"
         >
           <img
-            className=" w-7  invert  "
+            className=" w-6  invert  "
             src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68c29d91e957b241f6dccb80_instagram-logo.svg"
             alt="Instagram"
           />
@@ -60,7 +60,7 @@ const Footer = () => {
           rel="noopener noreferrer"
         >
           <img
-            className=" w-7  "
+            className=" w-6  "
             src="https://cdn.prod.website-files.com/68c299a1ec39f7800f96ca9a/68df22c37c9a4a25963b9931_black-and-white-youtube-icon.webp"
             alt="YouTube"
           />

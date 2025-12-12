@@ -45,19 +45,6 @@ const BlogSection = ({ blogs }: BlogSectionProps) => {
         .blog-swiper .swiper-slide {
           width: 85%;
         }
-        .swiper-pagination {
-          position: relative;
-          margin-top: 1.5rem;
-        }
-        .swiper-pagination-bullet {
-          background: #9ca3af;
-          opacity: 1;
-          width: 8px;
-          height: 8px;
-        }
-        .swiper-pagination-bullet-active {
-          background: #1f2937;
-        }
       `}</style>
     </section>
   );

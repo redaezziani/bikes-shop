@@ -19,8 +19,12 @@ html {
 .swiper-pagination-bullet {
   background: #9ca3af;
   opacity: 1;
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
+}
+
+.swiper-pagination-bullet-active {
+  background: #1f2937;
 }
 
 #hero .swiper-pagination {
@@ -32,8 +36,8 @@ html {
 #hero .swiper-pagination-bullet {
   background: white !important;
   opacity: 0.5 !important;
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
 }
 
 #hero .swiper-pagination-bullet-active {
@@ -43,20 +47,4 @@ html {
 
 .offers-swiper .swiper-slide {
   width: 85%;
-}
-
-.swiper-pagination {
-  position: relative;
-  margin-top: 1.5rem;
-}
-
-.swiper-pagination-bullet {
-  background: #9ca3af;
-  opacity: 1;
-  width: 8px;
-  height: 8px;
-}
-
-.swiper-pagination-bullet-active {
-  background: #1f2937;
 }
