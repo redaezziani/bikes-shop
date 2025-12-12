@@ -87,30 +87,29 @@ const OrderSummaryPanel = ({
       animate={isExpanded ? 'expanded' : 'collapsed'}
       variants={summaryVariants}
       transition={{ duration: 0.3 }}
-      className={`fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden backdrop-blur-md ${
+      className={`md:!h-auto md:relative md:shadow-none md:rounded-xl fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden md:overflow-visible backdrop-blur-md ${
         isExpanded
-          ? 'bg-white'
-          : 'bg-white md:right-8 md:bottom-8 md:rounded-xl md:w-96'
+          ? 'bg-white md:bg-white'
+          : 'bg-white md:bg-zinc-50 md:border md:border-zinc-200'
       }`}
     >
       <div
-        className={`flex justify-between border-zinc-400/25 items-center px-4 py-4 md:px-6 md:py-4 transition-colors duration-300 cursor-pointer ${
+        className={`flex justify-between border-zinc-400/25 items-center px-4 py-4 md:px-6 md:py-4 transition-colors duration-300 cursor-pointer md:cursor-default ${
           isExpanded
-            ? 'bg-white text-zinc-900 border-b border-zinc-200'
-            : 'bg-white text-zinc-800 border-t md:border-t-0 md:rounded-t-xl'
+            ? 'bg-white text-zinc-900 border-b border-zinc-200 md:bg-zinc-50'
+            : 'bg-white text-zinc-800 border-t md:border-t-0 md:rounded-t-xl md:bg-zinc-50'
         }`}
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={(e) => {
+          if (window.innerWidth < 768) {
+            setIsExpanded(!isExpanded);
+          }
+        }}
       >
         <div className="flex items-center gap-3">
           <IconShoppingBag size={20} className=" text-zinc-900" />
-          <div className="flex flex-col gap-0.5">
-            <h3 className="font-semibold text-sm">
-              {isExpanded ? 'Order Configuration' : 'Order Summary'}
-            </h3>
-            <p className="text-xs text-zinc-500">
-              {selectedAccessoriesDetails.length} accessories
-            </p>
-          </div>
+          <h3 className="font-semibold text-sm">
+            {isExpanded ? 'Order Configuration' : 'Order Summary'}
+          </h3>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right">
@@ -119,7 +118,7 @@ const OrderSummaryPanel = ({
               AED {totalPrice.toFixed(2)}
             </span>
           </div>
-          <motion.button whileTap={{ scale: 0.95 }}>
+          <motion.button whileTap={{ scale: 0.95 }} className="md:hidden">
             {isExpanded ? (
               <IconX size={20} className="text-zinc-800" />
             ) : (
@@ -130,8 +129,7 @@ const OrderSummaryPanel = ({
       </div>
 
       <div
-        className={`p-6 overflow-y-auto ${isExpanded ? 'block' : 'hidden'}`}
-        style={{ height: isExpanded ? 'calc(100vh - 80px)' : '0' }}
+        className={`p-6 overflow-y-auto md:!block md:!h-auto ${isExpanded ? 'block' : 'hidden'}`}
       >
         <h2 className="text-xl font-bold mb-6 text-zinc-800">
           Your Configuration

@@ -64,7 +64,6 @@ const ModelSelector = ({ products }: { products: Product[] }) => {
               >
                 AED {item.price}
               </strong>
-              <span className="text-zinc-500 text-xs"> /mo</span>
             </div>
           </label>
         );

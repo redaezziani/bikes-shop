@@ -32,16 +32,16 @@ const OfferCard = ({ offer }: OfferCardProps) => {
         </div>
       )}
 
-      <div className="flex flex-col bg-zinc-50 flex-grow p-6">
+      <div className="flex flex-col bg-zinc-50 grow p-6">
         <h2 className="text-xl font-bold text-zinc-900 mb-3">{offer.title}</h2>
         {offer.description && (
-          <p className="text-sm text-zinc-600 mb-6 line-clamp-3 flex-grow">
+          <p className="text-sm text-zinc-600 mb-6 line-clamp-3 grow">
             {offer.description}
           </p>
         )}
         <Link
           href={href}
-          className="bg-zinc-100 max-w-[70%] text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-800 transition text-center"
+          className="bg-zinc-100 max-w-[70%] text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-200 transition text-center"
         >
           {offer.button_text || 'Learn More'}
         </Link>
