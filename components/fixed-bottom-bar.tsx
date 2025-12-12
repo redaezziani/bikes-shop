@@ -26,7 +26,7 @@ const FixedBottomBar = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="w-10 h-10 md:w-full border-zinc-400/45 sm:border sm:rounded gap-2 flex justify-center items-center"
-          aria-label="Ask questions on WhatsApp"
+          aria-label="chat with us via WhatsAp"
         >
           <svg
             className="fill-[#32870f] stroke-[#32870f] size-6"
@@ -43,10 +43,10 @@ const FixedBottomBar = () => {
         <button
           onClick={() => setIsBookingOpen(true)}
           className="border h-10 border-zinc-400/45 flex justify-center items-center gap-2 rounded w-full hover:bg-zinc-50 transition-colors"
-          aria-label="Book your free test ride"
+          aria-label="Schedule Your Free Test Ride "
         >
           <p className="text-zinc-700 capitalize font-semibold text-xs">
-            Book your Free test ride
+            Schedule Your Free Test Ride
           </p>
         </button>
       </section>
