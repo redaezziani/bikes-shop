@@ -20,7 +20,7 @@ const FixedBottomBar = () => {
 
   return (
     <>
-      <section className="fixed gap-2 flex justify-center z-40 h-16 shadow-xl bg-white w-full bottom-0 pt-2 pb-6 px-4">
+      <section className="fixed gap-2 flex justify-center z-40 md:z-50 h-16 shadow-xl bg-white w-full bottom-0 pt-2 pb-6 px-4">
         <Link
           href="https://wa.me/971523160662"
           target="_blank"
