@@ -37,8 +37,8 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
         '@type': 'Product',
         name: section.product?.name || section.title,
         description: section.description,
-        image: section.cover_image?.url
-          ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image.url}`
+        image: section.cover_image_desktop?.url
+          ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image_desktop.url}`
           : undefined,
         url: section.product?.slug
           ? `${process.env.NEXT_PUBLIC_SITE_URL || ''}/models/${
@@ -86,29 +86,52 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
             const linkHref = getLinkHref(section);
             const isExternal = isExternalLink(section);
             const productName = section.product?.name || section.title;
-            const imageUrl = section.cover_image?.url
-              ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image.url}`
+            const desktopImageUrl = section.cover_image_desktop?.url
+              ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image_desktop.url}`
               : '';
+            const mobileImageUrl = section.cover_image_mobile?.url
+              ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image_mobile.url}`
+              : desktopImageUrl;
 
             return (
               <SwiperSlide key={section.id}>
                 <article className="relative select-none rounded-lg overflow-hidden h-[500px] bg-zinc-300">
-                  {imageUrl && (
+                  {(desktopImageUrl || mobileImageUrl) && (
                     <>
-                      <Image
-                        src={imageUrl}
-                        alt={`${productName} - ${
-                          section.description || 'electric bike model'
-                        }`}
-                        fill
-                        sizes="(max-width: 768px) 85vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover"
-                        priority={index === 0}
-                        loading={index === 0 ? 'eager' : 'lazy'}
-                        quality={85}
-                        placeholder="blur"
-                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                      />
+                      {/* Mobile Image */}
+                      {mobileImageUrl && (
+                        <Image
+                          src={mobileImageUrl}
+                          alt={`${productName} - ${
+                            section.description || 'electric bike model'
+                          }`}
+                          fill
+                          sizes="(max-width: 768px) 85vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover md:hidden"
+                          priority={index === 0}
+                          loading={index === 0 ? 'eager' : 'lazy'}
+                          quality={85}
+                          placeholder="blur"
+                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        />
+                      )}
+                      {/* Desktop Image */}
+                      {desktopImageUrl && (
+                        <Image
+                          src={desktopImageUrl}
+                          alt={`${productName} - ${
+                            section.description || 'electric bike model'
+                          }`}
+                          fill
+                          sizes="(max-width: 768px) 85vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover hidden md:block"
+                          priority={index === 0}
+                          loading={index === 0 ? 'eager' : 'lazy'}
+                          quality={85}
+                          placeholder="blur"
+                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        />
+                      )}
                       <div
                         className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"
                         aria-hidden="true"
