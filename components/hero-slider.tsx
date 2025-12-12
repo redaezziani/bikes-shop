@@ -49,24 +49,39 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
         }}
       >
         {slides.map((slide) => {
-          const imageUrl = slide.cover_image?.url
-            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${slide.cover_image.url}`
+          const desktopImageUrl = slide.cover_image_desktop?.url
+            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${slide.cover_image_desktop.url}`
             : '/placeholder-image.jpg';
+          const mobileImageUrl = slide.cover_image_mobile?.url
+            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${slide.cover_image_mobile.url}`
+            : desktopImageUrl;
           const productSlug = slide.product?.slug;
           const productName = slide.product?.name;
 
           return (
             <SwiperSlide key={slide.id}>
               <div className="h-full px-4 z-10  relative w-full flex justify-start items-start md:justify-center">
+                {/* Mobile Image */}
                 <Image
-                  src={imageUrl}
+                  src={mobileImageUrl}
                   alt={slide.title}
                   fill
                   sizes="100vw"
                   priority={slide.id === slides[0]?.id}
                   fetchPriority={slide.id === slides[0]?.id ? 'high' : 'auto'}
                   quality={85}
-                  className="object-cover"
+                  className="object-cover md:hidden"
+                />
+                {/* Desktop Image */}
+                <Image
+                  src={desktopImageUrl}
+                  alt={slide.title}
+                  fill
+                  sizes="100vw"
+                  priority={slide.id === slides[0]?.id}
+                  fetchPriority={slide.id === slides[0]?.id ? 'high' : 'auto'}
+                  quality={85}
+                  className="object-cover hidden md:block"
                 />
                 <div className="flex relative mt-20 md:mt-40 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
                   <h1 className=" text-lg md:text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">

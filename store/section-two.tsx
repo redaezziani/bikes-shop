@@ -10,8 +10,9 @@ const buildSectionTwoQueryString = (params?: {
   pageSize?: number;
 }): string => {
   const queryParts = [
-    'populate[0]=cover_image',
-    'populate[1]=product',
+    'populate[0]=cover_image_desktop',
+    'populate[1]=cover_image_mobile',
+    'populate[2]=product',
     'sort[0]=createdAt:asc',
   ];
 
@@ -47,8 +48,9 @@ export const useSectionTwoById = (id: number) => {
     queryKey: ['section-two', 'id', id],
     queryFn: async () => {
       const queryString = [
-        'populate[0]=cover_image',
-        'populate[1]=product',
+        'populate[0]=cover_image_desktop',
+        'populate[1]=cover_image_mobile',
+        'populate[2]=product',
       ].join('&');
 
       const response = await api.get<{ data: SectionTwo }>(
