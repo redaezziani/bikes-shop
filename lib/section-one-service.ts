@@ -9,9 +9,10 @@ const buildSectionOneQueryString = (params?: {
   pageSize?: number;
 }): string => {
   const queryParts = [
-    'populate[0]=cover_image',
-    'populate[1]=product',
-    'populate[2]=product.cover_image',
+    'populate[0]=cover_image_desktop',
+    'populate[1]=cover_image_mobile',
+    'populate[2]=product',
+    'populate[3]=product.cover_image',
     'sort[0]=createdAt:asc',
   ];
 

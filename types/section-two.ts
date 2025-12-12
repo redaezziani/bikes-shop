@@ -3,7 +3,8 @@ import { CoverImage, Product } from './products';
 export interface SectionTwo {
   id: number;
   documentId: string;
-  cover_image: CoverImage;
+  cover_image_desktop: CoverImage;
+  cover_image_mobile: CoverImage;
   title: string;
   description: string;
   product?: Product;
