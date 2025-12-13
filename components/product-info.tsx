@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  IconArrowRight,
-} from '@tabler/icons-react';
+import { useState, useMemo } from 'react';
+import { IconArrowRight } from '@tabler/icons-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ProductInfoProps {
   title: string;
@@ -34,6 +33,29 @@ export default function ProductInfo({
 
   const increase = () => setQty((q) => q + 1);
   const decrease = () => setQty((q) => (q > 1 ? q - 1 : 1));
+
+  // Memoize color gradient calculations
+  const colorStyles = useMemo(() => {
+    return colors.map((color) => {
+      if (color.hex.includes('-')) {
+        const [color1, color2] = color.hex.split('-');
+        return {
+          name: color.name,
+          hex: color.hex,
+          style: {
+            background: `linear-gradient(45deg, ${color1} 50%, ${color2} 50%)`,
+          },
+        };
+      }
+      return {
+        name: color.name,
+        hex: color.hex,
+        style: {
+          backgroundColor: color.hex,
+        },
+      };
+    });
+  }, [colors]);
 
   return (
     <section className=" flex flex-col gap-4">
@@ -70,13 +92,13 @@ export default function ProductInfo({
           </button>
         </div>
         <div className="flex w-full justify-end items-end">
-          {colors.length > 0 && (
+          {colorStyles.length > 0 && (
             <div className=" flex w-full justify-start flex-col gap-2">
               <div className="flex w-full justify-start gap-3 flex-wrap">
-                {colors.map((color) => (
+                {colorStyles.map((color) => (
                   <label
                     key={color.name}
-                    className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8  bg-white  transition 
+                    className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8  bg-white  transition
                   ${
                     selectedColor === color.name
                       ? 'border-zinc-900'
@@ -91,26 +113,7 @@ export default function ProductInfo({
                       onChange={() => setSelectedColor(color.name)}
                       className="hidden"
                     />
-
-                    {color.hex.includes('-') ? (
-                      // Dual color display - split the hex and show both colors
-                      <>
-                        <span
-                          className="size-full"
-                          style={{
-                            background: `linear-gradient(45deg, ${
-                              color.hex.split('-')[0]
-                            } 50%, ${color.hex.split('-')[1]} 50%)`,
-                          }}
-                        ></span>
-                      </>
-                    ) : (
-                      // Single color display
-                      <span
-                        className="size-full"
-                        style={{ backgroundColor: color.hex }}
-                      ></span>
-                    )}
+                    <span className="size-full" style={color.style}></span>
                   </label>
                 ))}
               </div>
@@ -140,13 +143,12 @@ export default function ProductInfo({
                 current === i ? 'border-zinc-800' : 'border-transparent'
               }`}
             >
-              <img
+              <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${img}`}
                 alt={`Thumbnail ${i + 1}`}
-                width={100}
-                height={100}
-                sizes="100%"
-                className="object-cover w-full h-full"
+                fill
+                sizes="(max-width: 768px) 0vw, 100px"
+                className="object-cover"
               />
             </button>
           ))}

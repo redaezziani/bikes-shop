@@ -1,12 +1,13 @@
 import type { NextConfig } from 'next';
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const nextConfig: NextConfig = {
   // Use standalone output for optimized Docker builds
   output: 'standalone',
-
-  // Experimental: Use runtime environment variables instead of build-time
-  // This allows changing env vars without rebuilding the Docker image
-
 
   images: {
     remotePatterns: [
@@ -23,6 +24,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  // Performance optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);
