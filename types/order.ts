@@ -12,10 +12,10 @@ export interface Order {
   documentId?: string;
   customer_name: string;
   customer_email: string;
-  customer_phone?: string;
-  customer_address?: string;
-  customer_city?: string;
-  customer_country?: string;
+  customer_phone: string;
+  customer_address: string;
+  customer_city: string;
+  customer_country: string;
   note?: string;
   agreed_to_terms: boolean;
   total_amount: number;
@@ -43,10 +43,10 @@ export interface OrderItemData {
 export interface OrderCreatePayload {
   customer_name: string;
   customer_email: string;
-  customer_phone?: string;
-  customer_address?: string;
-  customer_city?: string;
-  customer_country?: string;
+  customer_phone: string;
+  customer_address: string;
+  customer_city: string;
+  customer_country: string;
   note?: string;
   agreed_to_terms: boolean;
   total_amount: number;

@@ -8,12 +8,25 @@ interface PartnersSearchProps {
 }
 
 export default function PartnersSearch({ partners }: PartnersSearchProps) {
-  const [searchCity, setSearchCity] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPartners = searchCity
-    ? partners.filter((partner) =>
-        partner.city.toLowerCase().includes(searchCity.toLowerCase()),
-      )
+  const filteredPartners = searchQuery
+    ? partners.filter((partner) => {
+        const query = searchQuery.toLowerCase();
+
+        // Search by name
+        const matchesName = partner.name.toLowerCase().includes(query);
+
+        // Search by country
+        const matchesCountry = partner.country.toLowerCase().includes(query);
+
+        // Search by cities (check if any city matches)
+        const matchesCity = partner.cities.some((city) =>
+          city.toLowerCase().includes(query),
+        );
+
+        return matchesName || matchesCountry || matchesCity;
+      })
     : partners;
 
   return (
@@ -32,12 +45,12 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
         {/* Search Section */}
         <div className="mb-8">
           <input
-            id="city-search"
+            id="partner-search"
             type="text"
-            placeholder="Search by city..."
-            value={searchCity}
-            onChange={(e) => setSearchCity(e.target.value)}
-            className="w-full px-4 py-3 border rounded-lg border-zinc-300 focus:outline-none focus:border-zinc-900"
+            placeholder="Search by name, country, or city..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-2.5 border rounded-lg border-zinc-300 focus:outline-none focus:border-zinc-900"
           />
         </div>
 
@@ -52,10 +65,23 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
                 <h3 className="text-xl font-bold text-zinc-900 mb-3">
                   {partner.name}
                 </h3>
-                <div className="space-y-1 text-zinc-700 mb-4">
-                  <p>
-                    {partner.city}, {partner.country}
+                <div className="space-y-2 text-zinc-700 mb-4">
+                  <p className="font-medium">
+                    <span className="text-zinc-500">Country:</span>{' '}
+                    {partner.country}
                   </p>
+                  <div>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {partner.cities.map((city, index) => (
+                        <span
+                          key={index}
+                          className="inline-block bg-white px-3 py-0.5 rounded-full text-sm border border-zinc-300"
+                        >
+                          {city}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 {partner.link && (
                   <a
@@ -72,7 +98,7 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
           ) : (
             <div className="text-center py-12">
               <p className="text-zinc-600">
-                No service partners found for &quot;{searchCity}&quot;
+                No service partners found for &quot;{searchQuery}&quot;
               </p>
             </div>
           )}

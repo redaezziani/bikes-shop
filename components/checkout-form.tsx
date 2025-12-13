@@ -72,6 +72,26 @@ const CheckoutForm = () => {
       return;
     }
 
+    if (!customerPhone.trim()) {
+      showToast.error('Phone required', 'Please enter your phone number');
+      return;
+    }
+
+    if (!customerAddress.trim()) {
+      showToast.error('Address required', 'Please enter your address');
+      return;
+    }
+
+    if (!customerCity.trim()) {
+      showToast.error('City required', 'Please enter your city');
+      return;
+    }
+
+    if (!customerCountry.trim()) {
+      showToast.error('Country required', 'Please enter your country');
+      return;
+    }
+
     if (!agreedToTerms) {
       showToast.error('Terms required', 'Please agree to the terms and conditions');
       return;
@@ -195,7 +215,7 @@ const CheckoutForm = () => {
         {/* Phone Input */}
         <div>
           <label className="block text-sm font-medium text-zinc-700 mb-2">
-            Phone Number (Optional)
+            Phone Number
           </label>
           <div className="relative">
             <IconPhone
@@ -208,6 +228,7 @@ const CheckoutForm = () => {
               onChange={(e) => handleFieldChange('phone', e.target.value)}
               placeholder="+971 50 123 4567"
               className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+              required
             />
           </div>
         </div>
@@ -215,7 +236,7 @@ const CheckoutForm = () => {
         {/* Address Input */}
         <div>
           <label className="block text-sm font-medium text-zinc-700 mb-2">
-            Address (Optional)
+            Address
           </label>
           <div className="relative">
             <IconMapPin
@@ -228,6 +249,7 @@ const CheckoutForm = () => {
               onChange={(e) => handleFieldChange('address', e.target.value)}
               placeholder="Street address"
               className="w-full pl-10 pr-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+              required
             />
           </div>
         </div>
@@ -236,7 +258,7 @@ const CheckoutForm = () => {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-zinc-700 mb-2">
-              City (Optional)
+              City
             </label>
             <input
               type="text"
@@ -244,11 +266,12 @@ const CheckoutForm = () => {
               onChange={(e) => handleFieldChange('city', e.target.value)}
               placeholder="Dubai"
               className="w-full px-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+              required
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-zinc-700 mb-2">
-              Country (Optional)
+              Country
             </label>
             <input
               type="text"
@@ -256,6 +279,7 @@ const CheckoutForm = () => {
               onChange={(e) => handleFieldChange('country', e.target.value)}
               placeholder="UAE"
               className="w-full px-4 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10 transition"
+              required
             />
           </div>
         </div>
@@ -331,6 +355,10 @@ const CheckoutForm = () => {
             isSubmitting ||
             !customerName.trim() ||
             !customerEmail.trim() ||
+            !customerPhone.trim() ||
+            !customerAddress.trim() ||
+            !customerCity.trim() ||
+            !customerCountry.trim() ||
             !agreedToTerms ||
             items.length === 0
           }
@@ -354,9 +382,15 @@ const CheckoutForm = () => {
             Add items to your cart to continue
           </p>
         ) : (
-          (!customerName.trim() || !customerEmail.trim() || !agreedToTerms) && (
+          (!customerName.trim() ||
+           !customerEmail.trim() ||
+           !customerPhone.trim() ||
+           !customerAddress.trim() ||
+           !customerCity.trim() ||
+           !customerCountry.trim() ||
+           !agreedToTerms) && (
             <p className="text-center text-sm text-zinc-500 mt-4">
-              Please fill in required fields and agree to terms to continue
+              Please fill in all required fields and agree to terms to continue
             </p>
           )
         )}

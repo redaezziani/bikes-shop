@@ -7,7 +7,6 @@ const STRAPI_API_KEY = process.env.NEXT_PUBLIC_STRAPI_API_KEY;
 const buildPartnersQueryString = (params?: {
   page?: number;
   pageSize?: number;
-  city?: string;
   country?: string;
 }): string => {
   const queryParts: string[] = [];
@@ -18,11 +17,8 @@ const buildPartnersQueryString = (params?: {
   if (params?.pageSize) {
     queryParts.push(`pagination[pageSize]=${params.pageSize}`);
   }
-  if (params?.city) {
-    queryParts.push(`filters[city][$containsi]=${encodeURIComponent(params.city)}`);
-  }
   if (params?.country) {
-    queryParts.push(`filters[country][$eq]=${encodeURIComponent(params.country)}`);
+    queryParts.push(`filters[country][$containsi]=${encodeURIComponent(params.country)}`);
   }
 
   return queryParts.length > 0 ? queryParts.join('&') : '';
@@ -32,7 +28,6 @@ const buildPartnersQueryString = (params?: {
 export async function getPartnersData(params?: {
   page?: number;
   pageSize?: number;
-  city?: string;
   country?: string;
 }): Promise<PartnersResponse> {
   const queryString = buildPartnersQueryString(params);
