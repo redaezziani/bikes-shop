@@ -31,7 +31,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
       <div className="flex flex-col bg-zinc-50 grow p-6">
         <h2 className="text-xl font-bold text-zinc-900 mb-3">{blog.title}</h2>
         {blog.excerpt && (
-          <p className="text-sm text-zinc-600 mb-6 line-clamp-3 grow">
+          <p className="text-sm text-zinc-600 mb-6 line-clamp-2 grow">
             {blog.excerpt}
           </p>
         )}
