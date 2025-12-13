@@ -4,18 +4,6 @@ import { IconX, IconChevronDown } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useProducts } from '@/store/products';
 
-interface SubItem {
-  name: string;
-  description: string;
-  icon?: string;
-}
-
-interface MenuItem {
-  label: string;
-  hasSubmenu: boolean;
-  subItems?: SubItem[];
-}
-
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<number | null>(null);
@@ -23,37 +11,12 @@ const Header = () => {
   const { data } = useProducts({ pageSize: 10 });
   const products = data?.data || [];
 
-  const menuItems: MenuItem[] = [
-    {
-      label: 'Models',
-      hasSubmenu: true,
-      subItems: [
-        { name: 'The Click', description: 'Explore and Learn', icon: '🚲' },
-        { name: 'The Nest', description: 'Explore and Learn', icon: '🚲' },
-        { name: 'The Long', description: 'Explore and Learn', icon: '🚲' },
-      ],
-    },
-    {
-      label: 'Learn',
-      hasSubmenu: true,
-      subItems: [
-        {
-          name: 'Along Care',
-          description:
-            'Learn about our free home service, 3-year warranty, and network of certified service partners.',
-        },
-        {
-          name: 'Guides & Stories',
-          description:
-            'Explore tips, safety advice, and stories from along riders.',
-        },
-        {
-          name: 'Support',
-          description: 'Find answers to your questions or contact us.',
-        },
-        { name: 'About along', description: 'Learn about us here.' },
-      ],
-    },
+  const learnItems = [
+    { name: 'Along Care', description: 'Free home service and warranty', href: '/care' },
+    { name: 'Guides & Stories', description: 'Safety tips and stories', href: '/guides' },
+    { name: 'Blog', description: 'Read our latest articles', href: '/blog' },
+    { name: 'About along', description: 'Learn about us here.', href: '/about' },
+    { name: 'Support', description: 'Find answers and contact us', href: 'https://wa.me/971523160662' },
   ];
 
   const toggleSubmenu = (index: number) => {
@@ -61,6 +24,7 @@ const Header = () => {
   };
 
   const [modelsDropdownOpen, setModelsDropdownOpen] = useState(false);
+  const [learnDropdownOpen, setLearnDropdownOpen] = useState(false);
 
   return (
     <>
@@ -98,10 +62,60 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
+          <Link
+            href="/order"
+            className="text-white cursor-pointer font-bold text-sm hover:text-zinc-200 transition-colors"
+          >
+            Order
+          </Link>
+
+          <div className="relative">
+            <button
+              onClick={() => setLearnDropdownOpen(!learnDropdownOpen)}
+              className="text-white font-bold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
+              aria-label="Learn menu"
+              aria-expanded={learnDropdownOpen}
+              aria-haspopup="true"
+            >
+              Learn
+              <IconChevronDown
+                size={16}
+                className={`transition-transform ${
+                  learnDropdownOpen ? 'rotate-180' : ''
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {learnDropdownOpen && (
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+                {learnItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    onClick={() => setLearnDropdownOpen(false)}
+                    className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
+                  >
+                    <div>
+                      <h3 className="font-medium text-zinc-800 text-sm">
+                        {item.name}
+                      </h3>
+                      <p className="text-xs text-zinc-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="relative">
             <button
               onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
-              className="text-white font-semibold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
+              className="text-white font-bold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
               aria-label="View bike models"
               aria-expanded={modelsDropdownOpen}
               aria-haspopup="true"
@@ -153,44 +167,6 @@ const Header = () => {
               </div>
             )}
           </div>
-          <Link
-            href="/care"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Along Care
-          </Link>
-          <Link
-            href="/guides"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Guides & Stories
-          </Link>
-          <Link
-            href="/about"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            About along
-          </Link>
-          <Link
-            href="/blog"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="https://wa.me/971523160662"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Support
-          </Link>
-          <Link
-            href="/order"
-            className="text-white cursor-pointer font-semibold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Order
-          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -223,14 +199,25 @@ const Header = () => {
           <nav className="flex-1 overflow-y-auto px-6">
             <ul>
               <li>
+                <Link
+                  href="/order"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Order
+                  </span>
+                </Link>
+              </li>
+              <li>
                 <button
                   onClick={() => toggleSubmenu(0)}
                   className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                  aria-label="Models menu"
+                  aria-label="Learn menu"
                   aria-expanded={expandedMenu === 0}
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Models
+                    Learn
                   </span>
                   <IconChevronDown
                     className={`text-zinc-500 transition-transform ${
@@ -242,6 +229,49 @@ const Header = () => {
                 </button>
 
                 {expandedMenu === 0 && (
+                  <div className="py-4 space-y-2">
+                    {learnItems.map((item, index) => (
+                      <Link
+                        href={item.href}
+                        key={index}
+                        target={item.href.startsWith('http') ? '_blank' : undefined}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        onClick={() => setOpen(false)}
+                        className="flex gap-4 items-start px-2 py-2 hover:bg-zinc-50 rounded transition-colors"
+                      >
+                        <div className="flex-1">
+                          <h3 className="font-medium text-zinc-800">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-zinc-500 mt-1">
+                            {item.description}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </li>
+              <li>
+                <button
+                  onClick={() => toggleSubmenu(1)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                  aria-label="Models menu"
+                  aria-expanded={expandedMenu === 1}
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Models
+                  </span>
+                  <IconChevronDown
+                    className={`text-zinc-500 transition-transform ${
+                      expandedMenu === 1 ? 'rotate-180' : ''
+                    }`}
+                    size={20}
+                    aria-hidden="true"
+                  />
+                </button>
+
+                {expandedMenu === 1 && (
                   <div className="py-4 space-y-4">
                     {products.map((p) => (
                       <Link
@@ -269,73 +299,6 @@ const Header = () => {
                     ))}
                   </div>
                 )}
-              </li>
-              <li>
-                <Link
-                  href="/care"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Along Care
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/guides"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Guides & Stories
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    About along
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Blog
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="https://wa.me/971523160662"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Support
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/order"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Order
-                  </span>
-                </Link>
               </li>
             </ul>
           </nav>
