@@ -1,26 +1,28 @@
 'use client';
 
-import { useState } from 'react';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ProductImagePreviewProps {
   images: string[];
   alt?: string;
+  current: number;
+  setCurrent: (index: number) => void;
 }
 
 export default function ProductImagePreview({
   images,
   alt = 'Product image',
+  current,
+  setCurrent,
 }: ProductImagePreviewProps) {
-  const [current, setCurrent] = useState(0);
 
   const prevImage = () => {
-    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrent(current === 0 ? images.length - 1 : current - 1);
   };
 
   const nextImage = () => {
-    setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrent(current === images.length - 1 ? 0 : current + 1);
   };
 
   return (
@@ -62,7 +64,7 @@ export default function ProductImagePreview({
         </AnimatePresence>
       </span>
 
-      <div className="grid grid-cols-5 md:grid-cols-8 mt-4 w-full gap-2">
+      <div className="grid grid-cols-6  md:hidden mt-4 w-full gap-2">
         {images.map((img, i) => (
           <button
             key={i}

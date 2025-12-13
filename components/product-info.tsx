@@ -13,6 +13,9 @@ interface ProductInfoProps {
   priceUSD: number;
   colors?: { name: string; hex: string }[];
   documentId: string;
+  images: string[];
+  current: number;
+  setCurrent: (index: number) => void;
 }
 
 export default function ProductInfo({
@@ -22,6 +25,9 @@ export default function ProductInfo({
   priceUSD,
   colors = [],
   documentId,
+  images,
+  current,
+  setCurrent,
 }: ProductInfoProps) {
   const [qty, setQty] = useState(1);
   const [selectedColor, setSelectedColor] = useState(colors[0]?.name || '');
@@ -123,6 +129,28 @@ export default function ProductInfo({
             <IconArrowRight size={18} />
           </button>
         </Link>
+
+        <div className="hidden md:grid grid-cols-6 mt-4 w-full gap-2">
+          {images.map((img, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Select image ${i + 1}`}
+              className={`relative w-full aspect-square rounded bg-zinc-100 overflow-hidden border-2 ${
+                current === i ? 'border-zinc-800' : 'border-transparent'
+              }`}
+            >
+              <img
+                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${img}`}
+                alt={`Thumbnail ${i + 1}`}
+                width={100}
+                height={100}
+                sizes="100%"
+                className="object-cover w-full h-full"
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );

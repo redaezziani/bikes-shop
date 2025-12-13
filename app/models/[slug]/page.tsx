@@ -32,6 +32,7 @@ const ProductDetailsPage = () => {
   const [activeAccessory, setActiveAccessory] = useState<Accessory | null>(
     null,
   );
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (isLoading || !selectedProduct) {
     return (
@@ -85,7 +86,11 @@ const ProductDetailsPage = () => {
       <HeaderDetailsPage />
       <section className="w-full max-w-7xl px-4 flex  flex-col gap-2 justify-start items-center">
         <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ProductImagePreview images={allImages} />
+          <ProductImagePreview
+            images={allImages}
+            current={currentImageIndex}
+            setCurrent={setCurrentImageIndex}
+          />
           <ProductInfo
             title={selectedProduct.name}
             description={selectedProduct.short_description}
@@ -93,6 +98,9 @@ const ProductDetailsPage = () => {
             priceUSD={totalPrice * 0.27}
             colors={selectedProduct.colors}
             documentId={selectedProduct.documentId}
+            images={allImages}
+            current={currentImageIndex}
+            setCurrent={setCurrentImageIndex}
           />
         </div>
 
@@ -140,7 +148,7 @@ const ProductDetailsPage = () => {
           </ReactMarkdown>
         </section>
 
-        <section className=" w-full  border-t border-b py-2 border-x-0 border-zinc-400/25  flex flex-col gap-4 mt-10 justify-center items-center">
+        <section className=" w-full   py-2 border-x-0 border-zinc-400/25  flex flex-col gap-4 mt-10 justify-center items-center">
           <h3 className="  font-semibold text-zinc-700 text-2xl">
             Key Specifications
           </h3>
