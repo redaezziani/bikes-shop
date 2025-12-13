@@ -1,5 +1,5 @@
 'use client';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AccessorySelector from '@/components/accessory-selector';
 import HeaderDetailsPage from '@/components/header-v2';
@@ -40,6 +40,7 @@ const OrderContent = () => {
   } = useProductSelection(currentProduct);
 
   const availableColors = currentProduct?.colors || [];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (isLoading) {
     return (
@@ -69,7 +70,11 @@ const OrderContent = () => {
             {currentProduct ? (
               <>
                 <span className="  md:block hidden">
-                  <ProductImagePreview images={allImages} />
+                  <ProductImagePreview
+                    images={allImages}
+                    current={currentImageIndex}
+                    setCurrent={setCurrentImageIndex}
+                  />
                 </span>
                 <span className=" block md:hidden w-full">
                   <ModelPreview
