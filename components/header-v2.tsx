@@ -13,24 +13,23 @@ const HeaderDetailsPage = () => {
   const learnItems = [
     {
       name: 'Along Care',
-      description: 'Free home service and warranty',
+      description: 'Learn about our free home service, 3-year warranty, and network of certified service partners.',
       href: '/care',
     },
     {
       name: 'Guides & Stories',
-      description: 'Safety tips and stories',
+      description: 'Explore tips, safety advice, and stories from along riders.',
       href: '/guides',
     },
-    { name: 'Blog', description: 'Read our latest articles', href: '/blog' },
+    {
+      name: 'Support',
+      description: 'Find answers to your questions or contact us.',
+      href: 'https://wa.me/971523160662',
+    },
     {
       name: 'About along',
       description: 'Learn about us here.',
       href: '/about',
-    },
-    {
-      name: 'Support',
-      description: 'Find answers and contact us',
-      href: 'https://wa.me/971523160662',
     },
   ];
 
