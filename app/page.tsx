@@ -10,20 +10,25 @@ import { getBlogsData } from '@/lib/blogs-service';
 import { getOffersData } from '@/lib/offers-service';
 
 const Footer = dynamicImport(() => import('@/components/footer'));
-const OffersSection = dynamicImport(() => import('@/components/offers-section'));
+const OffersSection = dynamicImport(
+  () => import('@/components/offers-section'),
+);
 const VideoPlayer = dynamicImport(() => import('@/components/video-player'));
-const FixedBottomBar = dynamicImport(() => import('@/components/fixed-bottom-bar'));
+const FixedBottomBar = dynamicImport(
+  () => import('@/components/fixed-bottom-bar'),
+);
 
 // Force dynamic rendering since we depend on external API
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const [sectionOneData, sectionTwoData, blogsData, offersData] = await Promise.all([
-    getSectionOneData(),
-    getSectionTwoData({ pageSize: 10 }),
-    getBlogsData({ pageSize: 6 }),
-    getOffersData({ pageSize: 10 }),
-  ]);
+  const [sectionOneData, sectionTwoData, blogsData, offersData] =
+    await Promise.all([
+      getSectionOneData(),
+      getSectionTwoData({ pageSize: 10 }),
+      getBlogsData({ pageSize: 6 }),
+      getOffersData({ pageSize: 10 }),
+    ]);
 
   const slides = sectionOneData?.data || [];
   const productSections = sectionTwoData?.data || [];
@@ -49,14 +54,21 @@ export default async function Home() {
             </div>
             <div className="flex flex-col px-4 justify-start py-5 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
-                Master Your Riding Skills
+                Timeless Designs, Made for Today
               </h3>
               <p className="text-zinc-700 md:w-3xl text-sm leading-6">
-                Discover essential techniques and tips to improve your cycling
-                performance. Learn from experienced riders how to navigate
-                different terrains, maintain balance, and maximize your biking
-                experience.
+                We build front-loader cargo bikes for a shared view and a richer
+                sensory experience. Inspired by Long John and Bakfiets heritage,
+                we design modern family bikes for life in Dubai and the UAE.
               </p>
+              <Link href={'/routes'}>
+                <button
+                  className=" py-2.5 px-3 rounded-lg mt-4 font-medium text-zinc-100 capitalize text-sm bg-zinc-900 w-32"
+                  aria-label="Learn more about scenic biking routes"
+                >
+                  Book Test Ride
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
@@ -65,19 +77,19 @@ export default async function Home() {
             </div>
             <div className=" py-5 px-4 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
-                Explore Scenic Routes
+                We Are Set to Explore
               </h3>
               <p className="text-zinc-700 text-sm leading-6">
-                Discover amazing biking routes in your area. From mountain
-                trails to scenic coastal paths, find the perfect route for your
-                next adventure.
+                We’re exploring and documenting the best family-friendly cycling
+                routes across Dubai and the UAE through the eyes of the whole
+                family.
               </p>
-              <Link href={'/routes'}>
+              <Link href={'/we-are-set-to-explore'}>
                 <button
-                  className=" py-2.5 px-3 rounded-lg mt-4 font-medium text-zinc-100 capitalize text-sm bg-zinc-900 w-32"
+                  className=" py-2.5 px-3 rounded-lg mt-4 font-medium text-zinc-100 capitalize text-sm bg-zinc-900 min-w-32"
                   aria-label="Learn more about scenic biking routes"
                 >
-                  learn more
+                  Discover along Routes Collection
                 </button>
               </Link>
             </div>
@@ -91,4 +103,3 @@ export default async function Home() {
     </main>
   );
 }
-

@@ -40,10 +40,10 @@ interface OrderState {
   setCustomerInfo: (
     name: string,
     email: string,
-    phone?: string,
-    address?: string,
-    city?: string,
-    country?: string,
+    phone: string,
+    address: string,
+    city: string,
+    country: string,
     note?: string
   ) => void;
   setAgreedToTerms: (agreed: boolean) => void;
@@ -54,10 +54,10 @@ interface OrderState {
   getCheckoutPayload: () => {
     customerName: string;
     customerEmail: string;
-    customerPhone?: string;
-    customerAddress?: string;
-    customerCity?: string;
-    customerCountry?: string;
+    customerPhone: string;
+    customerAddress: string;
+    customerCity: string;
+    customerCountry: string;
     note?: string;
     agreedToTerms: boolean;
     items: Array<{
@@ -156,7 +156,7 @@ export const useOrderStore = create<OrderState>()(
         }));
       },
 
-      setCustomerInfo: (name, email, phone = '', address = '', city = '', country = '', note = '') => {
+      setCustomerInfo: (name, email, phone, address, city, country, note = '') => {
         set({
           customerName: name,
           customerEmail: email,
@@ -250,13 +250,15 @@ export const useOrderStore = create<OrderState>()(
           });
         });
 
+        // Return payload with required fields
+        // Note: Form validation ensures these fields are not empty before calling this function
         return {
-          customerName: state.customerName,
-          customerEmail: state.customerEmail,
-          customerPhone: state.customerPhone || undefined,
-          customerAddress: state.customerAddress || undefined,
-          customerCity: state.customerCity || undefined,
-          customerCountry: state.customerCountry || undefined,
+          customerName: state.customerName as string,
+          customerEmail: state.customerEmail as string,
+          customerPhone: state.customerPhone as string,
+          customerAddress: state.customerAddress as string,
+          customerCity: state.customerCity as string,
+          customerCountry: state.customerCountry as string,
           note: state.note || undefined,
           agreedToTerms: state.agreedToTerms,
           items: backendItems,

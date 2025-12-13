@@ -46,7 +46,7 @@ export default function AlongCarePage() {
       <HeaderDetailsPage />
       <main className="flex flex-col w-full bg-white items-center">
         <section className="w-full px-6 md:px-12 py-10  bg-white">
-          <div className="max-w-4xl ">
+          <div className="max-w-3xl mx-auto">
             <Breadcrumbs className="py-8" />
             <div className="">
               <h1 className="text-3xl md:text-6xl font-bold text-zinc-900 mb-2">

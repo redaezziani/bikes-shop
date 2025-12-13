@@ -27,9 +27,7 @@ const ProductDetailsPage = () => {
     error,
   } = useProductBySlug(productSlug as string);
 
-  const {
-    selectedAccessories,
-  } = useProductSelection(selectedProduct || null);
+  const { selectedAccessories } = useProductSelection(selectedProduct || null);
 
   const [activeAccessory, setActiveAccessory] = useState<Accessory | null>(
     null,
@@ -127,7 +125,14 @@ const ProductDetailsPage = () => {
                   );
                 }
                 // Fallback to regular img tag for non-string sources
-                return <img src={src as string} alt={alt as string} className="mt-2 mb-4 rounded-lg" {...props} />;
+                return (
+                  <img
+                    src={src as string}
+                    alt={alt as string}
+                    className="mt-2 mb-4 rounded-lg"
+                    {...props}
+                  />
+                );
               },
             }}
           >
@@ -143,7 +148,10 @@ const ProductDetailsPage = () => {
             <Image
               className="mt-5"
               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${selectedProduct.specs_image.url}`}
-              alt={selectedProduct.specs_image.alternativeText || 'Product specifications'}
+              alt={
+                selectedProduct.specs_image.alternativeText ||
+                'Product specifications'
+              }
               width={selectedProduct.specs_image.width}
               height={selectedProduct.specs_image.height}
               quality={90}
@@ -164,14 +172,6 @@ const ProductDetailsPage = () => {
                 <span className="w-full h-1 bg-zinc-400"></span>
               </div>
             ))}
-
-            <div className="flex w-full flex-col gap-1">
-              <div className="flex w-full justify-between">
-                <p className="text-zinc-600">Category</p>
-                <p className="text-zinc-600">{selectedProduct.category}</p>
-              </div>
-              <span className="w-full h-1 bg-zinc-400"></span>
-            </div>
           </div>
         </section>
 
@@ -180,10 +180,7 @@ const ProductDetailsPage = () => {
             <h3 className="text-lg font-medium text-zinc-800">
               Related Accessories
             </h3>
-            <p className="text-sm text-zinc-600">
-              Upgrade your ride with accessories designed to pair perfectly with
-              this product.
-            </p>
+
             <div className="grid w-full mt-5 grid-cols-2 md:grid-cols-3 gap-2">
               {selectedProduct.available_accessories.slice(0, 3).map((acc) => (
                 <div

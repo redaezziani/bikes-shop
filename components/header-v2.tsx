@@ -36,7 +36,7 @@ const HeaderDetailsPage = () => {
 
   return (
     <>
-      <header className="w-full border border-b border-zinc-400/25 px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
+      <header className="w-full  border-b border-zinc-400/25 px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
         <Link href="/" aria-label="Go to homepage">
           <svg
             className="w-26 lg:w-28 text-zinc-950 fill-zinc-950"

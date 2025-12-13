@@ -58,6 +58,14 @@ const OrderSummaryPanel = ({
     return color ? color.hex : null;
   }, [currentProduct, selectedColorName]);
 
+  const isColorOutOfStock = useMemo(() => {
+    if (!currentProduct) return false;
+    const color = currentProduct.colors.find(
+      (c) => c.name === selectedColorName,
+    );
+    return color ? color.quantity !== undefined && color.quantity < 1 : false;
+  }, [currentProduct, selectedColorName]);
+
   const totalPrice = useMemo(() => {
     if (!currentProduct) return 0;
     const productPrice = currentProduct.price;
@@ -87,11 +95,12 @@ const OrderSummaryPanel = ({
       animate={isExpanded ? 'expanded' : 'collapsed'}
       variants={summaryVariants}
       transition={{ duration: 0.3 }}
-      className={`md:!h-auto md:relative md:shadow-none md:rounded-xl fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden md:overflow-visible backdrop-blur-md ${
+      className={`md:!h-auto md:relative md:shadow-none md:rounded-xl fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden md:overflow-visible backdrop-blur-md flex flex-col ${
         isExpanded
           ? 'bg-white md:bg-white'
           : 'bg-white md:bg-zinc-50 md:border md:border-zinc-200'
       }`}
+      style={isExpanded ? { maxHeight: '100vh' } : undefined}
     >
       <div
         className={`flex justify-between border-zinc-400/25 items-center px-4 py-4 md:px-6 md:py-4 transition-colors duration-300 cursor-pointer md:cursor-default ${
@@ -129,17 +138,17 @@ const OrderSummaryPanel = ({
       </div>
 
       <div
-        className={`p-6 overflow-y-auto md:!block md:!h-auto ${isExpanded ? 'block' : 'hidden'}`}
+        className={`p-6 overflow-y-auto md:!block md:!h-auto flex-1 overscroll-contain ${
+          isExpanded ? 'block' : 'hidden'
+        }`}
       >
-        <h2 className="text-xl font-bold mb-6 text-zinc-800">
-          Your Configuration
-        </h2>
+        <h2 className="text-xl font-bold mb-6 text-zinc-800">Your Order</h2>
 
         {/* Product Section */}
         <div className="mb-6 p-4 border border-zinc-200 rounded-lg bg-zinc-50">
           <div className="flex items-center gap-3 mb-4">
             <IconBike size={20} className="text-zinc-700" />
-            <h3 className="font-semibold text-zinc-800">Product</h3>
+            <h3 className="font-semibold text-zinc-800">Model</h3>
           </div>
           <div className="flex justify-between items-center py-2 border-b border-dashed border-zinc-300">
             <span className="font-medium text-sm">{currentProduct.name}</span>
@@ -156,6 +165,11 @@ const OrderSummaryPanel = ({
               className="size-5 rounded-md border border-zinc-300"
               style={{ backgroundColor: selectedColorHex || '#cccccc' }}
             />
+            {isColorOutOfStock && (
+              <span className="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded">
+                Out of Stock
+              </span>
+            )}
           </div>
         </div>
 
@@ -236,19 +250,62 @@ const OrderSummaryPanel = ({
               setIsSubmitting(true);
 
               try {
+                // Validate product data
+                if (!currentProduct?.documentId) {
+                  showToast.error(
+                    'Invalid product',
+                    'Product information is incomplete',
+                  );
+                  setIsSubmitting(false);
+                  return;
+                }
+
                 // Add current product configuration to store if not already added
                 const selectedColor = currentProduct.colors.find(
                   (c) => c.name === selectedColorName,
                 );
 
-                if (selectedColor) {
-                  addItem(
-                    currentProduct,
-                    selectedColor,
-                    selectedAccessoriesDetails,
-                    1,
+                if (!selectedColor) {
+                  showToast.error(
+                    'Color not found',
+                    'Please select a valid color',
                   );
+                  setIsSubmitting(false);
+                  return;
                 }
+
+                // Check if selected color is in stock
+                if (
+                  selectedColor.quantity !== undefined &&
+                  selectedColor.quantity < 1
+                ) {
+                  showToast.error(
+                    'Out of stock',
+                    `The ${selectedColor.name} color is currently out of stock`,
+                  );
+                  setIsSubmitting(false);
+                  return;
+                }
+
+                // Validate accessories have required data
+                const invalidAccessories = selectedAccessoriesDetails.filter(
+                  (acc) => !acc.id || !acc.price,
+                );
+                if (invalidAccessories.length > 0) {
+                  showToast.error(
+                    'Invalid accessories',
+                    'Some accessories are missing required information',
+                  );
+                  setIsSubmitting(false);
+                  return;
+                }
+
+                addItem(
+                  currentProduct,
+                  selectedColor,
+                  selectedAccessoriesDetails,
+                  1,
+                );
 
                 // Get the checkout payload with all items
                 const checkoutPayload = getCheckoutPayload();
@@ -276,38 +333,99 @@ const OrderSummaryPanel = ({
                   return;
                 }
 
-                // Call the checkout endpoint
-                const checkoutResponse = await fetch(
-                  `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/checkout`,
-                  {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(checkoutPayload),
-                  },
-                );
-
-                if (!checkoutResponse.ok) {
-                  throw new Error('Failed to create checkout session');
+                // Validate API URL is configured
+                if (!process.env.NEXT_PUBLIC_STRAPI_API_URL) {
+                  showToast.error(
+                    'Configuration error',
+                    'Payment system is not properly configured',
+                  );
+                  setIsSubmitting(false);
+                  return;
                 }
 
-                const checkoutData = await checkoutResponse.json();
+                // Call the checkout endpoint with timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
 
-                if (checkoutData.url) {
-                  // Redirect to Stripe checkout
-                  window.location.href = checkoutData.url;
-                } else {
-                  showToast.error('Payment error', 'No checkout URL received');
+                try {
+                  const checkoutResponse = await fetch(
+                    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/checkout`,
+                    {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(checkoutPayload),
+                      signal: controller.signal,
+                    },
+                  );
+
+                  clearTimeout(timeoutId);
+
+                  if (!checkoutResponse.ok) {
+                    const errorData = await checkoutResponse
+                      .json()
+                      .catch(() => null);
+                    const errorMessage =
+                      errorData?.error ||
+                      errorData?.message ||
+                      `Server error (${checkoutResponse.status})`;
+                    throw new Error(errorMessage);
+                  }
+
+                  const checkoutData = await checkoutResponse.json();
+
+                  if (!checkoutData || typeof checkoutData !== 'object') {
+                    throw new Error('Invalid response from server');
+                  }
+
+                  if (checkoutData.url) {
+                    // Redirect to Stripe checkout
+                    window.location.href = checkoutData.url;
+                  } else {
+                    showToast.error(
+                      'Payment error',
+                      'No checkout URL received from server',
+                    );
+                  }
+                } catch (fetchError) {
+                  clearTimeout(timeoutId);
+
+                  if (fetchError instanceof Error) {
+                    if (fetchError.name === 'AbortError') {
+                      throw new Error(
+                        'Request timed out. Please check your connection and try again.',
+                      );
+                    }
+                    throw fetchError;
+                  }
+                  throw new Error('Network error occurred');
                 }
               } catch (error) {
                 console.error('Checkout error:', error);
-                showToast.error(
-                  'Checkout failed',
-                  error instanceof Error
-                    ? error.message
-                    : 'Failed to process checkout',
-                );
+
+                let errorTitle = 'Checkout failed';
+                let errorMessage = 'Failed to process checkout';
+
+                if (error instanceof Error) {
+                  errorMessage = error.message;
+
+                  // Provide user-friendly messages for common errors
+                  if (error.message.includes('Failed to fetch')) {
+                    errorTitle = 'Connection error';
+                    errorMessage =
+                      'Unable to connect to server. Please check your internet connection.';
+                  } else if (error.message.includes('NetworkError')) {
+                    errorTitle = 'Network error';
+                    errorMessage = 'Network issue detected. Please try again.';
+                  } else if (error.message.includes('timeout')) {
+                    errorTitle = 'Request timeout';
+                    errorMessage =
+                      'The request took too long. Please try again.';
+                  }
+                }
+
+                showToast.error(errorTitle, errorMessage);
               } finally {
                 setIsSubmitting(false);
               }
@@ -549,7 +667,8 @@ const OrderSummaryPanel = ({
                 isSubmitting ||
                 !customerInfo.name.trim() ||
                 !customerInfo.email.trim() ||
-                !agreedToTerms
+                !agreedToTerms ||
+                isColorOutOfStock
               }
               className="w-full mt-4 py-2.5 bg-zinc-950  disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2 text-sm"
             >
@@ -566,12 +685,18 @@ const OrderSummaryPanel = ({
               )}
             </motion.button>
 
-            {(!customerInfo.name.trim() ||
-              !customerInfo.email.trim() ||
-              !agreedToTerms) && (
-              <p className="text-center text-xs text-zinc-500 mt-2">
-                Please fill in required fields and agree to terms to continue
+            {isColorOutOfStock ? (
+              <p className="text-center text-xs text-red-600 font-semibold mt-2 bg-red-50 py-2 px-3 rounded">
+                The selected color is out of stock. Please choose another color.
               </p>
+            ) : (
+              (!customerInfo.name.trim() ||
+                !customerInfo.email.trim() ||
+                !agreedToTerms) && (
+                <p className="text-center text-xs text-zinc-500 mt-2">
+                  Please fill in required fields and agree to terms to continue
+                </p>
+              )
             )}
           </form>
         </div>

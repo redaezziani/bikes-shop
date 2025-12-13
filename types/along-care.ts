@@ -20,7 +20,7 @@ export interface Partner {
   documentId: string;
   name: string;
   country: string;
-  city: string;
+  cities: string[];
   link: string | null;
   createdAt: string;
   updatedAt: string;
