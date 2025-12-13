@@ -5,6 +5,7 @@ import React, { useRef, useEffect, useState } from 'react';
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isInView, setIsInView] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -16,16 +17,22 @@ const VideoPlayer = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsInView(true);
-            videoElement.play().catch((err) => {
-              console.log('Autoplay prevented:', err);
-            });
+            setShouldLoad(true); // Only load video when in view
+
+            // Small delay to ensure video has loaded
+            setTimeout(() => {
+              videoElement.play().catch((err) => {
+                console.log('Autoplay prevented:', err);
+              });
+            }, 100);
           } else {
             videoElement.pause();
           }
         });
       },
       {
-        threshold: 0.5, // Video plays when 50% visible
+        threshold: 0.25, // Load when 25% visible
+        rootMargin: '50px', // Start loading slightly before visible
       },
     );
 
@@ -43,7 +50,7 @@ const VideoPlayer = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-emerald-100 animate-pulse" />
       )}
 
-      {/* Video */}
+      {/* Video - only load source when in view */}
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
@@ -53,7 +60,7 @@ const VideoPlayer = () => {
         preload="none"
         poster="/video-poster.jpg"
       >
-        <source src="/video.mp4" type="video/mp4" />
+        {shouldLoad && <source src="/video.mp4" type="video/mp4" />}
         Your browser does not support the video tag.
       </video>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { IconX } from '@tabler/icons-react';
 import { Accessory } from '@/store/products';
 

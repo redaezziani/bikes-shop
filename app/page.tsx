@@ -1,25 +1,35 @@
 import dynamicImport from 'next/dynamic';
-import HeroSlider from '@/components/hero-slider';
-import ProductVersionSection from '@/components/product-version-section';
-import BlogSection from '@/components/blog-section';
-import MapboxMap from '@/components/map-box';
 import Link from 'next/link';
 import { getSectionOneData } from '@/lib/section-one-service';
 import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';
 import { getOffersData } from '@/lib/offers-service';
 
+const HeroSlider = dynamicImport(() => import('@/components/hero-slider'), {
+  ssr: true,
+});
+const ProductVersionSection = dynamicImport(
+  () => import('@/components/product-version-section'),
+  { ssr: true }
+);
+const BlogSection = dynamicImport(() => import('@/components/blog-section'), {
+  ssr: true,
+});
+// Client-only components
+const MapboxMap = dynamicImport(() => import('@/components/map-box'));
+const VideoPlayer = dynamicImport(() => import('@/components/video-player'));
+
+// Other dynamic components
 const Footer = dynamicImport(() => import('@/components/footer'));
 const OffersSection = dynamicImport(
   () => import('@/components/offers-section'),
 );
-const VideoPlayer = dynamicImport(() => import('@/components/video-player'));
 const FixedBottomBar = dynamicImport(
   () => import('@/components/fixed-bottom-bar'),
 );
 
-// Force dynamic rendering since we depend on external API
-export const dynamic = 'force-dynamic';
+// Enable ISR with revalidation every 60 seconds
+export const revalidate = 60;
 
 export default async function Home() {
   const [sectionOneData, sectionTwoData, blogsData, offersData] =
