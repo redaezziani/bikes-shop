@@ -14,7 +14,7 @@ const Header = () => {
   const learnItems = [
     { name: 'Along Care', description: 'Learn about our free home service, 3-year warranty, and network of certified service partners.', href: '/care' },
     { name: 'Guides & Stories', description: 'Explore tips, safety advice, and stories from along riders.', href: '/guides' },
-    { name: 'Support', description: 'Find answers to your questions or contact us.', href: 'https://wa.me/971523160662' },
+    { name: 'Support', description: 'Find answers to your questions or contact us.', href: '/support' },
     { name: 'About along', description: 'Learn about us here.', href: '/about' },
   ];
 
