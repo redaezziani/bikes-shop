@@ -24,7 +24,7 @@ const HeaderDetailsPage = () => {
     {
       name: 'Support',
       description: 'Find answers to your questions or contact us.',
-      href: 'https://wa.me/971523160662',
+      href: '/support',
     },
     {
       name: 'About along',
