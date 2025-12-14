@@ -11,7 +11,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,7 +43,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: Deploy to VPS
-
     steps:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
@@ -53,35 +51,49 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "🚀 Starting Next.js deployment..."
             cd ~/bikes-shop
 
-            echo "📥 Pulling latest code..."
-            git stash
-            git pull origin main
-
-            echo "🔐 Login to GitHub Container Registry..."
             echo "${{ secrets.GH_PAT }}" | docker login ghcr.io -u redaezziani --password-stdin
 
-            echo "📦 Pulling latest image..."
             docker pull ghcr.io/redaezziani/bikes-shop-nextjs:latest
 
-            echo "🐳 Restarting container..."
-            docker compose down
-            docker compose up -d
+            docker compose up -d --no-deps app || {
+              echo "Deployment failed, attempting rollback"
+              docker compose up -d
+              exit 1
+            }
 
-            echo "⏳ Waiting for Next.js to start..."
             sleep 10
 
-            echo "🧹 Cleaning up old images..."
-            docker image prune -f
+            if curl -f http://localhost:3000 > /dev/null 2>&1; then
+              echo "Health check passed"
+              docker image prune -f
+            else
+              echo "Health check failed"
+              docker compose logs --tail=50
+              exit 1
+            fi
 
-            echo "✅ Deployment completed!"
-
-      - name: Deployment Status
+      - name: Notify deployment success
         if: success()
-        run: echo "✅ Next.js deployed successfully!"
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Deployment successful
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.event.head_commit.message }}
+            Author: ${{ github.event.head_commit.author.name }}
 
-      - name: Deployment Failed
+      - name: Notify deployment failure
         if: failure()
-        run: echo "❌ Next.js deployment failed!"
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Deployment failed
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.event.head_commit.message }}
+            Check logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
