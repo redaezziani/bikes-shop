@@ -32,13 +32,23 @@ const FixedBottomBar = dynamicImport(
 export const revalidate = 60;
 
 export default async function Home() {
-  const [sectionOneData, sectionTwoData, blogsData, offersData] =
-    await Promise.all([
-      getSectionOneData(),
-      getSectionTwoData({ pageSize: 10 }),
-      getBlogsData({ pageSize: 6 }),
-      getOffersData({ pageSize: 10 }),
-    ]);
+  let sectionOneData, sectionTwoData, blogsData, offersData;
+
+  try {
+    [sectionOneData, sectionTwoData, blogsData, offersData] =
+      await Promise.all([
+        getSectionOneData(),
+        getSectionTwoData({ pageSize: 10 }),
+        getBlogsData({ pageSize: 6 }),
+        getOffersData({ pageSize: 10 }),
+      ]);
+  } catch (error) {
+    console.warn('Failed to fetch data:', error);
+    sectionOneData = { data: [] };
+    sectionTwoData = { data: [] };
+    blogsData = { data: [] };
+    offersData = { data: [] };
+  }
 
   const slides = sectionOneData?.data || [];
   const productSections = sectionTwoData?.data || [];
