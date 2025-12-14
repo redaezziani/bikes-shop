@@ -61,24 +61,73 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          <Link
-            href="/order"
-            className="text-white cursor-pointer font-bold text-sm hover:text-zinc-200 transition-colors"
-          >
-            Order
-          </Link>
+          <div className="relative">
+            <button
+              onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
+              className="text-white font-bold text-lg hover:text-zinc-200 transition-colors flex items-center gap-1"
+              aria-label="View bike models"
+              aria-expanded={modelsDropdownOpen}
+              aria-haspopup="true"
+            >
+              Models
+              <IconChevronDown
+                size={20}
+                className={`transition-transform ${
+                  modelsDropdownOpen ? 'rotate-180' : ''
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {modelsDropdownOpen && (
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
+                {products.length > 0 ? (
+                  products.map((p) => (
+                    <Link
+                      key={p.id}
+                      href={`/models/${p.slug}`}
+                      onClick={() => setModelsDropdownOpen(false)}
+                      className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
+                    >
+                      {p.preview_images[0] && (
+                        <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                            alt={p.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="font-medium text-zinc-800 text-lg">
+                          {p.name}
+                        </h3>
+                        <p className="text-base text-zinc-500">
+                          Explore and Learn
+                        </p>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="px-4 py-3 text-zinc-600 text-lg">
+                    No models available
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           <div className="relative">
             <button
               onClick={() => setLearnDropdownOpen(!learnDropdownOpen)}
-              className="text-white font-bold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
+              className="text-white font-bold text-lg hover:text-zinc-200 transition-colors flex items-center gap-1"
               aria-label="Learn menu"
               aria-expanded={learnDropdownOpen}
               aria-haspopup="true"
             >
               Learn
               <IconChevronDown
-                size={16}
+                size={20}
                 className={`transition-transform ${
                   learnDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -87,7 +136,7 @@ const Header = () => {
             </button>
 
             {learnDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {learnItems.map((item, index) => (
                   <Link
                     key={index}
@@ -98,10 +147,10 @@ const Header = () => {
                     className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                   >
                     <div>
-                      <h3 className="font-medium text-zinc-800 text-sm">
+                      <h3 className="font-medium text-zinc-800 text-lg">
                         {item.name}
                       </h3>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-base text-zinc-500">
                         {item.description}
                       </p>
                     </div>
@@ -111,61 +160,12 @@ const Header = () => {
             )}
           </div>
 
-          <div className="relative">
-            <button
-              onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
-              className="text-white font-bold text-sm hover:text-zinc-200 transition-colors flex items-center gap-1"
-              aria-label="View bike models"
-              aria-expanded={modelsDropdownOpen}
-              aria-haspopup="true"
-            >
-              Models
-              <IconChevronDown
-                size={16}
-                className={`transition-transform ${
-                  modelsDropdownOpen ? 'rotate-180' : ''
-                }`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {modelsDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
-                {products.length > 0 ? (
-                  products.map((p) => (
-                    <Link
-                      key={p.id}
-                      href={`/models/${p.slug}`}
-                      onClick={() => setModelsDropdownOpen(false)}
-                      className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
-                    >
-                      {p.preview_images[0] && (
-                        <div className="w-10 h-10 rounded overflow-hidden shrink-0 bg-gray-100">
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
-                            alt={p.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-                      <div>
-                        <h3 className="font-medium text-zinc-800 text-sm">
-                          {p.name}
-                        </h3>
-                        <p className="text-xs text-zinc-500">
-                          Explore and Learn
-                        </p>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <div className="px-4 py-3 text-zinc-600 text-sm">
-                    No models available
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          <Link
+            href="/order"
+            className="text-white cursor-pointer font-bold text-lg hover:text-zinc-200 transition-colors"
+          >
+            Order
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -197,60 +197,6 @@ const Header = () => {
 
           <nav className="flex-1 overflow-y-auto px-6">
             <ul>
-              <li>
-                <Link
-                  href="/order"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Order
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={() => toggleSubmenu(0)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                  aria-label="Learn menu"
-                  aria-expanded={expandedMenu === 0}
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Learn
-                  </span>
-                  <IconChevronDown
-                    className={`text-zinc-500 transition-transform ${
-                      expandedMenu === 0 ? 'rotate-180' : ''
-                    }`}
-                    size={20}
-                    aria-hidden="true"
-                  />
-                </button>
-
-                {expandedMenu === 0 && (
-                  <div className="py-4 space-y-2">
-                    {learnItems.map((item, index) => (
-                      <Link
-                        href={item.href}
-                        key={index}
-                        target={item.href.startsWith('http') ? '_blank' : undefined}
-                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        onClick={() => setOpen(false)}
-                        className="flex gap-4 items-start px-2 py-2 hover:bg-zinc-50 rounded transition-colors"
-                      >
-                        <div className="flex-1">
-                          <h3 className="font-medium text-zinc-800">
-                            {item.name}
-                          </h3>
-                          <p className="text-sm text-zinc-500 mt-1">
-                            {item.description}
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </li>
               <li>
                 <button
                   onClick={() => toggleSubmenu(1)}
@@ -298,6 +244,60 @@ const Header = () => {
                     ))}
                   </div>
                 )}
+              </li>
+              <li>
+                <button
+                  onClick={() => toggleSubmenu(0)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                  aria-label="Learn menu"
+                  aria-expanded={expandedMenu === 0}
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Learn
+                  </span>
+                  <IconChevronDown
+                    className={`text-zinc-500 transition-transform ${
+                      expandedMenu === 0 ? 'rotate-180' : ''
+                    }`}
+                    size={20}
+                    aria-hidden="true"
+                  />
+                </button>
+
+                {expandedMenu === 0 && (
+                  <div className="py-4 space-y-2">
+                    {learnItems.map((item, index) => (
+                      <Link
+                        href={item.href}
+                        key={index}
+                        target={item.href.startsWith('http') ? '_blank' : undefined}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        onClick={() => setOpen(false)}
+                        className="flex gap-4 items-start px-2 py-2 hover:bg-zinc-50 rounded transition-colors"
+                      >
+                        <div className="flex-1">
+                          <h3 className="font-medium text-zinc-800">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-zinc-500 mt-1">
+                            {item.description}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </li>
+              <li>
+                <Link
+                  href="/order"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Order
+                  </span>
+                </Link>
               </li>
             </ul>
           </nav>

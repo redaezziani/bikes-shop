@@ -78,7 +78,7 @@ const HeaderDetailsPage = () => {
         <nav className="hidden lg:flex items-center gap-8">
           <Link
             href="/order"
-            className="text-zinc-950 cursor-pointer font-bold text-sm hover:text-zinc-600 transition-colors"
+            className="text-zinc-950 cursor-pointer font-bold text-lg hover:text-zinc-600 transition-colors"
           >
             Order
           </Link>
@@ -86,14 +86,14 @@ const HeaderDetailsPage = () => {
           <div className="relative">
             <button
               onClick={() => setLearnDropdownOpen(!learnDropdownOpen)}
-              className="text-zinc-950 font-bold text-sm hover:text-zinc-600 transition-colors flex items-center gap-1"
+              className="text-zinc-950 font-bold text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="Learn menu"
               aria-expanded={learnDropdownOpen}
               aria-haspopup="true"
             >
               Learn
               <IconChevronDown
-                size={16}
+                size={20}
                 className={`transition-transform ${
                   learnDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -102,7 +102,7 @@ const HeaderDetailsPage = () => {
             </button>
 
             {learnDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {learnItems.map((item, index) => (
                   <Link
                     key={index}
@@ -117,10 +117,10 @@ const HeaderDetailsPage = () => {
                     className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                   >
                     <div>
-                      <h3 className="font-medium text-zinc-800 text-sm">
+                      <h3 className="font-medium text-zinc-800 text-lg">
                         {item.name}
                       </h3>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-base text-zinc-500">
                         {item.description}
                       </p>
                     </div>
@@ -133,14 +133,14 @@ const HeaderDetailsPage = () => {
           <div className="relative">
             <button
               onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
-              className="text-zinc-950 font-bold text-sm hover:text-zinc-600 transition-colors flex items-center gap-1"
+              className="text-zinc-950 font-bold text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="View bike models"
               aria-expanded={modelsDropdownOpen}
               aria-haspopup="true"
             >
               Models
               <IconChevronDown
-                size={16}
+                size={20}
                 className={`transition-transform ${
                   modelsDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -149,7 +149,7 @@ const HeaderDetailsPage = () => {
             </button>
 
             {modelsDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[280px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {products.length > 0 ? (
                   products.map((p) => (
                     <Link
@@ -159,7 +159,7 @@ const HeaderDetailsPage = () => {
                       className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                     >
                       {p.preview_images[0] && (
-                        <div className="w-10 h-10 rounded overflow-hidden shrink-0 bg-gray-100">
+                        <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
                           <img
                             src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
                             alt={p.name}
@@ -168,17 +168,17 @@ const HeaderDetailsPage = () => {
                         </div>
                       )}
                       <div>
-                        <h3 className="font-medium text-zinc-800 text-sm">
+                        <h3 className="font-medium text-zinc-800 text-lg">
                           {p.name}
                         </h3>
-                        <p className="text-xs text-zinc-500">
+                        <p className="text-base text-zinc-500">
                           Explore and Learn
                         </p>
                       </div>
                     </Link>
                   ))
                 ) : (
-                  <div className="px-4 py-3 text-zinc-600 text-sm">
+                  <div className="px-4 py-3 text-zinc-600 text-lg">
                     No models available
                   </div>
                 )}

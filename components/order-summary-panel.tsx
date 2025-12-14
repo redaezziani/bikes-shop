@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import {
   IconChevronUp,
-  IconBike,
   IconX,
   IconShoppingBag,
   IconMail,
@@ -147,7 +146,6 @@ const OrderSummaryPanel = ({
         {/* Product Section */}
         <div className="mb-6 p-4 border border-zinc-200 rounded-lg bg-zinc-50">
           <div className="flex items-center gap-3 mb-4">
-            <IconBike size={20} className="text-zinc-700" />
             <h3 className="font-semibold text-zinc-800">Model</h3>
           </div>
           <div className="flex justify-between items-center py-2 border-b border-dashed border-zinc-300">
