@@ -14,16 +14,16 @@ export default async function AboutPage() {
   return (
     <>
       <HeaderDetailsPage />
-      <main className="flex flex-col w-full bg-white items-center">
-        <section className="w-full px-6 md:px-12 py-10 bg-white">
-          <div className="max-w-4xl">
+      <main className="flex flex-col px-4 md:px-0  w-full bg-white items-center">
+        <section className=" w-full md:max-w-7xl   py-10 bg-white">
+          <div className=" w-full">
             <Breadcrumbs className="py-8" />
             <div>
-              <h1 className="text-3xl md:text-6xl font-bold text-zinc-900 mb-2">
+              <h1 className="text-3xl md:text-3xl font-bold text-zinc-700 mb-2">
                 {title}
               </h1>
               {description && (
-                <p className="text-md md:text-2xl text-zinc-600 leading-relaxed">
+                <p className="text-md md:text-lg text-zinc-400 leading-relaxed">
                   {description}
                 </p>
               )}
@@ -31,8 +31,8 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <section className="w-full px-6 md:px-12 py-16 bg-white">
-          <div className="max-w-3xl mx-auto">
+        <section className="w-full  py-16 bg-white">
+          <div className=" max-w-7xl mx-auto">
             <div className="prose max-w-none">
               <ReactMarkdown
                 components={{

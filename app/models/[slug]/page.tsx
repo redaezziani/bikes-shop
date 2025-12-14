@@ -3,6 +3,7 @@ import Footer from '@/components/footer';
 import HeaderDetailsPage from '@/components/header-v2';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
 import ProductPageClient from '@/components/product-page-client';
+import ProductAccessories from '@/components/product-accessories';
 import { getProductBySlug, getAllProductSlugs } from '@/lib/products-service';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
@@ -135,6 +136,8 @@ export default async function ProductDetailsPage({
             ))}
           </div>
         </section>
+
+        <ProductAccessories accessories={product.available_accessories} />
       </section>
       <Footer />
       <FixedBottomBar />
