@@ -48,14 +48,14 @@ jobs:
             cd ~/bikes-shop
             echo "${{ secrets.GH_PAT }}" | docker login ghcr.io -u redaezziani --password-stdin
             docker pull ghcr.io/redaezziani/bikes-shop-nextjs:latest
-            docker compose up -d bikes-shop-nextjs
+            docker compose up -d next-app
             sleep 15
             if docker ps | grep bikes-shop-nextjs | grep -q "Up"; then
               echo "Deployment successful"
               docker image prune -f
             else
               echo "Deployment failed"
-              docker compose logs bikes-shop-nextjs --tail=50
+              docker compose logs next-app --tail=50
               exit 1
             fi
       - name: Notify deployment success
