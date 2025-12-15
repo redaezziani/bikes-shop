@@ -1,4 +1,4 @@
-# 🚲 Bikes Shop - Premium Cargo Bikes E-Commerce Platform
+# Bikes Shop - Premium Cargo Bikes E-Commerce Platform
 
 <div align="center">
 
