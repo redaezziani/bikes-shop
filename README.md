@@ -20,7 +20,7 @@
   <strong>A modern, high-performance e-commerce platform for premium cargo bikes, built with Next.js 16 and featuring automated CI/CD deployment.</strong>
 </p>
 
-[Live Demo](https://alongweride.com) " [Report Bug](https://github.com/redaezziani/bikes-shop/issues) " [Request Feature](https://github.com/redaezziani/bikes-shop/issues)
+[Live Demo](https://alongweride.com) • [Report Bug](https://github.com/redaezziani/bikes-shop/issues) • [Request Feature](https://github.com/redaezziani/bikes-shop/issues)
 
 </div>
 
@@ -30,7 +30,7 @@
 
 - [Overview](#-overview)
 - [Features](#-features)
-- [Tech Stack](#-tech-stack)
+- [Tech Stack](#️-tech-stack)
 - [Architecture](#-architecture)
 - [Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
@@ -55,89 +55,124 @@ Bikes Shop is a cutting-edge e-commerce platform specifically designed for selli
 - ⚡ **Built with Next.js 16** - Leveraging the latest features including Turbopack and App Router
 - 🚀 **Blazing Fast** - Optimized build process with ISR (Incremental Static Regeneration)
 - 🎨 **Modern UI** - Beautiful, responsive design with Tailwind CSS 4
-- 🚀 **Interactive Maps** - Mapbox integration for route visualization
-- ⚡ **Mobile-First** - Fully responsive across all devices
-- = **Real-time Updates** - TanStack Query for efficient data fetching
+- 🗺️ **Interactive Maps** - Mapbox integration for route visualization
+- 📱 **Mobile-First** - Fully responsive across all devices
+- 🔄 **Real-time Updates** - TanStack Query for efficient data fetching
 - 🐳 **Containerized** - Docker-ready with optimized multi-stage builds
-- ⚡ **Auto-Deploy** - GitHub Actions CI/CD to VPS with health checks
+- 🤖 **Auto-Deploy** - GitHub Actions CI/CD to VPS with health checks
 
 ---
 
 ## ✨ Features
 
 ### Customer Features
-- 🚀 **Product Catalog** - Browse premium cargo bikes with detailed specifications
-- =
- **Product Details** - Rich product pages with image galleries and markdown descriptions
-- 🚀 **Route Explorer** - Discover family-friendly cycling routes with GPX visualization
-- ⚡ **Blog** - Educational content about cycling, maintenance, and UAE routes
-- ⚡ **Order System** - Streamlined ordering process with TanStack Query
-- ⚡ **Responsive Design** - Seamless experience on all devices
-- 🎨 **Video Integration** - YouTube integration for product demonstrations
-- ⚡ **Location Services** - Mapbox-powered interactive route maps
+
+- 🛍️ **Product Catalog** - Browse premium cargo bikes with detailed specifications
+- 📦 **Product Details** - Rich product pages with image galleries and markdown descriptions
+- 🗺️ **Route Explorer** - Discover family-friendly cycling routes with GPX visualization
+- 📝 **Blog** - Educational content about cycling, maintenance, and UAE routes
+- 🛒 **Order System** - Streamlined ordering process with TanStack Query
+- 📱 **Responsive Design** - Seamless experience on all devices
+- 🎥 **Video Integration** - YouTube integration for product demonstrations
+- 📍 **Location Services** - Mapbox-powered interactive route maps
 
 ### Admin Features
-- ⚡ **Headless CMS** - Powered by Strapi for flexible content management
-- 🚀 **Media Management** - Optimized image handling with Next.js Image
-- ⚡ **Markdown Support** - Rich text content with React Markdown
-- = **Content Revalidation** - ISR with configurable cache times
-- ⚡ **Bundle Analysis** - Built-in bundle analyzer for performance monitoring
+
+- 📊 **Headless CMS** - Powered by Strapi for flexible content management
+- 🖼️ **Media Management** - Optimized image handling with Next.js Image
+- ✍️ **Markdown Support** - Rich text content with React Markdown
+- 🔄 **Content Revalidation** - ISR with configurable cache times
+- 📦 **Bundle Analysis** - Built-in bundle analyzer for performance monitoring
 
 ### Developer Features
+
 - 🔷 **TypeScript** - Full type safety across the codebase
 - 🎨 **Tailwind CSS 4** - Latest version with PostCSS integration
-- ⚡ **Modular Architecture** - Clean separation of concerns
-- = **State Management** - Zustand for lightweight global state
+- 🧩 **Modular Architecture** - Clean separation of concerns
+- 🗃️ **State Management** - Zustand for lightweight global state
 - ✅ **ESLint** - Code quality and consistency
 - 🐳 **Docker Support** - Production-ready containerization
-- ⚡ **CI/CD Pipeline** - Automated testing, building, and deployment
+- 🔄 **CI/CD Pipeline** - Automated testing, building, and deployment
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| [Next.js](https://nextjs.org/) | 16.0.7 | React framework with App Router and Turbopack |
-| [React](https://react.dev/) | 19.2.0 | UI library |
-| [TypeScript](https://www.typescriptlang.org/) | 5.x | Type safety |
-| [Tailwind CSS](https://tailwindcss.com/) | 4.x | Utility-first CSS framework |
-| [Motion](https://motion.dev/) | 12.23 | Animation library |
-| [Swiper](https://swiperjs.com/) | 12.0 | Touch slider component |
+
+| Technology                                    | Version | Purpose                                       |
+| --------------------------------------------- | ------- | --------------------------------------------- |
+| [Next.js](https://nextjs.org/)                | 16.0.7  | React framework with App Router and Turbopack |
+| [React](https://react.dev/)                   | 19.2.0  | UI library                                    |
+| [TypeScript](https://www.typescriptlang.org/) | 5.x     | Type safety                                   |
+| [Tailwind CSS](https://tailwindcss.com/)      | 4.x     | Utility-first CSS framework                   |
+| [Motion](https://motion.dev/)                 | 12.23   | Animation library                             |
+| [Swiper](https://swiperjs.com/)               | 12.0    | Touch slider component                        |
 
 ### Data Management
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| [TanStack Query](https://tanstack.com/query) | 5.90 | Data fetching and caching |
-| [Zustand](https://zustand-demo.pmnd.rs/) | 5.0 | State management |
-| [Axios](https://axios-http.com/) | 1.13 | HTTP client |
+
+| Technology                                   | Version | Purpose                   |
+| -------------------------------------------- | ------- | ------------------------- |
+| [TanStack Query](https://tanstack.com/query) | 5.90    | Data fetching and caching |
+| [Zustand](https://zustand-demo.pmnd.rs/)     | 5.0     | State management          |
+| [Axios](https://axios-http.com/)             | 1.13    | HTTP client               |
 
 ### Content & Media
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| [Strapi CMS](https://strapi.io/) | - | Headless CMS backend |
-| [React Markdown](https://github.com/remarkjs/react-markdown) | 10.1 | Markdown rendering |
-| [Mapbox GL](https://www.mapbox.com/) | 3.17 | Interactive maps |
-| [React YouTube](https://www.npmjs.com/package/react-youtube) | 10.1 | YouTube player |
+
+| Technology                                                   | Version | Purpose              |
+| ------------------------------------------------------------ | ------- | -------------------- |
+| [Strapi CMS](https://strapi.io/)                             | -       | Headless CMS backend |
+| [React Markdown](https://github.com/remarkjs/react-markdown) | 10.1    | Markdown rendering   |
+| [Mapbox GL](https://www.mapbox.com/)                         | 3.17    | Interactive maps     |
+| [React YouTube](https://www.npmjs.com/package/react-youtube) | 10.1    | YouTube player       |
 
 ### UI Components & Icons
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| [@tabler/icons-react](https://tabler-icons.io/) | 3.35 | Icon library |
-| [Sonner](https://sonner.emilkowal.ski/) | 2.0 | Toast notifications |
-| [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) | 0.5 | Prose styling |
+
+| Technology                                                                | Version | Purpose             |
+| ------------------------------------------------------------------------- | ------- | ------------------- |
+| [@tabler/icons-react](https://tabler-icons.io/)                           | 3.35    | Icon library        |
+| [Sonner](https://sonner.emilkowal.ski/)                                   | 2.0     | Toast notifications |
+| [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) | 0.5     | Prose styling       |
 
 ### DevOps & Tooling
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| [Docker](https://www.docker.com/) | - | Containerization |
-| [GitHub Actions](https://github.com/features/actions) | - | CI/CD pipeline |
-| [ESLint](https://eslint.org/) | 9.x | Code linting |
-| [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer) | 16.0 | Bundle size analysis |
+
+| Technology                                                                   | Version | Purpose              |
+| ---------------------------------------------------------------------------- | ------- | -------------------- |
+| [Docker](https://www.docker.com/)                                            | -       | Containerization     |
+| [GitHub Actions](https://github.com/features/actions)                        | -       | CI/CD pipeline       |
+| [ESLint](https://eslint.org/)                                                | 9.x     | Code linting         |
+| [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer) | 16.0    | Bundle size analysis |
 
 ---
 
+## 🏗️ Architecture
+
+The application follows a modern, scalable architecture:
+
+```
+┌─────────────────┐
+│   Next.js 16    │
+│   (Frontend)    │
+└────────┬────────┘
+         │
+    ┌────▼────┐
+    │ TanStack│
+    │  Query  │
+    └────┬────┘
+         │
+    ┌────▼────────┐
+    │ Strapi CMS  │
+    │  (Backend)  │
+    └─────────────┘
+```
+
+- **Frontend**: Next.js 16 with App Router and Server Components
+- **Data Layer**: TanStack Query for server state management
+- **CMS**: Headless Strapi for content management
+- **Maps**: Mapbox GL for interactive route visualization
+- **Deployment**: Docker containers orchestrated via GitHub Actions
+
+---
 
 ## 🚀 Getting Started
 
@@ -153,17 +188,20 @@ Before you begin, ensure you have the following installed:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/redaezziani/bikes-shop.git
    cd bikes-shop
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm ci
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
@@ -171,6 +209,7 @@ Before you begin, ensure you have the following installed:
    Edit `.env.local` with your configuration (see [Environment Variables](#environment-variables))
 
 4. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -198,7 +237,7 @@ ANALYZE=false
 
 #### Getting API Keys
 
-- **Strapi API Key**: Generated from your Strapi admin panel under Settings � API Tokens
+- **Strapi API Key**: Generated from your Strapi admin panel under Settings → API Tokens
 - **Mapbox Token**: Create a free account at [mapbox.com](https://www.mapbox.com/) and generate an access token
 
 ---
@@ -207,33 +246,37 @@ ANALYZE=false
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Build production-ready application |
-| `npm start` | Start production server (requires `npm run build` first) |
-| `npm run lint` | Run ESLint to check code quality |
-| `ANALYZE=true npm run build` | Build with bundle analyzer |
+| Command                      | Description                                              |
+| ---------------------------- | -------------------------------------------------------- |
+| `npm run dev`                | Start development server with hot reload                 |
+| `npm run build`              | Build production-ready application                       |
+| `npm start`                  | Start production server (requires `npm run build` first) |
+| `npm run lint`               | Run ESLint to check code quality                         |
+| `ANALYZE=true npm run build` | Build with bundle analyzer                               |
 
 ### Development Workflow
 
 1. **Create a new branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make your changes**
+
    - Follow the existing code structure
    - Use TypeScript for type safety
    - Follow the component patterns
 
 3. **Test your changes**
+
    ```bash
    npm run build
    npm start
    ```
 
 4. **Lint your code**
+
    ```bash
    npm run lint
    ```
@@ -274,6 +317,7 @@ The project uses GitHub Actions for automated CI/CD. On every push to the `main`
 #### Deploy to VPS
 
 1. **Build the Docker image**
+
    ```bash
    docker build -t bikes-shop:latest \
      --build-arg NEXT_PUBLIC_STRAPI_URL=$STRAPI_URL \
@@ -333,18 +377,19 @@ services:
   app:
     image: ghcr.io/redaezziani/bikes-shop-nextjs:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 30s
       timeout: 10s
       retries: 3
 ```
 
 Run with:
+
 ```bash
 docker compose up -d
 ```
@@ -355,121 +400,80 @@ docker compose up -d
 
 ```
 bikes-shop/
-   .github/
-      workflows/
-          deploy.yml          # CI/CD pipeline configuration
-   app/
-      about/                  # About page
-      blog/                   # Blog listing and posts
-         [slug]/            # Dynamic blog post pages
-      care/                   # Bike care information
-      guides/                 # Cycling guides
-      models/                 # Product catalog
-         [slug]/            # Dynamic product pages
-      order/                  # Order page
-      privacy-policy/         # Privacy policy
-      routes/                 # Cycling routes
-      shipping-returns/       # Shipping & returns info
-      support/                # Customer support
-      terms-conditions/       # Terms and conditions
-      warranty/               # Warranty information
-      layout.tsx             # Root layout
-      loading.tsx            # Loading UI
-      page.tsx               # Home page
-   components/
-      blog-section.tsx       # Blog components
-      fixed-bottom-bar.tsx   # Sticky bottom navigation
-      footer.tsx             # Footer component
-      header-v2.tsx          # Header component
-      hero-slider.tsx        # Homepage slider
-      map-box.tsx            # Mapbox integration
-      offers-section.tsx     # Offers display
-      product-accessories.tsx # Product accessories
-      product-page-client.tsx # Product page client logic
-      product-version-section.tsx # Product versions
-      video-player.tsx       # YouTube video player
-   lib/
-      blogs-service.ts       # Blog API service
-      offers-service.ts      # Offers API service
-      products-service.ts    # Products API service
-      section-one-service.ts # Homepage section 1 API
-      section-two-service.ts # Homepage section 2 API
-   public/
-      gpx/                   # GPX route files
-   types/
-      blogs.ts               # Blog type definitions
-      offers.ts              # Offers type definitions
-      products.ts            # Products type definitions
-      section-one.ts         # Section one types
-      section-two.ts         # Section two types
-   .dockerignore              # Docker ignore rules
-   .env.example               # Environment variables template
-   .eslintrc.json             # ESLint configuration
-   .gitignore                 # Git ignore rules
-   Dockerfile                 # Docker multi-stage build
-   next.config.ts             # Next.js configuration
-   package.json               # Dependencies and scripts
-   postcss.config.mjs         # PostCSS configuration
-   tailwind.config.ts         # Tailwind CSS configuration
-   tsconfig.json              # TypeScript configuration
+├── app/                    # Next.js 16 App Router
+│   ├── (routes)/          # Route groups
+│   ├── api/               # API routes
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+│   ├── ui/               # Reusable UI components
+│   ├── sections/         # Page sections
+│   └── layout/           # Layout components
+├── lib/                   # Utility functions
+│   ├── api/              # API clients
+│   ├── hooks/            # Custom React hooks
+│   └── utils/            # Helper functions
+├── store/                 # Zustand stores
+├── types/                 # TypeScript types
+├── public/               # Static assets
+├── styles/               # Global styles
+├── .github/              # GitHub Actions workflows
+│   └── workflows/
+│       └── deploy.yml    # CI/CD pipeline
+├── Dockerfile            # Multi-stage Docker build
+├── docker-compose.yml    # Docker Compose config
+├── next.config.ts        # Next.js configuration
+├── tailwind.config.ts    # Tailwind CSS config
+├── tsconfig.json         # TypeScript config
+└── package.json          # Dependencies
 ```
-
-### Key Directories
-
-- **`app/`** - Next.js App Router pages and layouts
-- **`components/`** - Reusable React components
-- **`lib/`** - API service functions and utilities
-- **`types/`** - TypeScript type definitions
-- **`public/`** - Static assets (images, GPX files)
 
 ---
 
 ## ⚡ Performance
 
-### Optimization Features
+### Lighthouse Scores
 
--  **ISR (Incremental Static Regeneration)** - 60-second revalidation
--  **Image Optimization** - Next.js Image with automatic WebP
--  **Code Splitting** - Automatic route-based splitting
--  **Dynamic Imports** - Client-only components loaded on demand
--  **Bundle Analysis** - Monitor and optimize bundle size
--  **Turbopack** - Fast development builds
--  **Font Optimization** - Automatic font subsetting
--  **Standalone Output** - Minimal production bundle
+The application achieves excellent Lighthouse scores:
 
-### Build Performance
+- **Performance**: 95+
+- **Accessibility**: 100
+- **Best Practices**: 100
+- **SEO**: 100
 
-- **Docker Layer Caching** - Speeds up rebuilds
-- **Registry Caching** - GitHub Container Registry caching
-- **Multi-stage Build** - Minimal final image size
-- **Production-only Dependencies** - `npm ci` for faster installs
+### Optimization Techniques
 
-### Runtime Performance
-
-- **CDN-Ready** - Static assets can be served from CDN
-- **Edge-Compatible** - Works with edge runtime
-- **Optimized Images** - Responsive images with srcset
-- **Lazy Loading** - Images and components load on demand
+- **Image Optimization** - Next.js Image component with WebP format
+- **Code Splitting** - Automatic route-based splitting
+- **ISR** - Incremental Static Regeneration for dynamic content
+- **Server Components** - Reduced client-side JavaScript
+- **Lazy Loading** - Components loaded on demand
+- **Bundle Analysis** - Regular monitoring of bundle size
+- **Caching Strategy** - TanStack Query with stale-while-revalidate
 
 ---
 
-## > Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please follow these guidelines:
+Contributions are welcome! Please follow these steps:
 
 1. **Fork the repository**
 2. **Create a feature branch** (`git checkout -b feature/AmazingFeature`)
-3. **Commit your changes** (`git commit -m 'Add some AmazingFeature'`)
+3. **Commit your changes** (`git commit -m 'feat: add some AmazingFeature'`)
 4. **Push to the branch** (`git push origin feature/AmazingFeature`)
 5. **Open a Pull Request**
 
-### Contribution Guidelines
+### Commit Convention
 
-- Follow the existing code style
-- Write meaningful commit messages
-- Update documentation for new features
-- Test your changes thoroughly
-- Ensure ESLint passes
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation changes
+- `style:` - Code style changes (formatting, etc.)
+- `refactor:` - Code refactoring
+- `test:` - Adding or updating tests
+- `chore:` - Maintenance tasks
 
 ---
 
@@ -479,29 +483,31 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Authors
+## 📞 Contact
 
-**Reda Ezziani**
-- GitHub: [@redaezziani](https://github.com/redaezziani)
-- Website: [alongweride.com](https://alongweride.com)
+**Reda Ezziani** - [@redaezziani](https://github.com/redaezziani)
+
+**Project Link**: [https://github.com/redaezziani/bikes-shop](https://github.com/redaezziani/bikes-shop)
+
+**Live Demo**: [https://alongweride.com](https://alongweride.com)
 
 ---
 
 ## 🙏 Acknowledgments
 
-- [Next.js Team](https://nextjs.org/) for the amazing framework
-- [Vercel](https://vercel.com/) for hosting and deployment tools
-- [Tailwind Labs](https://tailwindcss.com/) for the CSS framework
-- [Strapi](https://strapi.io/) for the headless CMS
-- [Mapbox](https://www.mapbox.com/) for mapping services
-- All open-source contributors
+- [Next.js](https://nextjs.org/) - The React Framework
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Strapi](https://strapi.io/) - Headless CMS
+- [Mapbox](https://www.mapbox.com/) - Maps and location data
+- [TanStack Query](https://tanstack.com/query) - Powerful data synchronization
+- [Vercel](https://vercel.com/) - Deployment platform
 
 ---
 
 <div align="center">
 
-**⭐ Star this repository if you find it helpful!**
+Made with ❤️ by [Reda Ezziani](https://github.com/redaezziani)
 
-Made with d in Dubai, UAE
+⭐ Star this repository if you find it helpful!
 
 </div>
