@@ -23,12 +23,22 @@ const nextConfig: NextConfig = {
         pathname: '/uploads/**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
   // Performance optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+
+  // Enable React strict mode for better performance
+  reactStrictMode: true,
+
+  // Compress output
+  compress: true,
 };
 
 export default withBundleAnalyzer(nextConfig);

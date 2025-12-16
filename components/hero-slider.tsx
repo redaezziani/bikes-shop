@@ -1,6 +1,6 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
+import { Pagination, EffectFade } from 'swiper/modules';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from './header';
@@ -32,12 +32,12 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
     >
       <Header />
       <Swiper
-        modules={[Pagination, EffectFade, Autoplay]}
+        modules={[Pagination, EffectFade]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         pagination={{ clickable: true }}
         loop={true}
-        speed={1000}
+        speed={800}
         className="h-full w-full"
         a11y={{
           enabled: true,

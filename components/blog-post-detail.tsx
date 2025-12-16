@@ -1,5 +1,6 @@
 import { Blog } from '@/types/blogs';
 import Link from 'next/link';
+import Image from 'next/image';
 import BlogTableOfContents from './blog-table-of-contents';
 import BlogMarkdownContent from './blog-markdown-content';
 
@@ -88,11 +89,15 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
           </div>
 
           {blog.featured_image?.url && (
-            <div className="mb-12 rounded-lg overflow-hidden bg-zinc-200 h-96 md:h-[500px]">
-              <img
+            <div className="relative mb-12 rounded-lg overflow-hidden bg-zinc-200 h-96 md:h-[500px]">
+              <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`}
                 alt={blog.title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                className="object-cover"
+                priority
+                quality={90}
               />
             </div>
           )}

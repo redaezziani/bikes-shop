@@ -65,7 +65,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://api.alongweride.com" />
         <link rel="dns-prefetch" href="https://api.alongweride.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+
+        {/* Preconnect to Mapbox for faster map loading */}
+        <link rel="preconnect" href="https://api.mapbox.com" />
+        <link rel="dns-prefetch" href="https://api.mapbox.com" />
+
+        {/* Performance hints */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
         {/* Structured Data for Local Business */}
         <script
           type="application/ld+json"

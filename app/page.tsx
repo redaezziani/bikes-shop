@@ -1,32 +1,16 @@
-import dynamicImport from 'next/dynamic';
 import Link from 'next/link';
 import { getSectionOneData } from '@/lib/section-one-service';
 import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';
 import { getOffersData } from '@/lib/offers-service';
-
-const HeroSlider = dynamicImport(() => import('@/components/hero-slider'), {
-  ssr: true,
-});
-const ProductVersionSection = dynamicImport(
-  () => import('@/components/product-version-section'),
-  { ssr: true },
-);
-const BlogSection = dynamicImport(() => import('@/components/blog-section'), {
-  ssr: true,
-});
-// Client-only components
-const MapboxMap = dynamicImport(() => import('@/components/map-box'));
-const VideoPlayer = dynamicImport(() => import('@/components/video-player'));
-
-// Other dynamic components
-const Footer = dynamicImport(() => import('@/components/footer'));
-const OffersSection = dynamicImport(
-  () => import('@/components/offers-section'),
-);
-const FixedBottomBar = dynamicImport(
-  () => import('@/components/fixed-bottom-bar'),
-);
+import HeroSlider from '@/components/hero-slider';
+import ProductVersionSection from '@/components/product-version-section';
+import OffersSection from '@/components/offers-section';
+import BlogSection from '@/components/blog-section';
+import Footer from '@/components/footer';
+import FixedBottomBar from '@/components/fixed-bottom-bar';
+import LazyVideoPlayer from '@/components/lazy-video-player';
+import LazyMapboxMap from '@/components/lazy-mapbox-map';
 
 export const revalidate = 60;
 
@@ -70,7 +54,7 @@ export default async function Home() {
         <div className="grid grid-cols-1  gap-6">
           <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none  overflow-hidden  transition-shadow">
             <div className="relative  w-full overflow-hidden bg-zinc-100">
-              <VideoPlayer />
+              <LazyVideoPlayer />
             </div>
             <div className="flex flex-col px-4 justify-start py-5 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
@@ -93,7 +77,7 @@ export default async function Home() {
           </div>
           <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
             <div className="relative w-full h-96 md:h-170 bg-zinc-100">
-              <MapboxMap />
+              <LazyMapboxMap />
             </div>
             <div className=" py-5 px-4 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">

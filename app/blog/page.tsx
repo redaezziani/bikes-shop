@@ -1,18 +1,52 @@
-'use client';
-
-import { useState } from 'react';
-import { useBlogs } from '@/store/blogs';
 import BlogCard from '@/components/blog-card';
 import Footer from '@/components/footer';
 import Link from 'next/link';
+import { Blog, BlogsResponse } from '@/types/blogs';
+import BlogPagination from '@/components/blog-pagination';
 
-const BlogPage = () => {
-  const [page, setPage] = useState(1);
+async function getBlogs(page: number = 1, pageSize: number = 12): Promise<BlogsResponse> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+
+  try {
+    const response = await fetch(
+      `${apiUrl}/api/blogs?pagination[page]=${page}&pagination[pageSize]=${pageSize}&populate=featured_image&sort=publishedAt:desc`,
+      {
+        next: { revalidate: 60 }, // Revalidate every 60 seconds
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch blogs');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
+  }
+}
+
+interface BlogPageProps {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
   const pageSize = 12;
-  const { data, isLoading } = useBlogs({ page, pageSize });
 
-  const blogs = data?.data || [];
-  const totalPages = data?.meta?.pagination?.pageCount || 0;
+  const { data: blogs, meta } = await getBlogs(currentPage, pageSize);
+  const totalPages = meta?.pagination?.pageCount || 0;
 
   return (
     <main className="min-h-screen bg-white">
@@ -38,16 +72,7 @@ const BlogPage = () => {
 
       <section className="px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-                <div
-                  key={i}
-                  className="rounded-lg bg-zinc-200 animate-pulse h-96"
-                />
-              ))}
-            </div>
-          ) : blogs.length > 0 ? (
+          {blogs.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {blogs.map((blog) => (
@@ -56,42 +81,7 @@ const BlogPage = () => {
               </div>
 
               {totalPages > 1 && (
-                <div className="flex items-center justify-center gap-2">
-                  <button
-                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    disabled={page === 1}
-                    className="px-4 py-2 rounded-lg border border-zinc-300 text-zinc-700 hover:bg-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Previous
-                  </button>
-
-                  {Array.from({ length: totalPages }, (_, i) => i + 1)
-                    .slice(
-                      Math.max(0, page - 2),
-                      Math.min(totalPages, page + 1),
-                    )
-                    .map((p) => (
-                      <button
-                        key={p}
-                        onClick={() => setPage(p)}
-                        className={`px-3 py-2 rounded-lg transition-colors ${
-                          page === p
-                            ? 'bg-zinc-800 text-white'
-                            : 'border border-zinc-300 text-zinc-700 hover:bg-zinc-50'
-                        }`}
-                      >
-                        {p}
-                      </button>
-                    ))}
-
-                  <button
-                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                    disabled={page === totalPages}
-                    className="px-4 py-2 rounded-lg border border-zinc-300 text-zinc-700 hover:bg-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Next
-                  </button>
-                </div>
+                <BlogPagination currentPage={currentPage} totalPages={totalPages} />
               )}
             </>
           ) : (
@@ -105,6 +95,4 @@ const BlogPage = () => {
       <Footer />
     </main>
   );
-};
-
-export default BlogPage;
+}
