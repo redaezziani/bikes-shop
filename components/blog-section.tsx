@@ -2,19 +2,11 @@
 
 import { Blog } from '@/types/blogs';
 import BlogCard from './blog-card';
-import dynamic from 'next/dynamic';
-
-const Swiper = dynamic(() => import('swiper/react').then((mod) => mod.Swiper), {
-  ssr: false,
-  loading: () => <div className="h-96 bg-zinc-100 animate-pulse rounded-lg" />,
-});
-
-const SwiperSlide = dynamic(
-  () => import('swiper/react').then((mod) => mod.SwiperSlide),
-  { ssr: false }
-);
-
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 interface BlogSectionProps {
   blogs: Blog[];
@@ -51,12 +43,6 @@ const BlogSection = ({ blogs }: BlogSectionProps) => {
           <p className="text-zinc-600">No blog posts available yet.</p>
         </div>
       )}
-
-      <style jsx global>{`
-        .blog-swiper .swiper-slide {
-          width: 85%;
-        }
-      `}</style>
     </section>
   );
 };
