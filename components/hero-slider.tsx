@@ -51,7 +51,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
         {slides.map((slide) => {
           const desktopImageUrl = slide.cover_image_desktop?.url
             ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${slide.cover_image_desktop.url}`
-            : '/placeholder-image.jpg';
+            : '/images/placeholder-image.webp';
           const mobileImageUrl = slide.cover_image_mobile?.url
             ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${slide.cover_image_mobile.url}`
             : desktopImageUrl;
