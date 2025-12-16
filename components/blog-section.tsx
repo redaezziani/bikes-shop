@@ -2,7 +2,18 @@
 
 import { Blog } from '@/types/blogs';
 import BlogCard from './blog-card';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import dynamic from 'next/dynamic';
+
+const Swiper = dynamic(() => import('swiper/react').then((mod) => mod.Swiper), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-zinc-100 animate-pulse rounded-lg" />,
+});
+
+const SwiperSlide = dynamic(
+  () => import('swiper/react').then((mod) => mod.SwiperSlide),
+  { ssr: false }
+);
+
 import { Pagination } from 'swiper/modules';
 
 interface BlogSectionProps {

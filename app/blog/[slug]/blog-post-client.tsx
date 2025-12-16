@@ -4,13 +4,18 @@ import { useBlogBySlug } from '@/store/blogs';
 import BlogPostDetail from '@/components/blog-post-detail';
 import Footer from '@/components/footer';
 import Link from 'next/link';
+import { Blog } from '@/types/blogs';
 
 interface BlogPostClientProps {
   slug: string;
+  initialBlog?: Blog | null;
 }
 
-export default function BlogPostClient({ slug }: BlogPostClientProps) {
+export default function BlogPostClient({ slug, initialBlog }: BlogPostClientProps) {
   const { data: blog, isLoading } = useBlogBySlug(slug);
+
+  // Use initialBlog if available, otherwise use data from hook
+  const displayBlog = blog || initialBlog;
 
   return (
     <main className="min-h-screen bg-white">
@@ -32,13 +37,13 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
             </Link>
             <span className="text-zinc-600">/</span>
             <span className="text-white truncate">
-              {blog?.title || 'Loading...'}
+              {displayBlog?.title || 'Loading...'}
             </span>
           </div>
         </div>
       </div>
 
-      <BlogPostDetail blog={blog || null} isLoading={isLoading} />
+      <BlogPostDetail blog={displayBlog || null} isLoading={isLoading} />
 
       <Footer />
     </main>
