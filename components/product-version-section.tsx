@@ -58,7 +58,7 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
       />
 
       <section
-        className="w-full pl-4"
+        className="w-full pl-4 py-8"
         aria-label="Featured electric bike models"
       >
         <Swiper
@@ -71,8 +71,11 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
             },
           }}
           centeredSlides={false}
-          pagination={{ clickable: true }}
-          className="px-4"
+          pagination={{
+            clickable: true,
+            dynamicBullets: false,
+          }}
+          className="product-version-swiper"
           a11y={{
             enabled: true,
             prevSlideMessage: 'Previous bike model',
