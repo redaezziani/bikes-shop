@@ -14,7 +14,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
   return (
     <article className="flex flex-col rounded-lg overflow-hidden border border-zinc-200 bg-white transition-shadow">
       {imageUrl && (
-        <div className="relative w-full h-[240px]">
+        <div className="relative w-full h-60">
           <Image
             src={imageUrl}
             alt={blog.title}
@@ -41,7 +41,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           href={`/blog/${blog.slug}`}
           className="bg-zinc-100 line-clamp-1 truncate max-w-[70%] text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-200 hover:text-white transition text-center"
         >
-          Read {blog.title}
+          Learn More
         </Link>
       </div>
     </article>

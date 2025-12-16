@@ -10,7 +10,7 @@ const HeroSlider = dynamicImport(() => import('@/components/hero-slider'), {
 });
 const ProductVersionSection = dynamicImport(
   () => import('@/components/product-version-section'),
-  { ssr: true }
+  { ssr: true },
 );
 const BlogSection = dynamicImport(() => import('@/components/blog-section'), {
   ssr: true,
@@ -35,13 +35,14 @@ export default async function Home() {
   let sectionOneData, sectionTwoData, blogsData, offersData;
 
   try {
-    [sectionOneData, sectionTwoData, blogsData, offersData] =
-      await Promise.all([
+    [sectionOneData, sectionTwoData, blogsData, offersData] = await Promise.all(
+      [
         getSectionOneData(),
         getSectionTwoData({ pageSize: 10 }),
         getBlogsData({ pageSize: 6 }),
         getOffersData({ pageSize: 10 }),
-      ]);
+      ],
+    );
   } catch (error) {
     console.warn('Failed to fetch data:', error);
     sectionOneData = { data: [] };
@@ -93,7 +94,7 @@ export default async function Home() {
           </div>
           <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
             <div className="relative w-full h-96 md:h-170 bg-zinc-100">
-              <MapboxMap gpxUrl="/gpx/Desert-Ride.gpx" />
+              <MapboxMap />
             </div>
             <div className=" py-5 px-4 bg-white">
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
@@ -106,7 +107,7 @@ export default async function Home() {
               </p>
               <Link href={'/we-are-set-to-explore'}>
                 <button
-                  className=" py-2.5 px-3 rounded-lg mt-4 font-medium text-zinc-100 capitalize text-sm bg-zinc-900 min-w-32"
+                  className=" py-2.5 px-3 rounded-lg mt-4 font-medium text-zinc-100  text-sm bg-zinc-900 min-w-32"
                   aria-label="Learn more about scenic biking routes"
                 >
                   Discover along Routes Collection
