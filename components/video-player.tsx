@@ -58,7 +58,7 @@ const VideoPlayer = () => {
         muted
         playsInline
         preload="none"
-        poster="/video-poster.jpg"
+        poster="/images/placeholder-image.webp"
       >
         {shouldLoad && <source src="/video.mp4" type="video/mp4" />}
         Your browser does not support the video tag.
