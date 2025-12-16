@@ -28,7 +28,6 @@ const FixedBottomBar = dynamicImport(
   () => import('@/components/fixed-bottom-bar'),
 );
 
-// Enable ISR with revalidation every 60 seconds
 export const revalidate = 60;
 
 export default async function Home() {
