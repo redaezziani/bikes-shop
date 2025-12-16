@@ -52,3 +52,45 @@ html {
 .blog-swiper .swiper-slide {
   width: 85%;
 }
+
+.blog-swiper {
+  padding-bottom: 3rem !important;
+}
+
+.blog-swiper .swiper-pagination {
+  position: static !important;
+  margin-top: 1.5rem !important;
+}
+
+.blog-swiper .swiper-pagination-bullet {
+  background: #000000 !important;
+  opacity: 0.3 !important;
+  width: 10px;
+  height: 10px;
+}
+
+.blog-swiper .swiper-pagination-bullet-active {
+  background: #000000 !important;
+  opacity: 1 !important;
+}
+
+.product-version-swiper {
+  padding-bottom: 3rem !important;
+}
+
+.product-version-swiper .swiper-pagination {
+  position: static !important;
+  margin-top: 1.5rem !important;
+}
+
+.product-version-swiper .swiper-pagination-bullet {
+  background: #000000 !important;
+  opacity: 0.3 !important;
+  width: 10px;
+  height: 10px;
+}
+
+.product-version-swiper .swiper-pagination-bullet-active {
+  background: #000000 !important;
+  opacity: 1 !important;
+}

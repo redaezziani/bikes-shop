@@ -15,7 +15,7 @@ interface BlogSectionProps {
 const BlogSection = ({ blogs }: BlogSectionProps) => {
 
   return (
-    <section className="w-full pl-4 pb-5 bg-white">
+    <section className="w-full pl-4 py-8 bg-white">
       {blogs.length > 0 ? (
         <>
           <Swiper
@@ -28,8 +28,11 @@ const BlogSection = ({ blogs }: BlogSectionProps) => {
               },
             }}
             centeredSlides={false}
-            pagination={{ clickable: true }}
-            className="px-4 blog-swiper"
+            pagination={{
+              clickable: true,
+              dynamicBullets: false,
+            }}
+            className="blog-swiper"
           >
             {blogs.map((blog) => (
               <SwiperSlide key={blog.id}>
