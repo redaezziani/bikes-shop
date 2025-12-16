@@ -30,7 +30,7 @@ export default function RoutesPage() {
                 Desert Ride
               </h2>
               <div className="border border-zinc-200 rounded-lg overflow-hidden">
-                <MapboxMap gpxUrl="/gpx/Desert-Ride.gpx" />
+                <MapboxMap  />
               </div>
             </div>
 
