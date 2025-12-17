@@ -42,8 +42,9 @@ const OfferCard = ({ offer }: OfferCardProps) => {
         <Link
           href={href}
           className="bg-zinc-100 max-w-[70%] text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-200 transition text-center"
+          aria-label={`View offer details: ${offer.title}`}
         >
-          {offer.button_text || 'Learn More'}
+          {offer.button_text || 'View Offer Details'}
         </Link>
       </div>
     </article>

@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { IconX } from '@tabler/icons-react';
 import { Accessory } from '@/store/products';
+import { formatPrice } from '@/lib/format-price';
 
 interface AccessoryModalProps {
   accessory: Accessory | null;
@@ -47,7 +48,7 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
           {accessory.title || accessory.name}
         </h3>
         <p className="text-sm text-zinc-700 mb-4">{accessory.description}</p>
-        <p className="text-lg font-bold text-zinc-800">AED {accessory.price}</p>
+        <p className="text-lg font-bold text-zinc-800">{formatPrice(accessory.price)}</p>
 
         {accessory.url && (
           <a
@@ -55,8 +56,9 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-block w-full text-center py-2 bg-[#6760ff] text-white rounded-lg hover:bg-[#5650dd] transition"
+            aria-label={`View details for ${accessory.title || accessory.name}`}
           >
-            Learn More
+            View Accessory Details
           </a>
         )}
       </motion.div>

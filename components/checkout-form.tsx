@@ -12,6 +12,7 @@ import {
 } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
+import { formatPrice } from '@/lib/format-price';
 
 const CheckoutForm = () => {
   const {
@@ -336,12 +337,12 @@ const CheckoutForm = () => {
             </div>
             <div className="flex justify-between text-sm text-zinc-600">
               <span>Subtotal:</span>
-              <span className="font-medium">AED {getTotalPrice().toFixed(2)}</span>
+              <span className="font-medium">{formatPrice(getTotalPrice())}</span>
             </div>
             <div className="pt-2 border-t border-zinc-300 flex justify-between text-base font-semibold text-zinc-900">
               <span>Total:</span>
               <span className="text-[#6760ff]">
-                AED {getTotalPrice().toFixed(2)}
+                {formatPrice(getTotalPrice())}
               </span>
             </div>
           </div>
@@ -372,7 +373,7 @@ const CheckoutForm = () => {
           ) : (
             <>
               <IconShoppingCart size={18} />
-              Pay AED {getTotalPrice().toFixed(2)}
+              Pay {formatPrice(getTotalPrice())}
             </>
           )}
         </motion.button>

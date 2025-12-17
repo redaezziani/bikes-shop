@@ -25,6 +25,7 @@ const buildProductsQueryString = (params?: {
     'populate[3]=colors',
     'populate[4]=available_accessories.image',
     'populate[5]=specs_image',
+    'sort[0]=orderIndex:asc',
   ];
 
   if (params?.page) {

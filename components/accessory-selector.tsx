@@ -1,6 +1,7 @@
 'use client';
 
 import { Product } from '@/types/products';
+import { formatPrice } from '@/lib/format-price';
 
 const AccessorySelector = ({
   product,
@@ -96,7 +97,7 @@ const AccessorySelector = ({
                     : 'text-zinc-600'
                 }`}
               >
-                {item.price === 0 ? 'Free' : `AED ${item.price}`}
+                {item.price === 0 ? 'Free' : formatPrice(item.price)}
               </strong>
             </div>
           </label>

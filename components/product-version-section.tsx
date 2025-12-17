@@ -4,6 +4,7 @@ import { Pagination } from 'swiper/modules';
 import { SectionTwo } from '@/types/section-two';
 import Link from 'next/link';
 import Image from 'next/image';
+import '@/app/swiper-styles.css';
 
 
 interface ProductVersionSectionProps {
