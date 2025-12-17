@@ -25,7 +25,7 @@ const FixedBottomBar = () => {
           href="https://wa.me/971523160662"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-10 h-10 md:w-full border-zinc-400/45 sm:border sm:rounded gap-2 flex justify-center items-center"
+          className="w-10 h-10 md:w-full md:border-zinc-400/45 md::border md:rounded gap-2 flex justify-center items-center"
           aria-label="chat with us via WhatsAp"
         >
           <svg
