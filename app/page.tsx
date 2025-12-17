@@ -17,17 +17,19 @@ const HeroSlider = dynamic(() => import('@/components/hero-slider'), {
 
 // Defer below-the-fold components with dynamic imports
 const ProductVersionSection = dynamic(
-  () => import('@/components/product-version-section')
+  () => import('@/components/product-version-section'),
 );
 
 const OffersSection = dynamic(() => import('@/components/offers-section'));
 
-const LazyVideoPlayer = dynamic(() => import('@/components/lazy-video-player'), {
-  loading: () => (
-    <div className="w-full h-96 bg-zinc-100 animate-pulse rounded-lg" />
-  ),
-});
-
+const LazyVideoPlayer = dynamic(
+  () => import('@/components/lazy-video-player'),
+  {
+    loading: () => (
+      <div className="w-full h-96 bg-zinc-100 animate-pulse rounded-lg" />
+    ),
+  },
+);
 
 const BlogSection = dynamic(() => import('@/components/blog-section'));
 
@@ -37,15 +39,19 @@ export default async function Home() {
   let sectionOneData, sectionTwoData, blogsData, offersData, homeMapSectionData;
 
   try {
-    [sectionOneData, sectionTwoData, blogsData, offersData, homeMapSectionData] = await Promise.all(
-      [
-        getSectionOneData(),
-        getSectionTwoData({ pageSize: 10 }),
-        getBlogsData({ pageSize: 6 }),
-        getOffersData({ pageSize: 10 }),
-        getHomeMapSectionData(),
-      ],
-    );
+    [
+      sectionOneData,
+      sectionTwoData,
+      blogsData,
+      offersData,
+      homeMapSectionData,
+    ] = await Promise.all([
+      getSectionOneData(),
+      getSectionTwoData({ pageSize: 10 }),
+      getBlogsData({ pageSize: 6 }),
+      getOffersData({ pageSize: 10 }),
+      getHomeMapSectionData(),
+    ]);
   } catch (error) {
     console.warn('Failed to fetch data:', error);
     sectionOneData = { data: [] };
@@ -73,9 +79,9 @@ export default async function Home() {
       <OffersSection offers={offers} />
 
       <section className="w-full  lg:px-0  mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:px-4   gap-6">
-          <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg  overflow-hidden  transition-shadow">
-            <div className="relative md:h-170  w-full overflow-hidden bg-zinc-100">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:px-4   gap-6">
+          <div className="flex md:col-span-2  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg  overflow-hidden  transition-shadow">
+            <div className="relative md:h-140  w-full overflow-hidden bg-zinc-100">
               <LazyVideoPlayer />
             </div>
             <div className="flex flex-col px-4 justify-start py-5 bg-white">
@@ -100,7 +106,7 @@ export default async function Home() {
           {mapSection && (
             <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
               {mapSection.image && (
-                <div className="relative w-full h-96 md:h-170 bg-zinc-100 overflow-hidden">
+                <div className="relative w-full h-96 md:h-140 bg-zinc-100 overflow-hidden">
                   <img
                     src={mapSection.image.url}
                     alt={mapSection.image.alternativeText || mapSection.title}
