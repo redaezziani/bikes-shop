@@ -1,7 +1,6 @@
 import HeaderDetailsPage from '@/components/header-v2';
 import Footer from '@/components/footer';
 import Breadcrumbs from '@/components/breadcrumbs';
-import MapboxMap from '@/components/map-box';
 
 export default function RoutesPage() {
   return (
@@ -24,15 +23,6 @@ export default function RoutesPage() {
 
         <section className="w-full px-6 md:px-12 py-16 bg-white">
           <div className="max-w-6xl mx-auto space-y-12">
-            {/* First Map - Desert Ride with MapboxMap */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-6">
-                Desert Ride
-              </h2>
-              <div className="border border-zinc-200 rounded-lg overflow-hidden">
-                <MapboxMap  />
-              </div>
-            </div>
 
             {/* Second Map - Komoot Collection */}
             <div>
