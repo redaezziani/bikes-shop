@@ -51,9 +51,9 @@ export default async function Home() {
       <OffersSection offers={offers} />
 
       <section className="w-full  lg:px-0  mx-auto py-12">
-        <div className="grid grid-cols-1  gap-6">
-          <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none  overflow-hidden  transition-shadow">
-            <div className="relative  w-full overflow-hidden bg-zinc-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:px-4   gap-6">
+          <div className="flex  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg  overflow-hidden  transition-shadow">
+            <div className="relative md:h-170  w-full overflow-hidden bg-zinc-100">
               <LazyVideoPlayer />
             </div>
             <div className="flex flex-col px-4 justify-start py-5 bg-white">
@@ -83,7 +83,7 @@ export default async function Home() {
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
                 We Are Set to Explore
               </h3>
-              <p className="text-zinc-700 text-sm leading-6">
+              <p className="text-zinc-700 md:max-w-[70%] text-sm leading-6">
                 We’re exploring and documenting the best family-friendly cycling
                 routes across Dubai and the UAE through the eyes of the whole
                 family.
