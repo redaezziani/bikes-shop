@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Product } from '@/types/products';
+import { formatPrice } from '@/lib/format-price';
 
 const ModelSelector = ({ products }: { products: Product[] }) => {
   const searchParams = useSearchParams();
@@ -62,7 +63,7 @@ const ModelSelector = ({ products }: { products: Product[] }) => {
                   isActive ? 'text-zinc-700' : 'text-zinc-500'
                 } font-semibold text-sm`}
               >
-                AED {item.price}
+                {formatPrice(item.price)}
               </strong>
             </div>
           </label>

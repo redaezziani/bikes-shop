@@ -19,7 +19,6 @@ const OrderContent = () => {
 
   const products = data?.data || [];
 
-  // Derive current product from URL and products list
   const currentProduct = useMemo(() => {
     if (products.length === 0) return null;
 
@@ -28,7 +27,6 @@ const OrderContent = () => {
       if (found) return found;
     }
 
-    // No default selection - return null if no documentId in URL
     return null;
   }, [documentIdFromUrl, products]);
 
@@ -42,11 +40,35 @@ const OrderContent = () => {
   const availableColors = currentProduct?.colors || [];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const colorStyles = useMemo(() => {
+    return availableColors.map((color) => {
+      if (color.hex.includes('-')) {
+        const [color1, color2] = color.hex.split('-');
+        return {
+          id: color.id,
+          name: color.name,
+          quantity: color.quantity,
+          style: {
+            background: `linear-gradient(90deg, ${color1.trim()} 50%, ${color2.trim()} 50%)`,
+          },
+        };
+      }
+      return {
+        id: color.id,
+        name: color.name,
+        quantity: color.quantity,
+        style: {
+          backgroundColor: color.hex,
+        },
+      };
+    });
+  }, [availableColors]);
+
   if (isLoading) {
     return (
       <main className="flex flex-col min-h-screen gap-4 justify-center items-center">
         <main className="flex flex-col min-h-screen gap-4 justify-center items-center">
-          <span className=" flex gap-1 justify-center items-center">
+          <span className="flex gap-1 justify-center items-center">
             <div className="w-3 h-3 border-2 border-white/30 border-t-black rounded-full animate-spin" />
             Processing...
           </span>
@@ -69,14 +91,14 @@ const OrderContent = () => {
           <div className="flex md:p-10 md:mt-14 sticky top-0 md:top-20 self-start z-10 bg-white md:bg-transparent">
             {currentProduct ? (
               <>
-                <span className="  md:block hidden">
+                <span className="md:block hidden">
                   <ProductImagePreview
                     images={allImages}
                     current={currentImageIndex}
                     setCurrent={setCurrentImageIndex}
                   />
                 </span>
-                <span className=" block md:hidden w-full">
+                <span className="block md:hidden w-full">
                   <ModelPreview
                     name={currentProduct.name}
                     image={currentProduct.cover_image.url}
@@ -105,7 +127,7 @@ const OrderContent = () => {
                     {currentProduct.name}
                   </h2>
                   <p className="text-zinc-600 line-clamp-1 capitalize text-sm">
-                    {currentProduct.short_description}{' '}
+                    {currentProduct.short_description}
                   </p>
                   <Link
                     className="underline text-zinc-600 underline-offset-4"
@@ -147,10 +169,10 @@ const OrderContent = () => {
                   <p className="text-zinc-600 capitalize text-sm">
                     Choose the color that you want.
                   </p>
-                  {availableColors.length > 0 && (
+                  {colorStyles.length > 0 && (
                     <div className="mt-4 flex justify-start flex-col gap-2">
                       <div className="flex w-full justify-start gap-3 flex-wrap">
-                        {availableColors.map((color) => {
+                        {colorStyles.map((color) => {
                           const isOutOfStock =
                             color.quantity !== undefined && color.quantity < 1;
                           const isDisabled = isOutOfStock;
@@ -158,13 +180,17 @@ const OrderContent = () => {
                           return (
                             <label
                               key={color.id}
-                              className={`flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8 bg-white transition relative
+                              className={`flex overflow-hidden items-center gap-2 border-2 rounded-lg w-8 h-8 bg-white transition relative
                           ${
                             selectedColor === color.name
                               ? 'border-zinc-900'
                               : 'border-zinc-300'
                           }
-                          ${isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'}
+                          ${
+                            isDisabled
+                              ? 'cursor-not-allowed opacity-40'
+                              : 'cursor-pointer'
+                          }
                           `}
                               title={isOutOfStock ? 'Out of stock' : color.name}
                             >
@@ -180,8 +206,8 @@ const OrderContent = () => {
                                 className="hidden"
                               />
                               <span
-                                className="size-full"
-                                style={{ backgroundColor: color.hex }}
+                                className="w-full h-full"
+                                style={color.style}
                               />
                               {isOutOfStock && (
                                 <div className="absolute inset-0 flex items-center justify-center">
@@ -207,7 +233,6 @@ const OrderContent = () => {
                   />
                 </div>
 
-                {/* Order Summary - Desktop Only (inline) */}
                 <div className="hidden md:block mt-8 px-4">
                   <OrderSummaryPanel
                     currentProduct={currentProduct}
@@ -221,7 +246,6 @@ const OrderContent = () => {
         </div>
       </section>
 
-      {/* Order Summary - Mobile Only (fixed bottom) */}
       {currentProduct && (
         <div className="md:hidden">
           <OrderSummaryPanel

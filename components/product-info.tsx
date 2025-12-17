@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { IconArrowRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { formatPrice } from '@/lib/format-price';
 
 interface ProductInfoProps {
   title: string;
@@ -34,7 +35,6 @@ export default function ProductInfo({
   const increase = () => setQty((q) => q + 1);
   const decrease = () => setQty((q) => (q > 1 ? q - 1 : 1));
 
-  // Memoize color gradient calculations
   const colorStyles = useMemo(() => {
     return colors.map((color) => {
       if (color.hex.includes('-')) {
@@ -43,7 +43,7 @@ export default function ProductInfo({
           name: color.name,
           hex: color.hex,
           style: {
-            background: `linear-gradient(45deg, ${color1} 50%, ${color2} 50%)`,
+            background: `linear-gradient(90deg, ${color1.trim()} 0%, ${color2.trim()} 100%)`,
           },
         };
       }
@@ -58,14 +58,14 @@ export default function ProductInfo({
   }, [colors]);
 
   return (
-    <section className=" flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-1 mt-5 md:mt-0 justify-start items-start">
         <h1 className="text-lg font-semibold text-zinc-900">{title}</h1>
         <p className="text-zinc-500 text-sm">{description}</p>
       </div>
 
-      <div className="flex mt-5 gap-4 flex-wrap  justify-start items-center w-full">
-        <div className=" hidden items-center gap-2 border border-zinc-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
+      <div className="flex mt-5 gap-4 flex-wrap justify-start items-center w-full">
+        <div className="hidden items-center gap-2 border border-zinc-500 rounded-lg px-3 py-1.5 bg-white shadow-sm">
           <button
             onClick={decrease}
             aria-label="Decrease quantity"
@@ -93,12 +93,12 @@ export default function ProductInfo({
         </div>
         <div className="flex w-full justify-end items-end">
           {colorStyles.length > 0 && (
-            <div className=" flex w-full justify-start flex-col gap-2">
+            <div className="flex w-full justify-start flex-col gap-2">
               <div className="flex w-full justify-start gap-3 flex-wrap">
                 {colorStyles.map((color) => (
                   <label
                     key={color.name}
-                    className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg size-8  bg-white  transition
+                    className={`cursor-pointer flex overflow-hidden items-center gap-2 border-2 rounded-lg w-8 h-8 transition
                   ${
                     selectedColor === color.name
                       ? 'border-zinc-900'
@@ -113,20 +113,20 @@ export default function ProductInfo({
                       onChange={() => setSelectedColor(color.name)}
                       className="hidden"
                     />
-                    <span className="size-full" style={color.style}></span>
+                    <span className="w-full h-full" style={color.style}></span>
                   </label>
                 ))}
               </div>
             </div>
           )}
           <p className="text-zinc-800 font-semibold whitespace-nowrap">
-            AED {Math.round(priceAED)}
+            {formatPrice(priceAED)}
           </p>
         </div>
-        <Link className=" w-full" href={`/order?documentId=${documentId}`}>
+        <Link className="w-full" href={`/order?documentId=${documentId}`}>
           <button
             aria-label="Order product now"
-            className="bg-zinc-900 mt-4 capitalize  cursor-pointer w-full  font-medium hover:gap-2 transition-all ease-in-out rounded-xl py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
+            className="bg-zinc-900 mt-4 capitalize cursor-pointer w-full font-medium hover:gap-2 transition-all ease-in-out rounded-xl py-2 px-3 flex text-zinc-50 gap-1 justify-center items-center"
           >
             <p>order now</p>
             <IconArrowRight size={18} />

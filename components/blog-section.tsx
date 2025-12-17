@@ -4,16 +4,13 @@ import { Blog } from '@/types/blogs';
 import BlogCard from './blog-card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
+import '@/app/swiper-styles.css';
 
 interface BlogSectionProps {
   blogs: Blog[];
 }
 
 const BlogSection = ({ blogs }: BlogSectionProps) => {
-
   return (
     <section className="w-full pl-4 py-8 bg-white">
       {blogs.length > 0 ? (
@@ -24,7 +21,7 @@ const BlogSection = ({ blogs }: BlogSectionProps) => {
             slidesPerView={1.2}
             breakpoints={{
               768: {
-                slidesPerView: 2,
+                slidesPerView: 3,
               },
             }}
             centeredSlides={false}

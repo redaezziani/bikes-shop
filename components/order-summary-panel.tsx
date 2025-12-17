@@ -14,6 +14,7 @@ import {
 } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
+import { formatPrice } from '@/lib/format-price';
 import type { Accessory, Product } from '@/types/products';
 
 const OrderSummaryPanel = ({
@@ -123,7 +124,7 @@ const OrderSummaryPanel = ({
           <div className="text-right">
             <p className="text-xs text-zinc-500">Total</p>
             <span className="text-lg font-bold  text-zinc-900">
-              AED {totalPrice.toFixed(2)}
+              {formatPrice(totalPrice)}
             </span>
           </div>
           <motion.button whileTap={{ scale: 0.95 }} className="md:hidden">
@@ -151,7 +152,7 @@ const OrderSummaryPanel = ({
           <div className="flex justify-between items-center py-2 border-b border-dashed border-zinc-300">
             <span className="font-medium text-sm">{currentProduct.name}</span>
             <span className="font-medium text-lg">
-              AED {currentProduct.price.toFixed(2)}
+              {formatPrice(currentProduct.price)}
             </span>
           </div>
           <div className="flex items-center gap-4 py-2">
@@ -190,7 +191,7 @@ const OrderSummaryPanel = ({
                     {acc.title || acc.name}
                   </span>
                   <span className="font-medium text-xs text-zinc-600">
-                    AED {acc.price.toFixed(2)}
+                    {formatPrice(acc.price)}
                   </span>
                 </li>
               ))}
@@ -207,7 +208,7 @@ const OrderSummaryPanel = ({
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold text-zinc-800">Order Total</h3>
             <span className="text-xl font-bold  text-zinc-900">
-              AED {totalPrice.toFixed(2)}
+              {formatPrice(totalPrice)}
             </span>
           </div>
 
@@ -678,7 +679,7 @@ const OrderSummaryPanel = ({
               ) : (
                 <>
                   <IconShoppingBag size={16} />
-                  Pay AED {totalPrice.toFixed(2)}
+                  Pay {formatPrice(totalPrice)}
                 </>
               )}
             </motion.button>

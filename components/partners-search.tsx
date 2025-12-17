@@ -90,7 +90,7 @@ export default function PartnersSearch({ partners }: PartnersSearchProps) {
                     rel="noopener noreferrer"
                     className="inline-block bg-zinc-900 text-white font-medium px-6 py-2 rounded-xl hover:bg-zinc-800 transition"
                   >
-                    Visit Partner
+                    Visit Website
                   </a>
                 )}
               </div>

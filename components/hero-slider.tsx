@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Header from './header';
 import { SectionOne } from '@/types/section-one';
+import '@/app/swiper-styles.css';
 
 interface HeroSliderProps {
   slides: SectionOne[];
