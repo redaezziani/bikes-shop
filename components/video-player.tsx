@@ -21,8 +21,8 @@ const VideoPlayer = () => {
 
             // Small delay to ensure video has loaded
             setTimeout(() => {
-              videoElement.play().catch((err) => {
-                console.log('Autoplay prevented:', err);
+              videoElement.play().catch(() => {
+                // Autoplay prevented
               });
             }, 100);
           } else {

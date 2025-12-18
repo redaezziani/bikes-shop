@@ -14,8 +14,6 @@ const AccessorySelector = ({
 }) => {
   const availableAccessories = product?.available_accessories || [];
 
-  console.log(availableAccessories);
-
   return (
     <section className="px-4 grid w-full grid-cols-1  gap-4">
       {availableAccessories.map((item) => {

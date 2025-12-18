@@ -212,6 +212,7 @@ export const useOrderStore = create<OrderState>()(
 
       getCheckoutPayload: () => {
         const state = get();
+
         const backendItems: Array<{
           item_type: string;
           product?: { id: number; name: string; documentId: string };

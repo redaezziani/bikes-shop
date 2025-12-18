@@ -309,8 +309,6 @@ const OrderSummaryPanel = ({
                 // Get the checkout payload with all items
                 const checkoutPayload = getCheckoutPayload();
 
-                console.log('Checkout Payload:', checkoutPayload);
-
                 if (
                   !checkoutPayload.items ||
                   checkoutPayload.items.length === 0
@@ -401,8 +399,6 @@ const OrderSummaryPanel = ({
                   throw new Error('Network error occurred');
                 }
               } catch (error) {
-                console.error('Checkout error:', error);
-
                 let errorTitle = 'Checkout failed';
                 let errorMessage = 'Failed to process checkout';
 

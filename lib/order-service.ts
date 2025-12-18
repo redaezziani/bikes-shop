@@ -76,7 +76,6 @@ export const orderService = {
       return { success: true, data: createdOrder };
     } catch (error) {
       const apiError = error as { response?: { data?: { error?: { message?: string }; message?: string } } };
-      console.error('Order creation error:', apiError.response?.data);
       return {
         success: false,
         error: apiError.response?.data?.error?.message || apiError.response?.data?.message || 'Failed to create order',
