@@ -31,8 +31,8 @@ export interface Order {
 
 export interface OrderItemData {
   item_type: 'bike' | 'accessory';
-  product?: number;
-  accessory?: number;
+  product?: string | number;
+  accessory?: string | number;
   color_name?: string;
   color_hex?: string;
   quantity: number;

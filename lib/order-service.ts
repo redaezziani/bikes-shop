@@ -11,7 +11,7 @@ export const orderService = {
       // Add bike item
       formattedItems.push({
         item_type: 'bike' as const,
-        product: item.product.id,
+        product: item.product.documentId,
         color_name: item.selectedColor.name,
         color_hex: item.selectedColor.hex,
         quantity: item.quantity,
@@ -23,7 +23,7 @@ export const orderService = {
       item.selectedAccessories.forEach((accessory) => {
         formattedItems.push({
           item_type: 'accessory' as const,
-          accessory: accessory.id,
+          accessory: accessory.documentId || accessory.id,
           quantity: item.quantity,
           unit_price: accessory.price,
           subtotal: accessory.price * item.quantity,
