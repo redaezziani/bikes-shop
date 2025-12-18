@@ -81,11 +81,10 @@ export default function SupportPage() {
             <div className="max-w-3xl">
               <p className="text-white/90 text-sm font-medium mb-3">Support</p>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Top questions about Bikes Shop
+                {title}
               </h1>
               <p className="text-white/90 text-lg mb-8">
-                Need something cleared up? Here are our most frequently asked
-                questions.
+                {description}
               </p>
             </div>
             <button
@@ -215,7 +214,7 @@ export default function SupportPage() {
           </div>
         </section>
 
-        <FixedBottomChatBot />
+        {/* <FixedBottomChatBot /> */}
         <Footer />
       </main>
 
