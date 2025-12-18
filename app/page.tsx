@@ -7,6 +7,7 @@ import { getOffersData } from '@/lib/offers-service';
 import { getHomeMapSectionData } from '@/lib/home-map-section-service';
 import Footer from '@/components/footer';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
+import OrderStatusModalWrapper from '@/components/order-status-modal-wrapper';
 
 // Lazy load heavy client components - these won't block the initial page load
 const HeroSlider = dynamic(() => import('@/components/hero-slider'), {
@@ -69,6 +70,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
+      <OrderStatusModalWrapper />
       <HeroSlider slides={slides} />
       <section
         aria-label="product-version-section"
