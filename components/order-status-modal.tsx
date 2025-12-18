@@ -74,28 +74,30 @@ const SuccessContent = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
       {/* Header with icon */}
-      <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-8 text-center">
+      <div className="bg-[#32870f] p-8 text-center">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: 'spring', damping: 15 }}
-          className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+          className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 "
         >
-          <IconCheck className="w-12 h-12 text-green-600" strokeWidth={3} />
+          <IconCheck className="w-12 h-12 text-[#32870f]" strokeWidth={3} />
         </motion.div>
         <h2 className="text-3xl font-bold text-white mb-2">Order Confirmed!</h2>
-        <p className="text-green-50 text-lg">Thank you for your purchase</p>
+        <p className="text-white/90 text-lg">Thank you for your purchase</p>
       </div>
 
       {/* Content */}
       <div className="p-8">
         <div className="space-y-4 mb-8">
           <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <IconCheck className="w-4 h-4 text-green-600" strokeWidth={3} />
+            <div className="w-6 h-6 rounded-full bg-[#32870f]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <IconCheck className="w-4 h-4 text-[#32870f]" strokeWidth={3} />
             </div>
             <div>
-              <h3 className="font-semibold text-zinc-900 mb-1">Payment Successful</h3>
+              <h3 className="font-semibold text-zinc-900 mb-1">
+                Payment Successful
+              </h3>
               <p className="text-sm text-zinc-600">
                 Your payment has been processed successfully
               </p>
@@ -103,27 +105,34 @@ const SuccessContent = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <IconShoppingBag className="w-4 h-4 text-green-600" strokeWidth={2.5} />
+            <div className="w-6 h-6 rounded-full bg-[#32870f]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <IconShoppingBag
+                className="w-4 h-4 text-[#32870f]"
+                strokeWidth={2.5}
+              />
             </div>
             <div>
-              <h3 className="font-semibold text-zinc-900 mb-1">Order Processing</h3>
+              <h3 className="font-semibold text-zinc-900 mb-1">
+                Order Processing
+              </h3>
               <p className="text-sm text-zinc-600">
-                We&apos;ll send you an email confirmation with your order details
+                We&apos;ll send you an email confirmation with your order
+                details
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-          <p className="text-sm text-green-800 text-center">
-            <span className="font-semibold">What&apos;s next?</span> You&apos;ll receive tracking information via email once your order ships
+        <div className="bg-[#32870f]/5 border border-[#32870f]/20 rounded-lg p-4 mb-6">
+          <p className="text-sm text-[#32870f] text-center">
+            <span className="font-semibold">What&apos;s next?</span> You&apos;ll
+            receive tracking information via email once your order ships
           </p>
         </div>
 
         <button
           onClick={onClose}
-          className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="w-full py-3 bg-[#32870f] hover:bg-[#2a6f0c] text-white font-semibold rounded-lg transition-all duration-200  hover:shadow-xl"
         >
           Continue Shopping
         </button>
@@ -141,7 +150,7 @@ const CancelledContent = ({ onClose }: { onClose: () => void }) => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: 'spring', damping: 15 }}
-          className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+          className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 "
         >
           <IconX className="w-12 h-12 text-red-600" strokeWidth={3} />
         </motion.div>
@@ -157,7 +166,9 @@ const CancelledContent = ({ onClose }: { onClose: () => void }) => {
               <IconX className="w-4 h-4 text-red-600" strokeWidth={3} />
             </div>
             <div>
-              <h3 className="font-semibold text-zinc-900 mb-1">Payment Not Processed</h3>
+              <h3 className="font-semibold text-zinc-900 mb-1">
+                Payment Not Processed
+              </h3>
               <p className="text-sm text-zinc-600">
                 Your payment was cancelled and no charges were made
               </p>
@@ -166,10 +177,15 @@ const CancelledContent = ({ onClose }: { onClose: () => void }) => {
 
           <div className="flex items-start gap-3">
             <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <IconShoppingBag className="w-4 h-4 text-red-600" strokeWidth={2.5} />
+              <IconShoppingBag
+                className="w-4 h-4 text-red-600"
+                strokeWidth={2.5}
+              />
             </div>
             <div>
-              <h3 className="font-semibold text-zinc-900 mb-1">No Order Created</h3>
+              <h3 className="font-semibold text-zinc-900 mb-1">
+                No Order Created
+              </h3>
               <p className="text-sm text-zinc-600">
                 Your cart has been cleared. You can start shopping again
               </p>
@@ -179,13 +195,14 @@ const CancelledContent = ({ onClose }: { onClose: () => void }) => {
 
         <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-4 mb-6">
           <p className="text-sm text-zinc-700 text-center">
-            <span className="font-semibold">Need help?</span> Contact our support team if you experienced any issues
+            <span className="font-semibold">Need help?</span> Contact our
+            support team if you experienced any issues
           </p>
         </div>
 
         <button
           onClick={onClose}
-          className="w-full py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="w-full py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-semibold rounded-lg transition-all duration-200  hover:shadow-xl"
         >
           Return to Shopping
         </button>

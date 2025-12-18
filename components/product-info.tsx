@@ -43,7 +43,7 @@ export default function ProductInfo({
           name: color.name,
           hex: color.hex,
           style: {
-            background: `linear-gradient(90deg, ${color1.trim()} 0%, ${color2.trim()} 100%)`,
+            background: `linear-gradient(90deg, ${color1.trim()} 50%, ${color2.trim()} 50%)`,
           },
         };
       }
