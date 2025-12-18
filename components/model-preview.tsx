@@ -7,7 +7,6 @@ interface ModelPreviewProps {
 }
 
 const ModelPreview = ({ image, name, id }: ModelPreviewProps) => {
-  console.log(image);
   return (
     <div className="flex w-full sticky top-0 bg-white z-40 overflow-hidden px-4">
       <AnimatePresence mode="wait" initial={false}>

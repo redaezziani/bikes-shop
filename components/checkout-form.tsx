@@ -108,20 +108,6 @@ const CheckoutForm = () => {
     try {
       const checkoutPayload = getCheckoutPayload();
 
-      console.log('Checkout payload:', checkoutPayload);
-      console.log('Total items being sent:', checkoutPayload.items.length);
-
-      // Show breakdown of what's being sent
-      const bikes = checkoutPayload.items.filter(
-        (item) => item.item_type === 'bike',
-      );
-      const accessories = checkoutPayload.items.filter(
-        (item) => item.item_type === 'accessory',
-      );
-      console.log(
-        `Sending ${bikes.length} bike(s) and ${accessories.length} accessory/accessories`,
-      );
-
       // Call your Stripe checkout endpoint
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/checkout`,
@@ -141,8 +127,6 @@ const CheckoutForm = () => {
 
       const result = await response.json();
 
-      console.log('Checkout response:', result);
-
       if (result.url) {
         showToast.success('Order created!', 'Redirecting to payment...');
 
@@ -152,7 +136,6 @@ const CheckoutForm = () => {
         showToast.error('Order failed', 'No payment URL received');
       }
     } catch (error) {
-      console.error('Checkout error:', error);
       showToast.error(
         'Error',
         error instanceof Error ? error.message : 'Failed to create order',
