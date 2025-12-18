@@ -110,7 +110,7 @@ export default async function Home() {
               {mapSection.image && (
                 <div className="relative w-full h-96 md:h-140 bg-zinc-100 overflow-hidden">
                   <img
-                    src={mapSection.image.url}
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${mapSection.image.url}`}
                     alt={mapSection.image.alternativeText || mapSection.title}
                     className="w-full h-full object-cover"
                   />
