@@ -12,7 +12,7 @@ interface StoriesSectionProps {
 
 const StoriesSection = ({ stories }: StoriesSectionProps) => {
   return (
-    <section className="w-full md:max-w-7xl md:pl-4 mt-2 py-8 bg-white">
+    <section className="w-full mx-auto md:max-w-7xl pl-4 mt-2 py-8 bg-white">
       <div className="flex flex-col gap-1">
         <h2 className="text-2xl md:text-3xl font-bold text-zinc-700">
           User Stories
