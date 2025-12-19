@@ -95,18 +95,18 @@ const OrderSummaryPanel = ({
       animate={isExpanded ? 'expanded' : 'collapsed'}
       variants={summaryVariants}
       transition={{ duration: 0.3 }}
-      className={`md:!h-auto md:relative md:shadow-none md:rounded-xl fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden md:overflow-visible backdrop-blur-md flex flex-col ${
+      className={`md:h-auto! md:relative md:shadow-none md:rounded-xl fixed bottom-0 left-0 right-0 z-50 shadow-2xl overflow-hidden md:overflow-visible backdrop-blur-md flex flex-col ${
         isExpanded
           ? 'bg-white md:bg-white'
-          : 'bg-white md:bg-zinc-50 md:border md:border-zinc-200'
+          : 'bg-white  md:border md:border-zinc-200'
       }`}
       style={isExpanded ? { maxHeight: '100vh' } : undefined}
     >
       <div
         className={`flex justify-between border-zinc-400/25 items-center px-4 py-4 md:px-6 md:py-4 transition-colors duration-300 cursor-pointer md:cursor-default ${
           isExpanded
-            ? 'bg-white text-zinc-900 border-b border-zinc-200 md:bg-zinc-50'
-            : 'bg-white text-zinc-800 border-t md:border-t-0 md:rounded-t-xl md:bg-zinc-50'
+            ? 'bg-white text-zinc-900 border-b border-zinc-200 '
+            : 'bg-white text-zinc-800 border-t md:border-t-0 md:rounded-t-xl '
         }`}
         onClick={(e) => {
           if (window.innerWidth < 768) {
