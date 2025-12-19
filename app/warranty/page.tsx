@@ -14,16 +14,24 @@ export default async function WarrantyPage() {
   return (
     <>
       <HeaderDetailsPage />
-      <main className="flex flex-col px-4 md:px-0  w-full bg-white items-center">
-        <section className=" w-full md:max-w-7xl   py-10 bg-white">
-          <div className=" w-full">
-            <Breadcrumbs className="py-8" />
-            <div>
-              <h1 className="text-3xl md:text-3xl font-bold text-zinc-700 mb-2">
+      <main className="flex flex-col w-full bg-white">
+        {/* Hero Section */}
+        <section className="relative w-full bg-gradient-to-br from-zinc-800 to-zinc-100 px-4 md:px-8 overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-[0.15]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+              backgroundRepeat: 'repeat',
+            }}
+          />
+          <div className="max-w-7xl mx-auto py-16 md:py-20">
+            <div className="max-w-3xl">
+              <p className="text-white/90 text-sm font-medium mb-3">Support</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 {title}
               </h1>
               {description && (
-                <p className="text-md md:text-lg text-zinc-400 leading-relaxed">
+                <p className="text-white/90 text-lg mb-8">
                   {description}
                 </p>
               )}
@@ -31,8 +39,14 @@ export default async function WarrantyPage() {
           </div>
         </section>
 
-        <section className="w-full  py-16 bg-white">
-          <div className=" max-w-7xl mx-auto">
+        <section className="w-full px-4 md:px-8 pt-8">
+          <div className="max-w-7xl mx-auto">
+            <Breadcrumbs className="py-4" />
+          </div>
+        </section>
+
+        <section className="w-full px-4 md:px-8 py-12 md:py-16 bg-white">
+          <div className="max-w-7xl mx-auto">
             <div className="prose max-w-none">
               <ReactMarkdown
                 components={{
