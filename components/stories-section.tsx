@@ -12,7 +12,15 @@ interface StoriesSectionProps {
 
 const StoriesSection = ({ stories }: StoriesSectionProps) => {
   return (
-    <section className="w-full pl-4 py-8 bg-white">
+    <section className="w-full md:max-w-7xl md:pl-4 mt-2 py-8 bg-white">
+      <div className="flex flex-col gap-1">
+        <h2 className="text-2xl md:text-3xl font-bold text-zinc-700">
+          User Stories
+        </h2>
+        <p className="text-md md:text-lg text-zinc-400">
+          Hear from our satisfied users
+        </p>
+      </div>
       {stories.length > 0 ? (
         <>
           <Swiper
@@ -29,7 +37,7 @@ const StoriesSection = ({ stories }: StoriesSectionProps) => {
               clickable: true,
               dynamicBullets: false,
             }}
-            className="blog-swiper"
+            className="blog-swiper mt-4"
           >
             {stories.map((story) => (
               <SwiperSlide key={story.id}>
