@@ -90,7 +90,7 @@ export default async function Home() {
               <h3 className="text-zinc-900 text-2xl font-semibold mb-2">
                 Timeless Designs, Made for Today
               </h3>
-              <p className="text-zinc-700 md:w-3xl text-sm leading-6">
+              <p className="text-zinc-700 md:w-5xl text-sm leading-6">
                 We build front-loader cargo bikes for a shared view and a richer
                 sensory experience. Inspired by Long John and Bakfiets heritage,
                 we design modern family bikes for life in Dubai and the UAE.
