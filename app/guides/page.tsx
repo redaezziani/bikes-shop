@@ -2,14 +2,25 @@ import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import Breadcrumbs from '@/components/breadcrumbs';
 import { getGuidesStoriesData } from '@/lib/guides-stories-service';
+import { getStoriesData } from '@/lib/stories-service';
 import HeaderDetailsPage from '@/components/header-v2';
+import StoriesSection from '@/components/stories-section';
 
 export const dynamic = 'force-dynamic';
 
 export default async function GuidesStoriesPage() {
   const pageData = await getGuidesStoriesData();
 
+  let storiesData;
+  try {
+    storiesData = await getStoriesData({ pageSize: 6 });
+  } catch (error) {
+    console.warn('Failed to fetch stories data:', error);
+    storiesData = { data: [] };
+  }
+
   const { title, description, content } = pageData.data;
+  const stories = storiesData?.data || [];
 
   return (
     <>
@@ -85,6 +96,9 @@ export default async function GuidesStoriesPage() {
             </div>
           </div>
         </section>
+
+        <StoriesSection stories={stories} />
+
         <Footer />
       </main>
     </>
