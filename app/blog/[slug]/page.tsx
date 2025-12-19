@@ -8,12 +8,17 @@ interface BlogPostPageProps {
 }
 
 async function getBlog(slug: string): Promise<Blog | null> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const apiKey = process.env.NEXT_PUBLIC_STRAPI_API_KEY;
 
   try {
     const response = await fetch(
-      `${apiUrl}/api/blogs?filters[slug][$eq]=${slug}&populate=featured_image`,
+      `${apiUrl}/blogs?filters[slug][$eq]=${slug}&populate=featured_image`,
       {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
         next: { revalidate: 60 },
       }
     );
@@ -45,9 +50,9 @@ export async function generateMetadata({
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
   const imageUrl = blog.featured_image?.url
-    ? `${apiUrl}${blog.featured_image.url}`
+    ? `${strapiUrl}${blog.featured_image.url}`
     : `${baseUrl}/og-image.jpg`;
 
   return {
@@ -121,10 +126,10 @@ async function BlogPostContent({ params }: BlogPostPageProps) {
     );
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
   const imageUrl = blog.featured_image?.url
-    ? `${apiUrl}${blog.featured_image.url}`
+    ? `${strapiUrl}${blog.featured_image.url}`
     : `${baseUrl}/og-image.jpg`;
 
   // Structured Data (JSON-LD)

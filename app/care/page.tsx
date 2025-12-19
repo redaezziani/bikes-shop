@@ -6,7 +6,6 @@ import Script from 'next/script';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import PartnersSearch from '@/components/partners-search';
-import Breadcrumbs from '@/components/breadcrumbs';
 import { getAlongCarePageData } from '@/lib/along-care-service';
 import { getPartnersData } from '@/lib/partners-service';
 import HeaderDetailsPage from '@/components/header-v2';
@@ -56,7 +55,6 @@ export default function AlongCarePage() {
           />
           <div className="max-w-7xl mx-auto py-16 md:py-20">
             <div className="max-w-3xl">
-              <p className="text-white/90 text-sm font-medium mb-3">Care</p>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 {title}
               </h1>
@@ -66,12 +64,6 @@ export default function AlongCarePage() {
                 </p>
               )}
             </div>
-          </div>
-        </section>
-
-        <section className="w-full px-4 md:px-8 pt-8">
-          <div className="max-w-7xl mx-auto">
-            <Breadcrumbs className="py-4" />
           </div>
         </section>
 
