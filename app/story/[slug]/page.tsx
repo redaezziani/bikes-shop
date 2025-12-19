@@ -49,7 +49,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
   const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
   const imageUrl = story.featured_image?.url
     ? `${strapiUrl}${story.featured_image.url}`

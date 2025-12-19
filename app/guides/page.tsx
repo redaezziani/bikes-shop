@@ -1,6 +1,5 @@
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
-import Breadcrumbs from '@/components/breadcrumbs';
 import { getGuidesStoriesData } from '@/lib/guides-stories-service';
 import { getStoriesData } from '@/lib/stories-service';
 import HeaderDetailsPage from '@/components/header-v2';
@@ -37,7 +36,6 @@ export default async function GuidesStoriesPage() {
           />
           <div className="max-w-7xl mx-auto py-16 md:py-20">
             <div className="max-w-3xl">
-              <p className="text-white/90 text-sm font-medium mb-3">Guides</p>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 {title}
               </h1>
@@ -47,12 +45,6 @@ export default async function GuidesStoriesPage() {
                 </p>
               )}
             </div>
-          </div>
-        </section>
-
-        <section className="w-full px-4 md:px-8 pt-8">
-          <div className="max-w-7xl mx-auto">
-            <Breadcrumbs className="py-4" />
           </div>
         </section>
 
