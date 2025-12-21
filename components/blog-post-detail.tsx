@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import BlogTableOfContents from './blog-table-of-contents';
 import BlogMarkdownContent from './blog-markdown-content';
+import { IconChevronLeft } from '@tabler/icons-react';
 
 interface BlogPostDetailProps {
   blog: Blog | null;
@@ -68,24 +69,13 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
               href="/blog"
               className="text-zinc-600 hover:text-zinc-900 text-sm font-semibold mb-6 inline-block"
             >
-              ← Back to Blog
+              <IconChevronLeft className="inline-block mr-1" size={16} />
+              Back
             </Link>
 
-            {blog.category && (
-              <span className="inline-block text-xs ml-5 font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full mb-4">
-                {blog.category}
-              </span>
-            )}
-
-            <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">
+            <h1 className="text-2xl md:text-5xl font-bold text-zinc-900 mb-4">
               {blog.title}
             </h1>
-
-            <div className="flex items-center gap-4 text-zinc-600 text-sm">
-              <span>{formattedDate}</span>
-              <span className="text-zinc-300">•</span>
-              <span>{readingTime} min read</span>
-            </div>
           </div>
 
           {blog.featured_image?.url && (
@@ -102,34 +92,20 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
             </div>
           )}
 
-          <BlogMarkdownContent content={blog.content} blogId={blog.id} />
-
           <div className="border-t border-zinc-200 pt-8">
-            {blog.meta_description && (
-              <p className="text-zinc-600 italic mb-6">
-                <strong>Summary:</strong> {blog.meta_description}
-              </p>
-            )}
+            <BlogMarkdownContent blogId={blog.id} content={blog.content} />
 
             <div className="flex justify-between items-center">
               <Link
                 href="/blog"
                 className="text-zinc-800 hover:text-zinc-600 font-semibold"
               >
-                ← Back to Blog
+                <IconChevronLeft className="inline-block mr-1" size={16} />
+                Back
               </Link>
-              {blog.category && (
-                <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wide bg-zinc-100 px-3 py-1 rounded-full">
-                  {blog.category}
-                </span>
-              )}
             </div>
           </div>
         </article>
-
-        <div className="order-1 lg:order-2">
-          <BlogTableOfContents content={blog.content} />
-        </div>
       </div>
     </div>
   );

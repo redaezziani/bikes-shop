@@ -10,6 +10,7 @@ export interface Blog {
   featured_image?: CoverImage;
   category?: string;
   meta_description?: string;
+  orderIndex?: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

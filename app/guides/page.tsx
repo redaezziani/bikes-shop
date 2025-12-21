@@ -1,25 +1,25 @@
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getGuidesStoriesData } from '@/lib/guides-stories-service';
-import { getStoriesData } from '@/lib/stories-service';
+import { getBlogsData } from '@/lib/blogs-service';
 import HeaderDetailsPage from '@/components/header-v2';
-import StoriesSection from '@/components/stories-section';
+import BlogSection from '@/components/blog-section';
 
 export const dynamic = 'force-dynamic';
 
 export default async function GuidesStoriesPage() {
   const pageData = await getGuidesStoriesData();
 
-  let storiesData;
+  let blogsData;
   try {
-    storiesData = await getStoriesData({ pageSize: 6 });
+    blogsData = await getBlogsData({ pageSize: 6 });
   } catch (error) {
-    console.warn('Failed to fetch stories data:', error);
-    storiesData = { data: [] };
+    console.warn('Failed to fetch blogs data:', error);
+    blogsData = { data: [] };
   }
 
   const { title, description, content } = pageData.data;
-  const stories = storiesData?.data || [];
+  const blogs = blogsData?.data || [];
 
   return (
     <>
@@ -40,9 +40,7 @@ export default async function GuidesStoriesPage() {
                 {title}
               </h1>
               {description && (
-                <p className="text-white/90 text-lg mb-8">
-                  {description}
-                </p>
+                <p className="text-white/90 text-lg mb-8">{description}</p>
               )}
             </div>
           </div>
@@ -103,7 +101,9 @@ export default async function GuidesStoriesPage() {
           </div>
         </section>
 
-        <StoriesSection stories={stories} />
+        <div className="w-full max-w-7xl mx-auto">
+          <BlogSection blogs={blogs} />
+        </div>
 
         <Footer />
       </main>
