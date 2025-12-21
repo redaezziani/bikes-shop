@@ -78,7 +78,10 @@ const HeaderDetailsPage = () => {
         <nav className="hidden lg:flex items-center gap-8">
           <div className="relative">
             <button
-              onClick={() => setModelsDropdownOpen(!modelsDropdownOpen)}
+              onClick={() => {
+                setModelsDropdownOpen(!modelsDropdownOpen);
+                setLearnDropdownOpen(false);
+              }}
               className="text-zinc-950 font-bold text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="View bike models"
               aria-expanded={modelsDropdownOpen}
@@ -134,7 +137,10 @@ const HeaderDetailsPage = () => {
 
           <div className="relative">
             <button
-              onClick={() => setLearnDropdownOpen(!learnDropdownOpen)}
+              onClick={() => {
+                setLearnDropdownOpen(!learnDropdownOpen);
+                setModelsDropdownOpen(false);
+              }}
               className="text-zinc-950 font-bold text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="Learn menu"
               aria-expanded={learnDropdownOpen}

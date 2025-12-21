@@ -42,7 +42,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           className="bg-zinc-100 line-clamp-1 truncate max-w-[70%] text-zinc-800 font-medium rounded-lg px-6 py-3 text-sm hover:bg-zinc-200  transition text-center"
           aria-label={`Read full article: ${blog.title}`}
         >
-          Read Full Article
+          Learn More
         </Link>
       </div>
     </article>
