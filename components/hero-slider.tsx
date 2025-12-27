@@ -61,7 +61,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
 
           return (
             <SwiperSlide key={slide.id}>
-              <div className="h-full px-4 z-10  relative w-full flex justify-start items-start md:justify-center">
+              <div className="h-full px-4 z-10  relative w-full flex justify-start items-end md:justify-center">
                 {/* Mobile Image */}
                 <Image
                   src={mobileImageUrl}
@@ -84,7 +84,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
                   quality={85}
                   className="object-cover hidden md:block"
                 />
-                <div className="flex relative mt-20 md:mt-40 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
+                <div className="flex relative mb-20 md:mb-40 z-30 justify-center items-center text-center flex-col w-full gap-4 max-w-3xl">
                   <h1 className=" text-lg md:text-4xl capitalize  text-white font-bold leading-tight drop-shadow-lg">
                     {slide.title}
                   </h1>
