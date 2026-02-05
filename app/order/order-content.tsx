@@ -98,13 +98,15 @@ const OrderContent = () => {
                     setCurrent={setCurrentImageIndex}
                   />
                 </span>
-                <span className="block md:hidden w-full">
-                  <ModelPreview
-                    name={currentProduct.name}
-                    image={currentProduct.cover_image.url}
-                    id={currentProduct.documentId}
-                  />
-                </span>
+                {currentProduct.cover_image?.url && (
+                  <span className="block md:hidden w-full">
+                    <ModelPreview
+                      name={currentProduct.name}
+                      image={currentProduct.cover_image.url}
+                      id={currentProduct.documentId}
+                    />
+                  </span>
+                )}
               </>
             ) : (
               <div className="w-full h-96 flex items-center justify-center bg-zinc-50 rounded-lg border-2 border-dashed border-zinc-300">
