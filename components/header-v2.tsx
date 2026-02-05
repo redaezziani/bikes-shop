@@ -100,32 +100,35 @@ const HeaderDetailsPage = () => {
             {modelsDropdownOpen && (
               <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {products.length > 0 ? (
-                  products.filter(p => p?.slug && p?.name).map((p) => (
-                    <Link
-                      key={p.id}
-                      href={`/models/${p.slug}`}
-                      onClick={() => setModelsDropdownOpen(false)}
-                      className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
-                    >
-                      {p.preview_images?.[0]?.url && (
-                        <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
-                            alt={p.name}
-                            className="w-full h-full object-cover"
-                          />
+                  products.filter(p => p?.slug && p?.name).map((p) => {
+                    const hasImage = p?.preview_images?.length > 0 && p.preview_images[0]?.url;
+                    return (
+                      <Link
+                        key={p.id}
+                        href={`/models/${p.slug}`}
+                        onClick={() => setModelsDropdownOpen(false)}
+                        className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
+                      >
+                        {hasImage && (
+                          <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                              alt={p.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div>
+                          <h3 className="font-medium text-zinc-800 text-lg">
+                            {p.name}
+                          </h3>
+                          <p className="text-base text-zinc-500">
+                            Explore and Learn
+                          </p>
                         </div>
-                      )}
-                      <div>
-                        <h3 className="font-medium text-zinc-800 text-lg">
-                          {p.name}
-                        </h3>
-                        <p className="text-base text-zinc-500">
-                          Explore and Learn
-                        </p>
-                      </div>
-                    </Link>
-                  ))
+                      </Link>
+                    );
+                  })
                 ) : (
                   <div className="px-4 py-3 text-zinc-600 text-lg">
                     No models available
@@ -236,32 +239,35 @@ const HeaderDetailsPage = () => {
 
                 {expandedMenu === 1 && (
                   <div className="py-4 space-y-4">
-                    {products.filter(p => p?.slug && p?.name).map((p) => (
-                      <Link
-                        href={`/models/${p.slug}`}
-                        key={p.id}
-                        onClick={() => setOpen(false)}
-                        className="flex gap-4 items-start"
-                      >
-                        {p.preview_images?.[0]?.url && (
-                          <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
-                            <img
-                              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
-                              alt={p.name}
-                              className="w-full h-full object-cover"
-                            />
+                    {products.filter(p => p?.slug && p?.name).map((p) => {
+                      const hasImage = p?.preview_images?.length > 0 && p.preview_images[0]?.url;
+                      return (
+                        <Link
+                          href={`/models/${p.slug}`}
+                          key={p.id}
+                          onClick={() => setOpen(false)}
+                          className="flex gap-4 items-start"
+                        >
+                          {hasImage && (
+                            <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                                alt={p.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <h3 className="font-medium text-zinc-800">
+                              {p.name}
+                            </h3>
+                            <p className="text-sm text-zinc-500 mt-1">
+                              Explore and Learn
+                            </p>
                           </div>
-                        )}
-                        <div className="flex-1">
-                          <h3 className="font-medium text-zinc-800">
-                            {p.name}
-                          </h3>
-                          <p className="text-sm text-zinc-500 mt-1">
-                            Explore and Learn
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </li>
