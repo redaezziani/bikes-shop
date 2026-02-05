@@ -66,7 +66,7 @@ const AccessorySelector = ({
 
             <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${
-                item.image?.url || '/placeholder.png'
+                item.image?.url || '/uploads/placeholder_759cdac50f.png'
               }`}
               alt={item.title || item.title || 'Accessory'}
               className="w-1/2 h-16 object-contain rounded"
