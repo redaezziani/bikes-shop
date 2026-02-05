@@ -100,7 +100,7 @@ const HeaderDetailsPage = () => {
             {modelsDropdownOpen && (
               <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {products.length > 0 ? (
-                  products.filter(p => p?.slug && p?.name && p?.preview_images?.length > 0).map((p) => (
+                  products.filter(p => p?.slug && p?.name).map((p) => (
                     <Link
                       key={p.id}
                       href={`/models/${p.slug}`}
@@ -236,7 +236,7 @@ const HeaderDetailsPage = () => {
 
                 {expandedMenu === 1 && (
                   <div className="py-4 space-y-4">
-                    {products.filter(p => p?.slug && p?.name && p?.preview_images?.length > 0).map((p) => (
+                    {products.filter(p => p?.slug && p?.name).map((p) => (
                       <Link
                         href={`/models/${p.slug}`}
                         key={p.id}

@@ -91,14 +91,27 @@ const OrderContent = () => {
           <div className="flex md:p-10 md:mt-14 sticky top-0 md:top-20 self-start z-10 bg-white md:bg-transparent">
             {currentProduct ? (
               <>
-                <span className="md:block hidden">
-                  <ProductImagePreview
-                    images={allImages}
-                    current={currentImageIndex}
-                    setCurrent={setCurrentImageIndex}
-                  />
-                </span>
-                {currentProduct.cover_image?.url && (
+                {allImages.length > 0 ? (
+                  <span className="md:block hidden">
+                    <ProductImagePreview
+                      images={allImages}
+                      current={currentImageIndex}
+                      setCurrent={setCurrentImageIndex}
+                    />
+                  </span>
+                ) : (
+                  <div className="hidden md:flex w-full h-96 items-center justify-center bg-zinc-50 rounded-lg border-2 border-dashed border-zinc-300">
+                    <div className="text-center px-6">
+                      <p className="text-zinc-500 font-medium text-lg mb-2">
+                        No Images Available
+                      </p>
+                      <p className="text-zinc-400 text-sm">
+                        Product images will be added soon
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {currentProduct.cover_image?.url ? (
                   <span className="block md:hidden w-full">
                     <ModelPreview
                       name={currentProduct.name}
@@ -106,6 +119,17 @@ const OrderContent = () => {
                       id={currentProduct.documentId}
                     />
                   </span>
+                ) : (
+                  <div className="flex md:hidden w-full h-96 items-center justify-center bg-zinc-50 rounded-lg border-2 border-dashed border-zinc-300">
+                    <div className="text-center px-6">
+                      <p className="text-zinc-500 font-medium text-lg mb-2">
+                        No Images Available
+                      </p>
+                      <p className="text-zinc-400 text-sm">
+                        Product images will be added soon
+                      </p>
+                    </div>
+                  </div>
                 )}
               </>
             ) : (
