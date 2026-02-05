@@ -92,7 +92,7 @@ const Header = () => {
                       onClick={() => setModelsDropdownOpen(false)}
                       className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                     >
-                      {p.preview_images[0] && (
+                      {p.preview_images?.[0]?.url && (
                         <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
                           <img
                             src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
@@ -231,13 +231,15 @@ const Header = () => {
                         onClick={() => setOpen(false)}
                         className="flex gap-4 items-start"
                       >
-                        <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
-                            alt={p.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                        {p.preview_images?.[0]?.url && (
+                          <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.preview_images[0].url}`}
+                              alt={p.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
                         <div className="flex-1">
                           <h3 className="font-medium text-zinc-800">
                             {p.name}
