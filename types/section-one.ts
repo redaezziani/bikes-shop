@@ -7,6 +7,8 @@ export interface SectionOne {
   cover_image_mobile: CoverImage;
   title: string;
   description: string;
+  video_url?: string;
+  video_mime?: string;
   product?: Product;
   external_link?: string;
   button_text?: string;

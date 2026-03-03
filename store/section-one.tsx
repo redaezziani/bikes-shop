@@ -14,6 +14,7 @@ const buildSectionOneQueryString = (params?: {
     'populate[1]=cover_image_mobile',
     'populate[2]=product',
     'populate[3]=product.cover_image',
+    'populate[4]=video',
     'sort[0]=createdAt:asc',
   ];
 
@@ -53,6 +54,7 @@ export const useSectionOneById = (id: number) => {
         'populate[1]=cover_image_mobile',
         'populate[2]=product',
         'populate[3]=product.cover_image',
+        'populate[4]=video',
       ].join('&');
 
       const response = await api.get<{ data: SectionOne }>(

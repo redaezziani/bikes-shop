@@ -9,14 +9,12 @@ import Footer from '@/components/footer';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
 import OrderStatusModalWrapper from '@/components/order-status-modal-wrapper';
 
-// Lazy load heavy client components - these won't block the initial page load
 const HeroSlider = dynamic(() => import('@/components/hero-slider'), {
   loading: () => (
     <div className="w-full h-130 lg:h-[80vh] bg-zinc-100 animate-pulse" />
   ),
 });
 
-// Defer below-the-fold components with dynamic imports
 const ProductVersionSection = dynamic(
   () => import('@/components/product-version-section'),
 );
