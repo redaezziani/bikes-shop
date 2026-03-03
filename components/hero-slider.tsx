@@ -27,12 +27,11 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
   return (
     <div
       id="hero"
-      className="w-full flex items-center flex-col h-130 lg:h-[80vh] relative"
+      className="w-full flex items-center pb-16 flex-col h-130 lg:h-[80vh] relative"
     >
       <Header />
       <h2 className="capitalize font-semibold text-center text-black  mt-32 lg:mt-32 text-3xl  max-w-2xl">
-        the area where it’s written electric vehicles we can try by adding
-        Family Cargo Bikes For Dubai
+        We can add the below ⬇️ mates
       </h2>
       <ModelsDesktopSlider slides={slides} />
       <ModelsMobileSlider slides={slides} />
