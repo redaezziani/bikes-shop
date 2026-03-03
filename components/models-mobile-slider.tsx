@@ -21,7 +21,7 @@ const ModelsMobileSlider = ({ slides }: ModelsMobileSliderProps) => {
   if (!models.length) return null;
 
   return (
-    <div className="w-full flex flex-col lg:hidden mt-20 gap-6 py-6">
+    <div className="w-full flex flex-col lg:hidden mt-5 gap-6 py-6">
       <div className="flex justify-center">
         <div className="flex items-center gap-1 bg-white rounded-full border border-zinc-400/35 px-2 py-2">
           {models.map((model, i) => (
