@@ -45,7 +45,7 @@ const ModelsDesktopSlider = ({ slides }: ModelsDesktopSliderProps) => {
   if (!models.length) return null;
 
   return (
-    <div className="hidden lg:block w-full mt-28 overflow-hidden">
+    <div className="hidden lg:block w-full  mt-5 overflow-hidden">
       <Swiper
         modules={[Pagination]}
         spaceBetween={24}
