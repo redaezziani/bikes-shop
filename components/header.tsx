@@ -12,10 +12,28 @@ const Header = () => {
   const products = data?.data || [];
 
   const learnItems = [
-    { name: 'Along Care', description: 'Learn about our free home service, 3-year warranty, and network of certified service partners.', href: '/care' },
-    { name: 'Guides & Stories', description: 'Explore tips, safety advice, and stories from along riders.', href: '/guides' },
-    { name: 'Support', description: 'Find answers to your questions or contact us.', href: '/support' },
-    { name: 'About along', description: 'Learn about us here.', href: '/about' },
+    {
+      name: 'Along Care',
+      description:
+        'Learn about our free home service, 3-year warranty, and network of certified service partners.',
+      href: '/care',
+    },
+    {
+      name: 'Guides & Stories',
+      description:
+        'Explore tips, safety advice, and stories from along riders.',
+      href: '/guides',
+    },
+    {
+      name: 'Support',
+      description: 'Find answers to your questions or contact us.',
+      href: '/support',
+    },
+    {
+      name: 'About along',
+      description: 'Learn about us here.',
+      href: '/about',
+    },
   ];
 
   const toggleSubmenu = (index: number) => {
@@ -30,7 +48,7 @@ const Header = () => {
       <header className="w-[95%]  rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
         <Link href="/" className=" cursor-pointer" aria-label="Go to homepage">
           <svg
-            className="w-26  lg:w-28 text-white fill-white"
+            className="w-26  lg:w-28 text-black fill-black"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
@@ -67,7 +85,7 @@ const Header = () => {
                 setModelsDropdownOpen(!modelsDropdownOpen);
                 setLearnDropdownOpen(false);
               }}
-              className="text-white font-bold text-lg hover:text-zinc-200 transition-colors flex items-center gap-1"
+              className="text-black  text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="View bike models"
               aria-expanded={modelsDropdownOpen}
               aria-haspopup="true"
@@ -85,35 +103,38 @@ const Header = () => {
             {modelsDropdownOpen && (
               <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {products.length > 0 ? (
-                  products.filter(p => p?.slug && p?.name).map((p) => {
-                    const imageUrl = p?.preview_images?.[0]?.url || p?.cover_image?.url;
-                    return (
-                      <Link
-                        key={p.id}
-                        href={`/models/${p.slug}`}
-                        onClick={() => setModelsDropdownOpen(false)}
-                        className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
-                      >
-                        {imageUrl && (
-                          <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
-                            <img
-                              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
-                              alt={p.name}
-                              className="w-full h-full object-cover"
-                            />
+                  products
+                    .filter((p) => p?.slug && p?.name)
+                    .map((p) => {
+                      const imageUrl =
+                        p?.preview_images?.[0]?.url || p?.cover_image?.url;
+                      return (
+                        <Link
+                          key={p.id}
+                          href={`/models/${p.slug}`}
+                          onClick={() => setModelsDropdownOpen(false)}
+                          className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
+                        >
+                          {imageUrl && (
+                            <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
+                                alt={p.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <div>
+                            <h3 className="font-medium text-zinc-800 text-lg">
+                              {p.name}
+                            </h3>
+                            <p className="text-base text-zinc-500">
+                              Explore and Learn
+                            </p>
                           </div>
-                        )}
-                        <div>
-                          <h3 className="font-medium text-zinc-800 text-lg">
-                            {p.name}
-                          </h3>
-                          <p className="text-base text-zinc-500">
-                            Explore and Learn
-                          </p>
-                        </div>
-                      </Link>
-                    );
-                  })
+                        </Link>
+                      );
+                    })
                 ) : (
                   <div className="px-4 py-3 text-zinc-600 text-lg">
                     No models available
@@ -129,7 +150,7 @@ const Header = () => {
                 setLearnDropdownOpen(!learnDropdownOpen);
                 setModelsDropdownOpen(false);
               }}
-              className="text-white font-bold text-lg hover:text-zinc-200 transition-colors flex items-center gap-1"
+              className="text-black  text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="Learn menu"
               aria-expanded={learnDropdownOpen}
               aria-haspopup="true"
@@ -151,7 +172,11 @@ const Header = () => {
                     key={index}
                     href={item.href}
                     target={item.href.startsWith('http') ? '_blank' : undefined}
-                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    rel={
+                      item.href.startsWith('http')
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
                     onClick={() => setLearnDropdownOpen(false)}
                     className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                   >
@@ -171,7 +196,7 @@ const Header = () => {
 
           <Link
             href="/order"
-            className="text-white cursor-pointer font-bold text-lg hover:text-zinc-200 transition-colors"
+            className="text-black cursor-pointer  text-lg hover:text-zinc-600 transition-colors"
           >
             Order
           </Link>
@@ -180,7 +205,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 sm:px-4 backdrop-blur-lg bg-white/10 w-20 flex justify-center items-center rounded-lg cursor-pointer  text-white font-bold capitalize text-sm  transition-colors"
+          className="lg:hidden py-2 px-3 sm:px-4 backdrop-blur-lg bg-black/10 w-20 flex justify-center items-center rounded-lg cursor-pointer  text-black font-bold capitalize text-sm  transition-colors"
           aria-label="Open navigation menu"
           aria-expanded={open}
         >
@@ -227,35 +252,38 @@ const Header = () => {
 
                 {expandedMenu === 1 && (
                   <div className="py-4 space-y-4">
-                    {products.filter(p => p?.slug && p?.name).map((p) => {
-                      const imageUrl = p?.preview_images?.[0]?.url || p?.cover_image?.url;
-                      return (
-                        <Link
-                          href={`/models/${p.slug}`}
-                          key={p.id}
-                          onClick={() => setOpen(false)}
-                          className="flex gap-4 items-start"
-                        >
-                          {imageUrl && (
-                            <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
-                              <img
-                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
-                                alt={p.name}
-                                className="w-full h-full object-cover"
-                              />
+                    {products
+                      .filter((p) => p?.slug && p?.name)
+                      .map((p) => {
+                        const imageUrl =
+                          p?.preview_images?.[0]?.url || p?.cover_image?.url;
+                        return (
+                          <Link
+                            href={`/models/${p.slug}`}
+                            key={p.id}
+                            onClick={() => setOpen(false)}
+                            className="flex gap-4 items-start"
+                          >
+                            {imageUrl && (
+                              <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
+                                <img
+                                  src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
+                                  alt={p.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            )}
+                            <div className="flex-1">
+                              <h3 className="font-medium text-zinc-800">
+                                {p.name}
+                              </h3>
+                              <p className="text-sm text-zinc-500 mt-1">
+                                Explore and Learn
+                              </p>
                             </div>
-                          )}
-                          <div className="flex-1">
-                            <h3 className="font-medium text-zinc-800">
-                              {p.name}
-                            </h3>
-                            <p className="text-sm text-zinc-500 mt-1">
-                              Explore and Learn
-                            </p>
-                          </div>
-                        </Link>
-                      );
-                    })}
+                          </Link>
+                        );
+                      })}
                   </div>
                 )}
               </li>
@@ -284,8 +312,14 @@ const Header = () => {
                       <Link
                         href={item.href}
                         key={index}
-                        target={item.href.startsWith('http') ? '_blank' : undefined}
-                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        target={
+                          item.href.startsWith('http') ? '_blank' : undefined
+                        }
+                        rel={
+                          item.href.startsWith('http')
+                            ? 'noopener noreferrer'
+                            : undefined
+                        }
                         onClick={() => setOpen(false)}
                         className="flex gap-4 items-start px-2 py-2 hover:bg-zinc-50 rounded transition-colors"
                       >

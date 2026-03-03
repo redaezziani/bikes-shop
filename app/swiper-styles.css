@@ -85,3 +85,24 @@
   background: #000000 !important;
   opacity: 1 !important;
 }
+
+.models-desktop-swiper {
+  padding-bottom: 3rem !important;
+}
+
+.models-desktop-swiper .swiper-pagination {
+  position: static !important;
+  margin-top: 1.5rem !important;
+}
+
+.models-desktop-swiper .swiper-pagination-bullet {
+  background: #000000 !important;
+  opacity: 0.3 !important;
+  width: 10px;
+  height: 10px;
+}
+
+.models-desktop-swiper .swiper-pagination-bullet-active {
+  background: #000000 !important;
+  opacity: 1 !important;
+}
