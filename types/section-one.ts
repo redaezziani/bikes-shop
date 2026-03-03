@@ -9,7 +9,7 @@ export interface SectionOne {
   description: string;
   video_url?: string;
   video_mime?: string;
-  product?: Product;
+  products?: Product[];
   external_link?: string;
   button_text?: string;
   createdAt: string;

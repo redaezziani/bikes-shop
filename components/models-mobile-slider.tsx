@@ -32,7 +32,7 @@ const ModelsMobileSlider = ({ slides }: ModelsMobileSliderProps) => {
                 setActiveTab(i);
                 swiperRef.current?.slideTo(i);
               }}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`px-5 py-2 line-clamp-1 truncate rounded-full text-sm font-medium transition-colors ${
                 i === activeTab
                   ? 'bg-black text-white'
                   : 'text-black bg-transparent'

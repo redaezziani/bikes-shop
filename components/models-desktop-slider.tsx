@@ -16,17 +16,21 @@ export interface ModelSlide {
 
 export function toModelSlides(slides: SectionOne[]): ModelSlide[] {
   return slides.map((slide) => {
-    const slug = slide.product?.slug ?? slide.documentId;
+    const links =
+      slide.products && slide.products.length > 0
+        ? slide.products.map((p) => ({
+            label: p.name,
+            href: `/models/${p.slug}`,
+          }))
+        : [];
+
     return {
       id: slide.id,
       title: slide.title,
       description: slide.description,
       videoUrl: slide.video_url ?? undefined,
-      slug,
-      links: [
-        { label: 'Manual', href: `/models/${slug}/manual` },
-        { label: 'Auto', href: `/models/${slug}/auto` },
-      ],
+      slug: slide.products?.[0]?.slug ?? slide.documentId,
+      links,
     };
   });
 }
