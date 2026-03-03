@@ -30,8 +30,9 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
       className="w-full flex items-center pb-16 flex-col h-130 lg:h-[80vh] relative"
     >
       <Header />
-      <h2 className="capitalize font-semibold text-center text-black  mt-32 lg:mt-32 text-3xl  max-w-2xl">
-        We can add the below ⬇️ mates
+      <h2 className="capitalize font-semibold text-center text-black  mt-32 lg:mt-32 text-xl md:text-3xl  max-w-2xl">
+        Front-loader cargo bikes designed and built for families in Dubai and
+        the UAE.
       </h2>
       <ModelsDesktopSlider slides={slides} />
       <ModelsMobileSlider slides={slides} />
