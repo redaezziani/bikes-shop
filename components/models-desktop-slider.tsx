@@ -71,8 +71,8 @@ const ModelsDesktopSlider = ({ slides }: ModelsDesktopSliderProps) => {
                 )}
               </span>
 
-              <h2 className="capitalize text-center text-black font-medium">
-                {model.title}
+              <h2 className="capitalize max-w-2/3 text-center text-black font-medium">
+                {model.description}
               </h2>
 
               <div className="flex justify-center items-center gap-8">

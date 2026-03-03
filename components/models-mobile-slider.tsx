@@ -73,7 +73,7 @@ const ModelsMobileSlider = ({ slides }: ModelsMobileSliderProps) => {
                 </span>
 
                 {model.description && (
-                  <p className="text-sm text-black leading-relaxed">
+                  <p className="text-sm text-black  leading-relaxed">
                     {model.description}
                   </p>
                 )}
@@ -97,5 +97,7 @@ const ModelsMobileSlider = ({ slides }: ModelsMobileSliderProps) => {
     </div>
   );
 };
+
+
 
 export default ModelsMobileSlider;
