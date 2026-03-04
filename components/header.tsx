@@ -205,25 +205,11 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 sm:px-4  w-20 flex justify-center items-center rounded-lg cursor-pointer  text-black font-bold capitalize text-sm  transition-colors"
+          className="lg:hidden py-2 px-3 sm:px-4 backdrop-blur-lg bg-black/10 w-20 flex justify-center items-center rounded-lg cursor-pointer  text-black font-bold capitalize text-sm  transition-colors"
           aria-label="Open navigation menu"
           aria-expanded={open}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 8l16 0" />
-            <path d="M4 16l16 0" />
-          </svg>
+          Menu
         </button>
       </header>
 

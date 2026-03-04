@@ -27,10 +27,10 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
   return (
     <div
       id="hero"
-      className="w-full flex items-center pb-16 flex-col h-130 lg:h-[80vh] relative"
+      className="w-full flex items-center flex-col h-130 lg:h-[80vh] relative"
     >
       <Header />
-      <h2 className="capitalize font-semibold text-center text-black  mt-20 lg:mt-20 text-xl md:text-3xl  max-w-2xl">
+      <h2 className="capitalize font-semibold text-center text-black  mt-30 lg:mt-20 text-xl md:text-3xl  max-w-2xl">
         Timeless Designs, Made for Today
       </h2>
       <video
