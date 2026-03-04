@@ -45,36 +45,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-[95%] rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 grid grid-cols-3 lg:flex lg:justify-between items-center gap-4 z-50">
-        {/* Mobile menu button — col 1 (left) */}
-        <button
-          onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 w-10 flex justify-center items-center rounded-lg cursor-pointer text-black transition-colors"
-          aria-label="Open navigation menu"
-          aria-expanded={open}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className=" size-10"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 8l16 0" />
-            <path d="M4 16l16 0" />
-          </svg>
-        </button>
-
-        {/* Logo — col 2 (center on mobile, left on desktop) */}
-        <Link
-          href="/"
-          className="cursor-pointer flex justify-center lg:justify-start"
-          aria-label="Go to homepage"
-        >
+      <header className="w-[95%]  rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
+        <Link href="/" className=" cursor-pointer" aria-label="Go to homepage">
           <svg
             className="w-26  lg:w-28 text-black fill-black"
             id="Layer_1"
@@ -104,9 +76,6 @@ const Header = () => {
             </g>
           </svg>
         </Link>
-
-        {/* Empty col 3 on mobile (keeps logo centered) */}
-        <div className="lg:hidden" />
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
@@ -232,6 +201,30 @@ const Header = () => {
             Order
           </Link>
         </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setOpen(true)}
+          className="lg:hidden py-2 px-3 sm:px-4  w-20 flex justify-center items-center rounded-lg cursor-pointer  text-black font-bold capitalize text-sm  transition-colors"
+          aria-label="Open navigation menu"
+          aria-expanded={open}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 8l16 0" />
+            <path d="M4 16l16 0" />
+          </svg>
+        </button>
       </header>
 
       <div
