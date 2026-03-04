@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { getSectionOneData } from '@/lib/section-one-service';
+import { getHeroSectionData } from '@/lib/hero-section-service';
 import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';
 import { getOffersData } from '@/lib/offers-service';
@@ -35,7 +36,12 @@ const BlogSection = dynamic(() => import('@/components/blog-section'));
 export const revalidate = 60;
 
 export default async function Home() {
-  let sectionOneData, sectionTwoData, blogsData, offersData, homeMapSectionData;
+  let sectionOneData,
+    sectionTwoData,
+    blogsData,
+    offersData,
+    homeMapSectionData,
+    heroSectionData;
 
   try {
     [
@@ -44,12 +50,14 @@ export default async function Home() {
       blogsData,
       offersData,
       homeMapSectionData,
+      heroSectionData,
     ] = await Promise.all([
       getSectionOneData(),
       getSectionTwoData({ pageSize: 10 }),
       getBlogsData({ pageSize: 6 }),
       getOffersData({ pageSize: 10 }),
       getHomeMapSectionData(),
+      getHeroSectionData(),
     ]);
   } catch (error) {
     console.warn('Failed to fetch data:', error);
@@ -58,9 +66,11 @@ export default async function Home() {
     blogsData = { data: [] };
     offersData = { data: [] };
     homeMapSectionData = { data: null };
+    heroSectionData = { data: null };
   }
 
   const slides = sectionOneData?.data || [];
+  const hero = heroSectionData?.data || null;
   const productSections = sectionTwoData?.data || [];
   const blogs = blogsData?.data || [];
   const offers = offersData?.data || [];
@@ -69,7 +79,7 @@ export default async function Home() {
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
       <OrderStatusModalWrapper />
-      <HeroSlider slides={slides} />
+      <HeroSlider hero={hero} />
       <section
         aria-label="product-version-section"
         className="bg-white mt-10 w-full"
@@ -80,7 +90,7 @@ export default async function Home() {
 
       <section className="w-full  lg:px-0  mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 md:px-4   gap-6">
-          <div className="flex md:col-span-2  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg  overflow-hidden  transition-shadow">
+          {/* <div className="flex md:col-span-2  border border-zinc-300/26 md:px-0 flex-col rounded-none md:rounded-lg  overflow-hidden  transition-shadow">
             <div className="relative md:h-140  w-full overflow-hidden bg-zinc-100">
               <LazyVideoPlayer />
             </div>
@@ -102,7 +112,7 @@ export default async function Home() {
                 </button>
               </Link>
             </div>
-          </div>
+          </div> */}
           {mapSection && (
             <div className="flex flex-col border border-zinc-300/26 md:rounded-lg overflow-hidden  transition-shadow">
               {mapSection.image && (
