@@ -18,7 +18,7 @@ const OfferCard = ({ offer }: OfferCardProps) => {
   return (
     <article className="flex flex-col rounded-lg overflow-hidden border border-zinc-200 bg-white  transition-shadow">
       {imageUrl && (
-        <div className="relative w-full h-[240px]">
+        <div className="relative w-full h-60">
           <Image
             src={imageUrl}
             alt={offer.title}

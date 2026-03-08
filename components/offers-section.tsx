@@ -9,7 +9,7 @@ interface OffersSectionProps {
 
 const OffersSection = ({ offers }: OffersSectionProps) => {
   return (
-    <section className="w-full mt-14 px-4 pb-5 bg-white">
+    <section className="w-full  px-4  bg-white">
       {offers.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {offers.map((offer) => (

@@ -85,14 +85,14 @@ const Header = () => {
                 setModelsDropdownOpen(!modelsDropdownOpen);
                 setLearnDropdownOpen(false);
               }}
-              className="text-black  text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
+              className="hover:text-zinc-900   text-zinc-700 transition-colors flex items-end gap-1"
               aria-label="View bike models"
               aria-expanded={modelsDropdownOpen}
               aria-haspopup="true"
             >
               Models
               <IconChevronDown
-                size={20}
+                size={18}
                 className={`transition-transform ${
                   modelsDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -101,7 +101,7 @@ const Header = () => {
             </button>
 
             {modelsDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white border border-zinc-400/35 rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {products.length > 0 ? (
                   products
                     .filter((p) => p?.slug && p?.name)
@@ -150,14 +150,14 @@ const Header = () => {
                 setLearnDropdownOpen(!learnDropdownOpen);
                 setModelsDropdownOpen(false);
               }}
-              className="text-black  text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
+              className="hover:text-zinc-900   text-zinc-700 transition-colors flex items-end gap-1"
               aria-label="Learn menu"
               aria-expanded={learnDropdownOpen}
               aria-haspopup="true"
             >
               Learn
               <IconChevronDown
-                size={20}
+                size={18}
                 className={`transition-transform ${
                   learnDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -166,7 +166,7 @@ const Header = () => {
             </button>
 
             {learnDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg border border-zinc-400/35 shadow-lg min-w-[340px] py-2 z-50">
                 {learnItems.map((item, index) => (
                   <Link
                     key={index}
@@ -196,7 +196,7 @@ const Header = () => {
 
           <Link
             href="/order"
-            className="text-black cursor-pointer  text-lg hover:text-zinc-600 transition-colors"
+            className="hover:text-zinc-900   text-zinc-700 cursor-pointer    transition-colors"
           >
             Order
           </Link>
@@ -205,7 +205,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 sm:px-4 backdrop-blur-lg bg-black/10 w-20 flex justify-center items-center rounded-lg cursor-pointer  text-black font-bold capitalize text-sm  transition-colors"
+          className="lg:hidden py-2 px-3 sm:px-4 border border-zinc-400/35 backdrop-blur-lg bg-black/10 w-16 flex justify-center items-center rounded-lg cursor-pointer  text-zinc-700 font-bold capitalize text-sm  transition-colors"
           aria-label="Open navigation menu"
           aria-expanded={open}
         >
