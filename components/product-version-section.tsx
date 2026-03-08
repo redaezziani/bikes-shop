@@ -6,13 +6,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import '@/app/swiper-styles.css';
 
-
 interface ProductVersionSectionProps {
   sections: SectionTwo[];
 }
 
 const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
-
   const getLinkHref = (section: (typeof sections)[0]) => {
     if (section.external_link) {
       return section.external_link;
@@ -59,7 +57,7 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
       />
 
       <section
-        className="w-full pl-4 py-8"
+        className="w-full pl-4"
         aria-label="Featured electric bike models"
       >
         <Swiper
@@ -136,10 +134,10 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
                           blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         />
                       )}
-                      <div
+                      {/* <div
                         className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"
                         aria-hidden="true"
-                      ></div>
+                      ></div> */}
                     </>
                   )}
 
@@ -182,8 +180,6 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
             );
           })}
         </Swiper>
-
-        
       </section>
     </>
   );
