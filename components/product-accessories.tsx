@@ -13,7 +13,7 @@ export default function ProductAccessories({
   accessories,
 }: ProductAccessoriesProps) {
   const [activeAccessory, setActiveAccessory] = useState<Accessory | null>(
-    null
+    null,
   );
 
   if (accessories.length === 0) {
@@ -29,20 +29,23 @@ export default function ProductAccessories({
 
         <div className="grid w-full mt-5 grid-cols-2 md:grid-cols-3 gap-2">
           {accessories.slice(0, 3).map((acc) => (
-            <div
-              key={acc.id}
-              className="w-full bg-zinc-100 rounded aspect-square cursor-pointer relative overflow-hidden"
-              onClick={() => setActiveAccessory(acc)}
-            >
-              {acc.image && (
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${acc.image.url}`}
-                  alt={acc.name || acc.title || 'Related Accessory'}
-                  fill
-                  className="object-cover rounded"
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                />
-              )}
+            <div className="flex flex-col gap-2" key={acc.id}>
+              <div
+                className="w-full  rounded aspect-square cursor-pointer relative overflow-hidden"
+                onClick={() => setActiveAccessory(acc)}
+              >
+                {acc.image && (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${acc.image.url}`}
+                    alt={acc.name || acc.title || 'Related Accessory'}
+                    fill
+                    className="object-cover rounded"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                  />
+                )}
+              </div>
+
+              <h3 className=" mt-2  text-zinc-600">{acc.name}</h3>
             </div>
           ))}
         </div>
