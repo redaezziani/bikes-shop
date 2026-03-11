@@ -31,7 +31,7 @@ const HeaderDetailsPage = () => {
     {
       name: 'About along',
       description: 'Learn about us here.',
-      href: '/about',
+      href: '/about-along',
     },
   ];
 

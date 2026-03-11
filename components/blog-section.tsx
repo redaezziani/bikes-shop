@@ -12,7 +12,7 @@ interface BlogSectionProps {
 
 const BlogSection = ({ blogs }: BlogSectionProps) => {
   return (
-    <section className="w-full pl-4 py-8 bg-white">
+    <section className="w-full pl-4 py-8 mt-20 bg-white">
       {blogs.length > 0 ? (
         <>
           <Swiper
