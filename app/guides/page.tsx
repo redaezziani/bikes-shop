@@ -40,7 +40,9 @@ export default async function GuidesStoriesPage() {
                 {title}
               </h1>
               {description && (
-                <p className="text-white/90 text-lg mb-8">{description}</p>
+                <p className="text-white/90 max-w-4xl text-lg mb-8">
+                  {description}
+                </p>
               )}
             </div>
           </div>

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { IconX, IconChevronDown } from '@tabler/icons-react';
+import { IconX, IconChevronDown, IconMenu } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useProducts } from '@/store/products';
 
@@ -32,7 +32,7 @@ const Header = () => {
     {
       name: 'About along',
       description: 'Learn about us here.',
-      href: '/about',
+      href: '/about-along',
     },
   ];
 
@@ -202,14 +202,13 @@ const Header = () => {
           </Link>
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden py-2 px-3 sm:px-4 border border-zinc-400/35 backdrop-blur-lg bg-black/10 w-16 flex justify-center items-center rounded-lg cursor-pointer  text-zinc-700 font-bold capitalize text-sm  transition-colors"
+          className="lg:hidden py-1.5 px-4 bg-white/10 text-zinc-950 font-bold capitalize text-sm rounded backdrop-blur-sm"
           aria-label="Open navigation menu"
           aria-expanded={open}
         >
-          Menu
+          <IconMenu size={20} />
         </button>
       </header>
 

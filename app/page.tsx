@@ -77,7 +77,10 @@ export default async function Home() {
     <main className="flex flex-col bg-white justify-center items-center relative">
       <OrderStatusModalWrapper />
       <HeroSlider hero={hero} />
-      <section aria-label="product-version-section" className=" mt-15 w-full">
+      <section
+        aria-label="product-version-section"
+        className=" mt-15 md:mt-54 w-full"
+      >
         <ProductVersionSection sections={productSections} />
       </section>
       <OffersSection offers={offers} />

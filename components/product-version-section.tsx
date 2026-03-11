@@ -136,10 +136,11 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
                       )}
                     </>
                   )}
-
+                  <h2 className="text-xl absolute top-4 text-white  left-4 font-bold">
+                    {section.title}
+                  </h2>
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h2 className="text-2xl font-bold">{section.title}</h2>
-                    <p className="text-sm mt-1 line-clamp-2 mb-6">
+                    <p className="text-sm mt-1 font-semibold line-clamp-2 mb-6">
                       {section.description}
                     </p>
                     <div className="flex gap-3">
