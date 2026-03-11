@@ -71,7 +71,7 @@ export default function SupportPage() {
         {/* Hero Section */}
         <section className="relative w-full bg-gradient-to-br from-zinc-800 to-zinc-100 px-4 md:px-8 overflow-hidden">
           <div
-            className="absolute inset-0 opacity-[0.15]"
+            className="absolute inset-0 opacity-[0.15] pointer-events-none"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
               backgroundRepeat: 'repeat',
@@ -83,13 +83,11 @@ export default function SupportPage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 {title}
               </h1>
-              <p className="text-white/90 text-lg mb-8">
-                {description}
-              </p>
+              <p className="text-white/90 text-lg mb-8">{description}</p>
             </div>
             <button
               onClick={() => setShowContactForm(true)}
-              className="inline-block bg-zinc-100 text-zinc-900 font-medium px-8 py-2 rounded-lg hover:bg-zinc-700 transition"
+              className="inline-block bg-zinc-100 text-zinc-900 font-medium px-8 py-2 rounded-lg  transition"
             >
               Get in touch
             </button>
