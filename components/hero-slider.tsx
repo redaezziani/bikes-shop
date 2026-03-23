@@ -22,6 +22,7 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
           muted
           loop
           playsInline
+          preload="auto"
           className="w-full h-full  object-cover "
         />
       )}
