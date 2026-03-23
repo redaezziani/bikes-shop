@@ -1,6 +1,7 @@
 'use client';
 
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { useMemo } from 'react';
 
 interface BlogMarkdownContentProps {
@@ -73,12 +74,23 @@ const BlogMarkdownContent = ({ content, blogId }: BlogMarkdownContentProps) => {
       img: ({ node, ...props }: any) => (
         <img className="rounded-lg my-6 w-full" {...props} />
       ),
+      iframe: ({ node, ...props }: any) => (
+        <div className="relative w-full my-6 rounded-lg overflow-hidden border border-zinc-200" style={{ paddingBottom: props.height ? undefined : '56.25%' }}>
+          <iframe
+            {...props}
+            className="w-full rounded-lg"
+            style={{ height: props.height || '100%', position: props.height ? 'relative' : 'absolute', top: 0, left: 0 }}
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+      ),
     };
   }, [blogId]);
 
   return (
     <div className="prose prose-zinc max-w-none mb-12">
-      <ReactMarkdown components={markdownComponents}>
+      <ReactMarkdown components={markdownComponents} rehypePlugins={[rehypeRaw]}>
         {content}
       </ReactMarkdown>
     </div>
