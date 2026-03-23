@@ -45,7 +45,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-[95%]  rounded-lg mt-2 mx-auto absolute px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center gap-4 z-50">
+      <header className="w-full    px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between  items-center gap-4 z-50">
         <Link href="/" className=" cursor-pointer" aria-label="Go to homepage">
           <svg
             className="w-26  lg:w-28 text-black fill-black"
@@ -77,7 +77,6 @@ const Header = () => {
           </svg>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
           <div className="relative">
             <button
@@ -85,14 +84,14 @@ const Header = () => {
                 setModelsDropdownOpen(!modelsDropdownOpen);
                 setLearnDropdownOpen(false);
               }}
-              className="hover:text-zinc-900   text-zinc-700 transition-colors flex items-end gap-1"
+              className="text-zinc-950 font-bold text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="View bike models"
               aria-expanded={modelsDropdownOpen}
               aria-haspopup="true"
             >
               Models
               <IconChevronDown
-                size={18}
+                size={20}
                 className={`transition-transform ${
                   modelsDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -101,13 +100,12 @@ const Header = () => {
             </button>
 
             {modelsDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white border border-zinc-400/35 rounded-lg shadow-lg min-w-[340px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {products.length > 0 ? (
                   products
                     .filter((p) => p?.slug && p?.name)
                     .map((p) => {
-                      const imageUrl =
-                        p?.preview_images?.[0]?.url || p?.cover_image?.url;
+                      const imageUrl = p?.preview_images?.[0]?.url;
                       return (
                         <Link
                           key={p.id}
@@ -150,14 +148,14 @@ const Header = () => {
                 setLearnDropdownOpen(!learnDropdownOpen);
                 setModelsDropdownOpen(false);
               }}
-              className="hover:text-zinc-900   text-zinc-700 transition-colors flex items-end gap-1"
+              className="text-zinc-950 font-bold text-lg hover:text-zinc-600 transition-colors flex items-center gap-1"
               aria-label="Learn menu"
               aria-expanded={learnDropdownOpen}
               aria-haspopup="true"
             >
               Learn
               <IconChevronDown
-                size={18}
+                size={20}
                 className={`transition-transform ${
                   learnDropdownOpen ? 'rotate-180' : ''
                 }`}
@@ -166,7 +164,7 @@ const Header = () => {
             </button>
 
             {learnDropdownOpen && (
-              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg border border-zinc-400/35 shadow-lg min-w-[340px] py-2 z-50">
+              <div className="absolute top-full -ml-44 -left-1/2 mt-2 bg-white rounded-lg shadow-lg min-w-[340px] py-2 z-50">
                 {learnItems.map((item, index) => (
                   <Link
                     key={index}
@@ -196,7 +194,7 @@ const Header = () => {
 
           <Link
             href="/order"
-            className="hover:text-zinc-900   text-zinc-700 cursor-pointer    transition-colors"
+            className="text-zinc-950 cursor-pointer font-bold text-lg hover:text-zinc-600 transition-colors"
           >
             Order
           </Link>
@@ -219,12 +217,8 @@ const Header = () => {
       >
         <div className="flex flex-col h-full">
           <div className="flex justify-end p-4">
-            <button
-              onClick={() => setOpen(false)}
-              className="p-2"
-              aria-label="Close navigation menu"
-            >
-              <IconX className="text-zinc-500" size={18} aria-hidden="true" />
+            <button onClick={() => setOpen(false)} className="p-2">
+              <IconX className="text-zinc-500" size={18} />
             </button>
           </div>
 
@@ -234,8 +228,6 @@ const Header = () => {
                 <button
                   onClick={() => toggleSubmenu(1)}
                   className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                  aria-label="Models menu"
-                  aria-expanded={expandedMenu === 1}
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
                     Models
@@ -254,8 +246,7 @@ const Header = () => {
                     {products
                       .filter((p) => p?.slug && p?.name)
                       .map((p) => {
-                        const imageUrl =
-                          p?.preview_images?.[0]?.url || p?.cover_image?.url;
+                        const imageUrl = p?.preview_images?.[0]?.url;
                         return (
                           <Link
                             href={`/models/${p.slug}`}
@@ -290,8 +281,6 @@ const Header = () => {
                 <button
                   onClick={() => toggleSubmenu(0)}
                   className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                  aria-label="Learn menu"
-                  aria-expanded={expandedMenu === 0}
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
                     Learn

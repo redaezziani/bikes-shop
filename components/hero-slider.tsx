@@ -22,12 +22,12 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
           muted
           loop
           playsInline
-          className="w-full h-full mt-20 object-cover"
+          className="w-full h-full  object-cover "
         />
       )}
       <div className="px-4">
         {hero?.heading && (
-          <h2 className="capitalize font-semibold text-start text-black mt-10   text-xl md:text-3xl max-w-2xl">
+          <h2 className="capitalize font-semibold text-start  text-red-600 mt-10   text-lg md:text-2xl max-w-2xl">
             {hero.heading}
           </h2>
         )}

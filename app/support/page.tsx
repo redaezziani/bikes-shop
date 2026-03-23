@@ -1,13 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { IconChevronDown } from '@tabler/icons-react';
+import { motion, AnimatePresence } from 'motion/react';
 import Footer from '@/components/footer';
-import Breadcrumbs from '@/components/breadcrumbs';
 import { getSupportData } from '@/lib/support-service';
 import HeaderDetailsPage from '@/components/header-v2';
 import { FAQCategory, FAQ } from '@/types/support';
-import FixedBottomChatBot from '@/components/fixed-bottom-chat-bot';
 import Script from 'next/script';
 import { useSearchParams } from 'next/navigation';
 
@@ -29,9 +27,7 @@ export default function SupportPage() {
 
   useEffect(() => {
     const query = searchParams.get('q');
-    if (query) {
-      setSearchQuery(query);
-    }
+    if (query) setSearchQuery(query);
   }, [searchParams]);
 
   if (!pageData) {
@@ -47,21 +43,29 @@ export default function SupportPage() {
 
   const { title, description, categories } = pageData;
 
-  // Filter categories and FAQs based on search query
-  const filteredCategories =
-    categories
-      ?.map((category: FAQCategory) => {
-        const filteredFAQs = category.faqs.filter(
-          (faq: FAQ) =>
-            faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            faq.answer.toLowerCase().includes(searchQuery.toLowerCase()),
-        );
-        return { ...category, faqs: filteredFAQs };
-      })
-      .filter((category: FAQCategory) => category.faqs.length > 0) || [];
+  const baseCategories: FAQCategory[] = selectedCategory
+    ? categories?.filter((c: FAQCategory) => c.id === selectedCategory) || []
+    : categories || [];
+
+  const filteredCategories = baseCategories
+    .map((category: FAQCategory) => {
+      if (!searchQuery) return category;
+      const filteredFAQs = category.faqs.filter(
+        (faq: FAQ) =>
+          faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          faq.answer.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
+      return { ...category, faqs: filteredFAQs };
+    })
+    .filter((category: FAQCategory) => category.faqs.length > 0);
 
   const toggleFAQ = (faqId: string) => {
     setOpenFAQ(openFAQ === faqId ? null : faqId);
+  };
+
+  const handleCategorySelect = (id: number | null) => {
+    setSelectedCategory(id);
+    setOpenFAQ(null);
   };
 
   return (
@@ -69,7 +73,7 @@ export default function SupportPage() {
       <HeaderDetailsPage />
       <main className="flex flex-col w-full bg-white">
         {/* Hero Section */}
-        <section className="relative w-full bg-gradient-to-br from-zinc-800 to-zinc-100 px-4 md:px-8 overflow-hidden">
+        <section className="relative w-full bg-linear-to-br from-zinc-800 to-zinc-100 px-4 md:px-8 overflow-hidden">
           <div
             className="absolute inset-0 opacity-[0.15] pointer-events-none"
             style={{
@@ -87,7 +91,7 @@ export default function SupportPage() {
             </div>
             <button
               onClick={() => setShowContactForm(true)}
-              className="inline-block bg-zinc-100 text-zinc-900 font-medium px-8 py-2 rounded-lg  transition"
+              className="inline-block bg-zinc-100 text-zinc-900 font-medium px-8 py-2 rounded-lg transition"
             >
               Get in touch
             </button>
@@ -98,68 +102,85 @@ export default function SupportPage() {
         <section className="w-full bg-white px-4 md:px-8 py-12 md:py-16">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+
               {/* Sidebar */}
               <aside className="md:col-span-4">
                 <div className="md:sticky md:top-8">
-                  {filteredCategories.map(
-                    (category: FAQCategory, index: number) => (
-                      <div
+                  {/* Category filter pills */}
+                  <div className="flex flex-col gap-1 mb-6">
+                    <button
+                      onClick={() => handleCategorySelect(null)}
+                      className="relative text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none"
+                    >
+                      <span className={`relative z-10 ${selectedCategory === null ? 'text-red-600' : 'text-zinc-800'}`}>All topics</span>
+                    </button>
+
+                    {categories?.map((category: FAQCategory) => (
+                      <button
                         key={category.id}
-                        className={index > 0 ? 'mt-5' : ''}
+                        onClick={() => handleCategorySelect(category.id)}
+                        className="relative text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none"
                       >
-                        <h2 className="text-md md:text-lg font-bold text-zinc-700 ">
+                        <span
+                          className={`relative z-10 ${selectedCategory === category.id ? 'text-red-600' : 'text-zinc-500'}`}
+                        >
                           {category.name}
-                        </h2>
-                        {category.description && (
-                          <p className="text-xs text-zinc-500 leading-relaxed">
+                        </span>
+                        {category.description && selectedCategory === category.id && (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="relative z-10 text-xs text-zinc-500 leading-relaxed mt-0.5"
+                          >
                             {category.description}
-                          </p>
+                          </motion.p>
                         )}
-                      </div>
-                    ),
-                  )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </aside>
 
               {/* FAQ List */}
               <div className="md:col-span-8">
-                {filteredCategories.length > 0 ? (
-                  <div className="space-y-8">
-                    {filteredCategories.map((category: FAQCategory) => (
-                      <div key={category.id} id={`category-${category.id}`}>
-                        <div className="space-y-0 border-t border-zinc-200">
-                          {category.faqs.map((faq: FAQ) => {
-                            const faqId = `${category.id}-${faq.id}`;
-                            return (
-                              <div
-                                key={faq.id}
-                                className="border-b border-zinc-200 last:border-b-0"
-                              >
-                                <button
-                                  onClick={() => toggleFAQ(faqId)}
-                                  className="w-full flex items-center justify-between py-5 text-left hover:opacity-70 transition-opacity"
-                                  aria-expanded={openFAQ === faqId}
-                                  aria-controls={`faq-answer-${faqId}`}
+                <AnimatePresence mode="wait">
+                  {filteredCategories.length > 0 ? (
+                    <motion.div
+                      key={selectedCategory ?? 'all'}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.22, ease: 'easeOut' }}
+                      className="space-y-8"
+                    >
+                      {filteredCategories.map((category: FAQCategory) => (
+                        <div key={category.id} id={`category-${category.id}`}>
+                          <div className="space-y-0 border-t border-zinc-200">
+                            {category.faqs.map((faq: FAQ) => {
+                              const faqId = `${category.id}-${faq.id}`;
+                              const isOpen = openFAQ === faqId;
+
+                              return (
+                                <div
+                                  key={faq.id}
+                                  className="border-b border-zinc-200 last:border-b-0"
                                 >
-                                  <h3 className="text-base md:text-lg font-semibold text-zinc-800 pr-8">
-                                    {faq.question}
-                                  </h3>
-                                  <div className="flex-shrink-0 w-6 h-6 rounded-full border border-zinc-900 flex items-center justify-center">
-                                    {openFAQ === faqId ? (
-                                      <svg
-                                        className="w-3 h-3 text-zinc-900"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth={2.5}
-                                          d="M6 12h12"
-                                        />
-                                      </svg>
-                                    ) : (
+                                  <button
+                                    onClick={() => toggleFAQ(faqId)}
+                                    className="w-full flex items-center justify-between py-5 text-left hover:opacity-70 transition-opacity"
+                                    aria-expanded={isOpen}
+                                    aria-controls={`faq-answer-${faqId}`}
+                                  >
+                                    <h3 className="text-base md:text-lg font-semibold text-zinc-800 pr-8">
+                                      {faq.question}
+                                    </h3>
+                                    <motion.div
+                                      animate={{ rotate: isOpen ? 45 : 0 }}
+                                      transition={{ duration: 0.2, ease: 'easeInOut' }}
+                                      className="shrink-0 w-6 h-6 rounded-full border border-zinc-900 flex items-center justify-center"
+                                    >
                                       <svg
                                         className="w-3 h-3 text-zinc-900"
                                         fill="none"
@@ -173,46 +194,59 @@ export default function SupportPage() {
                                           d="M12 6v12m6-6H6"
                                         />
                                       </svg>
-                                    )}
-                                  </div>
-                                </button>
+                                    </motion.div>
+                                  </button>
 
-                                {openFAQ === faqId && (
-                                  <div
-                                    id={`faq-answer-${faqId}`}
-                                    className="pb-5 animate-slideDown"
-                                  >
-                                    <p className="text-sm md:text-base text-zinc-600 leading-relaxed pr-10">
-                                      {faq.answer}
-                                    </p>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
+                                  <AnimatePresence initial={false}>
+                                    {isOpen && (
+                                      <motion.div
+                                        id={`faq-answer-${faqId}`}
+                                        key="answer"
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                                        style={{ overflow: 'hidden' }}
+                                      >
+                                        <p className="text-sm md:text-base text-zinc-600 leading-relaxed pr-10 pb-5">
+                                          {faq.answer}
+                                        </p>
+                                      </motion.div>
+                                    )}
+                                  </AnimatePresence>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-16">
-                    <p className="text-lg font-semibold text-zinc-900 mb-2">
-                      No results found for &quot;{searchQuery}&quot;
-                    </p>
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      className="mt-4 text-zinc-900 underline hover:no-underline transition"
+                      ))}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="empty"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.22 }}
+                      className="text-center py-16"
                     >
-                      Clear search
-                    </button>
-                  </div>
-                )}
+                      <p className="text-lg font-semibold text-zinc-900 mb-2">
+                        No results found for &quot;{searchQuery}&quot;
+                      </p>
+                      <button
+                        onClick={() => setSearchQuery('')}
+                        className="mt-4 text-zinc-900 underline hover:no-underline transition"
+                      >
+                        Clear search
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </div>
         </section>
 
-        {/* <FixedBottomChatBot /> */}
         <Footer />
       </main>
 
@@ -227,9 +261,7 @@ export default function SupportPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center p-4 border-b border-zinc-200 sticky top-0 bg-white z-10">
-              <h2 className="text-xl font-semibold text-zinc-900">
-                Contact Us
-              </h2>
+              <h2 className="text-xl font-semibold text-zinc-900">Contact Us</h2>
               <button
                 onClick={() => setShowContactForm(false)}
                 className="text-zinc-500 hover:text-zinc-700 text-2xl leading-none"
@@ -265,23 +297,6 @@ export default function SupportPage() {
           />
         </div>
       )}
-
-      <style jsx>{`
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            max-height: 0;
-          }
-          to {
-            opacity: 1;
-            max-height: 500px;
-          }
-        }
-
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
-        }
-      `}</style>
     </>
   );
 }
