@@ -1,40 +1,8 @@
 import BlogCard from '@/components/blog-card';
 import Footer from '@/components/footer';
 import Link from 'next/link';
-import { Blog, BlogsResponse } from '@/types/blogs';
 import BlogPagination from '@/components/blog-pagination';
-
-async function getBlogs(page: number = 1, pageSize: number = 12): Promise<BlogsResponse> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
-
-  try {
-    const response = await fetch(
-      `${apiUrl}/api/blogs?pagination[page]=${page}&pagination[pageSize]=${pageSize}&populate=featured_image&sort=publishedAt:desc`,
-      {
-        next: { revalidate: 60 }, // Revalidate every 60 seconds
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch blogs');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching blogs:', error);
-    return {
-      data: [],
-      meta: {
-        pagination: {
-          page: 1,
-          pageSize,
-          pageCount: 0,
-          total: 0,
-        },
-      },
-    };
-  }
-}
+import { getBlogsData } from '@/lib/blogs-service';
 
 interface BlogPageProps {
   searchParams: Promise<{ page?: string }>;
@@ -45,7 +13,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = Number(params.page) || 1;
   const pageSize = 12;
 
-  const { data: blogs, meta } = await getBlogs(currentPage, pageSize);
+  const { data: blogs, meta } = await getBlogsData({ page: currentPage, pageSize });
   const totalPages = meta?.pagination?.pageCount || 0;
 
   return (
