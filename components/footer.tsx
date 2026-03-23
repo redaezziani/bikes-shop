@@ -54,7 +54,7 @@ const Footer = () => {
           />
         </Link>
         <Link
-          href="https://www.youtube.com/@alongcargobikes"
+          href="https://youtube.com/@along_cargo_bikes?si=Nq9JInRCAx1Cr3BT"
           aria-label="Subscribe to our YouTube channel"
           target="_blank"
           rel="noopener noreferrer"
