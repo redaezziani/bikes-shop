@@ -4,9 +4,10 @@ import Image from 'next/image';
 
 interface BlogCardProps {
   blog: Blog;
+  priority?: boolean;
 }
 
-const BlogCard = ({ blog }: BlogCardProps) => {
+const BlogCard = ({ blog, priority = false }: BlogCardProps) => {
   const imageUrl = blog.featured_image?.url
     ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${blog.featured_image.url}`
     : '';
@@ -22,6 +23,8 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
             quality={85}
+            priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
             placeholder="blur"
             blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
           />

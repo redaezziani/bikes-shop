@@ -12,8 +12,8 @@ const OffersSection = ({ offers }: OffersSectionProps) => {
     <section className="w-full  px-4  bg-white">
       {offers.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {offers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} />
+          {offers.map((offer, index) => (
+            <OfferCard key={offer.id} offer={offer} priority={index < 3} />
           ))}
         </div>
       ) : (

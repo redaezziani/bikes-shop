@@ -6,9 +6,10 @@ import Image from 'next/image';
 
 interface OfferCardProps {
   offer: Offer;
+  priority?: boolean;
 }
 
-const OfferCard = ({ offer }: OfferCardProps) => {
+const OfferCard = ({ offer, priority = false }: OfferCardProps) => {
   const imageUrl = offer.cover_image?.url
     ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${offer.cover_image.url}`
     : '';
@@ -26,6 +27,8 @@ const OfferCard = ({ offer }: OfferCardProps) => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
             quality={85}
+            priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
             placeholder="blur"
             blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
           />

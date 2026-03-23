@@ -31,9 +31,9 @@ const BlogSection = ({ blogs }: BlogSectionProps) => {
             }}
             className="blog-swiper"
           >
-            {blogs.map((blog) => (
+            {blogs.map((blog, index) => (
               <SwiperSlide key={blog.id}>
-                <BlogCard blog={blog} />
+                <BlogCard blog={blog} priority={index === 0} />
               </SwiperSlide>
             ))}
           </Swiper>
