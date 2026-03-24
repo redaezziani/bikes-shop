@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import BlogCard from '@/components/blog-card';
 import Footer from '@/components/footer';
 import Link from 'next/link';
@@ -6,6 +7,65 @@ import { getBlogsData } from '@/lib/blogs-service';
 
 interface BlogPageProps {
   searchParams: Promise<{ page?: string }>;
+}
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
+
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
+  const isFirstPage = currentPage === 1;
+
+  const title = isFirstPage
+    ? 'Blog - Cycling Tips, Guides & Stories | Electric Cargo Bikes Dubai'
+    : `Blog - Page ${currentPage} | Electric Cargo Bikes Dubai`;
+
+  const canonical = isFirstPage
+    ? `${baseUrl}/blog`
+    : `${baseUrl}/blog?page=${currentPage}`;
+
+  return {
+    title,
+    description:
+      'Discover insights, tips, and stories about bikes, riding techniques, and cycling lifestyle. Expert guides on electric cargo bikes, bike maintenance, safety tips, and more.',
+    keywords:
+      'cycling blog, bike tips, electric bike guides, cargo bike safety, cycling lifestyle Dubai, bike maintenance tips, cycling stories UAE',
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title: 'Blog - Cycling Tips, Guides & Stories',
+      description:
+        'Discover insights, tips, and stories about bikes, riding techniques, and cycling lifestyle. Expert guides on electric cargo bikes and more.',
+      type: 'website',
+      url: canonical,
+      images: [
+        {
+          url: `${baseUrl}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: 'Electric Cargo Bikes Dubai Blog',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Blog - Cycling Tips, Guides & Stories | Electric Cargo Bikes Dubai',
+      description:
+        'Discover insights, tips, and stories about bikes, riding techniques, and cycling lifestyle.',
+      images: [`${baseUrl}/og-image.jpg`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+  };
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {

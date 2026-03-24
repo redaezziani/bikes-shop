@@ -67,13 +67,13 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
           <div className="mb-8">
             <Link
               href="/blog"
-              className="text-zinc-600 hover:text-zinc-900 text-sm font-semibold mb-6 inline-block"
+              className="flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-700 transition-colors mb-6"
             >
-              <IconChevronLeft className="inline-block mr-1" size={16} />
-              Back
+              <IconChevronLeft size={14} />
+              Back to Blog
             </Link>
 
-            <h1 className="text-2xl md:text-5xl font-bold text-zinc-900 mb-4">
+            <h1 className="text-xl md:text-3xl font-bold text-zinc-900 mb-4">
               {blog.title}
             </h1>
           </div>
@@ -94,16 +94,6 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
 
           <div className="border-t border-zinc-200 pt-8">
             <BlogMarkdownContent blogId={blog.id} content={blog.content} />
-
-            <div className="flex justify-between items-center">
-              <Link
-                href="/blog"
-                className="text-zinc-800 hover:text-zinc-600 font-semibold"
-              >
-                <IconChevronLeft className="inline-block mr-1" size={16} />
-                Back
-              </Link>
-            </div>
           </div>
         </article>
       </div>
