@@ -28,7 +28,7 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
       )}
       <div className="px-4">
         {hero?.heading && (
-          <h2 className="capitalize font-semibold text-start  text-red-600 mt-10   text-lg md:text-2xl max-w-2xl">
+          <h2 className="capitalize font-semibold text-start  text-black mt-10   text-lg md:text-2xl max-w-2xl">
             {hero.heading}
           </h2>
         )}
