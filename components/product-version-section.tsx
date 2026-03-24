@@ -157,7 +157,7 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
                         })}
                       >
                         <button
-                          className="bg-white min-w-40 text-gray-900 font-medium rounded-lg px-4 py-2 text-sm hover:bg-gray-100 transition"
+                          className="bg-white min-w-40 text-zinc-800  rounded-lg px-4 py-2 text-sm hover:bg-gray-100 transition"
                           aria-label={
                             section.product
                               ? `View ${productName} specifications and pricing`

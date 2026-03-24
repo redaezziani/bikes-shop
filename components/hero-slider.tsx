@@ -2,12 +2,34 @@
 import Header from './header';
 import { HeroSection } from '@/types/hero-section';
 import '@/app/swiper-styles.css';
+import { useEffect, useRef } from 'react';
 
 interface HeroSliderProps {
   hero: HeroSection | null;
 }
 
 const HeroSlider = ({ hero }: HeroSliderProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       id="hero"
@@ -17,6 +39,7 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
 
       {hero?.video_url && (
         <video
+          ref={videoRef}
           src={hero.video_url}
           autoPlay
           muted
@@ -33,7 +56,7 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
           </h2>
         )}
         {hero?.description && (
-          <p className="text-sm text-start  mt-2">{hero.description}</p>
+          <p className="text-sm text-zinc-800 text-start  mt-2">{hero.description}</p>
         )}
       </div>
     </div>
