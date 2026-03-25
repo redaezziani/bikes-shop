@@ -17,6 +17,7 @@ export interface Offer {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  blurDataURL?: string;
 }
 
 export interface OfferMeta {

@@ -113,8 +113,12 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
                           priority={index === 0}
                           loading={index === 0 ? 'eager' : 'lazy'}
                           quality={85}
-                          placeholder="blur"
-                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                          placeholder={
+                            section.blurDataURLMobile ? 'blur' : 'empty'
+                          }
+                          {...(section.blurDataURLMobile && {
+                            blurDataURL: section.blurDataURLMobile,
+                          })}
                         />
                       )}
                       {/* Desktop Image */}
@@ -130,8 +134,12 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
                           priority={index === 0}
                           loading={index === 0 ? 'eager' : 'lazy'}
                           quality={85}
-                          placeholder="blur"
-                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                          placeholder={
+                            section.blurDataURLDesktop ? 'blur' : 'empty'
+                          }
+                          {...(section.blurDataURLDesktop && {
+                            blurDataURL: section.blurDataURLDesktop,
+                          })}
                         />
                       )}
                     </>
@@ -157,7 +165,7 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
                         })}
                       >
                         <button
-                          className="bg-white min-w-40 text-zinc-800  rounded-lg px-4 py-2 text-sm hover:bg-gray-100 transition"
+                          className="bg-white min-w-38 text-zinc-700  rounded-lg font-semibold capitalize px-2 py-2.5 text-xs hover:bg-gray-100 transition"
                           aria-label={
                             section.product
                               ? `View ${productName} specifications and pricing`

@@ -14,6 +14,7 @@ export interface Blog {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  blurDataURL?: string;
 }
 
 export interface BlogsResponse {

@@ -25,8 +25,8 @@ const BlogCard = ({ blog, priority = false }: BlogCardProps) => {
             quality={85}
             priority={priority}
             loading={priority ? 'eager' : 'lazy'}
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+            placeholder={blog.blurDataURL ? 'blur' : 'empty'}
+            {...(blog.blurDataURL && { blurDataURL: blog.blurDataURL })}
           />
         </div>
       )}

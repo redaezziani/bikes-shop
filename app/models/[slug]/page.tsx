@@ -7,6 +7,7 @@ import ProductAccessories from '@/components/product-accessories';
 import { getProductBySlug, getAllProductSlugs } from '@/lib/products-service';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
+import { getPlaiceholder } from 'plaiceholder';
 
 // Enable ISR
 export const revalidate = 60;
@@ -50,15 +51,48 @@ export default async function ProductDetailsPage({
     notFound();
   }
 
-  const allImages = (product.preview_images || [])
-    .map((img) => img.url)
-    .filter((url): url is string => !!url);
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL ?? '';
+
+  const fetchBlur = (url: string) =>
+    fetch(`${strapiUrl}${url}`, { next: { revalidate: 86400 } })
+      .then((r) => r.arrayBuffer())
+      .then((buf) => getPlaiceholder(Buffer.from(buf)))
+      .then(({ base64 }) => base64)
+      .catch(() => undefined);
+
+  const [previewImagesWithBlur, accessoriesWithBlur, specsImageBlurDataURL] =
+    await Promise.all([
+      Promise.all(
+        (product.preview_images || []).map(async (img) => ({
+          ...img,
+          blurDataURL: img.url ? await fetchBlur(img.url) : undefined,
+        })),
+      ),
+      Promise.all(
+        (product.available_accessories || []).map(async (acc) => ({
+          ...acc,
+          blurDataURL: acc.image?.url
+            ? await fetchBlur(acc.image.url)
+            : undefined,
+        })),
+      ),
+      product.specs_image?.url ? fetchBlur(product.specs_image.url) : undefined,
+    ]);
+
+  const productWithBlur = {
+    ...product,
+    preview_images: previewImagesWithBlur,
+    available_accessories: accessoriesWithBlur,
+    specsImageBlurDataURL,
+  };
+
+  const allImages = previewImagesWithBlur.filter((img) => !!img.url) as (typeof previewImagesWithBlur[0] & { url: string })[];
 
   return (
     <main className="flex flex-col min-h-screen gap-4 justify-start items-center relative">
       <HeaderDetailsPage />
       <section className="w-full max-w-7xl px-4 flex flex-col gap-2 justify-start items-center">
-        <ProductPageClient product={product} allImages={allImages} />
+        <ProductPageClient product={productWithBlur} allImages={allImages} />
 
         <section className="w-full mt-10 prose prose-sm max-w-none">
           <ReactMarkdown
@@ -106,18 +140,22 @@ export default async function ProductDetailsPage({
           <h3 className="font-semibold text-zinc-700 text-2xl">
             Key Specifications
           </h3>
-          {product.specs_image && (
+          {productWithBlur.specs_image && (
             <Image
               className="mt-5"
-              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${product.specs_image.url}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${productWithBlur.specs_image.url}`}
               alt={
-                product.specs_image.alternativeText ||
+                productWithBlur.specs_image.alternativeText ||
                 'Product specifications'
               }
-              width={product.specs_image.width}
-              height={product.specs_image.height}
+              width={productWithBlur.specs_image.width}
+              height={productWithBlur.specs_image.height}
               quality={90}
               priority
+              placeholder={specsImageBlurDataURL ? 'blur' : 'empty'}
+              {...(specsImageBlurDataURL && {
+                blurDataURL: specsImageBlurDataURL,
+              })}
             />
           )}
 
@@ -137,7 +175,7 @@ export default async function ProductDetailsPage({
           </div>
         </section>
 
-        <ProductAccessories accessories={product.available_accessories} />
+        <ProductAccessories accessories={productWithBlur.available_accessories} />
       </section>
       <Footer />
       <FixedBottomBar />

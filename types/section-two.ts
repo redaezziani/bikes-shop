@@ -13,6 +13,8 @@ export interface SectionTwo {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  blurDataURLDesktop?: string;
+  blurDataURLMobile?: string;
 }
 
 export interface SectionTwoResponse {

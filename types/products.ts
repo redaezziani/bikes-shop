@@ -17,6 +17,7 @@ export interface Product {
   colors: Color[];
   available_accessories: Accessory[];
   specs_image?: CoverImage;
+  specsImageBlurDataURL?: string;
 }
 
 export interface CoverImage {
@@ -61,7 +62,7 @@ export interface ImageFormat {
   url: string;
 }
 
-export type PreviewImage = CoverImage;
+export type PreviewImage = CoverImage & { blurDataURL?: string };
 
 export interface Spec {
   id: number;
@@ -86,6 +87,7 @@ export interface Accessory {
   price: number;
   image?: CoverImage;
   url?: string;
+  blurDataURL?: string;
 }
 
 export interface ProductsResponse {

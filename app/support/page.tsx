@@ -102,7 +102,6 @@ export default function SupportPage() {
         <section className="w-full bg-white px-4 md:px-8 py-12 md:py-16">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-12 gap-8 md:gap-12">
-
               {/* Sidebar */}
               <aside className="md:col-span-4">
                 <div className="md:sticky md:top-8">
@@ -112,7 +111,11 @@ export default function SupportPage() {
                       onClick={() => handleCategorySelect(null)}
                       className="relative text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none"
                     >
-                      <span className={`relative z-10 ${selectedCategory === null ? 'text-red-600' : 'text-zinc-800'}`}>All topics</span>
+                      <span
+                        className={`relative z-10 ${selectedCategory === null ? 'text-zinc-800' : 'text-zinc-800'}`}
+                      >
+                        All topics
+                      </span>
                     </button>
 
                     {categories?.map((category: FAQCategory) => (
@@ -122,21 +125,22 @@ export default function SupportPage() {
                         className="relative text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none"
                       >
                         <span
-                          className={`relative z-10 ${selectedCategory === category.id ? 'text-red-600' : 'text-zinc-500'}`}
+                          className={`relative z-10 ${selectedCategory === category.id ? 'text-zinc-900' : 'text-zinc-500'}`}
                         >
                           {category.name}
                         </span>
-                        {category.description && selectedCategory === category.id && (
-                          <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="relative z-10 text-xs text-zinc-500 leading-relaxed mt-0.5"
-                          >
-                            {category.description}
-                          </motion.p>
-                        )}
+                        {category.description &&
+                          selectedCategory === category.id && (
+                            <motion.p
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="relative z-10 text-xs text-zinc-500 leading-relaxed mt-0.5"
+                            >
+                              {category.description}
+                            </motion.p>
+                          )}
                       </button>
                     ))}
                   </div>
@@ -178,7 +182,10 @@ export default function SupportPage() {
                                     </h3>
                                     <motion.div
                                       animate={{ rotate: isOpen ? 45 : 0 }}
-                                      transition={{ duration: 0.2, ease: 'easeInOut' }}
+                                      transition={{
+                                        duration: 0.2,
+                                        ease: 'easeInOut',
+                                      }}
                                       className="shrink-0 w-6 h-6 rounded-full border border-zinc-900 flex items-center justify-center"
                                     >
                                       <svg
@@ -205,7 +212,10 @@ export default function SupportPage() {
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                                        transition={{
+                                          duration: 0.25,
+                                          ease: 'easeInOut',
+                                        }}
                                         style={{ overflow: 'hidden' }}
                                       >
                                         <p className="text-sm md:text-base text-zinc-600 leading-relaxed pr-10 pb-5">
@@ -261,7 +271,9 @@ export default function SupportPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center p-4 border-b border-zinc-200 sticky top-0 bg-white z-10">
-              <h2 className="text-xl font-semibold text-zinc-900">Contact Us</h2>
+              <h2 className="text-xl font-semibold text-zinc-900">
+                Contact Us
+              </h2>
               <button
                 onClick={() => setShowContactForm(false)}
                 className="text-zinc-500 hover:text-zinc-700 text-2xl leading-none"
