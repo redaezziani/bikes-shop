@@ -78,9 +78,7 @@ const OrderContent = () => {
   }
 
   const allImages = currentProduct
-    ? (currentProduct.preview_images || [])
-        .map((img) => img.url)
-        .filter((url): url is string => !!url)
+    ? (currentProduct.preview_images || []).filter((img) => !!img.url)
     : [];
 
   return (
