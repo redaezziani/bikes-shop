@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Footer from '@/components/footer';
 import { getSupportData } from '@/lib/support-service';
@@ -9,7 +9,7 @@ import { FAQCategory, FAQ } from '@/types/support';
 import Script from 'next/script';
 import { useSearchParams } from 'next/navigation';
 
-export default function SupportPage() {
+function SupportPageContent() {
   const searchParams = useSearchParams();
   const [pageData, setPageData] = useState<any>(null);
   const [openFAQ, setOpenFAQ] = useState<string | null>(null);
@@ -310,5 +310,13 @@ export default function SupportPage() {
         </div>
       )}
     </>
+  );
+}
+
+export default function SupportPage() {
+  return (
+    <Suspense>
+      <SupportPageContent />
+    </Suspense>
   );
 }
