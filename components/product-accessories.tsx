@@ -41,6 +41,8 @@ export default function ProductAccessories({
                     fill
                     className="object-cover rounded"
                     sizes="(max-width: 768px) 50vw, 33vw"
+                    placeholder={acc.blurDataURL ? 'blur' : 'empty'}
+                    {...(acc.blurDataURL && { blurDataURL: acc.blurDataURL })}
                   />
                 )}
               </div>

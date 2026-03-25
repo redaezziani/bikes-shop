@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import ProductImagePreview from '@/components/product-image-priview';
 import ProductInfo from '@/components/product-info';
-import { Product } from '@/types/products';
+import { Product, PreviewImage } from '@/types/products';
 
 interface ProductPageClientProps {
   product: Product;
-  allImages: string[];
+  allImages: PreviewImage[];
 }
 
 export default function ProductPageClient({
@@ -30,7 +30,7 @@ export default function ProductPageClient({
         priceUSD={product.price * 0.27}
         colors={product.colors}
         documentId={product.documentId}
-        images={allImages}
+        images={allImages.map((img) => img.url)}
         current={currentImageIndex}
         setCurrent={setCurrentImageIndex}
       />

@@ -13,6 +13,7 @@
     "not IE 11"
   ],
   "dependencies": {
+    "@plaiceholder/next": "^3.0.0",
     "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tanstack/react-query": "^5.90.11",

@@ -8,12 +8,9 @@ import { getHomeMapSectionData } from '@/lib/home-map-section-service';
 import Footer from '@/components/footer';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
 import OrderStatusModalWrapper from '@/components/order-status-modal-wrapper';
+import { getPlaiceholder } from 'plaiceholder';
 
-const HeroSlider = dynamic(() => import('@/components/hero-slider'), {
-  loading: () => (
-    <div className="w-full h-130 lg:h-[80vh] bg-zinc-100 animate-pulse" />
-  ),
-});
+const HeroSlider = dynamic(() => import('@/components/hero-slider'));
 
 const ProductVersionSection = dynamic(
   () => import('@/components/product-version-section'),
@@ -21,14 +18,7 @@ const ProductVersionSection = dynamic(
 
 const OffersSection = dynamic(() => import('@/components/offers-section'));
 
-const LazyVideoPlayer = dynamic(
-  () => import('@/components/lazy-video-player'),
-  {
-    loading: () => (
-      <div className="w-full h-96 bg-zinc-100 animate-pulse rounded-lg" />
-    ),
-  },
-);
+const LazyVideoPlayer = dynamic(() => import('@/components/lazy-video-player'));
 
 const BlogSection = dynamic(() => import('@/components/blog-section'));
 
@@ -69,9 +59,75 @@ export default async function Home() {
   }
 
   const hero = heroSectionData?.data || null;
-  const productSections = sectionTwoData?.data || [];
-  const blogs = blogsData?.data || [];
-  const offers = offersData?.data || [];
+  const rawSections = sectionTwoData?.data || [];
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL ?? '';
+
+  const productSections = await Promise.all(
+    rawSections.map(async (section) => {
+      const desktopUrl = section.cover_image_desktop?.url
+        ? `${strapiUrl}${section.cover_image_desktop.url}`
+        : null;
+      const mobileUrl = section.cover_image_mobile?.url
+        ? `${strapiUrl}${section.cover_image_mobile.url}`
+        : null;
+
+      const [desktopBlur, mobileBlur] = await Promise.all([
+        desktopUrl
+          ? fetch(desktopUrl, { next: { revalidate: 86400 } })
+              .then((r) => r.arrayBuffer())
+              .then((buf) => getPlaiceholder(Buffer.from(buf)))
+              .then(({ base64 }) => base64)
+              .catch(() => undefined)
+          : undefined,
+        mobileUrl
+          ? fetch(mobileUrl, { next: { revalidate: 86400 } })
+              .then((r) => r.arrayBuffer())
+              .then((buf) => getPlaiceholder(Buffer.from(buf)))
+              .then(({ base64 }) => base64)
+              .catch(() => undefined)
+          : undefined,
+      ]);
+
+      return {
+        ...section,
+        blurDataURLDesktop: desktopBlur,
+        blurDataURLMobile: mobileBlur,
+      };
+    }),
+  );
+
+  const [blogs, offers] = await Promise.all([
+    Promise.all(
+      (blogsData?.data || []).map(async (blog) => {
+        const url = blog.featured_image?.url
+          ? `${strapiUrl}${blog.featured_image.url}`
+          : null;
+        const blurDataURL = url
+          ? await fetch(url, { next: { revalidate: 86400 } })
+              .then((r) => r.arrayBuffer())
+              .then((buf) => getPlaiceholder(Buffer.from(buf)))
+              .then(({ base64 }) => base64)
+              .catch(() => undefined)
+          : undefined;
+        return { ...blog, blurDataURL };
+      }),
+    ),
+    Promise.all(
+      (offersData?.data || []).map(async (offer) => {
+        const url = offer.cover_image?.url
+          ? `${strapiUrl}${offer.cover_image.url}`
+          : null;
+        const blurDataURL = url
+          ? await fetch(url, { next: { revalidate: 86400 } })
+              .then((r) => r.arrayBuffer())
+              .then((buf) => getPlaiceholder(Buffer.from(buf)))
+              .then(({ base64 }) => base64)
+              .catch(() => undefined)
+          : undefined;
+        return { ...offer, blurDataURL };
+      }),
+    ),
+  ]);
 
   return (
     <main className="flex flex-col bg-white justify-center items-center relative">
