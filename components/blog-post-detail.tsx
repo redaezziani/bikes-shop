@@ -43,10 +43,10 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
           Blog post not found
         </h1>
         <Link
-          href="/blog"
+          href="/guides"
           className="text-zinc-800 hover:text-zinc-600 font-semibold"
         >
-          ← Back to Blog
+          ← Back to Guides
         </Link>
       </div>
     );
@@ -66,11 +66,11 @@ const BlogPostDetail = ({ blog, isLoading }: BlogPostDetailProps) => {
         <article className="flex-1 lg:max-w-3xl order-2 lg:order-1">
           <div className="mb-8">
             <Link
-              href="/blog"
+              href="/guides"
               className="flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-700 transition-colors mb-6"
             >
               <IconChevronLeft size={14} />
-              Back to Blog
+              Back to Guides
             </Link>
 
             <h1 className="text-xl md:text-3xl font-bold text-zinc-900 mb-4">
