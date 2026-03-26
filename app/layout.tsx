@@ -68,16 +68,21 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         {/* Preconnect to external domains for faster resource loading */}
-        <link rel="preconnect" href="https://api.alongweride.com" />
-        <link rel="dns-prefetch" href="https://api.alongweride.com" />
-        {/* Preconnect to Mapbox for faster map loading */}
-        <link rel="preconnect" href="https://api.mapbox.com" />
-        <link rel="dns-prefetch" href="https://api.mapbox.com" />
+        <link rel="preconnect" href="https://api.weridealong.com" />
+        <link rel="dns-prefetch" href="https://api.weridealong.com" />
 
-        {/* Performance hints */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
 
-        {/* Structured Data for Local Business */}
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

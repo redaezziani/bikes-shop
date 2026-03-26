@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'api.alongweride.com',
+        hostname: 'api.weridealong.com',
         pathname: '/uploads/**',
       },
     ],
