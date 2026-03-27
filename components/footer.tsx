@@ -42,7 +42,7 @@ const Footer = () => {
           />
         </Link>
         <Link
-          href="https://www.instagram.com/weridealong"
+          href="https://www.instagram.com/alongcargobikes"
           aria-label="Follow us on Instagram"
           target="_blank"
           rel="noopener noreferrer"
