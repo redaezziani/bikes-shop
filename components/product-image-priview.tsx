@@ -18,18 +18,20 @@ export default function ProductImagePreview({
   current,
   setCurrent,
 }: ProductImagePreviewProps) {
+  const safeIndex = Math.min(current, images.length - 1);
+
   const prevImage = () => {
-    setCurrent(current === 0 ? images.length - 1 : current - 1);
+    setCurrent(safeIndex === 0 ? images.length - 1 : safeIndex - 1);
   };
 
   const nextImage = () => {
-    setCurrent(current === images.length - 1 ? 0 : current + 1);
+    setCurrent(safeIndex === images.length - 1 ? 0 : safeIndex + 1);
   };
 
   return (
     <div className=" flex flex-col gap-4">
       <span
-        className="relative bg-zinc-100 border-zinc-200 border-2 md:bg-transparent rounded w-full aspect-square h-auto overflow-hidden"
+        className="relative bg-zinc-100  border-zinc-200 border-2 md:bg-transparent rounded w-full aspect-square overflow-hidden block"
         aria-label="Product main image"
         role="img"
       >
@@ -52,7 +54,7 @@ export default function ProductImagePreview({
         </div>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={current}
+            key={safeIndex}
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
@@ -60,15 +62,15 @@ export default function ProductImagePreview({
             className="absolute inset-0"
           >
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${images[current].url}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${images[safeIndex].url}`}
               alt={alt}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
-              priority={current === 0}
-              placeholder={images[current].blurDataURL ? 'blur' : 'empty'}
-              {...(images[current].blurDataURL && {
-                blurDataURL: images[current].blurDataURL,
+              priority={safeIndex === 0}
+              placeholder={images[safeIndex].blurDataURL ? 'blur' : 'empty'}
+              {...(images[safeIndex].blurDataURL && {
+                blurDataURL: images[safeIndex].blurDataURL,
               })}
             />
           </motion.div>
@@ -82,7 +84,7 @@ export default function ProductImagePreview({
             onClick={() => setCurrent(i)}
             aria-label={`Select image ${i + 1}`}
             className={`relative w-full aspect-square rounded bg-zinc-100 overflow-hidden border-2 ${
-              current === i ? 'border-zinc-800' : 'border-zinc-200'
+              safeIndex === i ? 'border-zinc-800' : 'border-zinc-200'
             }`}
           >
             <Image

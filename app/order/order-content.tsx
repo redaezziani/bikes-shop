@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AccessorySelector from '@/components/accessory-selector';
 import HeaderDetailsPage from '@/components/header-v2';
@@ -39,6 +39,13 @@ const OrderContent = () => {
 
   const availableColors = currentProduct?.colors || [];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Reset image index whenever the selected product changes
+  const currentProductId = currentProduct?.documentId;
+  useMemo(() => {
+    setCurrentImageIndex(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProductId]);
 
   const colorStyles = useMemo(() => {
     return availableColors.map((color) => {
@@ -86,11 +93,11 @@ const OrderContent = () => {
       <HeaderDetailsPage />
       <section className="w-full max-w-7xl flex flex-col gap-2 justify-start items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 pb-10">
-          <div className="flex md:p-10 md:mt-14 sticky top-0 md:top-20 self-start z-10 bg-white md:bg-transparent">
+          <div className="flex w-full md:p-10 md:mt-14 sticky top-0 md:top-20 self-start z-10 bg-white md:bg-transparent">
             {currentProduct ? (
               <>
                 {allImages.length > 0 ? (
-                  <span className="md:block hidden">
+                  <span className="md:block hidden w-full">
                     <ProductImagePreview
                       images={allImages}
                       current={currentImageIndex}
