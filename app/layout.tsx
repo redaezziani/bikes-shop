@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'along',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/along-logo.svg',
         width: 1200,
         height: 630,
         alt: 'along family cargo bikes in Dubai',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
     description:
       'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
-    images: ['/og-image.jpg'],
+    images: ['/along-logo.svg'],
   },
   robots: {
     index: true,
@@ -90,7 +90,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Store',
               name: 'along',
-              image: 'https://weridealong.com/logo.jpg',
+              image: 'https://weridealong.com/along-logo.svg',
               '@id': 'https://weridealong.com',
               url: 'https://weridealong.com',
               telephone: '+971523160662',
