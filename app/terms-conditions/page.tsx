@@ -1,9 +1,19 @@
+import type { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getTermsConditionsPageData } from '@/lib/terms-conditions-service';
 import HeaderDetailsPage from '@/components/header-v2';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions | Orders, Delivery & Returns UAE | along',
+  description:
+    "Read along's terms and conditions for orders, delivery, returns, and warranty in Dubai and the UAE. Clear, simple, and transparent policies.",
+  alternates: {
+    canonical: 'https://weridealong.com/terms-conditions',
+  },
+};
 
 export default async function TermsConditionsPage() {
   const pageData = await getTermsConditionsPageData();

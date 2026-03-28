@@ -9,7 +9,7 @@ interface BlogPageProps {
   searchParams: Promise<{ page?: string }>;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://weridealong.com';
 
 export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
   const params = await searchParams;
@@ -17,8 +17,8 @@ export async function generateMetadata({ searchParams }: BlogPageProps): Promise
   const isFirstPage = currentPage === 1;
 
   const title = isFirstPage
-    ? 'Blog - Cycling Tips, Guides & Stories | Electric Cargo Bikes Dubai'
-    : `Blog - Page ${currentPage} | Electric Cargo Bikes Dubai`;
+    ? 'Cargo Bike Guides Dubai | Family Cycling Tips & Stories | along'
+    : `Cargo Bike Guides Dubai | Family Cycling Tips & Stories | Page ${currentPage} | along`;
 
   const canonical = isFirstPage
     ? `${baseUrl}/blog`
@@ -27,16 +27,16 @@ export async function generateMetadata({ searchParams }: BlogPageProps): Promise
   return {
     title,
     description:
-      'Discover insights, tips, and stories about bikes, riding techniques, and cycling lifestyle. Expert guides on electric cargo bikes, bike maintenance, safety tips, and more.',
+      'Explore family cycling, outdoor activities, and real stories from along cargo bike riders in Dubai. Discover tips for riding with kids, finding cycling routes, caring for your bike, and enjoying everyday moments together.',
     keywords:
       'cycling blog, bike tips, electric bike guides, cargo bike safety, cycling lifestyle Dubai, bike maintenance tips, cycling stories UAE',
     alternates: {
       canonical,
     },
     openGraph: {
-      title: 'Blog - Cycling Tips, Guides & Stories',
+      title: 'Cargo Bike Guides Dubai | Family Cycling Tips & Stories | along',
       description:
-        'Discover insights, tips, and stories about bikes, riding techniques, and cycling lifestyle. Expert guides on electric cargo bikes and more.',
+        'Explore family cycling, outdoor activities, and real stories from along cargo bike riders in Dubai. Discover tips for riding with kids, finding cycling routes, caring for your bike, and enjoying everyday moments together.',
       type: 'website',
       url: canonical,
       images: [
@@ -44,7 +44,7 @@ export async function generateMetadata({ searchParams }: BlogPageProps): Promise
           url: `${baseUrl}/og-image.jpg`,
           width: 1200,
           height: 630,
-          alt: 'Electric Cargo Bikes Dubai Blog',
+          alt: 'along Cargo Bike Guides Dubai',
         },
       ],
     },

@@ -1,9 +1,19 @@
+import type { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getShippingReturnsPageData } from '@/lib/shipping-returns-service';
 import HeaderDetailsPage from '@/components/header-v2';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Cargo Bike Delivery & Returns Dubai | Shipping UAE | along',
+  description:
+    'Delivery and returns for cargo bikes in Dubai and the UAE. Learn about shipping times, home setup, and return conditions before you order.',
+  alternates: {
+    canonical: 'https://weridealong.com/shipping-returns',
+  },
+};
 
 export default async function ShippingReturnsPage() {
   const pageData = await getShippingReturnsPageData();

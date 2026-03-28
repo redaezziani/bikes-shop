@@ -10,24 +10,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Electric Cargo Bikes Dubai | E-Bike Delivery Solutions UAE',
+  title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
   description:
-    'Premium electric cargo bikes in Dubai. Explore our range of e-bikes perfect for deliveries, family transport, and urban mobility across the UAE. Free consultation available.',
+    'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
   keywords:
-    'electric cargo bikes Dubai, e-bike UAE, cargo bike delivery Dubai, electric bikes Dubai, family cargo bike, urban mobility Dubai, sustainable transport UAE',
-  authors: [{ name: 'Your Shop Name' }],
+    'Cargo bike Dubai, Cargo bike UAE, Family bike Dubai, Electric Cargo Bike Dubai, Electric Cargo Bike UAE, Front loader cargo bike, 3 wheel cargo bike Dubai, tricycles, Bike with Child Seat, outdoor family activities Dubai, active parenting Dubai, family lifestyle Dubai, shared experiences with children, family bonding activities, sensory experience for kids, Bonding with young children Dubai',
+  authors: [{ name: 'along' }],
   openGraph: {
-    title: 'Electric Cargo Bikes Dubai | E-Bike Delivery Solutions UAE',
+    title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
     description:
-      'Premium electric cargo bikes in Dubai. Perfect for deliveries, family transport, and sustainable urban mobility across the UAE.',
-    url: 'https://yourdomain.com',
-    siteName: 'Your Shop Name',
+      'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
+    url: 'https://weridealong.com',
+    siteName: 'along',
     images: [
       {
-        url: '/og-image.jpg', // Add your OG image
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Electric cargo bikes in Dubai',
+        alt: 'along family cargo bikes in Dubai',
       },
     ],
     locale: 'en_AE',
@@ -35,10 +35,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Electric Cargo Bikes Dubai | E-Bike Delivery Solutions UAE',
+    title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
     description:
-      'Premium electric cargo bikes in Dubai. Perfect for deliveries, family transport, and sustainable urban mobility.',
-    images: ['/twitter-image.jpg'], // Add your Twitter image
+      'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://yourdomain.com',
+    canonical: 'https://weridealong.com',
   },
   verification: {
-    google: 'your-google-verification-code', // Add when you set up Google Search Console
+    google: 'your-google-verification-code',
   },
 };
 
@@ -89,11 +89,11 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Store',
-              name: 'Your Shop Name',
-              image: 'https://yourdomain.com/logo.jpg',
-              '@id': 'https://yourdomain.com',
-              url: 'https://yourdomain.com',
-              telephone: '+971-XX-XXX-XXXX', // Add your phone
+              name: 'along',
+              image: 'https://weridealong.com/logo.jpg',
+              '@id': 'https://weridealong.com',
+              url: 'https://weridealong.com',
+              telephone: '+971523160662',
               priceRange: 'AED',
               address: {
                 '@type': 'PostalAddress',
@@ -129,9 +129,10 @@ export default function RootLayout({
                 },
               ],
               sameAs: [
-                'https://www.facebook.com/yourpage', // Add your social media
-                'https://www.instagram.com/yourpage',
-                'https://www.linkedin.com/company/yourpage',
+                'https://www.instagram.com/alongcargobikes',
+                'https://www.linkedin.com/company/alongcargobikes/',
+                'https://youtube.com/@along_cargo_bikes',
+                'https://www.komoot.com/user/along',
               ],
             }),
           }}

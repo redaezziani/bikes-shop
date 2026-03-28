@@ -1,9 +1,19 @@
+import type { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getWarrantyPageData } from '@/lib/warranty-service';
 import HeaderDetailsPage from '@/components/header-v2';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Cargo Bike Warranty UAE | Coverage & Support Dubai | along',
+  description:
+    "Understand along's cargo bike warranty in Dubai and the UAE. Clear coverage, repair support, and what's included to keep your bike running with confidence.",
+  alternates: {
+    canonical: 'https://weridealong.com/warranty',
+  },
+};
 
 export default async function WarrantyPage() {
   const pageData = await getWarrantyPageData();

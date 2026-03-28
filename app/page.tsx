@@ -1,5 +1,15 @@
+import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { getSectionOneData } from '@/lib/section-one-service';
+
+export const metadata: Metadata = {
+  title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
+  description:
+    'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
+  alternates: {
+    canonical: 'https://weridealong.com',
+  },
+};
 import { getHeroSectionData } from '@/lib/hero-section-service';
 import { getSectionTwoData } from '@/lib/section-two-service';
 import { getBlogsData } from '@/lib/blogs-service';

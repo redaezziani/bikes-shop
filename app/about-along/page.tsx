@@ -1,9 +1,19 @@
+import type { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getAboutUsData } from '@/lib/about-us-service';
 import HeaderDetailsPage from '@/components/header-v2';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'About along Cargo Bikes Dubai | Family Mobility UAE',
+  description:
+    'Learn about along, a cargo bike brand in Dubai building safer, more connected ways for families to move, ride, and experience everyday life together.',
+  alternates: {
+    canonical: 'https://weridealong.com/about-along',
+  },
+};
 
 export default async function AboutPage() {
   const pageData = await getAboutUsData();

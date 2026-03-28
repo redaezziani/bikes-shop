@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getGuidesStoriesData } from '@/lib/guides-stories-service';
@@ -6,6 +7,15 @@ import HeaderDetailsPage from '@/components/header-v2';
 import BlogSection from '@/components/blog-section';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Cargo Bike Guides Dubai | Family Cycling Tips & Stories | along',
+  description:
+    'Explore family cycling, outdoor activities, and real stories from along cargo bike riders in Dubai. Discover tips for riding with kids, finding cycling routes, caring for your bike, and enjoying everyday moments together.',
+  alternates: {
+    canonical: 'https://weridealong.com/guides',
+  },
+};
 
 export default async function GuidesStoriesPage() {
   const pageData = await getGuidesStoriesData();

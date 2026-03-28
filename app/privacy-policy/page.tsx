@@ -1,9 +1,19 @@
+import type { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Footer from '@/components/footer';
 import { getPrivacyPolicyPageData } from '@/lib/privacy-policy-service';
 import HeaderDetailsPage from '@/components/header-v2';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Data Protection & Security UAE | along',
+  description:
+    'Learn how along collects, uses, and protects your personal data in Dubai and the UAE. Transparent, secure, and built to protect your privacy.',
+  alternates: {
+    canonical: 'https://weridealong.com/privacy-policy',
+  },
+};
 
 export default async function PrivacyPolicyPage() {
   const pageData = await getPrivacyPolicyPageData();
