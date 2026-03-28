@@ -35,7 +35,7 @@ async function getAllBlogs(): Promise<BlogsResponse> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://weridealong.com';
   const { data: blogs } = await getAllBlogs();
 
   // Static pages
