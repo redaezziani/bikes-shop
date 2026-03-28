@@ -23,7 +23,7 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
           video.pause();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(video);
@@ -56,7 +56,9 @@ const HeroSlider = ({ hero }: HeroSliderProps) => {
           </h2>
         )}
         {hero?.description && (
-          <p className="text-sm text-zinc-800 text-start  mt-2">{hero.description}</p>
+          <p className="text-sm text-zinc-800 text-start max-w-4xl  mt-2">
+            {hero.description}
+          </p>
         )}
       </div>
     </div>
