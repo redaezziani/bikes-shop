@@ -88,8 +88,28 @@ export default async function ProductDetailsPage({
 
   const allImages = previewImagesWithBlur.filter((img) => !!img.url) as (typeof previewImagesWithBlur[0] & { url: string })[];
 
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.short_description || product.long_description?.substring(0, 160),
+    image: product.cover_image?.url
+      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${product.cover_image.url}`
+      : undefined,
+    offers: {
+      '@type': 'Offer',
+      price: product.price,
+      priceCurrency: 'AED',
+      availability: 'https://schema.org/InStock',
+    },
+  };
+
   return (
     <main className="flex flex-col min-h-screen gap-4 justify-start items-center relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <HeaderDetailsPage />
       <section className="w-full max-w-7xl px-4 flex flex-col gap-2 justify-start items-center">
         <ProductPageClient product={productWithBlur} allImages={allImages} />

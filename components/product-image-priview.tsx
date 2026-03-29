@@ -30,10 +30,10 @@ export default function ProductImagePreview({
 
   return (
     <div className=" flex flex-col gap-4">
-      <span
+      <div
         className="relative bg-zinc-100  border-zinc-200 border-2 md:bg-transparent rounded w-full aspect-square overflow-hidden block"
-        aria-label="Product main image"
-        role="img"
+        aria-label={`Product image gallery, showing image ${safeIndex + 1} of ${images.length}`}
+        role="region"
       >
         <div className="absolute flex gap-2 justify-center items-center right-2 top-2 z-10">
           <button
@@ -63,7 +63,7 @@ export default function ProductImagePreview({
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${images[safeIndex].url}`}
-              alt={alt}
+              alt={`${alt} - ${safeIndex + 1} of ${images.length}`}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -75,14 +75,15 @@ export default function ProductImagePreview({
             />
           </motion.div>
         </AnimatePresence>
-      </span>
+      </div>
 
       <div className="grid grid-cols-6  md:hidden mt-4 w-full gap-2">
         {images.map((img, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            aria-label={`Select image ${i + 1}`}
+            aria-label={`View image ${i + 1} of ${images.length}`}
+            aria-current={safeIndex === i ? 'true' : undefined}
             className={`relative w-full aspect-square rounded bg-zinc-100 overflow-hidden border-2 ${
               safeIndex === i ? 'border-zinc-800' : 'border-zinc-200'
             }`}

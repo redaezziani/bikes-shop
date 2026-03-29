@@ -44,6 +44,14 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
               section.product.slug
             }`
           : undefined,
+        ...(section.product?.price != null && {
+          offers: {
+            '@type': 'Offer',
+            price: section.product.price,
+            priceCurrency: 'AED',
+            availability: 'https://schema.org/InStock',
+          },
+        }),
       },
     })),
   };

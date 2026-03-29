@@ -30,9 +30,10 @@ export default function ProductAccessories({
         <div className="grid w-full mt-5 grid-cols-2 md:grid-cols-3 gap-2">
           {accessories.slice(0, 3).map((acc) => (
             <div className="flex flex-col gap-2" key={acc.id}>
-              <div
-                className="w-full  rounded aspect-square cursor-pointer relative overflow-hidden"
+              <button
+                className="w-full rounded aspect-square cursor-pointer relative overflow-hidden"
                 onClick={() => setActiveAccessory(acc)}
+                aria-label={`View details for ${acc.name || acc.title || 'accessory'}`}
               >
                 {acc.image && (
                   <Image
@@ -45,7 +46,7 @@ export default function ProductAccessories({
                     {...(acc.blurDataURL && { blurDataURL: acc.blurDataURL })}
                   />
                 )}
-              </div>
+              </button>
 
               <h3 className=" mt-2  text-zinc-600">{acc.name}</h3>
             </div>

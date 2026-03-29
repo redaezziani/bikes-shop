@@ -22,18 +22,25 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 px-4 flex justify-center items-center bg-black/60 backdrop-blur-sm"
+      aria-hidden="true"
+      onClick={onClose}
     >
       <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="accessory-modal-title"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         exit={{ scale: 0.8 }}
         className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative"
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
+          aria-label="Close accessory details"
           className="absolute top-4 right-4 p-1 rounded-full hover:bg-zinc-200"
         >
-          <IconX size={20} />
+          <IconX size={20} aria-hidden="true" />
         </button>
 
         {accessory.image && (
@@ -44,7 +51,7 @@ const AccessoryModal: React.FC<AccessoryModalProps> = ({
           />
         )}
 
-        <h3 className="text-xl font-semibold text-zinc-900 mb-2">
+        <h3 id="accessory-modal-title" className="text-xl font-semibold text-zinc-900 mb-2">
           {accessory.title || accessory.name}
         </h3>
         <p className="text-sm text-zinc-700 mb-4">{accessory.description}</p>
