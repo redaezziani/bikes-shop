@@ -97,10 +97,8 @@ export default function RootLayout({
               priceRange: 'AED',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Your Street Address',
                 addressLocality: 'Dubai',
                 addressRegion: 'Dubai',
-                postalCode: 'XXXXX',
                 addressCountry: 'AE',
               },
               geo: {
