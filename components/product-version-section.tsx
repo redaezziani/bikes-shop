@@ -29,31 +29,40 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    itemListElement: sections.map((section, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
+    itemListElement: sections.map((section, index) => {
+      const productImage = section.cover_image_desktop?.url
+        ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image_desktop.url}`
+        : null;
+      const productName = section.product?.name || section.title || '';
+      const productDescription = section.description || '';
+      const productUrl = section.product?.slug
+        ? `${process.env.NEXT_PUBLIC_SITE_URL || ''}/models/${section.product.slug}`
+        : undefined;
+
+      const offer: Record<string, unknown> = {
+        '@type': 'Offer',
+        priceCurrency: 'AED',
+        availability: 'https://schema.org/InStock',
+      };
+      if (section.product?.price != null) {
+        offer.price = section.product.price;
+      }
+
+      const product: Record<string, unknown> = {
         '@type': 'Product',
-        name: section.product?.name || section.title,
-        description: section.description,
-        image: section.cover_image_desktop?.url
-          ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${section.cover_image_desktop.url}`
-          : undefined,
-        url: section.product?.slug
-          ? `${process.env.NEXT_PUBLIC_SITE_URL || ''}/models/${
-              section.product.slug
-            }`
-          : undefined,
-        ...(section.product?.price != null && {
-          offers: {
-            '@type': 'Offer',
-            price: section.product.price,
-            priceCurrency: 'AED',
-            availability: 'https://schema.org/InStock',
-          },
-        }),
-      },
-    })),
+        name: productName,
+        description: productDescription,
+        offers: offer,
+      };
+      if (productImage) product.image = productImage;
+      if (productUrl) product.url = productUrl;
+
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        item: product,
+      };
+    }),
   };
 
   return (
