@@ -34,7 +34,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${product.name} | Bikes Shop`,
+    title: `Cargo Bike Family UAE - ${product.name}`,
     description: product.short_description || product.long_description?.substring(0, 160),
   };
 }
