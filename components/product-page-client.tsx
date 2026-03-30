@@ -20,6 +20,7 @@ export default function ProductPageClient({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <ProductImagePreview
         images={allImages}
+        alt={`We Ride Along ${product.name}`}
         current={currentImageIndex}
         setCurrent={setCurrentImageIndex}
       />

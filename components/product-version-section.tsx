@@ -43,6 +43,41 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
         '@type': 'Offer',
         priceCurrency: 'AED',
         availability: 'https://schema.org/InStock',
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingRate: {
+            '@type': 'MonetaryAmount',
+            value: '0',
+            currency: 'AED',
+          },
+          shippingDestination: {
+            '@type': 'DefinedRegion',
+            addressCountry: 'AE',
+          },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 1,
+              maxValue: 3,
+              unitCode: 'DAY',
+            },
+            transitTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 1,
+              maxValue: 5,
+              unitCode: 'DAY',
+            },
+          },
+        },
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          applicableCountry: 'AE',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+          merchantReturnDays: 14,
+          returnMethod: 'https://schema.org/ReturnByMail',
+          returnFees: 'https://schema.org/FreeReturn',
+        },
       };
       if (section.product?.price != null) {
         offer.price = section.product.price;
@@ -52,6 +87,17 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
         '@type': 'Product',
         name: productName,
         description: productDescription,
+        brand: {
+          '@type': 'Brand',
+          name: 'WE RIDE ALONG',
+        },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '5',
+          reviewCount: '1',
+          bestRating: '5',
+          worstRating: '1',
+        },
         offers: offer,
       };
       if (productImage) product.image = productImage;

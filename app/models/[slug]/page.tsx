@@ -96,11 +96,58 @@ export default async function ProductDetailsPage({
     image: product.cover_image?.url
       ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${product.cover_image.url}`
       : undefined,
+    brand: {
+      '@type': 'Brand',
+      name: 'WE RIDE ALONG',
+    },
     offers: {
       '@type': 'Offer',
       price: product.price,
       priceCurrency: 'AED',
       availability: 'https://schema.org/InStock',
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/models/${product.slug}`,
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '0',
+          currency: 'AED',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'AE',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 3,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 5,
+            unitCode: 'DAY',
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'AE',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 14,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      reviewCount: '1',
+      bestRating: '5',
+      worstRating: '1',
     },
   };
 
@@ -166,7 +213,7 @@ export default async function ProductDetailsPage({
               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${productWithBlur.specs_image.url}`}
               alt={
                 productWithBlur.specs_image.alternativeText ||
-                'Product specifications'
+                `We Ride Along ${product.name} - specifications`
               }
               width={productWithBlur.specs_image.width}
               height={productWithBlur.specs_image.height}

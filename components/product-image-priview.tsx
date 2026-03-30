@@ -63,7 +63,7 @@ export default function ProductImagePreview({
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${images[safeIndex].url}`}
-              alt={`${alt} - ${safeIndex + 1} of ${images.length}`}
+              alt={`${alt} - preview ${safeIndex + 1} of ${images.length}`}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -90,7 +90,7 @@ export default function ProductImagePreview({
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${img.url}`}
-              alt={`Thumbnail ${i + 1}`}
+              alt={`${alt} - thumbnail ${i + 1}`}
               fill
               sizes="10vw"
               className="object-cover"
