@@ -31,6 +31,8 @@ jobs:
             NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
             NEXT_PUBLIC_STRAPI_API_KEY=${{ secrets.NEXT_PUBLIC_STRAPI_API_KEY }}
             NEXT_PUBLIC_MAPBOX_TOKEN=${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
+            NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}
+            NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
           cache-from: type=registry,ref=ghcr.io/redaezziani/bikes-shop-nextjs:buildcache
           cache-to: type=registry,ref=ghcr.io/redaezziani/bikes-shop-nextjs:buildcache,mode=max
   deploy:
