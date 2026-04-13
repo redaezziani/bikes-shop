@@ -11,9 +11,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/', '/_next/', '/private/'],
       },
     ],
-    sitemap: [
-      `${baseUrl}/sitemap.xml`,
-      `${baseUrl}/google-merchant-feed.xml`,
-    ],
+    sitemap: [`${baseUrl}/sitemap.xml`],
   };
 }

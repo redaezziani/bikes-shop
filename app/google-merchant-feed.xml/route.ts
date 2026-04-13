@@ -82,7 +82,13 @@ function buildProductItem(product: Product): string {
   }
 
   // Single item (no color variants or only one color)
-  const inStock = 'in stock';
+  const singleColor = colors.length === 1 ? colors[0] : null;
+  const inStock =
+    singleColor !== null &&
+    singleColor.quantity !== undefined &&
+    singleColor.quantity <= 0
+      ? 'out of stock'
+      : 'in stock';
   const colorTag =
     colors.length === 1
       ? `<g:color>${escapeXml(colors[0].name)}</g:color>`
