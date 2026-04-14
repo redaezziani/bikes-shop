@@ -13,6 +13,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com/warranty',
   },
+  openGraph: {
+    title: 'Cargo Bike Warranty UAE | Coverage & Support Dubai | along',
+    description:
+      "Understand along's cargo bike warranty in Dubai and the UAE. Clear coverage, repair support, and what's included to keep your bike running with confidence.",
+    url: 'https://weridealong.com/warranty',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'along cargo bike warranty Dubai',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cargo Bike Warranty UAE | Coverage & Support Dubai | along',
+    description:
+      "Understand along's cargo bike warranty in Dubai and the UAE. Clear coverage, repair support, and what's included to keep your bike running with confidence.",
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 
 export default async function WarrantyPage() {

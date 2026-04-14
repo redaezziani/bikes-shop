@@ -33,9 +33,41 @@ export async function generateMetadata({
     };
   }
 
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL ?? '';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://weridealong.com';
+  const imageUrl = product.cover_image?.url
+    ? `${strapiUrl}${product.cover_image.url}`
+    : `${baseUrl}/og-image.jpg`;
+  const description = product.short_description || product.long_description?.substring(0, 160) || '';
+
   return {
-    title: `Cargo Bike Family UAE - ${product.name}`,
-    description: product.short_description || product.long_description?.substring(0, 160),
+    title: `${product.name} | Cargo Bike Dubai | along`,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/models/${product.slug}`,
+    },
+    openGraph: {
+      title: `${product.name} | Cargo Bike Dubai | along`,
+      description,
+      url: `${baseUrl}/models/${product.slug}`,
+      siteName: 'along',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: product.name,
+        },
+      ],
+      locale: 'en_AE',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${product.name} | Cargo Bike Dubai | along`,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 

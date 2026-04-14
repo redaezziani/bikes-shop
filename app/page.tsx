@@ -9,6 +9,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com',
   },
+  openGraph: {
+    title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
+    description:
+      'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
+    url: 'https://weridealong.com',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'along family cargo bikes in Dubai',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'along Cargo Bikes Dubai | Family Cargo Bikes UAE | Test Ride',
+    description:
+      'Front loader family cargo bikes for Dubai and the UAE. Safe, fun, and built for school runs, family rides, and daily life. Book a free test ride.',
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 import { getHeroSectionData } from '@/lib/hero-section-service';
 import { getSectionTwoData } from '@/lib/section-two-service';

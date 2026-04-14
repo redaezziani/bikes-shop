@@ -13,6 +13,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com/shipping-returns',
   },
+  openGraph: {
+    title: 'Cargo Bike Delivery & Returns Dubai | Shipping UAE | along',
+    description:
+      'Delivery and returns for cargo bikes in Dubai and the UAE. Learn about shipping times, home setup, and return conditions before you order.',
+    url: 'https://weridealong.com/shipping-returns',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'along cargo bike delivery Dubai',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cargo Bike Delivery & Returns Dubai | Shipping UAE | along',
+    description:
+      'Delivery and returns for cargo bikes in Dubai and the UAE. Learn about shipping times, home setup, and return conditions before you order.',
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 
 export default async function ShippingReturnsPage() {

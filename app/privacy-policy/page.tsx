@@ -13,6 +13,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com/privacy-policy',
   },
+  openGraph: {
+    title: 'Privacy Policy | Data Protection & Security UAE | along',
+    description:
+      'Learn how along collects, uses, and protects your personal data in Dubai and the UAE. Transparent, secure, and built to protect your privacy.',
+    url: 'https://weridealong.com/privacy-policy',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'along privacy policy',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | Data Protection & Security UAE | along',
+    description:
+      'Learn how along collects, uses, and protects your personal data in Dubai and the UAE. Transparent, secure, and built to protect your privacy.',
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 
 export default async function PrivacyPolicyPage() {

@@ -13,6 +13,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com/terms-conditions',
   },
+  openGraph: {
+    title: 'Terms & Conditions | Orders, Delivery & Returns UAE | along',
+    description:
+      "Read along's terms and conditions for orders, delivery, returns, and warranty in Dubai and the UAE. Clear, simple, and transparent policies.",
+    url: 'https://weridealong.com/terms-conditions',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'along terms and conditions',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms & Conditions | Orders, Delivery & Returns UAE | along',
+    description:
+      "Read along's terms and conditions for orders, delivery, returns, and warranty in Dubai and the UAE. Clear, simple, and transparent policies.",
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 
 export default async function TermsConditionsPage() {

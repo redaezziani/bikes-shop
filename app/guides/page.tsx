@@ -15,6 +15,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com/guides',
   },
+  openGraph: {
+    title: 'Cargo Bike Guides Dubai | Family Cycling Tips & Stories | along',
+    description:
+      'Explore family cycling, outdoor activities, and real stories from along cargo bike riders in Dubai. Discover tips for riding with kids, finding cycling routes, caring for your bike, and enjoying everyday moments together.',
+    url: 'https://weridealong.com/guides',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'along cargo bike guides Dubai',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cargo Bike Guides Dubai | Family Cycling Tips & Stories | along',
+    description:
+      'Explore family cycling, outdoor activities, and real stories from along cargo bike riders in Dubai. Discover tips for riding with kids, finding cycling routes, caring for your bike, and enjoying everyday moments together.',
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 
 export default async function GuidesStoriesPage() {

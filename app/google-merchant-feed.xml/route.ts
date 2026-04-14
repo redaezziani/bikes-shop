@@ -44,13 +44,16 @@ function buildProductItem(product: Product): string {
 
   const price = product.price?.toFixed(2) ?? '0.00';
 
+  const baseId = product.sku || product.documentId || String(product.id);
+  const hasSku = Boolean(product.sku);
+
   // Build color variants if available
   const colors = product.colors ?? [];
   if (colors.length > 1) {
     // Emit one item per color variant
     return colors
-      .map((color, index) => {
-        const variantId = `${product.documentId || product.id}-${color.name.toLowerCase().replace(/\s+/g, '-')}`;
+      .map((color) => {
+        const variantId = `${baseId}-${color.name.toLowerCase().replace(/\s+/g, '-')}`;
         const inStock =
           color.quantity === undefined || color.quantity > 0
             ? 'in stock'
@@ -59,7 +62,7 @@ function buildProductItem(product: Product): string {
         return `
     <item>
       <g:id>${escapeXml(variantId)}</g:id>
-      <g:item_group_id>${escapeXml(String(product.documentId || product.id))}</g:item_group_id>
+      <g:item_group_id>${escapeXml(baseId)}</g:item_group_id>
       <g:title>${escapeXml(`${product.name} - ${color.name}`)}</g:title>
       <g:description>${description}</g:description>
       <g:link>${escapeXml(productUrl)}</g:link>
@@ -71,7 +74,8 @@ function buildProductItem(product: Product): string {
       <g:brand>${escapeXml(BRAND)}</g:brand>
       <g:google_product_category>${GOOGLE_PRODUCT_CATEGORY}</g:google_product_category>
       <g:color>${escapeXml(color.name)}</g:color>
-      <g:identifier_exists>no</g:identifier_exists>
+      ${hasSku ? `<g:mpn>${escapeXml(product.sku)}-${escapeXml(color.name.toLowerCase().replace(/\s+/g, '-'))}</g:mpn>` : ''}
+      <g:identifier_exists>${hasSku ? 'yes' : 'no'}</g:identifier_exists>
       <g:shipping>
         <g:country>AE</g:country>
         <g:price>0 ${CURRENCY}</g:price>
@@ -96,7 +100,7 @@ function buildProductItem(product: Product): string {
 
   return `
     <item>
-      <g:id>${escapeXml(String(product.documentId || product.id))}</g:id>
+      <g:id>${escapeXml(baseId)}</g:id>
       <g:title>${escapeXml(product.name)}</g:title>
       <g:description>${description}</g:description>
       <g:link>${escapeXml(productUrl)}</g:link>
@@ -108,7 +112,8 @@ function buildProductItem(product: Product): string {
       <g:brand>${escapeXml(BRAND)}</g:brand>
       <g:google_product_category>${GOOGLE_PRODUCT_CATEGORY}</g:google_product_category>
       ${colorTag}
-      <g:identifier_exists>no</g:identifier_exists>
+      ${hasSku ? `<g:mpn>${escapeXml(product.sku)}</g:mpn>` : ''}
+      <g:identifier_exists>${hasSku ? 'yes' : 'no'}</g:identifier_exists>
       <g:shipping>
         <g:country>AE</g:country>
         <g:price>0 ${CURRENCY}</g:price>

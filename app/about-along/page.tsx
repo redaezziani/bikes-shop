@@ -13,6 +13,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://weridealong.com/about-along',
   },
+  openGraph: {
+    title: 'About along Cargo Bikes Dubai | Family Mobility UAE',
+    description:
+      'Learn about along, a cargo bike brand in Dubai building safer, more connected ways for families to move, ride, and experience everyday life together.',
+    url: 'https://weridealong.com/about-along',
+    siteName: 'along',
+    images: [
+      {
+        url: 'https://weridealong.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'About along cargo bikes Dubai',
+      },
+    ],
+    locale: 'en_AE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About along Cargo Bikes Dubai | Family Mobility UAE',
+    description:
+      'Learn about along, a cargo bike brand in Dubai building safer, more connected ways for families to move, ride, and experience everyday life together.',
+    images: ['https://weridealong.com/og-image.jpg'],
+  },
 };
 
 export default async function AboutPage() {
