@@ -129,7 +129,7 @@ export default function AlongCarePage() {
                 Contact Us
               </button>
 
-              <Link href="/warranty-policy" className="block">
+              <Link href="/warranty" className="block">
                 <button className="w-full bg-white text-zinc-900 border border-zinc-900 font-medium px-8 py-3 rounded-lg hover:bg-zinc-50 transition">
                   Warranty Policy
                 </button>
