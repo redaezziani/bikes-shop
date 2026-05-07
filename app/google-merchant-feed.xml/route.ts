@@ -74,7 +74,7 @@ function buildProductItem(product: Product): string {
       <g:brand>${escapeXml(BRAND)}</g:brand>
       <g:google_product_category>${GOOGLE_PRODUCT_CATEGORY}</g:google_product_category>
       <g:color>${escapeXml(color.name)}</g:color>
-      ${hasSku ? `<g:mpn>${escapeXml(product.sku)}-${escapeXml(color.name.toLowerCase().replace(/\s+/g, '-'))}</g:mpn>` : ''}
+      ${hasSku ? `<g:mpn>${escapeXml(product.sku!)}-${escapeXml(color.name.toLowerCase().replace(/\s+/g, '-'))}</g:mpn>` : ''}
       <g:identifier_exists>${hasSku ? 'yes' : 'no'}</g:identifier_exists>
       <g:shipping>
         <g:country>AE</g:country>
@@ -112,7 +112,7 @@ function buildProductItem(product: Product): string {
       <g:brand>${escapeXml(BRAND)}</g:brand>
       <g:google_product_category>${GOOGLE_PRODUCT_CATEGORY}</g:google_product_category>
       ${colorTag}
-      ${hasSku ? `<g:mpn>${escapeXml(product.sku)}</g:mpn>` : ''}
+      ${hasSku ? `<g:mpn>${escapeXml(product.sku!)}</g:mpn>` : ''}
       <g:identifier_exists>${hasSku ? 'yes' : 'no'}</g:identifier_exists>
       <g:shipping>
         <g:country>AE</g:country>
