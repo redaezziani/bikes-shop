@@ -53,10 +53,10 @@ const FixedBottomBar = () => {
         <button
           onClick={() => setIsBookingOpen(true)}
           className="border h-10 border-zinc-400/45 flex justify-center items-center gap-2 rounded w-full hover:bg-zinc-50 transition-colors"
-          aria-label="Schedule Your Free Test Ride "
+          aria-label="Book Your Private Test"
         >
           <p className="text-zinc-700 capitalize font-semibold text-xs">
-            Schedule Your Free Test Ride
+            Book Your Private Test
           </p>
         </button>
       </section>
