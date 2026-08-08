@@ -198,6 +198,13 @@ const Header = () => {
           >
             Order
           </Link>
+
+          <Link
+            href="/pre-owned"
+            className="text-zinc-950 cursor-pointer font-bold text-lg hover:text-zinc-600 transition-colors"
+          >
+            Pre-Owned
+          </Link>
         </nav>
 
         <button
@@ -332,6 +339,17 @@ const Header = () => {
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
                     Order
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pre-owned"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Pre-Owned
                   </span>
                 </Link>
               </li>
