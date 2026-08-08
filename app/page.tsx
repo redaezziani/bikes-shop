@@ -42,7 +42,7 @@ import { getHomeMapSectionData } from '@/lib/home-map-section-service';
 import Footer from '@/components/footer';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
 import OrderStatusModalWrapper from '@/components/order-status-modal-wrapper';
-import { getPlaiceholder } from 'plaiceholder';
+import { getCachedBlurDataURL } from '@/lib/image-blur';
 
 const HeroSlider = dynamic(() => import('@/components/hero-slider'));
 
@@ -106,20 +106,8 @@ export default async function Home() {
         : null;
 
       const [desktopBlur, mobileBlur] = await Promise.all([
-        desktopUrl
-          ? fetch(desktopUrl, { next: { revalidate: 86400 } })
-              .then((r) => r.arrayBuffer())
-              .then((buf) => getPlaiceholder(Buffer.from(buf)))
-              .then(({ base64 }) => base64)
-              .catch(() => undefined)
-          : undefined,
-        mobileUrl
-          ? fetch(mobileUrl, { next: { revalidate: 86400 } })
-              .then((r) => r.arrayBuffer())
-              .then((buf) => getPlaiceholder(Buffer.from(buf)))
-              .then(({ base64 }) => base64)
-              .catch(() => undefined)
-          : undefined,
+        desktopUrl ? getCachedBlurDataURL(desktopUrl) : undefined,
+        mobileUrl ? getCachedBlurDataURL(mobileUrl) : undefined,
       ]);
 
       return {
@@ -136,13 +124,7 @@ export default async function Home() {
         const url = blog.featured_image?.url
           ? `${strapiUrl}${blog.featured_image.url}`
           : null;
-        const blurDataURL = url
-          ? await fetch(url, { next: { revalidate: 86400 } })
-              .then((r) => r.arrayBuffer())
-              .then((buf) => getPlaiceholder(Buffer.from(buf)))
-              .then(({ base64 }) => base64)
-              .catch(() => undefined)
-          : undefined;
+        const blurDataURL = url ? await getCachedBlurDataURL(url) : undefined;
         return { ...blog, blurDataURL };
       }),
     ),
@@ -151,13 +133,7 @@ export default async function Home() {
         const url = offer.cover_image?.url
           ? `${strapiUrl}${offer.cover_image.url}`
           : null;
-        const blurDataURL = url
-          ? await fetch(url, { next: { revalidate: 86400 } })
-              .then((r) => r.arrayBuffer())
-              .then((buf) => getPlaiceholder(Buffer.from(buf)))
-              .then(({ base64 }) => base64)
-              .catch(() => undefined)
-          : undefined;
+        const blurDataURL = url ? await getCachedBlurDataURL(url) : undefined;
         return { ...offer, blurDataURL };
       }),
     ),

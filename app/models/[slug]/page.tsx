@@ -7,7 +7,7 @@ import ProductAccessories from '@/components/product-accessories';
 import { getProductBySlug, getAllProductSlugs } from '@/lib/products-service';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
-import { getPlaiceholder } from 'plaiceholder';
+import { getCachedBlurDataURL } from '@/lib/image-blur';
 
 // Enable ISR
 export const revalidate = 60;
@@ -85,12 +85,7 @@ export default async function ProductDetailsPage({
 
   const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL ?? '';
 
-  const fetchBlur = (url: string) =>
-    fetch(`${strapiUrl}${url}`, { next: { revalidate: 86400 } })
-      .then((r) => r.arrayBuffer())
-      .then((buf) => getPlaiceholder(Buffer.from(buf)))
-      .then(({ base64 }) => base64)
-      .catch(() => undefined);
+  const fetchBlur = (url: string) => getCachedBlurDataURL(`${strapiUrl}${url}`);
 
   const [previewImagesWithBlur, accessoriesWithBlur, specsImageBlurDataURL] =
     await Promise.all([

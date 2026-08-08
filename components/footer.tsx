@@ -100,12 +100,6 @@ const Footer = () => {
         >
           Contact Us
         </button>
-        <a
-          href="mailto:hello@weridealong.com"
-          className="text-zinc-600 font-semibold hover:text-zinc-900 transition-colors"
-        >
-          hello@weridealong.com
-        </a>
         {footerLinks.map((l, i) => {
           return (
             <Link key={`${l.label}-${i}`} className="" href={l.link}>

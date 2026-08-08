@@ -18,7 +18,7 @@ export default function ProductImagePreview({
   current,
   setCurrent,
 }: ProductImagePreviewProps) {
-  const safeIndex = Math.min(current, images.length - 1);
+  const safeIndex = Math.max(0, Math.min(current, images.length - 1));
 
   const prevImage = () => {
     setCurrent(safeIndex === 0 ? images.length - 1 : safeIndex - 1);
@@ -27,6 +27,18 @@ export default function ProductImagePreview({
   const nextImage = () => {
     setCurrent(safeIndex === images.length - 1 ? 0 : safeIndex + 1);
   };
+
+  if (images.length === 0) {
+    return (
+      <div
+        className="relative bg-zinc-100 border-zinc-200 border-2 rounded w-full aspect-square overflow-hidden flex items-center justify-center text-zinc-400 text-sm"
+        aria-label="No product images available"
+        role="region"
+      >
+        No image available
+      </div>
+    );
+  }
 
   return (
     <div className=" flex flex-col gap-4">
