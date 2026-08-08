@@ -14,7 +14,7 @@ const UsedModelSelector = ({ usedModels }: { usedModels: UsedModel[] }) => {
     usedModels.find((m) => m.documentId === documentIdFromUrl) || null;
 
   const handleSelect = (item: UsedModel) => {
-    router.push(`/used-models?documentId=${item.documentId}`, {
+    router.push(`/pre-owned?documentId=${item.documentId}`, {
       scroll: false,
     });
   };

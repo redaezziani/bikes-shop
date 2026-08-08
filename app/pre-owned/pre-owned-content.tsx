@@ -9,7 +9,7 @@ import ModelPreview from '@/components/model-preview';
 import ProductImagePreview from '@/components/product-image-priview';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
 
-const UsedModelsContent = () => {
+const PreOwnedContent = () => {
   const { data, isLoading } = useUsedModels();
 
   const searchParams = useSearchParams();
@@ -111,7 +111,7 @@ const UsedModelsContent = () => {
                     No Bike Selected
                   </p>
                   <p className="text-zinc-400 text-sm">
-                    Please select a used bike below to continue
+                    Please select a pre-owned bike below to continue
                   </p>
                 </div>
               </div>
@@ -161,4 +161,4 @@ const UsedModelsContent = () => {
   );
 };
 
-export default UsedModelsContent;
+export default PreOwnedContent;

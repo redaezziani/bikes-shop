@@ -193,17 +193,17 @@ const HeaderDetailsPage = () => {
           </div>
 
           <Link
-            href="/used-models"
-            className="text-zinc-950 cursor-pointer font-bold text-lg hover:text-zinc-600 transition-colors"
-          >
-            Used Bikes
-          </Link>
-
-          <Link
             href="/order"
             className="text-zinc-950 cursor-pointer font-bold text-lg hover:text-zinc-600 transition-colors"
           >
             Order
+          </Link>
+
+          <Link
+            href="/pre-owned"
+            className="text-zinc-950 cursor-pointer font-bold text-lg hover:text-zinc-600 transition-colors"
+          >
+            Pre-Owned
           </Link>
         </nav>
 
@@ -332,23 +332,23 @@ const HeaderDetailsPage = () => {
               </li>
               <li>
                 <Link
-                  href="/used-models"
-                  onClick={() => setOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
-                >
-                  <span className="text-zinc-800 font-medium uppercase text-sm">
-                    Used Bikes
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/order"
                   onClick={() => setOpen(false)}
                   className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
                 >
                   <span className="text-zinc-800 font-medium uppercase text-sm">
                     Order
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pre-owned"
+                  onClick={() => setOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-left border-b border-gray-200"
+                >
+                  <span className="text-zinc-800 font-medium uppercase text-sm">
+                    Pre-Owned
                   </span>
                 </Link>
               </li>

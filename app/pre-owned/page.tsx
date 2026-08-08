@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import UsedModelsContent from './used-models-content';
+import PreOwnedContent from './pre-owned-content';
 
 const Page = async () => {
   return (
@@ -13,7 +13,7 @@ const Page = async () => {
         </main>
       }
     >
-      <UsedModelsContent />
+      <PreOwnedContent />
     </Suspense>
   );
 };
