@@ -145,7 +145,7 @@ export default async function Home() {
       <HeroSlider hero={hero} />
       <section
         aria-label="product-version-section"
-        className=" mt-15 md:mt-54 w-full"
+        className=" mt-20 md:mt-70 w-full"
       >
         <ProductVersionSection sections={productSections} />
       </section>
