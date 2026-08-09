@@ -28,6 +28,18 @@ const buildBlogsQueryString = (params?: {
   return queryParts.join('&');
 };
 
+const EMPTY_BLOGS_RESPONSE: BlogsResponse = {
+  data: [],
+  meta: {
+    pagination: {
+      page: 1,
+      pageSize: 0,
+      pageCount: 0,
+      total: 0,
+    },
+  },
+};
+
 // Server-side fetch function with Next.js caching
 export async function getBlogsData(params?: {
   page?: number;
@@ -36,18 +48,24 @@ export async function getBlogsData(params?: {
 }): Promise<BlogsResponse> {
   const url = `${STRAPI_API_URL}/blogs?${buildBlogsQueryString(params)}`;
 
-  const response = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${STRAPI_API_KEY}`,
-    },
-    // Cache for 1 minute, revalidate in background
-    next: { revalidate: 60 },
-  });
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${STRAPI_API_KEY}`,
+      },
+      // Cache for 1 minute, revalidate in background
+      next: { revalidate: 60 },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch blogs data: ${response.statusText}`);
+    if (!response.ok) {
+      console.error(`Failed to fetch blogs data: ${response.statusText}`);
+      return EMPTY_BLOGS_RESPONSE;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching blogs data:', error);
+    return EMPTY_BLOGS_RESPONSE;
   }
-
-  return response.json();
 }
