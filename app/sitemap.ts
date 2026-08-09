@@ -3,11 +3,11 @@ import { BlogsResponse } from '@/types/blogs';
 import { getAllProductSlugs } from '@/lib/products-service';
 
 async function getAllBlogs(): Promise<BlogsResponse> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
   try {
     const response = await fetch(
-      `${apiUrl}/api/blogs?pagination[pageSize]=1000&populate=featured_image&sort=publishedAt:desc`,
+      `${apiUrl}/blogs?pagination[pageSize]=1000&populate=featured_image&sort=publishedAt:desc`,
       { next: { revalidate: 3600 } }
     );
 
@@ -36,6 +36,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${baseUrl}/order`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/pre-owned`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/routes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/care`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/support`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/about-along`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },

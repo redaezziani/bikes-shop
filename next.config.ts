@@ -40,6 +40,16 @@ const nextConfig: NextConfig = {
 
   // Compress output
   compress: true,
+
+  async redirects() {
+    return [
+      {
+        source: '/models/product-nest',
+        destination: '/models/the-nest',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);
