@@ -47,7 +47,7 @@ export const useBlogs = (params?: {
 };
 
 // Hook to fetch blog by slug
-export const useBlogBySlug = (slug: string) => {
+export const useBlogBySlug = (slug: string, initialData?: Blog | null) => {
   return useQuery({
     queryKey: ['blog', 'slug', slug],
     queryFn: async () => {
@@ -62,6 +62,7 @@ export const useBlogBySlug = (slug: string) => {
       return response.data.data[0] || null;
     },
     enabled: !!slug,
+    ...(initialData !== undefined && { initialData }),
   });
 };
 

@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation';
 import HeaderDetailsPage from '@/components/header-v2';
 import UsedModelSelector from '@/components/used-model-selector';
 import { useUsedModels } from '@/store/used-products';
-import UsedModelContactPanel from '@/components/used-model-contact-panel';
 import ModelPreview from '@/components/model-preview';
 import ProductImagePreview from '@/components/product-image-priview';
 import FixedBottomBar from '@/components/fixed-bottom-bar';
@@ -105,16 +104,7 @@ const PreOwnedContent = () => {
                 )}
               </>
             ) : (
-              <div className="w-full h-96 flex items-center justify-center bg-zinc-50 rounded-lg border-2 border-dashed border-zinc-300">
-                <div className="text-center px-6">
-                  <p className="text-zinc-500 font-medium text-lg mb-2">
-                    No Bike Selected
-                  </p>
-                  <p className="text-zinc-400 text-sm">
-                    Please select a pre-owned bike below to continue
-                  </p>
-                </div>
-              </div>
+              <div className="w-full h-96 flex items-center justify-center bg-zinc-50 rounded-lg border-2 border-dashed border-zinc-300" />
             )}
           </div>
           <div className="flex flex-col border-l border-zinc-300/26 md:mt-32 gap-6">
@@ -124,11 +114,6 @@ const PreOwnedContent = () => {
                   <h2 className="text-xl font-semibold text-zinc-900">
                     {currentModel.name}
                   </h2>
-                  {currentModel.description && (
-                    <p className="text-zinc-600 line-clamp-3 text-sm">
-                      {currentModel.description}
-                    </p>
-                  )}
                 </div>
 
                 <span className="w-full bg-zinc-400/35 h-px" />
@@ -138,24 +123,13 @@ const PreOwnedContent = () => {
             <UsedModelSelector usedModels={usedModels} />
 
             <p className="px-4 text-center text-xs text-zinc-500">
-              Don&apos;t see what you&apos;re looking for? Contact us and
-              we&apos;ll help you find the right bike.
+              Don&apos;t see what you&apos;re looking for? Send us a WhatsApp
+              message, and we&apos;ll help you find the right bike.
             </p>
-
-            {currentModel && (
-              <div className="hidden md:block mt-8 px-4">
-                <UsedModelContactPanel currentModel={currentModel} />
-              </div>
-            )}
           </div>
         </div>
       </section>
 
-      {currentModel && (
-        <div className="md:hidden">
-          <UsedModelContactPanel currentModel={currentModel} />
-        </div>
-      )}
       <FixedBottomBar />
     </main>
   );

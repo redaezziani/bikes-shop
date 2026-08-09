@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import BlogPostClient from './blog-post-client';
 import { Blog } from '@/types/blogs';
 
@@ -115,15 +115,7 @@ async function BlogPostContent({ params }: BlogPostPageProps) {
   const blog = await getBlog(blogSlug);
 
   if (!blog) {
-    return (
-      <main className="min-h-screen bg-white">
-        <div className="bg-zinc-900 text-white py-8 px-4">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-zinc-400">Blog post not found</p>
-          </div>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
   const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
@@ -177,21 +169,5 @@ async function BlogPostContent({ params }: BlogPostPageProps) {
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
-  return (
-    <Suspense
-      fallback={
-        <main className="min-h-screen bg-white">
-          <div className="bg-zinc-900 text-white py-8 px-4">
-            <div className="max-w-3xl mx-auto">
-              <div className="flex items-center gap-2 text-sm">
-                <span className="text-zinc-400">Loading...</span>
-              </div>
-            </div>
-          </div>
-        </main>
-      }
-    >
-      <BlogPostContent params={params} />
-    </Suspense>
-  );
+  return <BlogPostContent params={params} />;
 }

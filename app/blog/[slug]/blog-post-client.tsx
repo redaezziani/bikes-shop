@@ -17,7 +17,7 @@ export default function BlogPostClient({
   slug,
   initialBlog,
 }: BlogPostClientProps) {
-  const { data: blog, isLoading } = useBlogBySlug(slug);
+  const { data: blog, isLoading } = useBlogBySlug(slug, initialBlog);
 
   // Use initialBlog if available, otherwise use data from hook
   const displayBlog = blog || initialBlog;
