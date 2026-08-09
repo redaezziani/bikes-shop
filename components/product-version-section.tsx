@@ -91,13 +91,6 @@ const ProductVersionSection = ({ sections }: ProductVersionSectionProps) => {
           '@type': 'Brand',
           name: 'WE RIDE ALONG',
         },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '5',
-          reviewCount: '1',
-          bestRating: '5',
-          worstRating: '1',
-        },
         offers: offer,
       };
       if (productImage) product.image = productImage;

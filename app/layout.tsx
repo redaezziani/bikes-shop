@@ -100,8 +100,13 @@ export default function RootLayout({
               },
               geo: {
                 '@type': 'GeoCoordinates',
-                latitude: 25.2048, // Replace with your actual coordinates
+                latitude: 25.2048, 
                 longitude: 55.2708,
+              },
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '5',
+                reviewCount: '2',
               },
               openingHoursSpecification: [
                 {
@@ -111,16 +116,15 @@ export default function RootLayout({
                     'Tuesday',
                     'Wednesday',
                     'Thursday',
-                    'Friday',
                   ],
                   opens: '09:00',
-                  closes: '18:00',
+                  closes: '17:00',
                 },
                 {
                   '@type': 'OpeningHoursSpecification',
-                  dayOfWeek: 'Saturday',
-                  opens: '10:00',
-                  closes: '17:00',
+                  dayOfWeek: ['Friday', 'Saturday', 'Sunday'],
+                  opens: '09:00',
+                  closes: '13:00',
                 },
               ],
               sameAs: [
