@@ -48,6 +48,82 @@ const nextConfig: NextConfig = {
         destination: '/models/the-nest',
         permanent: true,
       },
+      {
+        source: '/models/nest',
+        destination: '/models/the-nest',
+        permanent: true,
+      },
+      {
+        source: '/models/click-e',
+        destination: '/models/the-click-e',
+        permanent: true,
+      },
+      {
+        source: '/models/long',
+        destination: '/models/the-long',
+        permanent: true,
+      },
+      {
+        source: '/product/click-e',
+        destination: '/models/the-click-e',
+        permanent: true,
+      },
+      {
+        source: '/product/long',
+        destination: '/models/the-long',
+        permanent: true,
+      },
+      {
+        source: '/product/long-e',
+        destination: '/models/the-long-e',
+        permanent: true,
+      },
+      {
+        source: '/contact-us',
+        destination: '/support',
+        permanent: true,
+      },
+      {
+        source: '/shipping-returns-policy',
+        destination: '/shipping-returns',
+        permanent: true,
+      },
+      {
+        source:
+          '/guides-stories/riding-along-with-kids-front-loader-or-back-seat-electric-or-non-electric-3-wheels-or-2',
+        destination: '/blog/the-ultimate-guide-to-choosing-your-perfect-bike',
+        permanent: true,
+      },
+      {
+        source: '/guides-stories/riding-in-dubai-along-with-kids-a-simple-guide',
+        destination: '/blog/dubai-cycling-routes-families',
+        permanent: true,
+      },
+      {
+        source: '/guides-stories',
+        destination: '/guides',
+        permanent: true,
+      },
+      {
+        source: '/guides-stories/:slug',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/locations/:city',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/along-partner-details/:slug',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/checkout',
+        destination: '/order',
+        permanent: true,
+      },
     ];
   },
 };
