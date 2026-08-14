@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { IconX, IconChevronDown, IconMenu } from '@tabler/icons-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useProducts } from '@/store/products';
 
 const Header = () => {
@@ -114,11 +115,13 @@ const Header = () => {
                           className="flex gap-3 cursor-pointer items-center px-4 py-3 hover:bg-zinc-50 transition-colors"
                         >
                           {imageUrl && (
-                            <div className="w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
-                              <img
+                            <div className="relative w-14 h-14 rounded overflow-hidden shrink-0 bg-gray-100">
+                              <Image
                                 src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
                                 alt={p.name}
-                                className="w-full h-full object-cover"
+                                fill
+                                sizes="56px"
+                                className="object-cover"
                               />
                             </div>
                           )}
@@ -262,11 +265,13 @@ const Header = () => {
                             className="flex gap-4 items-start"
                           >
                             {imageUrl && (
-                              <div className="w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
-                                <img
+                              <div className="relative w-12 h-12 rounded overflow-hidden shrink-0 bg-gray-100">
+                                <Image
                                   src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
                                   alt={p.name}
-                                  className="w-full h-full object-cover"
+                                  fill
+                                  sizes="48px"
+                                  className="object-cover"
                                 />
                               </div>
                             )}
