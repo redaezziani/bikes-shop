@@ -84,6 +84,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/along-care',
+        destination: '/care',
+        permanent: true,
+      },
+      {
         source: '/shipping-returns-policy',
         destination: '/shipping-returns',
         permanent: true,

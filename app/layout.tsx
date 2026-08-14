@@ -103,11 +103,6 @@ export default function RootLayout({
                 latitude: 25.2048, 
                 longitude: 55.2708,
               },
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '5',
-                reviewCount: '2',
-              },
               openingHoursSpecification: [
                 {
                   '@type': 'OpeningHoursSpecification',
