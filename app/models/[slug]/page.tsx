@@ -125,7 +125,7 @@ export default async function ProductDetailsPage({
       : undefined,
     brand: {
       '@type': 'Brand',
-      name: 'WE RIDE ALONG',
+      name: 'along Cargo Bikes',
     },
     offers: {
       '@type': 'Offer',

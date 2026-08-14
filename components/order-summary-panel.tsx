@@ -11,6 +11,7 @@ import {
   IconPhone,
   IconMapPin,
   IconNote,
+  IconLock,
 } from '@tabler/icons-react';
 import { useOrderStore } from '@/store/order';
 import { showToast } from '@/lib/toast';
@@ -234,6 +235,35 @@ const OrderSummaryPanel = ({
                 showToast.error(
                   'Invalid email',
                   'Please enter a valid email address',
+                );
+                return;
+              }
+
+              if (!customerInfo.phone.trim()) {
+                showToast.error(
+                  'Phone required',
+                  'Please enter your phone number',
+                );
+                return;
+              }
+
+              if (!customerInfo.address.trim()) {
+                showToast.error(
+                  'Address required',
+                  'Please enter your delivery address',
+                );
+                return;
+              }
+
+              if (!customerInfo.city.trim()) {
+                showToast.error('City required', 'Please enter your city');
+                return;
+              }
+
+              if (!customerInfo.country.trim()) {
+                showToast.error(
+                  'Country required',
+                  'Please enter your country',
                 );
                 return;
               }
@@ -492,7 +522,7 @@ const OrderSummaryPanel = ({
             {/* Phone Input */}
             <div>
               <label className="block text-xs font-medium text-zinc-700 mb-2">
-                Phone Number (Optional)
+                Phone Number
               </label>
               <div className="relative">
                 <IconPhone
@@ -514,6 +544,7 @@ const OrderSummaryPanel = ({
                     )
                   }
                   placeholder="+971 50 123 4567"
+                  required
                   className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                 />
               </div>
@@ -522,7 +553,7 @@ const OrderSummaryPanel = ({
             {/* Address Input */}
             <div>
               <label className="block text-xs font-medium text-zinc-700 mb-2">
-                Address (Optional)
+                Address
               </label>
               <div className="relative">
                 <IconMapPin
@@ -544,6 +575,7 @@ const OrderSummaryPanel = ({
                     )
                   }
                   placeholder="Street address"
+                  required
                   className="w-full pl-10 pr-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                 />
               </div>
@@ -553,7 +585,7 @@ const OrderSummaryPanel = ({
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-zinc-700 mb-2">
-                  City (Optional)
+                  City
                 </label>
                 <input
                   type="text"
@@ -570,12 +602,13 @@ const OrderSummaryPanel = ({
                     )
                   }
                   placeholder="Dubai"
+                  required
                   className="w-full px-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                 />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-700 mb-2">
-                  Country (Optional)
+                  Country
                 </label>
                 <input
                   type="text"
@@ -592,6 +625,7 @@ const OrderSummaryPanel = ({
                     )
                   }
                   placeholder="UAE"
+                  required
                   className="w-full px-3 py-2.5 border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-400 transition text-sm"
                 />
               </div>
@@ -662,6 +696,10 @@ const OrderSummaryPanel = ({
                 isSubmitting ||
                 !customerInfo.name.trim() ||
                 !customerInfo.email.trim() ||
+                !customerInfo.phone.trim() ||
+                !customerInfo.address.trim() ||
+                !customerInfo.city.trim() ||
+                !customerInfo.country.trim() ||
                 !agreedToTerms ||
                 isColorOutOfStock
               }
@@ -680,6 +718,49 @@ const OrderSummaryPanel = ({
               )}
             </motion.button>
 
+            <div className="flex flex-col items-center gap-1.5 mt-2">
+              <div className="flex items-center gap-2 text-xs font-medium text-zinc-600">
+                <IconLock size={14} className="text-zinc-500" />
+                <span>Secure credit card payment &mdash; powered by Stripe</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg
+                  viewBox="0 0 48 32"
+                  className="h-6 w-auto"
+                  aria-label="Visa"
+                  role="img"
+                >
+                  <rect width="48" height="32" rx="4" fill="#1A1F71" />
+                  <path
+                    fill="#fff"
+                    d="M20.6 21.2h-2.9l1.8-10.4h2.9zm11.8-10.2c-.6-.2-1.5-.5-2.6-.5-2.9 0-4.9 1.5-4.9 3.6 0 1.6 1.5 2.5 2.7 3s1.6 1 1.6 1.5c0 .8-1 1.2-1.9 1.2-1.3 0-2-.2-3-.6l-.4-.2-.5 2.7c.7.3 2 .6 3.3.6 3.1 0 5.1-1.5 5.1-3.7 0-1.2-.8-2.2-2.5-3-1.1-.5-1.7-.9-1.7-1.4 0-.5.6-1 1.8-1 1 0 1.8.2 2.3.5l.3.1zm7.4-.2h-2.2c-.7 0-1.2.2-1.5.9l-4.3 9.5h3.1s.5-1.3.6-1.6h3.8c.1.4.4 1.6.4 1.6h2.8zm-3.6 6.7c.2-.6 1.2-3.1 1.2-3.1 0 0 .2-.6.4-1.1l.2 1s.6 2.6.7 3.2zm-17.7-6.7-2.9 7.1-.3-1.5c-.5-1.7-2.1-3.6-3.9-4.5l2.6 9.3h3.1l4.6-10.4z"
+                  />
+                  <path
+                    fill="#F9A51A"
+                    d="M11.6 10.8H6.9l-.1.3c3.7.9 6.1 3.1 7.1 5.8l-1-5.2c-.2-.7-.7-.9-1.3-.9"
+                  />
+                </svg>
+                <svg
+                  viewBox="0 0 48 32"
+                  className="h-6 w-auto"
+                  aria-label="Mastercard"
+                  role="img"
+                >
+                  <rect width="48" height="32" rx="4" fill="#fff" />
+                  <circle cx="19" cy="16" r="9" fill="#EB001B" />
+                  <circle cx="29" cy="16" r="9" fill="#F79E1B" />
+                  <path
+                    fill="#FF5F00"
+                    d="M24 9.5a9 9 0 0 0 0 13 9 9 0 0 0 0-13z"
+                  />
+                </svg>
+              </div>
+              <p className="text-center text-[11px] text-zinc-500 max-w-xs">
+                Card payments are processed securely by Stripe. We never
+                store or have access to your card details.
+              </p>
+            </div>
+
             {isColorOutOfStock ? (
               <p className="text-center text-xs text-red-600 font-semibold mt-2 bg-red-50 py-2 px-3 rounded">
                 The selected color is out of stock. Please choose another color.
@@ -687,6 +768,10 @@ const OrderSummaryPanel = ({
             ) : (
               (!customerInfo.name.trim() ||
                 !customerInfo.email.trim() ||
+                !customerInfo.phone.trim() ||
+                !customerInfo.address.trim() ||
+                !customerInfo.city.trim() ||
+                !customerInfo.country.trim() ||
                 !agreedToTerms) && (
                 <p className="text-center text-xs text-zinc-500 mt-2">
                   Please fill in required fields and agree to terms to continue

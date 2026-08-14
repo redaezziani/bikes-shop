@@ -189,6 +189,33 @@ const OrderContent = () => {
               </>
             )}
 
+            <div className="px-4">
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4">
+                <h3 className="text-sm font-semibold text-zinc-900 mb-2">
+                  How ordering works
+                </h3>
+                <ol className="flex flex-col gap-1.5 text-sm text-zinc-600 list-decimal list-inside">
+                  <li>Choose your model, color, and accessories</li>
+                  <li>
+                    Pay securely online by credit card (processed by Stripe)
+                  </li>
+                  <li>
+                    Free delivery &amp; setup at your home within 2&ndash;3
+                    working days
+                  </li>
+                  <li>
+                    7-day return policy applies &mdash; see{' '}
+                    <Link
+                      href="/shipping-returns"
+                      className="underline underline-offset-2 hover:text-zinc-900"
+                    >
+                      Shipping &amp; Returns
+                    </Link>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
             <ModelSelector products={products} />
 
             {currentProduct && (

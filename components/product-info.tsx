@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { IconArrowRight } from '@tabler/icons-react';
+import {
+  IconArrowRight,
+  IconCircleCheckFilled,
+  IconCircleXFilled,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatPrice } from '@/lib/format-price';
@@ -11,7 +15,7 @@ interface ProductInfoProps {
   description: string;
   priceAED: number;
   priceUSD: number;
-  colors?: { name: string; hex: string }[];
+  colors?: { name: string; hex: string; quantity?: number }[];
   documentId: string;
   images: string[];
   current: number;
@@ -34,6 +38,10 @@ export default function ProductInfo({
 
   const increase = () => setQty((q) => q + 1);
   const decrease = () => setQty((q) => (q > 1 ? q - 1 : 1));
+
+  const inStock =
+    colors.length === 0 ||
+    colors.some((color) => color.quantity === undefined || color.quantity > 0);
 
   const colorStyles = useMemo(() => {
     return colors.map((color) => {
@@ -123,6 +131,25 @@ export default function ProductInfo({
             {formatPrice(priceAED)}
           </p>
         </div>
+        <div className="flex w-full items-center gap-1.5 text-sm text-zinc-600">
+          {inStock ? (
+            <>
+              <IconCircleCheckFilled
+                size={16}
+                className="shrink-0 text-green-500"
+              />
+              <span>
+                In stock &mdash; free delivery and setup across the UAE in
+                2&ndash;3 working days.
+              </span>
+            </>
+          ) : (
+            <>
+              <IconCircleXFilled size={16} className="shrink-0 text-red-500" />
+              <span>Out of stock &mdash; check back soon.</span>
+            </>
+          )}
+        </div>
         <Link className="w-full" href={`/order?documentId=${documentId}`}>
           <button
             aria-label="Order product now"
@@ -132,6 +159,10 @@ export default function ProductInfo({
             <IconArrowRight size={18} />
           </button>
         </Link>
+        <p className="w-full text-center text-xs text-zinc-500">
+          Pay securely by credit card via Stripe &mdash; free UAE delivery
+          &amp; setup.
+        </p>
 
         <div className="hidden md:grid grid-cols-6 mt-4 w-full gap-2">
           {images.map((img, i) => (
